@@ -1,0 +1,19 @@
+name: NyayaVani
+options:
+  bundleIdPrefix: ai.gnani
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  NyayaVani:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: NyayaVani
+    info:
+      path: NyayaVani/Info.plist
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: ai.gnani.nyayavani
+      GENERATE_INFOPLIST_FILE: false
+      SWIFT_VERSION: "5.0"
+      ENABLE_PREVIEWS: YES

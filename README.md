@@ -89,33 +89,51 @@ Gnani Challenge/
 │   ├── Hackathon_Rules_and_Evaluation_Playbook.md
 │   ├── Technical_Architecture_and_API_Spec.md
 │   └── Demo_Video_and_Social_Submission_Guide.md
-└── frontend/
-    └── app.py                            # Streamlit Dual-Mode Operations Dashboard
+├── frontend/
+│   ├── index.html                        # Mondragon Landing + Claude Chat interface
+│   └── app.py                            # Streamlit Operations Dashboard
+└── ios/                                  # Native iOS Application (SwiftUI)
+    ├── project.yml                       # XcodeGen project specification
+    ├── NyayaVani.xcodeproj               # Xcode project file
+    └── NyayaVani/
+        ├── NyayaVaniApp.swift            # SwiftUI App entry point
+        ├── Info.plist                    # Mic & ATS permissions
+        ├── Theme/
+        │   └── ColorTheme.swift          # Dark luxury palette
+        ├── Models/
+        │   └── LegalModels.swift         # Statutory, telemetry & chat data models
+        ├── Services/
+        │   ├── APIClient.swift           # Asynchronous REST & multipart API client
+        │   └── AudioService.swift        # 16kHz PCM audio recorder & loudspeaker player
+        └── Views/
+            ├── LandingView.swift         # Mondragon landing view & metrics grid
+            ├── ChatView.swift            # Claude-style centered chat interface
+            ├── MessageBubbleView.swift   # Audio playback, telemetry & statutory badges
+            ├── ArtifactSheetView.swift   # Legal notice & BSA Sec 63 certificate viewer
+            └── PresetsModalView.swift    # Preset scenario picker
 ```
 
 ---
 
 ## 5. Quickstart
 
-### 1. Verify Gnani API Credentials
-```bash
-python3 verify_connection.py
-```
-
-### 2. Generate Pre-Built Audio Assets & Run End-to-End Tests
-```bash
-python3 generate_test_cases.py
-```
-
-### 3. Launch the Application
+### 1. Launch the Backend & Web Application
 ```bash
 ./run_app.sh
 ```
-Or directly:
+Open `http://localhost:8501` to access the Mondragon landing page and Claude-style conversational legal assistant.
+
+### 2. Build & Run Native iOS Application
+Requirements: macOS with Xcode 15+ installed.
 ```bash
-streamlit run frontend/app.py
+# Generate / update Xcode project if needed
+cd ios
+xcodegen generate
+
+# Build from command line or open in Xcode
+xcodebuild -project NyayaVani.xcodeproj -scheme NyayaVani -destination 'platform=iOS Simulator,name=iPhone 17' build
+open NyayaVani.xcodeproj
 ```
-Open `http://localhost:8501` in your browser.
 
 ---
 

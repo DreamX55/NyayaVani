@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B1D60DAC0E80FF341F35BBB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1673E5C43A51E4BB9232E72 /* APIClient.swift */; };
+		1D32966A818C878F7338C25B /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E35411354B1442BDF6805 /* LandingView.swift */; };
+		2F866CCC31E957CDA6E1072D /* LegalModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE51CF2D1244D5CD45C6E68 /* LegalModels.swift */; };
+		31BD23979CF8180A10238855 /* NyayaVaniApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B0C7271DEBE9EAD9768855 /* NyayaVaniApp.swift */; };
+		3ECDCCE9ADB61324515622BB /* ColorTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4E20B21B515F62109FBF11 /* ColorTheme.swift */; };
+		40D73DBDE5892C71347C851C /* ArtifactSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C1B6D77847C2220362F64 /* ArtifactSheetView.swift */; };
+		B76C433F3DDF143C5DFA1EFF /* PresetsModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C790E1A60932A255CA1163 /* PresetsModalView.swift */; };
+		BCAC6E4390184025EF25D20F /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FD0409A40222792B82ADF1 /* AudioService.swift */; };
+		D36E973FF6B22B9A30CF6408 /* MessageBubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62123E640B1C3B7020AC597 /* MessageBubbleView.swift */; };
+		DA48797978DB538675EF2EC5 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92848E4F3B60D2568EA82FFB /* ChatView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1F93AB905B970F0E10A5FACE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5D4E20B21B515F62109FBF11 /* ColorTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTheme.swift; sourceTree = "<group>"; };
+		696C1B6D77847C2220362F64 /* ArtifactSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtifactSheetView.swift; sourceTree = "<group>"; };
+		92848E4F3B60D2568EA82FFB /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		98B0C7271DEBE9EAD9768855 /* NyayaVaniApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NyayaVaniApp.swift; sourceTree = "<group>"; };
+		B1673E5C43A51E4BB9232E72 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		B62123E640B1C3B7020AC597 /* MessageBubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubbleView.swift; sourceTree = "<group>"; };
+		D4C790E1A60932A255CA1163 /* PresetsModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsModalView.swift; sourceTree = "<group>"; };
+		D75E35411354B1442BDF6805 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		E50618FAF872FF8A542BEC70 /* NyayaVani.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NyayaVani.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9FD0409A40222792B82ADF1 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		EEE51CF2D1244D5CD45C6E68 /* LegalModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalModels.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0BC5547D69F2A7432A564AE7 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				5D4E20B21B515F62109FBF11 /* ColorTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		1831878407DEE2DA35A15E8D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B1673E5C43A51E4BB9232E72 /* APIClient.swift */,
+				E9FD0409A40222792B82ADF1 /* AudioService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		54E91D4DF7A1880069851811 /* NyayaVani */ = {
+			isa = PBXGroup;
+			children = (
+				1F93AB905B970F0E10A5FACE /* Info.plist */,
+				98B0C7271DEBE9EAD9768855 /* NyayaVaniApp.swift */,
+				969D0F239DD7D535D91BCB07 /* Models */,
+				1831878407DEE2DA35A15E8D /* Services */,
+				0BC5547D69F2A7432A564AE7 /* Theme */,
+				DEFEFAF6844F393A424164EC /* Views */,
+			);
+			path = NyayaVani;
+			sourceTree = "<group>";
+		};
+		6560EAC3F489BD707AA8ABB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E50618FAF872FF8A542BEC70 /* NyayaVani.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		969D0F239DD7D535D91BCB07 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EEE51CF2D1244D5CD45C6E68 /* LegalModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BA52BC03A50064E9BE0E6806 = {
+			isa = PBXGroup;
+			children = (
+				54E91D4DF7A1880069851811 /* NyayaVani */,
+				6560EAC3F489BD707AA8ABB9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DEFEFAF6844F393A424164EC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				696C1B6D77847C2220362F64 /* ArtifactSheetView.swift */,
+				92848E4F3B60D2568EA82FFB /* ChatView.swift */,
+				D75E35411354B1442BDF6805 /* LandingView.swift */,
+				B62123E640B1C3B7020AC597 /* MessageBubbleView.swift */,
+				D4C790E1A60932A255CA1163 /* PresetsModalView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7F385533628BC0C5A1B6DE08 /* NyayaVani */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8CEFE62E7A3FC5B1016BA67 /* Build configuration list for PBXNativeTarget "NyayaVani" */;
+			buildPhases = (
+				B71553E267507D8EA38C6B8D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NyayaVani;
+			packageProductDependencies = (
+			);
+			productName = NyayaVani;
+			productReference = E50618FAF872FF8A542BEC70 /* NyayaVani.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6C50DD8F7C7FAE4ABF5CA07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 03D67C8BEC1F84F0513BBF95 /* Build configuration list for PBXProject "NyayaVani" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = BA52BC03A50064E9BE0E6806;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 6560EAC3F489BD707AA8ABB9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7F385533628BC0C5A1B6DE08 /* NyayaVani */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B71553E267507D8EA38C6B8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B1D60DAC0E80FF341F35BBB /* APIClient.swift in Sources */,
+				40D73DBDE5892C71347C851C /* ArtifactSheetView.swift in Sources */,
+				BCAC6E4390184025EF25D20F /* AudioService.swift in Sources */,
+				DA48797978DB538675EF2EC5 /* ChatView.swift in Sources */,
+				3ECDCCE9ADB61324515622BB /* ColorTheme.swift in Sources */,
+				1D32966A818C878F7338C25B /* LandingView.swift in Sources */,
+				2F866CCC31E957CDA6E1072D /* LegalModels.swift in Sources */,
+				D36E973FF6B22B9A30CF6408 /* MessageBubbleView.swift in Sources */,
+				31BD23979CF8180A10238855 /* NyayaVaniApp.swift in Sources */,
+				B76C433F3DDF143C5DFA1EFF /* PresetsModalView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6D98085D09DBDE436D6B02E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NyayaVani/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ai.gnani.nyayavani;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7E4ED3662594FA56A36936DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		840290A767B9F94F477AD165 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B5DA76985D485634B3A381F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NyayaVani/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ai.gnani.nyayavani;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03D67C8BEC1F84F0513BBF95 /* Build configuration list for PBXProject "NyayaVani" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				840290A767B9F94F477AD165 /* Debug */,
+				7E4ED3662594FA56A36936DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F8CEFE62E7A3FC5B1016BA67 /* Build configuration list for PBXNativeTarget "NyayaVani" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5DA76985D485634B3A381F1 /* Debug */,
+				6D98085D09DBDE436D6B02E1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B6C50DD8F7C7FAE4ABF5CA07 /* Project object */;
+}

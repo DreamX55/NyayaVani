@@ -7,3 +7,7 @@ venv/
 *.mp3
 *.webm
 .DS_Store
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+
