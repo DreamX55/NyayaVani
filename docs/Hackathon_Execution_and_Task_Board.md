@@ -33,7 +33,7 @@
 - [ ] **Mobilize Peer Network:** Share social links across MIT Bengaluru tech circles, YIA peers, and LinkedIn connections to drive initial organic engagement.
 
 ### Phase 4: Final Submission & Documentation Freeze (Nov 10, Morning)
-- [ ] **GitHub Polish:** Push all code, documentation, and sample audio files to `https://github.com/DreamX55/Gnani-VachanAudit`. Ensure `README.md` features architecture diagrams, setup instructions, and demo link.
+- [x] **GitHub Polish & Push:** Push all code, documentation, and web app to `https://github.com/DreamX55/NyayaVani`. Ensure `README.md` features architecture diagrams, setup instructions, and demo link.
 - [ ] **Submit Microsoft Form:** Complete `https://forms.cloud.microsoft/r/dfFShbp7W7` with personal details, GitHub repo link, and LinkedIn/X video URL before 12:00 PM IST (giving 12 hours buffer before midnight cutoff).
 - [ ] **Confirmation Archive:** Save screenshot and receipt of form submission.
 

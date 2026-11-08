@@ -42,7 +42,7 @@ By replacing manual sampling with full-volume automated auditing, VachanAudit br
 
 Check out the 60-second demo below showing a live Hinglish recovery call audit.
 
-Codebase & Documentation: https://github.com/DreamX55/Gnani-VachanAudit
+Codebase & Documentation: https://github.com/DreamX55/NyayaVani
 
 #GnaniAI #GreatIndianAIInternshipChallenge #VoiceAI #SovereignAI #SpeechAI #FinTech #ArtificialIntelligence #MachineLearning #IndicAI
 ```
@@ -82,6 +82,6 @@ When submitting at `https://forms.cloud.microsoft/r/dfFShbp7W7`, use the followi
   - Prisma ASR (`prisma-v2.5` / `prisma-v3.0` via `/stt/v3` REST API)
   - Timbre TTS (`timbre-v3.0` via `/api/v1/tts/inference`)
   - Evon MoE LLM (`gnani/gnani-evon-v3.3-30B-A3B` reasoning framework)
-* **GitHub Repository URL:** `https://github.com/DreamX55/Gnani-VachanAudit`
+* **GitHub Repository URL:** `https://github.com/DreamX55/NyayaVani`
 * **Demo Video Post Link (LinkedIn / X):** `<INSERT_LIVE_POST_URL>`
 * **Target Award Category:** Noisy Telephonic Audio / Hinglish and Code-Mixed Voice Experiences / Real-World Impact
