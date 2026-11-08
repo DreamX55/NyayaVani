@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator & Incident Suite</title>
+  <!-- Google Fonts: Syne & Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@600;700;800&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#08080a',
+              dark: '#0e1015',
+              surface: '#15171f',
+              border: '#242834',
+              accent: '#d97706',
+              gold: '#fbbf24',
+              cyan: '#06b6d4',
+              claude: '#cc785c'
+            }
+          },
+          fontFamily: {
+            syne: ['Syne', 'sans-serif'],
+            cinzel: ['Cinzel', 'serif'],
+            inter: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0e1015; }
+    ::-webkit-scrollbar-thumb { background: #242834; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+    
+    .grid-bg {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .glow-radial {
+      background: radial-gradient(circle at 50% 20%, rgba(217, 119, 6, 0.15) 0%, rgba(8, 8, 10, 0) 70%);
+    }
+    .glass {
+      background: rgba(14, 16, 21, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .claude-bubble {
+      background: #181a22;
+      border: 1px solid #242834;
+    }
+    .pulse-dot {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(1.15); }
+    }
+    .rec-pulse {
+      animation: recording 1.2s infinite;
+    }
+    @keyframes recording {
+      0%, 100% { background-color: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.8); }
+      50% { background-color: rgba(239, 68, 68, 0.5); border-color: rgba(239, 68, 68, 1); }
+    }
+  </style>
+</head>
+<body class="bg-brand-black text-gray-200 font-inter antialiased selection:bg-amber-500 selection:text-black min-h-screen">
+
+  <!-- ======================================================== -->
+  <!-- 1. MONDRAGON-STYLE HERO LANDING / ENTRY PAGE             -->
+  <!-- ======================================================== -->
+  <section id="landing-section" class="relative min-h-screen flex flex-col justify-between grid-bg glow-radial px-6 md:px-16 pt-8 pb-12 border-b border-brand-border">
+    <!-- Top Nav -->
+    <header class="flex items-center justify-between py-4 glass border border-brand-border rounded-full px-6 max-w-7xl mx-auto w-full">
+      <div class="flex items-center space-x-3">
+        <span class="w-3 h-3 rounded-full bg-emerald-500 pulse-dot"></span>
+        <span class="font-cinzel text-lg md:text-xl tracking-wider font-bold text-white">NYAYAVANI <span class="font-normal text-amber-500 text-sm font-mono">[न्यायवाणी]</span></span>
+      </div>
+      
+      <div class="hidden lg:flex items-center space-x-6 text-xs font-mono text-gray-400">
+        <span class="flex items-center space-x-2"><span class="w-1.5 h-1.5 bg-amber-400 rounded-full"></span><span>GNANI PRISMA ASR</span></span>
+        <span class="flex items-center space-x-2"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span><span>TIMBRE TTS v3.0</span></span>
+        <span class="flex items-center space-x-2"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span><span>EVON 30B MoE</span></span>
+        <span class="text-gray-500">|</span>
+        <span id="nav-api-status" class="text-emerald-400 font-semibold">LIVE API CONNECTED</span>
+      </div>
+
+      <button onclick="scrollToChat()" class="px-5 py-2 text-xs font-mono uppercase tracking-wider font-bold text-black bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 rounded-full transition shadow-lg shadow-amber-500/20 flex items-center space-x-2">
+        <span>Enter Legal Chat</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </button>
+    </header>
+
+    <!-- Hero Center -->
+    <div class="max-w-5xl mx-auto text-center my-auto py-12 md:py-20">
+      <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-brand-border bg-brand-surface/70 text-xs font-mono text-amber-400 mb-8">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span>
+        <span>// [01] LIVE GNANI API ENGINE ACTIVE (X-API-KEY-ID CONNECTED)</span>
+      </div>
+
+      <h1 class="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08] mb-8">
+        Constitutional Justice for Bharat.<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">Enterprise Precision for the Pro.</span>
+      </h1>
+
+      <p class="text-base sm:text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+        Breaking the literacy divide with live Indic speech recognition, real-time statutory triage (BNS, BNSS, BSA), and loudspeaker Rights Shields for ordinary citizens—coupled with an autonomous incident operations suite for enterprise fleets and high-net-worth clients.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <button onclick="scrollToChat()" class="w-full sm:w-auto px-8 py-4 rounded-xl font-mono text-sm uppercase tracking-wider font-bold bg-white text-black hover:bg-gray-200 transition duration-200 shadow-xl flex items-center justify-center space-x-3">
+          <span>SWIPE UP OR ENTER CHAT</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </button>
+        <button onclick="openPresetsModal()" class="w-full sm:w-auto px-8 py-4 rounded-xl font-mono text-sm uppercase tracking-wider font-semibold border border-brand-border bg-brand-surface hover:bg-brand-border text-gray-300 transition duration-200 flex items-center justify-center space-x-2">
+          <span>⚡ Real-World Test Scenarios</span>
+        </button>
+      </div>
+
+      <!-- Live Metrics Strip -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left font-mono text-xs">
+        <div class="p-4 rounded-xl border border-brand-border bg-brand-surface/40">
+          <div class="text-gray-500 uppercase">// LIVE ASR</div>
+          <div class="text-xl font-bold text-amber-400 mt-1">Prisma STT</div>
+          <div class="text-[11px] text-gray-400 mt-0.5">8kHz/16kHz Telecom Model</div>
+        </div>
+        <div class="p-4 rounded-xl border border-brand-border bg-brand-surface/40">
+          <div class="text-gray-500 uppercase">// LIVE TTS</div>
+          <div class="text-xl font-bold text-emerald-400 mt-1">Timbre v3.0</div>
+          <div class="text-[11px] text-gray-400 mt-0.5">Shivani / Avinash / Lakshmi</div>
+        </div>
+        <div class="p-4 rounded-xl border border-brand-border bg-brand-surface/40">
+          <div class="text-gray-500 uppercase">// EVIDENCE</div>
+          <div class="text-xl font-bold text-cyan-400 mt-1">BSA SEC 63</div>
+          <div class="text-[11px] text-gray-400 mt-0.5">Cryptographic SHA-256 Hash</div>
+        </div>
+        <div class="p-4 rounded-xl border border-brand-border bg-brand-surface/40">
+          <div class="text-gray-500 uppercase">// INTELLIGENCE</div>
+          <div class="text-xl font-bold text-white mt-1">30B MoE</div>
+          <div class="text-[11px] text-gray-400 mt-0.5">Gnani Evon Sovereign LLM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mondragon Style 4-Grid Feature Section -->
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+      <div class="p-5 rounded-2xl border border-brand-border bg-brand-surface/60 hover:border-amber-500/50 transition duration-300">
+        <div class="text-amber-500 font-mono text-xs mb-2">[01] // INTERCOM SHIELD</div>
+        <h3 class="font-syne text-lg font-bold text-white mb-2">Loudspeaker Rights Shield</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Synthesizes authoritative formal Hindi speech citing Section 3(3) of Street Vendors Act to stop unlawful confiscations on the spot.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-brand-border bg-brand-surface/60 hover:border-cyan-500/50 transition duration-300">
+        <div class="text-cyan-400 font-mono text-xs mb-2">[02] // EVIDENCE LOCKER</div>
+        <h3 class="font-syne text-lg font-bold text-white mb-2">Sworn Oral Affidavit</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Converts traumatic vernacular testimony into a timestamped SHA-256 hash valid as contemporaneous proof under BSA Section 63.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-brand-border bg-brand-surface/60 hover:border-emerald-500/50 transition duration-300">
+        <div class="text-emerald-400 font-mono text-xs mb-2">[03] // POLICE MANDATE</div>
+        <h3 class="font-syne text-lg font-bold text-white mb-2">Mandatory Zero FIR</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Formats spoken mob violence accounts into formal police complaints citing Lalita Kumari v. Govt of UP and BNSS Sec 173(1).</p>
+      </div>
+
+      <div class="p-5 rounded-2xl border border-brand-border bg-brand-surface/60 hover:border-purple-500/50 transition duration-300">
+        <div class="text-purple-400 font-mono text-xs mb-2">[04] // ENTERPRISE PRO</div>
+        <h3 class="font-syne text-lg font-bold text-white mb-2">Crash & Tort Co-Pilot</h3>
+        <p class="text-xs text-gray-400 leading-relaxed">Autonomous hands-free collision intake, dashcam cataloging, and automated GIC insurance claim dossier transmission.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 2. CLAUDE-STYLE CHAT WORKSPACE SECTION                   -->
+  <!-- ======================================================== -->
+  <section id="chat-section" class="relative min-h-screen flex flex-col md:flex-row bg-[#0b0c10] border-t border-brand-border">
+    
+    <!-- Collapsible Sidebar -->
+    <aside class="w-full md:w-80 bg-[#0d0f14] border-r border-brand-border flex flex-col justify-between p-5">
+      <div>
+        <!-- Sidebar Brand -->
+        <div class="flex items-center justify-between pb-4 border-b border-brand-border mb-6">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-dot"></span>
+            <span class="font-cinzel font-bold text-sm text-white">NYAYAVANI PRO</span>
+          </div>
+          <button onclick="scrollToLanding()" class="text-xs font-mono text-gray-400 hover:text-white flex items-center space-x-1">
+            <span>↑ Overview</span>
+          </button>
+        </div>
+
+        <!-- Mode Selector Switcher -->
+        <div class="mb-6">
+          <label class="block text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2">Operating Tier</label>
+          <div class="grid grid-cols-1 gap-2">
+            <button id="btn-tier-free" onclick="setTier('BHARAT_GRASSROOTS_AID')" class="p-3 text-left rounded-xl border border-amber-500/50 bg-amber-500/10 text-white transition flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-amber-400">🏛️ Bharat Grassroots Aid</div>
+                <div class="text-[10px] text-gray-400 mt-0.5">100% Free Public Legal Shield</div>
+              </div>
+              <span class="text-xs text-amber-400 font-mono font-bold">ACTIVE</span>
+            </button>
+            <button id="btn-tier-pro" onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="p-3 text-left rounded-xl border border-brand-border bg-brand-surface/40 hover:border-gray-500 text-gray-300 transition flex items-center justify-between">
+              <div>
+                <div class="text-xs font-bold text-emerald-400">💼 NyayaVani Pro Suite</div>
+                <div class="text-[10px] text-gray-400 mt-0.5">Enterprise, Fleets & Accident Triage</div>
+              </div>
+              <span class="text-xs text-gray-500 font-mono">PRO</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Voice Synthesis Persona -->
+        <div class="mb-6">
+          <label class="block text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2">Timbre Voice Synthesizer</label>
+          <select id="select-voice" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2.5 focus:border-amber-500 outline-none">
+            <option value="Shivani">Shivani (Authoritative Formal Hindi - Rights Shield)</option>
+            <option value="Lakshmi">Lakshmi (Empathetic Conversational Hindi)</option>
+            <option value="Avinash">Avinash (Corporate English / Incident Co-Pilot)</option>
+            <option value="Kalpana">Kalpana (Warm Indic Dialect)</option>
+          </select>
+        </div>
+
+        <!-- User Jurisdiction Context -->
+        <div class="space-y-3 mb-6">
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Complainant / Client Name</label>
+            <input type="text" id="input-client-name" value="Ramesh Kumar Gupta" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Jurisdiction / Location</label>
+            <input type="text" id="input-location" value="Juhu Beach, Ward K-West, Mumbai" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
+          </div>
+        </div>
+
+        <!-- Pre-Loaded Test Scenarios -->
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2">Quick Test Cases</label>
+          <div id="presets-container" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="pt-4 border-t border-brand-border text-[11px] font-mono text-gray-500">
+        <div class="flex items-center justify-between">
+          <span>API Key ID:</span>
+          <span id="sidebar-key-status" class="text-amber-400 font-semibold truncate max-w-[120px]">Loading...</span>
+        </div>
+        <div class="flex items-center justify-between mt-1">
+          <span>Server Endpoint:</span>
+          <span class="text-cyan-400">api.vachana.ai</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace (Exact Claude Aesthetic) -->
+    <main class="flex-1 flex flex-col h-[100vh] overflow-hidden bg-[#0d0e12] relative">
+      <!-- Chat Header -->
+      <div class="h-14 border-b border-brand-border/80 flex items-center justify-between px-6 bg-[#0d0e12]/80 backdrop-blur z-10">
+        <div class="flex items-center space-x-3">
+          <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-black font-bold text-xs shadow-md">
+            ⚖️
+          </div>
+          <div>
+            <span class="text-xs font-mono font-bold text-white tracking-wider">NYAYAVANI ADVISOR</span>
+            <span class="text-[10px] font-mono text-emerald-400 ml-2">● LIVE GNANI API MODE</span>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="clearChat()" class="text-xs font-mono text-gray-400 hover:text-white px-3 py-1 rounded-md border border-brand-border hover:bg-brand-surface transition">
+            Clear Chat
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Recording Toast / Banner -->
+      <div id="recording-toast" class="hidden absolute top-16 left-1/2 -translate-x-1/2 z-30 px-6 py-2.5 rounded-full rec-pulse border border-red-500 bg-red-950/80 text-white text-xs font-mono flex items-center space-x-3 shadow-2xl">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+        <span>🔴 Recording voice input... Speak now (<span id="record-timer">00:00</span>)</span>
+        <button onclick="stopRecording()" class="px-3 py-1 bg-white text-black font-bold rounded-full text-[11px] hover:bg-gray-200">Stop & Transcribe</button>
+      </div>
+
+      <!-- Messages Scroll Area -->
+      <div id="messages-container" class="flex-1 overflow-y-auto px-4 md:px-8 py-8 space-y-6 max-w-4xl mx-auto w-full">
+        <!-- Claude Initial Greeting Banner -->
+        <div id="welcome-banner" class="text-center py-12 px-6 rounded-3xl border border-brand-border/60 bg-[#12141c]/50 my-auto">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl mx-auto mb-4 shadow-lg shadow-amber-500/10">
+            ⚖️
+          </div>
+          <h2 class="font-syne text-2xl md:text-3xl font-bold text-white mb-3">
+            Good evening. How can NyayaVani assist you today?
+          </h2>
+          <p class="text-sm text-gray-400 max-w-xl mx-auto mb-8 font-light leading-relaxed">
+            State your legal situation freely in spoken Hindi, English, or regional Indic dialect. NyayaVani calls Gnani's live APIs with your key to provide immediate spoken legal guidance and compile formal filings.
+          </p>
+
+          <!-- Starter Prompt Pills -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left max-w-2xl mx-auto">
+            <button onclick="selectStarter('Street Vendor Cart Seizure (Juhu, Mumbai)')" class="p-3.5 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/50 hover:bg-brand-surface transition text-xs text-gray-300 group">
+              <span class="font-bold text-amber-400 block mb-1">🏛️ Street Vendor Eviction Defense</span>
+              <span class="text-gray-400 text-[11px]">"BMC and police threatening to seize my fruit cart at Juhu beach..."</span>
+            </button>
+            <button onclick="selectStarter('Labor Wage Theft & Contractor Default')" class="p-3.5 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/50 hover:bg-brand-surface transition text-xs text-gray-300 group">
+              <span class="font-bold text-emerald-400 block mb-1">⚖️ Labor Wage Theft & Default</span>
+              <span class="text-gray-400 text-[11px]">"Contractor withheld 3 months wages, threatening when demanded..."</span>
+            </button>
+            <button onclick="selectStarter('Predatory Loan App Morphing & Blackmail')" class="p-3.5 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/50 hover:bg-brand-surface transition text-xs text-gray-300 group">
+              <span class="font-bold text-cyan-400 block mb-1">📱 Digital Loan App Blackmail</span>
+              <span class="text-gray-400 text-[11px]">"Mobile loan app hacked contacts, sending morphed photos..."</span>
+            </button>
+            <button onclick="selectStarter('Motor Vehicle Highway Crash (MACT & GIC Claim)')" class="p-3.5 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/50 hover:bg-brand-surface transition text-xs text-gray-300 group">
+              <span class="font-bold text-purple-400 block mb-1">🚗 Motor Vehicle Collision (Pro)</span>
+              <span class="text-gray-400 text-[11px]">"Intersection crash, dashcam footage verified, need GIC claim dossier..."</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat messages will be dynamically injected here -->
+      </div>
+
+      <!-- Sticky Floating Claude-Style Input Bar -->
+      <div class="p-4 md:p-6 bg-[#0d0e12]/95 border-t border-brand-border/60">
+        <div class="max-w-4xl mx-auto w-full">
+          <div class="relative bg-[#171922] border border-brand-border rounded-2xl p-2.5 focus-within:border-amber-500/80 transition duration-200 shadow-2xl">
+            <textarea id="chat-input" rows="2" placeholder="Speak or describe your legal issue (in Hindi, English, or vernacular)..." class="w-full bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none resize-none px-3 py-2 leading-relaxed"></textarea>
+
+            <div class="flex items-center justify-between pt-2 px-2 border-t border-brand-border/40">
+              <div class="flex items-center space-x-2">
+                <!-- Audio File Upload -->
+                <label class="cursor-pointer p-2 rounded-lg text-gray-400 hover:text-white hover:bg-brand-surface transition" title="Upload Audio File (WAV/MP3)">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                  <input type="file" id="audio-file-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(this)">
+                </label>
+
+                <!-- Live Microphone Recording Button -->
+                <button onclick="toggleMicrophone()" id="btn-mic" class="p-2 rounded-lg text-amber-400 hover:bg-amber-500/10 transition flex items-center space-x-1.5" title="Click to Speak via Microphone (Prisma STT)">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/></svg>
+                  <span id="mic-label" class="text-[11px] font-mono">Record Live Mic</span>
+                </button>
+
+                <!-- Audio Presets Quick Button -->
+                <button onclick="openPresetsModal()" class="p-2 rounded-lg text-gray-400 hover:text-amber-400 hover:bg-brand-surface transition flex items-center space-x-1 text-xs font-mono">
+                  <span>⚡ Presets</span>
+                </button>
+              </div>
+
+              <!-- Send Button -->
+              <button onclick="sendMessage()" id="btn-send" class="p-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-black font-bold transition duration-200 shadow-md flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="text-center text-[10px] font-mono text-gray-500 mt-2">
+            Every submission triggers live Gnani Prisma STT & Timbre TTS API calls using your X-API-Key-ID.
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- Presets Modal -->
+  <div id="presets-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#12141c] border border-brand-border rounded-3xl max-w-2xl w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-brand-border mb-4">
+        <h3 class="font-syne text-lg font-bold text-white flex items-center space-x-2">
+          <span>⚡ Select a Real-World Legal Test Case</span>
+        </h3>
+        <button onclick="closePresetsModal()" class="text-gray-400 hover:text-white text-xl">&times;</button>
+      </div>
+      <div id="modal-presets-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side JavaScript -->
+  <script>
+    let activeTier = 'BHARAT_GRASSROOTS_AID';
+    let presetsData = [];
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let recordInterval = null;
+    let recordSeconds = 0;
+
+    function scrollToChat() {
+      document.getElementById('chat-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToLanding() {
+      document.getElementById('landing-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function setTier(tier) {
+      activeTier = tier;
+      const btnFree = document.getElementById('btn-tier-free');
+      const btnPro = document.getElementById('btn-tier-pro');
+
+      if (tier === 'BHARAT_GRASSROOTS_AID') {
+        btnFree.className = 'p-3 text-left rounded-xl border border-amber-500/50 bg-amber-500/10 text-white transition flex items-center justify-between';
+        btnFree.querySelector('span').innerText = 'ACTIVE';
+        btnFree.querySelector('span').className = 'text-xs text-amber-400 font-mono font-bold';
+
+        btnPro.className = 'p-3 text-left rounded-xl border border-brand-border bg-brand-surface/40 hover:border-gray-500 text-gray-300 transition flex items-center justify-between';
+        btnPro.querySelector('span').innerText = 'PRO';
+        btnPro.querySelector('span').className = 'text-xs text-gray-500 font-mono';
+      } else {
+        btnPro.className = 'p-3 text-left rounded-xl border border-emerald-500/50 bg-emerald-500/10 text-white transition flex items-center justify-between';
+        btnPro.querySelector('span').innerText = 'ACTIVE';
+        btnPro.querySelector('span').className = 'text-xs text-emerald-400 font-mono font-bold';
+
+        btnFree.className = 'p-3 text-left rounded-xl border border-brand-border bg-brand-surface/40 hover:border-gray-500 text-gray-300 transition flex items-center justify-between';
+        btnFree.querySelector('span').innerText = 'FREE';
+        btnFree.querySelector('span').className = 'text-xs text-gray-500 font-mono';
+      }
+    }
+
+    // Load API System Status & Presets
+    async function initSystem() {
+      try {
+        const statusRes = await fetch('/api/status');
+        const statusData = await statusRes.json();
+        document.getElementById('sidebar-key-status').innerText = statusData.api_key_masked;
+
+        const res = await fetch('/api/presets');
+        const data = await res.json();
+        presetsData = data.presets;
+        renderSidebarPresets();
+        renderModalPresets();
+      } catch (e) {
+        console.error("Initialization error:", e);
+      }
+    }
+
+    function renderSidebarPresets() {
+      const container = document.getElementById('presets-container');
+      container.innerHTML = presetsData.map(p => `
+        <button onclick="selectPreset('${p.id}')" class="w-full text-left p-2 rounded-lg border border-brand-border hover:border-amber-500/40 bg-brand-surface/30 hover:bg-brand-surface text-[11px] text-gray-300 truncate transition flex items-center space-x-2">
+          <span>${p.icon}</span>
+          <span class="truncate">${p.title}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderModalPresets() {
+      const container = document.getElementById('modal-presets-list');
+      container.innerHTML = presetsData.map(p => `
+        <div onclick="selectPreset('${p.id}'); closePresetsModal();" class="p-4 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/50 hover:bg-brand-surface transition cursor-pointer">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-white flex items-center space-x-2">
+              <span>${p.icon}</span>
+              <span>${p.title}</span>
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded ${p.tier === 'BHARAT_GRASSROOTS_AID' ? 'bg-amber-500/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'}">${p.category}</span>
+          </div>
+          <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">"${p.text}"</p>
+        </div>
+      `).join('');
+    }
+
+    function openPresetsModal() {
+      document.getElementById('presets-modal').classList.remove('hidden');
+    }
+
+    function closePresetsModal() {
+      document.getElementById('presets-modal').classList.add('hidden');
+    }
+
+    function selectStarter(title) {
+      const p = presetsData.find(x => x.title.toLowerCase().includes(title.toLowerCase().split(' ')[0]));
+      if (p) selectPreset(p.id);
+    }
+
+    function selectPreset(presetId) {
+      const p = presetsData.find(x => x.id === presetId);
+      if (!p) return;
+
+      document.getElementById('chat-input').value = p.text;
+      document.getElementById('input-client-name').value = p.client_name;
+      document.getElementById('input-location').value = p.location;
+      setTier(p.tier);
+      scrollToChat();
+      sendMessage();
+    }
+
+    // ========================================================
+    // REAL BROWSER MICROPHONE RECORDING (MEDIARECORDER API)
+    // ========================================================
+    async function toggleMicrophone() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        stopRecording();
+      } else {
+        startRecording();
+      }
+    }
+
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = e => {
+          if (e.data.size > 0) audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+          clearInterval(recordInterval);
+          document.getElementById('recording-toast').classList.add('hidden');
+          document.getElementById('btn-mic').classList.remove('bg-red-500/20', 'text-red-400');
+          document.getElementById('mic-label').innerText = 'Record Live Mic';
+
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          stream.getTracks().forEach(track => track.stop());
+          
+          await sendLiveVoice(audioBlob);
+        };
+
+        mediaRecorder.start();
+        recordSeconds = 0;
+        document.getElementById('recording-toast').classList.remove('hidden');
+        document.getElementById('btn-mic').classList.add('bg-red-500/20', 'text-red-400');
+        document.getElementById('mic-label').innerText = 'Stop Recording';
+
+        recordInterval = setInterval(() => {
+          recordSeconds++;
+          const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
+          const secs = String(recordSeconds % 60).padStart(2, '0');
+          document.getElementById('record-timer').innerText = `${mins}:${secs}`;
+        }, 1000);
+
+      } catch (err) {
+        alert("Microphone Access Error: " + err.message + ". Please grant microphone permissions in your browser.");
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
+      }
+    }
+
+    async function sendLiveVoice(audioBlob) {
+      document.getElementById('welcome-banner')?.classList.add('hidden');
+      appendUserMessage(`🎙️ [Live Voice Spoken Input Captured] (${Math.round(audioBlob.size / 1024)} KB)`);
+
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'live_speech.webm');
+      formData.append('tier', activeTier);
+      formData.append('voice', document.getElementById('select-voice').value);
+      formData.append('client_name', document.getElementById('input-client-name').value);
+      formData.append('location', document.getElementById('input-location').value);
+
+      showLoadingAssistant("Sending audio to Gnani Prisma STT API (/stt/v3)...");
+
+      try {
+        const res = await fetch('/api/chat/voice', { method: 'POST', body: formData });
+        const data = await res.json();
+        removeLoadingAssistant();
+        if (res.status !== 200) {
+          appendErrorMessage(data.detail || "API Error");
+        } else {
+          appendAssistantMessage(data);
+        }
+      } catch (err) {
+        removeLoadingAssistant();
+        appendErrorMessage(err.message);
+      }
+    }
+
+    // Handle Audio File Upload
+    async function handleAudioUpload(input) {
+      if (!input.files || !input.files[0]) return;
+      const file = input.files[0];
+      document.getElementById('welcome-banner')?.classList.add('hidden');
+      appendUserMessage(`📁 [Uploaded Audio File]: ${file.name}`);
+
+      const formData = new FormData();
+      formData.append('audio', file);
+      formData.append('tier', activeTier);
+      formData.append('voice', document.getElementById('select-voice').value);
+      formData.append('client_name', document.getElementById('input-client-name').value);
+      formData.append('location', document.getElementById('input-location').value);
+
+      showLoadingAssistant("Uploading and transcribing via Gnani Prisma STT API...");
+
+      try {
+        const res = await fetch('/api/chat/voice', { method: 'POST', body: formData });
+        const data = await res.json();
+        removeLoadingAssistant();
+        if (res.status !== 200) {
+          appendErrorMessage(data.detail || "API Error");
+        } else {
+          appendAssistantMessage(data);
+        }
+      } catch (err) {
+        removeLoadingAssistant();
+        appendErrorMessage(err.message);
+      }
+    }
+
+    // Send Text Message
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      document.getElementById('welcome-banner')?.classList.add('hidden');
+      appendUserMessage(msg);
+      input.value = '';
+
+      showLoadingAssistant("Calling Gnani Timbre TTS API & Legal Engine...");
+
+      try {
+        const payload = {
+          message: msg,
+          tier: activeTier,
+          voice: document.getElementById('select-voice').value,
+          client_name: document.getElementById('input-client-name').value,
+          location: document.getElementById('input-location').value
+        };
+
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        removeLoadingAssistant();
+        if (res.status !== 200) {
+          appendErrorMessage(data.detail || "API Error");
+        } else {
+          appendAssistantMessage(data);
+        }
+      } catch (err) {
+        removeLoadingAssistant();
+        appendErrorMessage(err.message);
+      }
+    }
+
+    function appendUserMessage(text) {
+      const container = document.getElementById('messages-container');
+      const msgHtml = `
+        <div class="flex justify-end">
+          <div class="max-w-2xl bg-[#1f222e] border border-brand-border/80 rounded-2xl p-4 text-sm text-gray-100 shadow-md">
+            <div class="text-[10px] font-mono text-gray-400 mb-1">YOU (${document.getElementById('input-client-name').value})</div>
+            <div class="leading-relaxed">${escapeHtml(text)}</div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', msgHtml);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function showLoadingAssistant(loadingText = "Executing live Gnani AI API call...") {
+      const container = document.getElementById('messages-container');
+      const loadingHtml = `
+        <div id="loading-indicator" class="flex justify-start">
+          <div class="claude-bubble rounded-2xl p-4 text-sm text-gray-300 max-w-2xl flex items-center space-x-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 pulse-dot"></span>
+            <span class="font-mono text-xs text-amber-400">${loadingText}</span>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', loadingHtml);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function removeLoadingAssistant() {
+      document.getElementById('loading-indicator')?.remove();
+    }
+
+    function appendAssistantMessage(data) {
+      const container = document.getElementById('messages-container');
+      const isFree = data.tier === 'BHARAT_GRASSROOTS_AID';
+      const borderAccent = isFree ? 'border-amber-500/50' : 'border-emerald-500/50';
+      const tagColor = isFree ? 'text-amber-400 bg-amber-500/10' : 'text-emerald-400 bg-emerald-500/10';
+
+      const statutesHtml = data.statutory_sections.map(s => `
+        <li class="mb-2">
+          <span class="font-bold text-white font-mono text-xs">${s.law}:</span>
+          <span class="text-xs text-gray-300">${s.details}</span>
+        </li>
+      `).join('');
+
+      const stepsHtml = data.action_steps.map(step => `
+        <div class="text-xs text-gray-300 py-1 flex items-start space-x-2">
+          <span class="text-amber-400">▸</span>
+          <span>${step}</span>
+        </div>
+      `).join('');
+
+      // Telemetry Badges
+      let telemetryHtml = '';
+      if (data.stt_telemetry) {
+        telemetryHtml += `
+          <div class="text-[10px] font-mono text-cyan-400 flex items-center space-x-2">
+            <span>[PRISMA STT: ${data.stt_telemetry.client_elapsed_seconds || data.stt_telemetry.processing_time}s | Req: ${data.stt_telemetry.request_id ? data.stt_telemetry.request_id.slice(0, 8) + '...' : 'OK'}]</span>
+          </div>
+        `;
+      }
+      if (data.tts_telemetry) {
+        telemetryHtml += `
+          <div class="text-[10px] font-mono text-amber-400 flex items-center space-x-2">
+            <span>[TIMBRE TTS: ${data.tts_telemetry.elapsed_seconds}s | Voice: ${data.tts_telemetry.voice} | Size: ${Math.round(data.tts_telemetry.bytes / 1024)} KB]</span>
+          </div>
+        `;
+      }
+
+      const msgHtml = `
+        <div class="flex justify-start">
+          <div class="w-full max-w-3xl claude-bubble rounded-3xl p-6 text-sm text-gray-200 shadow-xl border ${borderAccent}">
+            
+            <!-- Message Header & Live Telemetry -->
+            <div class="flex items-center justify-between pb-3 border-b border-brand-border/60 mb-4">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xs">⚖️</div>
+                <span class="font-mono text-xs font-bold text-white">${data.statutory_title || 'Legal Rights Analysis'}</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded ${tagColor}">LIVE API CALL</span>
+            </div>
+
+            <!-- Telemetry Details Strip -->
+            <div class="mb-3 p-2 rounded-lg bg-[#11131a] border border-brand-border flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center space-x-3">
+                <span class="text-[10px] font-mono text-emerald-400 font-bold">● GNANI LIVE INFERENCE</span>
+                ${telemetryHtml}
+              </div>
+            </div>
+
+            <!-- Electronic Record Hash Badge -->
+            <div class="mb-4 p-2.5 rounded-xl bg-[#11131a] border border-brand-border flex items-center justify-between text-[11px] font-mono">
+              <span class="text-gray-400">🔒 BSA SEC 63 DIGITAL HASH:</span>
+              <span class="text-cyan-400 font-bold truncate max-w-xs">${data.sha256}</span>
+            </div>
+
+            <!-- Spoken Audio Player Pill -->
+            <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono font-bold text-amber-400 flex items-center space-x-2">
+                  <span>🔊 LOUDSPEAKER RIGHTS SHIELD (TIMBRE TTS v3.0)</span>
+                </span>
+                <span class="text-[10px] font-mono text-gray-400">LIVE AUDIO STREAM</span>
+              </div>
+              <p class="text-xs text-gray-300 italic mb-3">"${data.spoken_text}"</p>
+              <audio controls src="${data.audio_url}" class="w-full h-8 rounded-lg outline-none" autoplay></audio>
+            </div>
+
+            <!-- Statutory Citations -->
+            <div class="mb-5">
+              <h4 class="text-xs font-mono font-bold uppercase text-gray-400 mb-2">// STATUTORY PROTECTIONS DETECTED</h4>
+              <ul class="list-disc pl-4 space-y-1">
+                ${statutesHtml}
+              </ul>
+            </div>
+
+            <!-- Recommended Next Actions -->
+            <div class="mb-5 p-3.5 rounded-xl bg-brand-surface/60 border border-brand-border">
+              <h4 class="text-xs font-mono font-bold uppercase text-gray-400 mb-2">// ACTION ROADMAP</h4>
+              ${stepsHtml}
+            </div>
+
+            <!-- Claude-Style Collapsible Artifact Window -->
+            <div class="border border-brand-border rounded-2xl overflow-hidden bg-[#12141c]">
+              <div class="p-3 bg-[#171922] border-b border-brand-border flex items-center justify-between">
+                <span class="text-xs font-mono font-bold text-gray-200 flex items-center space-x-2">
+                  <span>📄 Artifact: Generated Statutory Filing / Notice</span>
+                </span>
+                <button onclick="copyDocument(this)" data-content="${encodeURIComponent(data.formal_document)}" class="text-[11px] font-mono text-amber-400 hover:text-amber-300 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 transition">
+                  Copy Text
+                </button>
+              </div>
+              <pre class="p-4 text-xs font-mono text-gray-300 max-h-56 overflow-y-auto whitespace-pre-wrap leading-relaxed">${escapeHtml(data.formal_document)}</pre>
+            </div>
+
+          </div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML('beforeend', msgHtml);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendErrorMessage(err) {
+      const container = document.getElementById('messages-container');
+      const errHtml = `
+        <div class="flex justify-start">
+          <div class="claude-bubble rounded-2xl p-4 text-sm text-red-400 border border-red-500/40 max-w-2xl">
+            <div class="font-mono text-xs font-bold mb-1">❌ Gnani Live API Error:</div>
+            <div>${escapeHtml(err)}</div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', errHtml);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function copyDocument(btn) {
+      const text = decodeURIComponent(btn.getAttribute('data-content'));
+      navigator.clipboard.writeText(text);
+      const prev = btn.innerText;
+      btn.innerText = 'Copied!';
+      setTimeout(() => btn.innerText = prev, 1800);
+    }
+
+    function clearChat() {
+      document.getElementById('messages-container').innerHTML = '';
+      document.getElementById('welcome-banner')?.classList.remove('hidden');
+    }
+
+    function escapeHtml(string) {
+      if (!string) return '';
+      const entityMap = {
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '/': '&#x2F;'
+      };
+      return String(string).replace(/[&<>"'/]/g, s => entityMap[s]);
+    }
+
+    document.getElementById('chat-input').addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    document.getElementById('chat-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initSystem();
+    });
+  </script>
+</body>
+</html>
