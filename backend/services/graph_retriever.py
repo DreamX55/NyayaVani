@@ -67,22 +67,33 @@ class LegalGraphRetriever:
 
     def bm25_search(self, query: str, top_k: int = 5) -> List[Tuple[str, float]]:
         """
-        Token-level BM25 scoring over node metadata.
+        Token-level BM25 scoring over node metadata with native Indic script support.
         """
-        tokens = query.lower().replace("§", "section").split()
+        import re
+        clean_q = re.sub(r'[^\w\s]', ' ', query.lower().replace("§", "section"))
+        tokens = clean_q.split()
         scores = {}
         
         for nid in self.node_ids:
             n = self.nodes[nid]
-            doc_str = f"{n.get('act', '')} {n.get('section', '')} {n.get('title', '')} {n.get('operative_text', '')} {' '.join(n.get('keywords', []))}".lower()
+            kw_str = " ".join(n.get("keywords", [])).lower()
+            doc_str = f"{n.get('act', '')} {n.get('section', '')} {n.get('title', '')} {n.get('operative_text', '')} {kw_str}".lower()
             score = 0.0
+            kw_list = [k.lower() for k in n.get("keywords", [])]
             for t in tokens:
-                if len(t) < 3:
+                if len(t) < 2:
                     continue
                 # Term match weight
                 if t in doc_str:
                     freq = doc_str.count(t)
-                    score += math.log(1 + freq) * (2.5 if t.isdigit() or t in ["fir", "tvc", "rera", "mact", "bns", "bnss", "bsa"] else 1.0)
+                    kw_boost = 3.5 if t in kw_str else 1.0
+                    score += math.log(1 + freq) * (2.5 if t.isdigit() or t in ["fir", "tvc", "rera", "mact", "bns", "bnss", "bsa"] else 1.0) * kw_boost
+                elif len(t) >= 4:
+                    # Indic agglutinative stem match (e.g. બિલ્ડરે -> બિલ્ડર, कंत्राटदाराने -> कंत्राटदार)
+                    for kw in kw_list:
+                        if len(kw) >= 3 and (kw in t or t in kw):
+                            score += 3.0
+                            break
             
             # Boost exact section hits
             for t in tokens:
@@ -90,7 +101,8 @@ class LegalGraphRetriever:
                 if t in sec and len(t) > 2:
                     score += 5.0
                     
-            scores[nid] = score
+            if score > 0:
+                scores[nid] = score
             
         ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         return ranked[:top_k]
@@ -106,18 +118,25 @@ class LegalGraphRetriever:
     def hybrid_retrieve(self, query: str, top_k: int = 3) -> List[str]:
         """
         Reciprocal Rank Fusion (RRF) combining BM25 and Dense vector rankings.
+        Adapts dynamically when queries contain native Indic scripts.
         """
+        import re
+        is_indic = bool(re.search(r'[\u0900-\u0DFF]', query))
         bm25_ranks = self.bm25_search(query, top_k=8)
         dense_ranks = self.dense_search(query, top_k=8)
         
         rrf_scores = defaultdict(float)
         k = 60.0
         
-        for rank, (nid, _) in enumerate(bm25_ranks):
-            rrf_scores[nid] += 1.0 / (k + rank + 1)
+        # When BM25 finds strong keyword hits, especially in Indic dialects, weight BM25 heavily
+        bm25_multiplier = 3.0 if (is_indic and bm25_ranks) else 1.5
+        for rank, (nid, score) in enumerate(bm25_ranks):
+            rrf_scores[nid] += (1.0 / (k + rank + 1)) * bm25_multiplier
             
-        for rank, (nid, _) in enumerate(dense_ranks):
-            rrf_scores[nid] += 1.0 / (k + rank + 1)
+        # Add dense representations (effective for English/code-switched queries)
+        dense_multiplier = 0.5 if (is_indic and bm25_ranks) else 1.0
+        for rank, (nid, score) in enumerate(dense_ranks):
+            rrf_scores[nid] += (1.0 / (k + rank + 1)) * dense_multiplier
             
         sorted_nodes = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
         return [nid for nid, _ in sorted_nodes[:top_k]]
@@ -270,6 +289,7 @@ class LegalGraphRetriever:
                 "violator_liability": "Criminal prosecution under Minimum Wages Act and attachment of employer assets by the Labor Commissioner."
             }
         else:
+            root = root_nodes[0] if root_nodes else {}
             return {
                 "is_lawful": False,
                 "status": "COGNIZABLE_STATUTORY_VIOLATION",
