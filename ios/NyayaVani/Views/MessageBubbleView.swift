@@ -72,6 +72,40 @@ struct MessageBubbleView: View {
                         }
                     }
                     
+                    // Upfront Citizen Legality Verdict Card
+                    if let verdict = response.legality_verdict, let status = verdict.status {
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack {
+                                Image(systemName: (verdict.is_lawful ?? false) ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                                    .foregroundColor((verdict.is_lawful ?? false) ? .green : .brandAmber)
+                                Text("LEGALITY VERDICT: \(status.replacingOccurrences(of: "_", with: " "))")
+                                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                    .foregroundColor((verdict.is_lawful ?? false) ? .green : .brandGold)
+                            }
+                            
+                            if let summary = verdict.verdict_summary {
+                                Text(summary)
+                                    .font(.system(size: 12.5, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .lineSpacing(3)
+                            }
+                            
+                            if let standing = verdict.citizen_standing {
+                                Text("YOUR STANDING: \(standing)")
+                                    .font(.system(size: 11))
+                                    .foregroundColor(Color(white: 0.8))
+                            }
+                        }
+                        .padding(12)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background((verdict.is_lawful ?? false) ? Color.green.opacity(0.12) : Color.brandAmber.opacity(0.12))
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke((verdict.is_lawful ?? false) ? Color.green.opacity(0.3) : Color.brandAmber.opacity(0.3), lineWidth: 1)
+                        )
+                    }
+                    
                     Text(response.statutory_title ?? "Statutory Guidance")
                         .font(.system(size: 16, weight: .bold))
                         .foregroundColor(.white)

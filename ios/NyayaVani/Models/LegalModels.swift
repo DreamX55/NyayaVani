@@ -23,12 +23,21 @@ struct STTTelemetry: Codable, Hashable {
     let model: String?
 }
 
+struct LegalityVerdict: Codable, Hashable {
+    let is_lawful: Bool?
+    let status: String?
+    let verdict_summary: String?
+    let citizen_standing: String?
+    let violator_liability: String?
+}
+
 struct ChatResponse: Codable, Identifiable {
     var id: String { sha256 ?? UUID().uuidString }
     let status: String
     let api_mode: String?
     let category: String?
     let tier: String?
+    let legality_verdict: LegalityVerdict?
     let statutory_title: String?
     let statutory_sections: [StatutorySection]?
     let spoken_text: String?

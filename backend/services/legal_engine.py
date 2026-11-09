@@ -3,6 +3,7 @@ import hashlib
 import json
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Optional
+from backend.services.graph_retriever import LegalGraphRetriever
 
 class OralAffidavitHasher:
     """
@@ -453,12 +454,14 @@ class NyayaVaniEngine:
     """
     Unified entry point for NyayaVani Legal Engine.
     Dispatches to Grassroots Public Legal Aid or Enterprise Pro Legal Suite.
-    Integrates Section 63 BSA cryptographic evidence hashing on all intakes.
+    Integrates Legal Knowledge Graph (GraphRAG), Citizen Legality Verdict,
+    and Section 63 BSA cryptographic evidence hashing on all intakes.
     """
     def __init__(self):
         self.grassroots_advisor = GrassrootsLegalAdvisor()
         self.enterprise_advisor = EnterpriseLegalSuite()
         self.hasher = OralAffidavitHasher()
+        self.graph_retriever = LegalGraphRetriever()
 
     def process_case(
         self,
@@ -469,7 +472,11 @@ class NyayaVaniEngine:
         meta = meta or {}
         text_lower = transcript.lower()
 
-        # Determine Tier
+        # 1. Query Legal Knowledge Graph (GraphRAG)
+        graph_result = self.graph_retriever.query(transcript)
+        legality_verdict = graph_result["legality_verdict"]
+
+        # 2. Determine Tier
         if suite_tier == "AUTO_DETECT":
             if any(k in text_lower for k in ["rera", "builder", "contract", "agreement", "msme", "crash", "accident", "car", "insurance claim"]):
                 suite_tier = "ENTERPRISE_LEGAL_SUITE"
@@ -481,7 +488,18 @@ class NyayaVaniEngine:
         else:
             result = self.grassroots_advisor.analyze(transcript, meta)
 
-        # Cryptographic Hash & Certificate
+        # 3. Integrate Legality Verdict & Graph-Traversed Statutes
+        result["legality_verdict"] = legality_verdict
+        result["graph_subgraph"] = graph_result["subgraph"]
+        
+        # Merge traversed statutory sections seamlessly
+        existing_laws = {s["law"] for s in result.get("statutory_sections", [])}
+        for g_sec in graph_result.get("statutory_sections", []):
+            if g_sec["law"] not in existing_laws and len(result.get("statutory_sections", [])) < 5:
+                result.setdefault("statutory_sections", []).append(g_sec)
+                existing_laws.add(g_sec["law"])
+
+        # 4. Cryptographic Hash & Certificate
         loc = meta.get("location", "India")
         affidavit = self.hasher.generate_hash(transcript, location=loc)
         result["affidavit_evidence"] = affidavit

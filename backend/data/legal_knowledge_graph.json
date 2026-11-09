@@ -1,0 +1,272 @@
+{
+  "graph_version": "2.0.0",
+  "name": "NyayaVani Sovereign Indic Legal Knowledge Graph (GraphRAG)",
+  "nodes": [
+    {
+      "id": "STATUTE_STREET_VENDORS_SEC_3_3",
+      "type": "STATUTE_PROTECTION",
+      "act": "The Street Vendors (Protection of Livelihood and Regulation of Street Vending) Act, 2014",
+      "section": "Section 3(3)",
+      "title": "Absolute Bar on Eviction or Confiscation Pending Survey",
+      "operative_text": "No street vendor shall be evicted or relocated until the survey specified under sub-section (1) has been completed and a certificate of vending has been issued.",
+      "keywords": ["thela", "rehdi", "street vendor", "hawker", "feriwala", "bmc", "municipality", "eviction", "confiscation", "cart", "police seizure", "hafta", "bribe"],
+      "remedy_summary": "Immediate statutory bar against administrative eviction or cart seizure."
+    },
+    {
+      "id": "PENAL_BNS_308_EXTORTION",
+      "type": "PENAL_OFFENSE",
+      "act": "Bharatiya Nyaya Sanhita, 2023 (BNS)",
+      "section": "Section 308",
+      "title": "Extortion & Demanding Money Under Coercion",
+      "operative_text": "Whoever intentionally puts any person in fear of any injury to that person or to any other, and thereby dishonestly induces the person so put in fear to deliver to any person any property or valuable security, commits extortion.",
+      "keywords": ["extortion", "hafta", "ghoos", "bribe", "threaten", "snatching money", "recovery threat"],
+      "penalty": "Imprisonment up to 3 years, or with fine, or with both; Cognizable and non-bailable if aggravated."
+    },
+    {
+      "id": "PENAL_BNS_329_CRIMINAL_TRESPASS",
+      "type": "PENAL_OFFENSE",
+      "act": "Bharatiya Nyaya Sanhita, 2023 (BNS)",
+      "section": "Section 329",
+      "title": "Criminal Trespass & Unlawful Encroachment",
+      "operative_text": "Whoever enters into or upon property in the possession of another with intent to commit an offence or to intimidate, insult or annoy any person in possession of such property commits criminal trespass.",
+      "keywords": ["land grabbing", "plot encroachment", "kabza", "illegal entry", "breaking lock", "destroying boundary"],
+      "penalty": "Imprisonment up to 3 months, or fine up to ₹5,000, or both."
+    },
+    {
+      "id": "PENAL_BNS_318_CHEATING_FRAUD",
+      "type": "PENAL_OFFENSE",
+      "act": "Bharatiya Nyaya Sanhita, 2023 (BNS)",
+      "section": "Section 318(4)",
+      "title": "Cheating & Dishonestly Inducing Delivery of Property",
+      "operative_text": "Whoever cheats and thereby dishonestly induces the person deceived to deliver any property to any person, or to make, alter or destroy the whole or any part of a valuable security, commits aggravated cheating.",
+      "keywords": ["loan app fraud", "morphed photo", "phishing", "blackmail", "fake loan", "crypto scam", "unauthorized debit"],
+      "penalty": "Imprisonment up to 7 years and mandatory fine; Cognizable."
+    },
+    {
+      "id": "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+      "type": "STATUTE_PROTECTION",
+      "act": "Information Technology Act, 2000",
+      "section": "Section 66D",
+      "title": "Punishment for Cheating by Personation by Using Computer Resource",
+      "operative_text": "Whoever, by means of any communication device or computer resource cheats by personating, shall be punished with imprisonment of either description for a term which may extend to three years and shall also be liable to fine which may extend to one lakh rupees.",
+      "keywords": ["cyber blackmail", "morphed contact harassment", "fake recovery agent", "unlicensed loan app", "whatsapp threats"],
+      "remedy_summary": "Immediate blocking of digital lending app and freezing of offending UPI accounts via cybercrime.gov.in."
+    },
+    {
+      "id": "STATUTE_RBI_DIGITAL_LENDING_2022",
+      "type": "REGULATORY_SHIELD",
+      "act": "RBI Guidelines on Digital Lending, 2022",
+      "section": "Clause 4 & Clause 6",
+      "title": "Prohibition of Harassment & Direct Account Disbursement",
+      "operative_text": "Lending service providers (LSPs) and Regulated Entities (REs) are strictly prohibited from accessing borrower phone contacts, photos, or media. Harassment by recovery agents invokes cancellation of RE lending license.",
+      "keywords": ["loan app", "recovery agent abuse", "contact list hack", "calling relatives", "night calls"],
+      "remedy_summary": "Direct regulatory complaint to RBI Banking Ombudsman (cms.rbi.org.in)."
+    },
+    {
+      "id": "PENAL_BNS_106_NEGLIGENT_DRIVING",
+      "type": "PENAL_OFFENSE",
+      "act": "Bharatiya Nyaya Sanhita, 2023 (BNS)",
+      "section": "Section 106",
+      "title": "Causing Death or Grievous Injury by Rash and Negligent Act",
+      "operative_text": "Whoever causes the death of any person by doing any rash or negligent act not amounting to culpable homicide, shall be punished with imprisonment of either description for a term which may extend to five years, and shall also be liable to fine.",
+      "keywords": ["accident", "collision", "hit and run", "truck hit", "rash driving", "speeding crash", "pedestrian hit"],
+      "penalty": "Imprisonment up to 5 years (up to 10 years for failure to report in hit-and-run)."
+    },
+    {
+      "id": "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+      "type": "STATUTE_PROTECTION",
+      "act": "Motor Vehicles Act, 1988 (Amended 2019)",
+      "section": "Section 166",
+      "title": "Application for Compensation before Motor Accidents Claims Tribunal (MACT)",
+      "operative_text": "An application for compensation arising out of an accident involving death of or bodily injury to persons, or damage to any property of a third party, may be made by the victim or legal representatives before the MACT within six months.",
+      "keywords": ["mact claim", "vehicle accident compensation", "third party claim", "permanent disability", "loss of income"],
+      "remedy_summary": "Statutory Third-Party insurance claim payout covering medical expenses, income loss, and pain and suffering."
+    },
+    {
+      "id": "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY",
+      "type": "PROCEDURAL_MANDATE",
+      "act": "Motor Vehicles Act, 1988 (Amended 2019)",
+      "section": "Section 134",
+      "title": "Duty of Driver in Case of Accident and Injury",
+      "operative_text": "The driver of the motor vehicle shall take all reasonable steps to secure medical attention for the injured person and report the accident to the nearest police station within twenty-four hours.",
+      "keywords": ["accident duty", "medical help", "police intimation", "first accident report", "far"],
+      "remedy_summary": "Mandatory compliance step preserving insurance indemnity and avoiding criminal liability."
+    },
+    {
+      "id": "STATUTE_RERA_SEC_18_DELAY_REFUND",
+      "type": "STATUTE_PROTECTION",
+      "act": "Real Estate (Regulation and Development) Act, 2016 (RERA)",
+      "section": "Section 18",
+      "title": "Return of Amount and Compensation for Delayed Possession",
+      "operative_text": "If the promoter fails to complete or is unable to give possession of an apartment in accordance with the terms of the agreement for sale, the promoter shall be liable on demand to the allottees to return the amount received with interest at SBI highest marginal lending rate plus 2%.",
+      "keywords": ["builder delay", "flat possession", "rera refund", "construction stalled", "occupancy certificate", "developer interest"],
+      "remedy_summary": "Right to claim 100% refund with SBI MCLR + 2% compound interest or monthly delay interest until handover."
+    },
+    {
+      "id": "STATUTE_MSMED_SEC_15_16_INTEREST",
+      "type": "STATUTE_PROTECTION",
+      "act": "Micro, Small and Medium Enterprises Development Act, 2006 (MSMED)",
+      "section": "Section 15 & Section 16",
+      "title": "Mandatory 45-Day Payment & Compound Interest at Three Times RBI Rate",
+      "operative_text": "Where any buyer buys any goods or services from a micro or small enterprise, the buyer shall make payment on or before the agreed date, not exceeding forty-five days. If defaulted, the buyer is liable to pay compound interest with monthly rests at three times the bank rate notified by the Reserve Bank.",
+      "keywords": ["msme payment", "overdue invoice", "delayed payment", "vendor payment defaulted", "commercial buyer default", "msme samadhaan"],
+      "remedy_summary": "Statutory right to 3x RBI compound interest with monthly rests; non-tax-deductible for the defaulting buyer."
+    },
+    {
+      "id": "STATUTE_PAYMENT_OF_WAGES_SEC_15",
+      "type": "STATUTE_PROTECTION",
+      "act": "Payment of Wages Act, 1936",
+      "section": "Section 15",
+      "title": "Claims Arising Out of Deductions from Wages or Delay in Payment",
+      "operative_text": "Application may be presented to the Authority appointed by the State Government for direction to pay delayed wages along with compensation up to ten times the amount deducted.",
+      "keywords": ["salary unpaid", "wage theft", "contractor refused pay", "overtime not paid", "illegal salary cut", "majdoori"],
+      "remedy_summary": "Labor commissioner order for release of unpaid wages plus up to 10x penalty."
+    },
+    {
+      "id": "PROCEDURAL_BNSS_173_ZERO_FIR",
+      "type": "PROCEDURAL_MANDATE",
+      "act": "Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)",
+      "section": "Section 173(1)",
+      "title": "Mandatory Registration of First Information Report (Zero FIR)",
+      "operative_text": "Every information relating to the commission of a cognizable offence shall be recorded in writing by the officer in charge of a police station, irrespective of the area where the offence was committed (Zero FIR), and transferred to the jurisdictional station.",
+      "keywords": ["fir refused", "police not writing complaint", "zero fir", "thana refused", "cognizable report"],
+      "remedy_summary": "Police station cannot turn away victim citing jurisdictional boundaries; registration is statutorily mandatory."
+    },
+    {
+      "id": "PROCEDURAL_BNSS_173_3_SP_ESCALATION",
+      "type": "PROCEDURAL_MANDATE",
+      "act": "Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS)",
+      "section": "Section 173(3)",
+      "title": "Escalation to Superintendent of Police upon Refusal by Station Officer",
+      "operative_text": "Any person aggrieved by a refusal on the part of an officer in charge of a police station to record the information may send the substance of such information, in writing and by post, to the Superintendent of Police concerned.",
+      "keywords": ["sho refused", "complaint ignored", "sp letter", "superintendent of police escalation"],
+      "remedy_summary": "Direct registered post statutory escalation compelling investigation."
+    },
+    {
+      "id": "CONSTITUTION_ART_19_1_G_TRADE",
+      "type": "CONSTITUTIONAL_RIGHT",
+      "act": "Constitution of India",
+      "section": "Article 19(1)(g)",
+      "title": "Fundamental Right to Practice Any Profession, Trade or Business",
+      "operative_text": "All citizens shall have the right to practise any profession, or to carry on any occupation, trade or business, subject only to reasonable statutory regulation in the interest of the general public.",
+      "keywords": ["right to trade", "hawking right", "livelihood", "small business", "unlawful eviction"],
+      "remedy_summary": "Constitutional shield invalidating arbitrary administrative clampdowns on lawful vendors."
+    },
+    {
+      "id": "CONSTITUTION_ART_21_LIVELIHOOD",
+      "type": "CONSTITUTIONAL_RIGHT",
+      "act": "Constitution of India",
+      "section": "Article 21 (Precedent: Olga Tellis v. BMC)",
+      "title": "Right to Life Encompassing the Right to Livelihood and Shelter",
+      "operative_text": "No person shall be deprived of his life or personal liberty except according to procedure established by law. The Supreme Court in Olga Tellis held that the right to life includes the right to livelihood, which cannot be extinguished without fair procedure and rehabilitation.",
+      "keywords": ["slum demolition", "bulldozer without notice", "shelter eviction", "livelihood destruction"],
+      "remedy_summary": "Supreme Court doctrine prohibiting summary demolition without reasonable notice and rehabilitation."
+    },
+    {
+      "id": "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+      "type": "CONSTITUTIONAL_RIGHT",
+      "act": "Constitution of India",
+      "section": "Article 25",
+      "title": "Freedom of Conscience and Free Profession, Practice and Propagation of Religion",
+      "operative_text": "Subject to public order, morality and health, all persons are equally entitled to freedom of conscience and the right freely to profess, practise and propagate religion.",
+      "keywords": ["prayer meeting disrupted", "church attack", "mob threat at gathering", "religious freedom"],
+      "remedy_summary": "Absolute constitutional defense against vigilante or mob interference in lawful religious worship."
+    },
+    {
+      "id": "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+      "type": "EVIDENCE_PROTOCOL",
+      "act": "Bharatiya Sakshya Adhiniyam, 2023 (BSA)",
+      "section": "Section 63",
+      "title": "Admissibility of Electronic Records & Cryptographic Verification",
+      "operative_text": "Any information contained in an electronic record which is printed on a paper, stored, recorded or copied in optical or magnetic media shall be deemed to be also a document and shall be admissible in any proceedings, provided conditions of integrity, custody and contemporaneous recording are certified.",
+      "keywords": ["digital evidence", "audio recording proof", "sha256 hash", "timestamp proof", "court admissible record"],
+      "remedy_summary": "Cryptographically hashed contemporaneous voice recording is prima facie admissible evidence in Indian courts."
+    }
+  ],
+  "edges": [
+    {
+      "source": "STATUTE_STREET_VENDORS_SEC_3_3",
+      "target": "CONSTITUTION_ART_19_1_G_TRADE",
+      "relation": "CONSTITUTIONAL_ANCHOR",
+      "meaning": "Street vending protection draws constitutional authority from Article 19(1)(g)."
+    },
+    {
+      "source": "STATUTE_STREET_VENDORS_SEC_3_3",
+      "target": "PENAL_BNS_308_EXTORTION",
+      "relation": "PENALIZED_UNDER",
+      "meaning": "Official demanding money or threatening confiscation commits criminal extortion under BNS Section 308."
+    },
+    {
+      "source": "STATUTE_STREET_VENDORS_SEC_3_3",
+      "target": "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+      "relation": "EVIDENCE_PRESERVED_VIA",
+      "meaning": "Vendor's voice statement and video of seizure preserved as admissible electronic evidence under BSA Section 63."
+    },
+    {
+      "source": "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+      "target": "PENAL_BNS_318_CHEATING_FRAUD",
+      "relation": "PENALIZED_UNDER",
+      "meaning": "Digital loan app extortion and contact morphing constitute aggravated fraud under BNS Section 318(4)."
+    },
+    {
+      "source": "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+      "target": "STATUTE_RBI_DIGITAL_LENDING_2022",
+      "relation": "REGULATORY_COMPLIANCE",
+      "meaning": "Violates mandatory RBI digital lending regulations banning access to contacts and harassment."
+    },
+    {
+      "source": "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+      "target": "PROCEDURAL_BNSS_173_ZERO_FIR",
+      "relation": "PROCEDURE_MANDATED",
+      "meaning": "Cyber extortion is a cognizable cybercrime requiring immediate Zero FIR and cybercrime portal dispatch."
+    },
+    {
+      "source": "CONSTITUTION_ART_21_LIVELIHOOD",
+      "target": "PENAL_BNS_329_CRIMINAL_TRESPASS",
+      "relation": "PENALIZED_UNDER",
+      "meaning": "Unlawful demolition or encroachment without court decree constitutes criminal trespass."
+    },
+    {
+      "source": "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+      "target": "PROCEDURAL_BNSS_173_ZERO_FIR",
+      "relation": "PROCEDURE_MANDATED",
+      "meaning": "Disruption of peaceful religious assembly mandates immediate Zero FIR registration by police."
+    },
+    {
+      "source": "PROCEDURAL_BNSS_173_ZERO_FIR",
+      "target": "PROCEDURAL_BNSS_173_3_SP_ESCALATION",
+      "relation": "ESCALATION_PATH",
+      "meaning": "If police station refuses Zero FIR, mandatory escalation to Superintendent of Police via registered post."
+    },
+    {
+      "source": "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+      "target": "PENAL_BNS_106_NEGLIGENT_DRIVING",
+      "relation": "PENALIZED_UNDER",
+      "meaning": "Third-party collision claim co-exists with criminal prosecution of offending driver under BNS Section 106."
+    },
+    {
+      "source": "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+      "target": "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY",
+      "relation": "PROCEDURAL_MANDATE",
+      "meaning": "Driver and victim must adhere to statutory 24-hour First Accident Report (FAR) intimation."
+    },
+    {
+      "source": "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+      "target": "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+      "relation": "EVIDENCE_PRESERVED_VIA",
+      "meaning": "Dashcam footage, roadside voice intake, and vehicle damage logs preserved under BSA Section 63."
+    },
+    {
+      "source": "STATUTE_MSMED_SEC_15_16_INTEREST",
+      "target": "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+      "relation": "EVIDENCE_PRESERVED_VIA",
+      "meaning": "Invoice delivery receipts, work orders, and email trails hashed for Samadhaan Council arbitration."
+    },
+    {
+      "source": "STATUTE_PAYMENT_OF_WAGES_SEC_15",
+      "target": "CONSTITUTION_ART_21_LIVELIHOOD",
+      "relation": "CONSTITUTIONAL_ANCHOR",
+      "meaning": "Unlawful denial of earned wages deprives worker of constitutional right to livelihood under Article 21."
+    }
+  ]
+}

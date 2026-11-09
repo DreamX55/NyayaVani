@@ -734,6 +734,22 @@
               <span class="text-[10px] font-mono px-2 py-0.5 rounded ${tagColor}">LIVE API CALL</span>
             </div>
 
+            <!-- Citizen Legality Verdict Card -->
+            ${data.legality_verdict && data.legality_verdict.status ? `
+              <div class="mb-4 p-4 rounded-2xl ${data.legality_verdict.is_lawful ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300' : 'bg-red-500/10 border-red-500/40 text-red-200'} border">
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded ${data.legality_verdict.is_lawful ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
+                    ${data.legality_verdict.is_lawful ? '✓ LAWFUL STANDING' : '⚖️ LEGALITY VERDICT: ' + data.legality_verdict.status.replace(/_/g, ' ')}
+                  </span>
+                </div>
+                <p class="text-xs font-medium leading-relaxed mb-2 text-white">${data.legality_verdict.verdict_summary}</p>
+                <div class="pt-2 border-t border-brand-border/40 text-[11px] flex flex-col space-y-1.5">
+                  <div class="text-gray-300"><strong class="text-amber-400 font-mono">YOUR LEGAL STANDING:</strong> ${data.legality_verdict.citizen_standing}</div>
+                  <div class="text-gray-300"><strong class="text-cyan-400 font-mono">OFFENDING PARTY LIABILITY:</strong> ${data.legality_verdict.violator_liability}</div>
+                </div>
+              </div>
+            ` : ''}
+
             <!-- Telemetry Details Strip -->
             <div class="mb-3 p-2 rounded-lg bg-[#11131a] border border-brand-border flex flex-wrap items-center justify-between gap-2">
               <div class="flex items-center space-x-3">

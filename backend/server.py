@@ -14,6 +14,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from backend.core.gnani_client import GnaniClient
 from backend.services.legal_engine import NyayaVaniEngine
+from backend.services.geo_service import GeoLanguageService
 
 app = FastAPI(title="NyayaVani Legal AI", version="3.0.0")
 
@@ -76,6 +77,12 @@ async def get_system_status():
             "reasoning": "Evon 30B MoE"
         }
     }
+
+@app.get("/api/geo/resolve")
+async def resolve_geo(city: Optional[str] = "delhi", lat: Optional[float] = None, lon: Optional[float] = None):
+    coords = (lat, lon) if lat is not None and lon is not None else None
+    profile = GeoLanguageService.resolve_city_profile(city or "delhi", coords=coords)
+    return profile
 
 @app.get("/api/presets")
 async def get_presets():
@@ -156,13 +163,19 @@ async def chat_text(req: ChatRequest):
     case_meta["client_name"] = req.client_name
     case_meta["location"] = req.location
 
-    # 1. Process through legal reasoning engine
+    # 1. Resolve City & Dynamic Language
+    city_prof = GeoLanguageService.resolve_city_profile(req.location or "India")
+    detected_lang, detected_voice = GeoLanguageService.adapt_language_from_text(
+        req.message, current_lang=city_prof["primary_language"]
+    )
+    target_voice = req.voice if (req.voice and req.voice != "Shivani") else detected_voice
+    lang = detected_lang
+
+    # 2. Process through Legal GraphRAG reasoning engine
     case_res = engine.process_case(req.message, suite_tier=req.tier, meta=case_meta)
 
-    # 2. Live Gnani Timbre TTS API Call using X-API-Key-ID
+    # 3. Live Gnani Timbre TTS API Call using X-API-Key-ID
     shield_text = case_res.get("spoken_rights_shield_hi") or case_res.get("spoken_guidance_en", "")
-    target_voice = req.voice or "Shivani"
-    lang = "hi-IN" if case_res.get("tier") == "BHARAT_GRASSROOTS_AID" else "en-IN"
 
     audio_filename = f"tts_live_{int(time.time() * 1000)}.wav"
     audio_path = os.path.join("audio_samples", audio_filename)
@@ -193,6 +206,7 @@ async def chat_text(req: ChatRequest):
         "api_mode": "LIVE_GNANI_API_CALL",
         "category": case_res.get("category"),
         "tier": case_res.get("tier"),
+        "legality_verdict": case_res.get("legality_verdict", {}),
         "statutory_title": case_res.get("statutory_title"),
         "statutory_sections": case_res.get("statutory_sections", []),
         "spoken_text": shield_text,
