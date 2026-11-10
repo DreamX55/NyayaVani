@@ -1,2611 +1,782 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="free">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator</title>
-  <!-- Google Fonts: Inter, Cinzel & JetBrains Mono -->
+  <title>NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator & Autonomous Incident Suite</title>
+  
+  <!-- Typography: Cinzel, Syne, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              black: '#05070b',
-              dark: '#0a0d14',
-              surface: '#0e121d',
-              surface2: '#161c2c',
-              border: '#1e2536',
-              borderHover: '#334155',
-              accent: '#d97706',
-              gold: '#f59e0b',
-              emerald: '#10b981',
-              azure: '#2563eb',
-              cyan: '#0ea5e9'
-            }
-          },
-          fontFamily: {
-            cinzel: ['Cinzel', 'serif'],
-            syne: ['Syne', 'sans-serif'],
-            inter: ['Inter', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
+  
+  <!-- NyayaVani Modular Design System -->
+  <link rel="stylesheet" href="/static/css/theme.css">
   <style>
-    /* Explicit Typographic Hierarchy for Impeccable Quality Floor */
-    body { font-size: 15px; line-height: 1.6; }
-    h1 { font-size: 30px; line-height: 1.2; font-weight: 700; }
-    h2 { font-size: 22px; line-height: 1.3; font-weight: 700; }
-    h3 { font-size: 17px; line-height: 1.4; font-weight: 600; }
-
-    /* Custom sleek dark scrollbars */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #05070b; }
-    ::-webkit-scrollbar-thumb { background: #1e2536; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #d97706; }
-    
-    /* Dynamic Tier Color Systems */
-    body[data-tier="BHARAT_GRASSROOTS_AID"] {
-      --tier-primary: #0ea5e9;       /* Coral Blue */
-      --tier-text-ivory: #fffff0;    /* Ivory White */
-      --tier-accent: #a855f7;        /* Electric Purple Accent */
-      --tier-surface: #0a1324;
-      --tier-border: rgba(14, 165, 233, 0.28);
+    .hero-gradient-text {
+      background: var(--hero-headline);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    body[data-tier="BHARAT_GRASSROOTS_AID"] ::selection {
-      background: #a855f7;
-      color: #fffff0;
-    }
-    body[data-tier="ENTERPRISE_LEGAL_SUITE"] {
-      --tier-primary: #f59e0b;       /* Gold */
-      --tier-black: #05070b;         /* Black */
-      --tier-accent: #10b981;        /* Emerald Accent */
-      --tier-surface: #0e111a;
-      --tier-border: rgba(245, 158, 11, 0.3);
-    }
-    body[data-tier="ENTERPRISE_LEGAL_SUITE"] ::selection {
-      background: #f59e0b;
-      color: #05070b;
-    }
-    /* Glow utilities for accent highlights */
-    .glow-purple {
-      box-shadow: 0 0 16px -2px rgba(168, 85, 247, 0.35);
-    }
-    .glow-emerald {
-      box-shadow: 0 0 16px -2px rgba(16, 185, 129, 0.35);
-    }
-
-    /* Smooth spring glide transitions */
-    .spring-glide {
-      transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* Ambient breath for background glow */
-    @keyframes ambient-glow {
-      0%, 100% { opacity: 0.18; transform: scale(1); }
-      50% { opacity: 0.32; transform: scale(1.08); }
-    }
-    .ambient-pulse {
-      animation: ambient-glow 6s ease-in-out infinite;
-    }
-
-    /* Live recording pulse border */
-    .rec-pulse {
-      animation: recording-ring 1.5s infinite;
-    }
-    @keyframes recording-ring {
-      0%, 100% { border-color: rgba(239, 68, 68, 0.6); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7); }
-      50% { border-color: rgba(239, 68, 68, 1); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.9); }
-    }
-
-    /* Glass card frost */
-    .glass-card {
-      background: rgba(14, 18, 29, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid #1e2536;
-    }
-
-    /* Print Styles for Legal Package & Formal Notice */
-    @media print {
-      body { background: #ffffff !important; color: #000000 !important; }
-      header, #orb-container, #fact-edit-modal, #transcript-review-modal, #presets-modal, .rec-pulse, button, a[href^="tel:"] {
-        display: none !important;
-      }
-      #app-workspace {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important;
-      }
-      #companion-pane {
-        display: block !important;
-        width: 100% !important;
-        border: none !important;
-        background: #ffffff !important;
-        overflow: visible !important;
-        height: auto !important;
-      }
-      #messages-container {
-        overflow: visible !important;
-        height: auto !important;
-        padding: 0 !important;
-      }
-      .glass-card, .bg-brand-dark, .bg-brand-surface2 {
-        background: #ffffff !important;
-        color: #000000 !important;
-        border: 1px solid #cccccc !important;
-        box-shadow: none !important;
-      }
-      .text-slate-100, .text-slate-200, .text-slate-300, .text-slate-400, .text-amber-400, .text-cyan-300 {
-        color: #000000 !important;
-      }
+    /* Fixed Workspace Layout & Viewport Lock */
+    #chat-section {
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
     }
   </style>
 </head>
-<body data-tier="BHARAT_GRASSROOTS_AID" class="bg-brand-black text-slate-100 font-inter antialiased h-screen max-h-screen flex flex-col relative overflow-hidden">
-
-  <!-- Ambient Dynamic Lighting Layer -->
-  <div id="ambient-backdrop" class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div id="ambient-core-1" class="absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-sky-900/20 ambient-pulse"></div>
-    <div id="ambient-core-2" class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-amber-900/15 ambient-pulse" style="animation-delay: -3s;"></div>
-  </div>
+<body class="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-app)]">
 
   <!-- ======================================================== -->
-  <!-- TOP NAVIGATION BAR (SOVEREIGN LEGAL SUITE)                -->
+  <!-- 1. CLEANED-UP HERO LANDING / ENTRY PAGE                  -->
   <!-- ======================================================== -->
-  <header class="h-16 border-b border-brand-border bg-brand-black/90 backdrop-blur px-4 lg:px-8 flex items-center justify-between z-30 shrink-0 relative">
-    <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToImmersionView()">
-      <div class="w-8 h-8 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-sm shadow-sm">
-        ⚖️
-      </div>
-      <div>
-        <div class="flex items-center space-x-2">
-          <span class="font-cinzel text-base md:text-lg font-bold tracking-wider text-white">NYAYAVANI</span>
-          <span class="font-mono text-xs text-amber-400 font-medium">[न्यायवाणी]</span>
-        </div>
-        <div id="header-subtitle" class="text-[10px] font-mono text-slate-400 hidden sm:block">Sovereign Indic Legal Voice Co-Pilot</div>
-      </div>
-    </div>
-
-    <!-- Center Tier & Language Selectors -->
-    <div class="flex items-center space-x-2 md:space-x-3">
-      <!-- Tier Selector -->
-      <div class="hidden md:flex items-center p-0.5 rounded-lg border border-brand-border bg-brand-surface text-xs font-mono">
-        <button id="btn-tier-free" onclick="setTier('BHARAT_GRASSROOTS_AID')" class="px-3 py-1.5 rounded-md text-amber-400 font-bold bg-amber-500/10 border border-amber-500/30 transition">
-          <span id="label-tier-free">🏛️ Grassroots</span>
-        </button>
-        <button id="btn-tier-pro" onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition">
-          <span id="label-tier-pro">💼 Pro Suite</span>
-        </button>
-      </div>
-
-      <!-- Spoken Language Dropdown -->
-      <div class="relative">
-        <label for="select-language" class="sr-only">Spoken Language</label>
-        <select id="select-language" onchange="onLanguageChanged(this.value)" class="bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white px-3 py-1.5 focus:border-amber-500 outline-none cursor-pointer">
-          <option value="indic-auto">Auto detect</option>
-          <option value="hi-IN">Hindi (हिन्दी)</option>
-          <option value="mr-IN">Marathi (मराठी)</option>
-          <option value="en-IN">English</option>
-          <option value="ta-IN">Tamil (தமிழ்)</option>
-          <option value="te-IN">Telugu (తెలుగు)</option>
-          <option value="bn-IN">Bengali (বাংলা)</option>
-          <option value="gu-IN">Gujarati (ગુજરાતી)</option>
-          <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
-          <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
-        </select>
-      </div>
-
-      <!-- Voice Persona Dropdown -->
-      <div class="relative hidden lg:block">
-        <label for="select-voice" class="sr-only">Spoken Voice Persona</label>
-        <select id="select-voice" class="bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-slate-300 px-3 py-1.5 focus:border-amber-500 outline-none cursor-pointer">
-          <option value="Shivani">Shivani (Hindi - Rights Shield)</option>
-          <option value="Vasudha">Vasudha (Marathi - अस्खलित)</option>
-          <option value="Avinash">Avinash (Clear English & Incident)</option>
-          <option value="Lakshmi">Lakshmi (Telugu / Conversational)</option>
-          <option value="Kalpana">Kalpana (Tamil - தமிழ்)</option>
-          <option value="Chetana">Chetana (Kannada - ಕನ್ನಡ)</option>
-          <option value="Riyaa">Riyaa (Bengali - বাংলা)</option>
-          <option value="Tarika">Tarika (Gujarati & Punjabi)</option>
-          <option value="Harshad">Harshad (Indic Bar Counsel)</option>
-          <option value="Shubham">Shubham (Clear Hindi Guidance)</option>
-          <option value="Prakash">Prakash (Deep Resonant Voice)</option>
-          <option value="Devansh">Devansh (Articulate Legal Voice)</option>
-          <option value="Yashraj">Yashraj (Formal Legal Tone)</option>
-        </select>
-      </div>
-
-      <!-- Shared Phone Privacy Checkbox -->
-      <div class="hidden xl:flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-brand-surface border border-brand-border text-[11px] font-mono text-cyan-400">
-        <input type="checkbox" id="shared-device-protect" class="rounded accent-cyan-400 cursor-pointer">
-        <label for="shared-device-protect" class="cursor-pointer" title="Requires explicit tap before playing sensitive legal voice aloud">🛡️ Private Audio</label>
-      </div>
-    </div>
-
-    <!-- Right Controls: Status & DPDP Purge -->
-    <div class="flex items-center space-x-2">
-      <div class="hidden sm:flex items-center space-x-1.5 text-xs font-mono text-slate-400 px-2.5 py-1 rounded-md border border-brand-border bg-brand-surface">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span id="chat-api-status" class="text-[11px] text-emerald-400 font-semibold">Online</span>
-        <span id="nav-api-status" class="hidden">Service Ready</span>
-        <span id="sidebar-key-status" class="hidden">Active</span>
-      </div>
-      <button onclick="openPresetsModal()" class="px-2.5 py-1.5 text-xs font-mono rounded-lg border border-brand-border bg-brand-surface hover:bg-brand-surface2 text-slate-300 hover:text-white transition" title="View example questions">
-        <span id="btn-examples-label">Examples</span>
-      </button>
-      <button id="btn-purge-session" onclick="purgeSessionData()" title="Purge cached session audio and packets (DPDP compliance)" class="px-2.5 py-1.5 text-xs font-mono rounded-lg border border-red-500/30 text-red-400 hover:bg-red-500/10 transition">
-        <span id="btn-purge-label">Purge</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- ======================================================== -->
-  <!-- MAIN WORKSPACE: IMMERSIVE FULL-SCREEN ORB TO DOSSIER      -->
-  <!-- ======================================================== -->
-  <main id="app-workspace" class="flex-1 flex flex-col lg:flex-row overflow-hidden relative z-10 min-h-0 h-[calc(100vh-4rem)]">
-
-    <!-- ---------------------------------------------------- -->
-    <!-- LEFT PANEL / HERO: THE LIVING CHROMATIC NEBULA ORB   -->
-    <!-- ---------------------------------------------------- -->
-    <section id="orb-container" class="spring-glide w-full flex flex-col justify-between items-center p-6 lg:p-8 relative h-full overflow-hidden shrink-0">
+  <section id="landing-section" class="relative min-h-screen flex flex-col justify-between themed-grid-bg themed-glow-radial px-6 md:px-16 pt-8 pb-12 border-b border-[var(--border-subtle)]">
+    
+    <!-- Top Nav -->
+    <header class="flex items-center justify-between py-3.5 px-6 themed-glass rounded-full max-w-7xl mx-auto w-full shadow-sm z-20">
       
-      <!-- Top Sub-Header Pill -->
-      <div id="orb-header-pill" class="w-full max-w-xl flex items-center justify-between mb-4">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-brand-border bg-brand-surface/80 text-[11px] font-mono text-slate-300">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span id="orb-pill-text">SOVEREIGN LIVING LIGHT ORB</span>
+      <!-- Top Left: Animated NyayaVani Logo -->
+      <a href="#landing-section" class="logo-container" aria-label="NyayaVani Home">
+        <div class="logo-badge">
+          <div class="soundwave-ring"></div>
+          <svg class="logo-svg text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="3" x2="12" y2="21"></line>
+            <path d="M4 7l8-2 8 2"></path>
+            <path d="M4 7v6a4 4 0 0 0 8 0V5"></path>
+            <path d="M12 5v8a4 4 0 0 0 8 0V7"></path>
+            <circle cx="12" cy="3" r="1.5"></circle>
+          </svg>
         </div>
-        <button id="btn-reset-session" onclick="clearChat()" class="text-xs font-mono text-slate-400 hover:text-white px-2.5 py-1 rounded-md border border-brand-border hover:bg-brand-surface transition" title="Start fresh conversation">
-          Reset
+        <div class="flex flex-col">
+          <span class="logo-text-title">NYAYAVANI <span class="logo-text-devanagari">[न्यायवाणी]</span></span>
+        </div>
+      </a>
+
+      <!-- Top Right: Mode Switch Slider + Action Controls -->
+      <div class="flex items-center space-x-3">
+        <!-- Free vs Pro Slider Switch -->
+        <div class="mode-slider-wrap" role="radiogroup" aria-label="Theme & Tier Switcher">
+          <button id="slider-btn-free" class="slider-tab-btn active" onclick="switchTheme('free')" title="Switch to Bharat Grassroots Aid (Free: Ivory + Coral Blue + Electric Purple)">
+            <span>🏛️ Free</span>
+          </button>
+          <button id="slider-btn-pro" class="slider-tab-btn" onclick="switchTheme('pro')" title="Switch to NyayaVani Pro Suite (Pro: Obsidian Black + Imperial Gold + Emerald)">
+            <span>💼 Pro</span>
+          </button>
+          <div class="mode-slider-pill"></div>
+        </div>
+
+        <!-- Purge Session Cache -->
+        <button onclick="NyayaVaniApp.purgeSession?.() || clearChat()" title="Purge session audio & cached drafts" class="hidden sm:inline-flex px-3 py-1.5 text-xs font-mono rounded-full border border-red-500/30 text-red-500 hover:bg-red-500/10 transition">
+          Purge
+        </button>
+
+        <!-- Enter Legal Chat CTA -->
+        <button id="btn-top-cta" onclick="enterChatFlow()" class="cta-primary-btn py-2 px-4 text-xs rounded-full">
+          <span>Enter Legal Chat</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Center -->
+    <div class="max-w-4xl mx-auto text-center my-auto py-12 md:py-20">
+      
+      <!-- Value Proposition Badge with Multilingual Rotating Capsule (Cycles every 2.5s) -->
+      <div class="hero-contrast-badge mb-8">
+        <span class="pulse-indicator-contrast"></span>
+        <div id="capsule-scroller" class="capsule-scroller">
+          <div id="capsule-track" class="capsule-text-track">
+            <span class="capsule-item">VOICE LEGAL GUIDANCE · BUILT FOR BHARAT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Headline with Atmospheric Glowing Emergence -->
+      <h1 id="hero-headline" class="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-8 hero-title-glow hero-title-glowing">
+        <span id="hero-title-line1" class="text-[var(--text-primary)]">Tell your story.</span><br>
+        <span id="hero-title-line2" class="hero-gradient-text">Understand your next step.</span>
+      </h1>
+
+      <!-- Plain Language Description with Typewriter Emergence -->
+      <p id="hero-subtext" class="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed font-light min-h-[5.5rem] sm:min-h-[4.5rem]">
+        <span id="hero-subtext-content"></span><span id="hero-subtext-cursor" class="typewriter-cursor">|</span>
+      </p>
+
+      <!-- Primary Action Button: Single Direct CTA -->
+      <div class="flex items-center justify-center mb-16">
+        <button id="hero-main-cta" onclick="startVoiceChatFlow()" class="cta-primary-btn py-4 px-9 text-sm w-full sm:w-auto shadow-lg">
+          <span>START WITH YOUR VOICE</span>
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
         </button>
       </div>
 
-      <!-- CENTER: THE LIVING CHROMATIC NEBULA CANVAS -->
-      <div id="orb-center-wrapper" class="my-auto py-4 flex flex-col items-center justify-center relative w-full">
-        <!-- Interactive Multi-Layer Canvas (Nebula Liquid Light + Stardust) -->
-        <div class="relative cursor-pointer group" onclick="toggleMicrophone()" role="button" aria-label="Tap sphere to speak your story" title="Tap to talk with NyayaVani">
-          <canvas id="nebula-canvas" width="340" height="340" class="transition-transform duration-300 group-hover:scale-105 active:scale-95 touch-manipulation"></canvas>
+      <!-- Human-Centric Feature Highlights -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left font-mono text-xs">
+        <div class="p-4 rounded-xl border border-[var(--primary-border)] bg-[var(--bg-card)] shadow-sm">
+          <div class="text-[var(--primary)] uppercase font-bold">// SPOKEN GUIDANCE</div>
+          <div class="text-sm font-bold text-[var(--primary-text)] mt-1">Rights in your language</div>
+          <div class="text-[11px] text-[var(--text-secondary)] mt-0.5">Listen to your options aloud</div>
+        </div>
+        <div class="p-4 rounded-xl border-2 border-[var(--accent)] bg-[var(--accent-subtle)] shadow-sm">
+          <div class="text-[var(--accent)] uppercase font-bold">// IMMEDIATE STEPS</div>
+          <div class="text-sm font-bold text-[var(--accent)] mt-1">Clear Action Plan</div>
+          <div class="text-[11px] text-[var(--text-secondary)] mt-0.5">Prioritized next steps</div>
+        </div>
+        <div class="p-4 rounded-xl border border-[var(--primary-border)] bg-[var(--bg-card)] shadow-sm">
+          <div class="text-[var(--primary)] uppercase font-bold">// FORMAL DRAFTS</div>
+          <div class="text-sm font-bold text-[var(--primary-text)] mt-1">Reviewable Notices</div>
+          <div class="text-[11px] text-[var(--text-secondary)] mt-0.5">Ready for legal review</div>
+        </div>
+        <div class="p-4 rounded-xl border-2 border-[var(--accent)] bg-[var(--accent-subtle)] shadow-sm">
+          <div class="text-[var(--accent)] uppercase font-bold">// PRIVACY SAFE</div>
+          <div class="text-sm font-bold text-[var(--accent)] mt-1">Zero Training Retention</div>
+          <div class="text-[11px] text-[var(--text-secondary)] mt-0.5">Ephemeral processing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Feature Overview Grid -->
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+      <div class="p-5 themed-card border-t-4 border-t-[var(--primary)]">
+        <div class="text-[var(--primary)] font-mono text-xs mb-2 font-bold">[01] // LOUDSPEAKER SHIELD</div>
+        <h3 class="font-syne text-base font-bold text-[var(--text-primary)] mb-1.5">Spoken Rights Guidance</h3>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Generates spoken explanations of constitutional and statutory protections in everyday words.</p>
+      </div>
+
+      <div class="p-5 themed-card-contrast border-t-4 border-t-[var(--accent)]">
+        <div class="text-[var(--accent)] font-mono text-xs mb-2 font-bold">[02] // EVIDENCE LOCKER</div>
+        <h3 class="font-syne text-base font-bold text-[var(--text-primary)] mb-1.5">Transcript Integrity</h3>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Computes cryptographic fingerprints of your statement so timeline integrity is preserved.</p>
+      </div>
+
+      <div class="p-5 themed-card border-t-4 border-t-[var(--primary)]">
+        <div class="text-[var(--primary)] font-mono text-xs mb-2 font-bold">[03] // CITIZEN DRAFTS</div>
+        <h3 class="font-syne text-base font-bold text-[var(--text-primary)] mb-1.5">Structured Complaints</h3>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Converts voice testimony into formal representation letters and official complaint drafts.</p>
+      </div>
+
+      <div class="p-5 themed-card-contrast border-t-4 border-t-[var(--accent)]">
+        <div class="text-[var(--accent)] font-mono text-xs mb-2 font-bold">[04] // PRO TRIAGE</div>
+        <h3 class="font-syne text-base font-bold text-[var(--text-primary)] mb-1.5">Incident & Claim Packets</h3>
+        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">Prepares collision summaries, evidence checklists, and insurer drafts for sign-off.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 2. UNIFIED WORKSPACE SECTION                             -->
+  <!-- ======================================================== -->
+  <section id="chat-section" class="relative flex flex-col md:flex-row bg-[var(--bg-app)] border-t border-[var(--border-subtle)]">
+    
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR: LIVING CHROMATIC SPHERE & CONTROLS         -->
+    <!-- (Fixed & Anchored — Never Scrolls)                      -->
+    <!-- ======================================================== -->
+    <aside id="orb-container" class="w-full md:w-80 lg:w-[380px] bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] flex flex-col justify-between p-5 shadow-sm shrink-0 overflow-y-auto z-10">
+      <div>
+        <!-- Sidebar Brand & Navigation -->
+        <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="pulse-indicator-contrast"></span>
+            <span class="font-cinzel font-bold text-sm text-[var(--text-primary)]">NYAYAVANI</span>
+            <span id="sidebar-tier-badge" class="contrast-badge text-[10px]">BHARAT AID</span>
+          </div>
+          <button onclick="scrollToLanding()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] flex items-center space-x-1 transition">
+            <span>↑ Overview</span>
+          </button>
         </div>
 
-        <!-- Dynamic Status Text -->
-        <div class="mt-4 text-center">
-          <div id="orb-status-text" class="text-base sm:text-lg font-bold tracking-wide text-white transition-colors duration-300">
-            Tap sphere to speak your story
-          </div>
-          <div id="orb-sub-text" class="text-xs font-mono text-slate-400 mt-1">
-            बोलिए अपनी समस्या · सांगा तुमची तक्रार · Speak freely
+        <!-- Interactive Living Chromatic Sphere (Orb) Canvas -->
+        <div class="relative w-full h-[220px] rounded-2xl overflow-hidden bg-[var(--bg-card)] border border-[var(--border-subtle)] mb-4 flex items-center justify-center shadow-sm">
+          <canvas id="orb-canvas" class="w-full h-full cursor-pointer" onclick="toggleMicrophone()" title="Tap sphere to start voice recording"></canvas>
+          <div class="sphere-glow-ring w-44 h-44"></div>
+          
+          <!-- Live Voice State Indicator on Canvas -->
+          <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/60 backdrop-blur border border-[var(--border-subtle)] text-[10px] font-mono font-bold flex items-center space-x-1.5 text-white shadow-md">
+            <span id="orb-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="orb-status-text">Living Voice Sphere · Ready</span>
           </div>
         </div>
 
-        <!-- Live Audio Recording Toast / Countdown (Embedded & Preserved) -->
-        <div id="recording-toast" role="alert" aria-live="assertive" class="hidden mt-4 w-full max-w-sm p-3.5 rounded-2xl rec-pulse border-2 border-red-500 bg-[#170808]/95 backdrop-blur text-white shadow-2xl">
+        <!-- Voice Controls & Playback Speed Pills -->
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] mb-4">
+          <div class="flex items-center space-x-1.5">
+            <button onclick="toggleMicrophone()" id="orb-mic-btn" class="cta-primary-btn py-1.5 px-3 text-xs rounded-lg flex items-center space-x-1">
+              <span>🎙️</span>
+              <span>Tap to Talk</span>
+            </button>
+          </div>
+          <div class="flex items-center space-x-1">
+            <span class="text-[10px] font-mono text-[var(--text-muted)] mr-1">Speed:</span>
+            <button id="speed-08" onclick="setPlaybackSpeed(0.8)" class="px-2 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition">0.8x</button>
+            <button id="speed-10" onclick="setPlaybackSpeed(1.0)" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent)] text-white shadow-sm transition">1.0x</button>
+            <button id="speed-12" onclick="setPlaybackSpeed(1.2)" class="px-2 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition">1.2x</button>
+          </div>
+        </div>
+
+        <!-- Mode Selector Switcher (Synced with top slider) -->
+        <div class="mb-4">
+          <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Operating Tier</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btn-tier-free" onclick="setTier('BHARAT_GRASSROOTS_AID')" class="p-2.5 text-left rounded-xl border-2 border-blue-600 bg-blue-50 text-slate-900 transition flex items-center justify-between shadow-sm">
+              <div>
+                <div class="font-bold text-xs">🏛️ Grassroots</div>
+                <div class="text-[10px] text-slate-500">Free / Voice First</div>
+              </div>
+              <span class="text-[10px] text-white font-mono font-bold px-2 py-0.5 rounded-full bg-[#7C3AED]">ACTIVE</span>
+            </button>
+            <button id="btn-tier-pro" onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="p-2.5 text-left rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-slate-700 transition flex items-center justify-between">
+              <div>
+                <div class="font-bold text-xs">💼 Pro Suite</div>
+                <div class="text-[10px] text-slate-500">Autonomous Legal</div>
+              </div>
+              <span class="text-[10px] text-slate-400 font-mono">PRO</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Language & Voice Selection -->
+        <div class="space-y-3 mb-4">
+          <div>
+            <label for="select-language" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">Language / मातृभाषा</label>
+            <select id="select-language" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
+              <option value="indic-auto">Auto detect (स्वचालित पहचान)</option>
+              <option value="hi-IN">Hindi (हिंदी)</option>
+              <option value="mr-IN">Marathi (मराठी)</option>
+              <option value="gu-IN">Gujarati (ગુજરાતી)</option>
+              <option value="en-IN">English (Indian Legal)</option>
+              <option value="bn-IN">Bengali (বাংলা)</option>
+              <option value="ta-IN">Tamil (தமிழ்)</option>
+              <option value="te-IN">Telugu (తెలుగు)</option>
+              <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+              <option value="ml-IN">Malayalam (മലയാളം)</option>
+              <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="select-voice" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">Spoken Voice Persona</label>
+            <select id="select-voice" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
+              <option value="Shivani">Shivani (Hindi - Rights Shield)</option>
+              <option value="Vasudha">Vasudha (Marathi - अस्खलित मराठी)</option>
+              <option value="Tarika">Tarika (Gujarati & Punjabi)</option>
+              <option value="Kalpana">Kalpana (Tamil - தமிழ்)</option>
+              <option value="Lakshmi">Lakshmi (Telugu / Conversational)</option>
+              <option value="Chetana">Chetana (Kannada - ಕನ್ನಡ)</option>
+              <option value="Riyaa">Riyaa (Bengali - বাংলা)</option>
+              <option value="Avinash">Avinash (Corporate English / Legal)</option>
+            </select>
+          </div>
+
+          <div class="p-2.5 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent-border)]">
+            <label class="flex items-center space-x-2 text-xs font-mono text-[var(--accent)] cursor-pointer">
+              <input type="checkbox" id="shared-device-protect" checked class="rounded accent-[var(--accent)]">
+              <span class="font-bold">🛡️ Shared Device Privacy</span>
+            </label>
+            <p class="text-[10px] text-[var(--text-muted)] mt-1 leading-relaxed">
+              Safe on shared phones: requires tapping Play before speaking sensitive legal details aloud.
+            </p>
+          </div>
+        </div>
+
+        <!-- User Context: Complainant Name & Location -->
+        <div class="grid grid-cols-2 gap-2 mb-4">
+          <div>
+            <label for="input-client-name" class="block text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">Client Name</label>
+            <input type="text" id="input-client-name" placeholder="Name" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
+          </div>
+          <div>
+            <label for="input-location" class="block text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">Location</label>
+            <input type="text" id="input-location" placeholder="City, State" value="Pune, Maharashtra" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
+          </div>
+        </div>
+
+        <!-- Example Questions Sidebar -->
+        <div class="mb-4">
           <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-mono font-bold text-red-300">RECORDING IN PROGRESS</span>
-            <span id="record-countdown" class="text-xs font-mono font-extrabold text-amber-300 px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40">30s remaining</span>
+            <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider">Example Questions</label>
+            <button onclick="openPresetsModal()" class="text-[10px] font-mono text-[var(--accent)] hover:underline">View All</button>
           </div>
-          <div class="flex items-center justify-between text-[11px] font-mono text-slate-300 mb-1.5">
-            <span>Elapsed: <span id="record-timer" class="font-bold text-white">00:00</span> / 00:30</span>
+          <div id="presets-container" class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+            <!-- Dynamically populated via ui.js -->
           </div>
-          <div class="w-full bg-red-950 rounded-full h-1.5 overflow-hidden mb-2 border border-red-900/60">
-            <div id="record-progress" class="bg-red-500 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <!-- Emergency Helplines Card -->
+        <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-[11px] font-mono text-red-400">
+          <div class="font-bold text-red-500 mb-1 flex items-center space-x-1">
+            <span>🚨</span>
+            <span>Emergency Helplines</span>
+          </div>
+          <div>Police / Immediate Distress: <strong>112</strong></div>
+          <div>Cyber Fraud Helpline: <strong>1930</strong></div>
+          <div>Legal Aid (NALSA): <strong>15100</strong></div>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="pt-3 border-t border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+        <div class="flex items-center justify-between">
+          <span>Speech Service:</span>
+          <span id="sidebar-key-status" class="text-[var(--accent)] font-semibold truncate max-w-[120px]">Active</span>
+        </div>
+        <div class="flex items-center justify-between mt-0.5">
+          <span>Jurisdiction Engine:</span>
+          <span class="text-[var(--primary)] font-bold">Bharat Sovereign 2.0</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT COMPANION PANE: CHAT, PRO WORKSPACE & NOTICES      -->
+    <!-- (The ONLY Scrollable Container)                          -->
+    <!-- ======================================================== -->
+    <main id="companion-pane" class="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-[var(--bg-app)] relative">
+      
+      <!-- ======================================================== -->
+      <!-- 2A. FREE WORKSPACE VIEW (Voice Legal Chatbot)            -->
+      <!-- ======================================================== -->
+      <div id="free-workspace-view" class="flex-1 min-w-0 flex flex-col h-full overflow-hidden">
+        
+        <!-- Chat Header -->
+        <div class="h-14 border-b border-[var(--border-subtle)] flex items-center justify-between px-6 bg-[var(--bg-surface)] backdrop-blur z-10 shadow-sm shrink-0">
+          <div class="flex items-center space-x-3">
+            <div class="w-7 h-7 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] font-bold text-xs">
+              ⚖️
+            </div>
+            <div>
+              <span class="text-xs font-mono font-bold text-[var(--text-primary)] tracking-wider">NYAYAVANI ADVISOR</span>
+              <span id="chat-api-status" class="text-[10px] font-mono text-[var(--accent)] ml-2 font-bold">● LIVE CALL VERIFIED</span>
+            </div>
           </div>
           <div class="flex items-center space-x-2">
-            <button type="button" onclick="stopRecording()" class="flex-1 py-1.5 rounded-lg bg-white hover:bg-slate-200 text-black font-bold text-xs font-mono transition">
-              ⏹ Stop & Review
+            <button onclick="clearChat()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
+              Clear Chat
             </button>
-            <button type="button" onclick="cancelRecording()" class="px-3 py-1.5 rounded-lg border border-red-500/40 text-xs font-mono text-slate-300 hover:text-white transition">
+          </div>
+        </div>
+
+        <!-- Live Recording Toast / Countdown -->
+        <div id="recording-toast" role="alert" aria-live="assertive" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-11/12 max-w-lg p-4 rounded-2xl rec-pulse-banner border-2 border-red-500 bg-red-950/95 backdrop-blur-md text-white shadow-2xl">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+              <span class="text-xs font-mono font-bold tracking-wider text-red-200">LIVE AUDIO RECORDING IN PROGRESS</span>
+            </div>
+            <span id="record-countdown" class="text-xs font-mono font-extrabold text-amber-300 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40">30s remaining</span>
+          </div>
+          <div class="text-xs text-gray-200 mb-1.5 font-mono flex items-center justify-between">
+            <span>Elapsed: <span id="record-timer" class="font-bold text-white">00:00</span> / 00:30 (Max limit)</span>
+          </div>
+          <div class="w-full bg-red-900 rounded-full h-2 overflow-hidden mb-2.5">
+            <div id="record-progress" class="bg-gradient-to-r from-red-500 to-amber-400 h-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p class="text-[11px] text-gray-300 mb-3 leading-relaxed">
+            🔒 <em>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</em>
+          </p>
+          <div class="flex items-center space-x-3">
+            <button type="button" onclick="stopRecording()" class="flex-1 py-2 rounded-xl bg-white hover:bg-gray-100 text-black font-extrabold text-xs font-mono transition shadow-lg flex items-center justify-center space-x-1.5">
+              <span>⏹ Stop & Review Transcript</span>
+            </button>
+            <button type="button" onclick="cancelRecording()" class="px-4 py-2 rounded-xl border border-red-400/40 text-xs font-mono text-gray-200 hover:text-white hover:bg-red-900/50 transition">
               Cancel
             </button>
           </div>
         </div>
 
-        <!-- Below Sphere Controls: Repeat & Playback Speed -->
-        <div id="orb-controls-strip" class="mt-5 flex flex-wrap items-center justify-center gap-3 w-full max-w-md">
-          <!-- Replay Last Question / Summary Button -->
-          <button type="button"
-                  id="btn-repeat-orb"
-                  onclick="replayLatestPrompt()"
-                  class="flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-brand-border bg-brand-surface hover:bg-brand-surface2 text-slate-200 hover:text-white text-xs font-mono font-medium transition shadow-md active:scale-95 cursor-pointer"
-                  title="Repeat what NyayaVani just said">
-            <span class="text-sm">🔄</span>
-            <span id="btn-repeat-label">Repeat what it said</span>
-          </button>
-
-          <!-- Playback Speed Pills -->
-          <div class="flex items-center space-x-1 bg-brand-surface p-1 rounded-xl border border-brand-border">
-            <span id="speed-label" class="text-[10px] font-mono text-slate-400 px-1.5">Speed:</span>
-            <button type="button" onclick="setGlobalSpeed(0.85)" id="speed-pill-085" class="px-2 py-1 rounded-lg text-[10px] font-mono transition bg-brand-surface2 text-slate-300 hover:text-white">0.85x</button>
-            <button type="button" onclick="setGlobalSpeed(1.0)" id="speed-pill-100" class="px-2 py-1 rounded-lg text-[10px] font-mono transition bg-amber-500 text-black font-bold">1.0x</button>
-            <button type="button" onclick="setGlobalSpeed(1.15)" id="speed-pill-115" class="px-2 py-1 rounded-lg text-[10px] font-mono transition bg-brand-surface2 text-slate-300 hover:text-white">1.15x</button>
-          </div>
-        </div>
-
-        <!-- Initial Scenario Starter Cards (Immersion View Only) -->
-        <div id="immersion-scenario-grid" class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl w-full">
-          <button onclick="selectPreset('vendor')" class="p-3 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface/60 hover:bg-brand-surface text-left transition group">
-            <div class="text-xs font-bold text-amber-400 mb-0.5 flex items-center justify-between">
-              <span>🏛️ Street Vendor Eviction</span>
-              <span class="text-[10px] font-mono text-slate-500 group-hover:text-amber-400">Test →</span>
+        <!-- Messages Scroll Area (The ONLY scrollable container for chat) -->
+        <div id="messages-container" role="log" aria-live="polite" aria-label="Conversation" class="flex-1 overflow-y-auto px-4 md:px-8 py-8 space-y-6 max-w-4xl mx-auto w-full">
+          
+          <!-- Welcome Banner -->
+          <div id="welcome-banner" class="text-center py-10 px-6 rounded-3xl themed-card my-auto">
+            <div class="w-16 h-16 rounded-2xl bg-[var(--primary-subtle)] border-2 border-[var(--primary)] flex items-center justify-center text-3xl mx-auto mb-4 shadow-md text-[var(--primary)]" style="box-shadow: var(--gold-glow);">
+              ⚖️
             </div>
-            <div class="text-[11px] text-slate-400 leading-snug">"Municipality seized my fruit cart without 30-day notice..."</div>
-          </button>
-          <button onclick="selectPreset('wages')" class="p-3 rounded-xl border border-brand-border hover:border-emerald-500/60 bg-brand-surface/60 hover:bg-brand-surface text-left transition group">
-            <div class="text-xs font-bold text-emerald-400 mb-0.5 flex items-center justify-between">
-              <span>⚖️ Labor Wage Theft</span>
-              <span class="text-[10px] font-mono text-slate-500 group-hover:text-emerald-400">Test →</span>
-            </div>
-            <div class="text-[11px] text-slate-400 leading-snug">"Contractor withheld 3 months wages and threatens me..."</div>
-          </button>
-          <button onclick="selectPreset('loan')" class="p-3 rounded-xl border border-brand-border hover:border-sky-500/60 bg-brand-surface/60 hover:bg-brand-surface text-left transition group">
-            <div class="text-xs font-bold text-sky-400 mb-0.5 flex items-center justify-between">
-              <span>📱 Digital Loan Blackmail</span>
-              <span class="text-[10px] font-mono text-slate-500 group-hover:text-sky-400">Test →</span>
-            </div>
-            <div class="text-[11px] text-slate-400 leading-snug">"Instant loan app hacked contacts, sending morphed photos..."</div>
-          </button>
-          <button onclick="selectPreset('accident')" class="p-3 rounded-xl border border-brand-border hover:border-purple-500/60 bg-brand-surface/60 hover:bg-brand-surface text-left transition group">
-            <div class="text-xs font-bold text-purple-400 mb-0.5 flex items-center justify-between">
-              <span>🚗 Road Collision Triage</span>
-              <span class="text-[10px] font-mono text-slate-500 group-hover:text-purple-400">Test →</span>
-            </div>
-            <div class="text-[11px] text-slate-400 leading-snug">"Speeding vehicle hit me and fled, preparing insurance claim..."</div>
-          </button>
-        </div>
-      </div>
-
-      <!-- BOTTOM INPUT BAR: Accessible Typing & Alternative Mic Trigger -->
-      <div id="orb-bottom-bar" class="w-full max-w-xl pt-4 border-t border-brand-border/60">
-        <!-- Live Privacy Reassurance Notice -->
-        <p id="intake-privacy-notice" class="text-[11px] font-mono text-slate-400 mb-2 leading-relaxed">
-          🔒 Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.
-        </p>
-
-        <!-- Fallback Message Container -->
-        <div id="voice-fallback-msg" class="hidden text-xs font-mono text-amber-400 mb-2 p-2 rounded bg-amber-500/10 border border-amber-500/30">
-          Voice unavailable in this browser or network. You can type your account directly below.
-        </div>
-
-        <div class="relative bg-brand-surface border border-brand-border rounded-xl p-2 focus-within:border-amber-500/80 transition shadow-inner">
-          <label for="chat-input" class="sr-only">Type your legal problem</label>
-          <textarea id="chat-input" rows="2" placeholder="Tap sphere above to speak, or type here..." class="w-full bg-transparent text-sm text-slate-100 placeholder-slate-500 outline-none resize-none px-2.5 py-1.5 leading-relaxed"></textarea>
-
-          <div class="flex items-center justify-between pt-1.5 px-1 border-t border-brand-border/40">
-            <div class="flex items-center space-x-2">
-              <!-- Audio File Upload -->
-              <label class="cursor-pointer p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-brand-surface2 transition" title="Upload audio recording" aria-label="Upload audio recording">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-                <input type="file" id="audio-file-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(this)">
-              </label>
-
-              <!-- Mic Toggle Button (Accessible Alternative) -->
-              <button onclick="toggleMicrophone()" id="btn-mic" aria-label="Start voice recording" class="px-2.5 py-1 rounded-lg text-amber-400 hover:bg-amber-500/10 transition flex items-center space-x-1.5 text-xs font-mono">
-                <span>🎙️</span>
-                <span id="mic-label">Speak Answer</span>
-              </button>
-            </div>
-
-            <!-- Send Button -->
-            <button onclick="sendMessage()" id="btn-send" aria-label="Send your account" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono transition shadow-md flex items-center space-x-1">
-              <span id="btn-send-label">Send</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---------------------------------------------------- -->
-    <!-- RIGHT PANEL: DYNAMIC LEGAL DOSSIER & VERDICT CANVAS   -->
-    <!-- ---------------------------------------------------- -->
-    <section id="companion-pane" class="spring-glide hidden w-full lg:w-7/12 flex-col h-full overflow-hidden bg-brand-black/95 border-l border-brand-border min-h-0">
-      
-      <!-- Right Pane Header -->
-      <div class="h-12 border-b border-brand-border flex items-center justify-between px-6 bg-brand-surface/40 shrink-0">
-        <div class="flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-          <span id="dossier-header-title" class="text-xs font-mono font-bold tracking-wider text-slate-200 uppercase">Interactive Legal Dossier</span>
-        </div>
-        <div class="flex items-center space-x-3">
-          <div id="companion-status-badge" class="text-[11px] font-mono text-slate-400">
-            Awaiting input
-          </div>
-          <button type="button" onclick="clearChat()" class="px-2.5 py-1 rounded-lg text-xs font-mono text-amber-400 hover:text-amber-300 border border-amber-500/30 hover:bg-amber-500/10 transition flex items-center space-x-1 cursor-pointer" title="Start a fresh legal case">
-            <span>✨</span>
-            <span id="btn-newcase-label">New Case</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Messages & Dynamic Intelligence Canvas -->
-      <div id="messages-container" role="log" aria-live="polite" aria-label="Conversation and Legal Guidance" class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 min-h-0">
-        <!-- Dynamic cards injected via JavaScript -->
-      </div>
-    </section>
-  </main>
-
-  <!-- ======================================================== -->
-  <!-- MODALS & OVERLAYS                                        -->
-  <!-- ======================================================== -->
-
-  <!-- 1. TRANSCRIPT REVIEW & LANGUAGE OVERRIDE MODAL -->
-  <div id="transcript-review-modal" role="dialog" aria-modal="true" aria-label="Review Transcript" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-brand-dark border border-brand-border rounded-2xl max-w-xl w-full p-6 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-brand-border mb-4">
-        <h3 class="font-syne text-base font-bold text-white flex items-center space-x-2">
-          <span>Review & Edit Verified Transcript</span>
-        </h3>
-        <button onclick="discardTranscriptReview()" class="text-slate-400 hover:text-white text-lg">&times;</button>
-      </div>
-
-      <p class="text-xs text-slate-300 mb-3 leading-relaxed">
-        Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.
-      </p>
-
-      <!-- Language selector override in review -->
-      <div class="mb-3 flex items-center justify-between p-2.5 rounded-xl bg-brand-surface border border-brand-border">
-        <label for="review-lang-override" class="text-xs font-mono text-slate-300">Detected Language:</label>
-        <select id="review-lang-override" onchange="onReviewLanguageChanged(this.value)" class="bg-brand-dark border border-brand-border rounded-lg text-xs font-mono text-white px-2.5 py-1 focus:border-amber-500 outline-none">
-          <option value="indic-auto">Auto detect</option>
-          <option value="hi-IN">Hindi (हिन्दी)</option>
-          <option value="mr-IN">Marathi (मराठी)</option>
-          <option value="en-IN">English</option>
-          <option value="ta-IN">Tamil (தமிழ்)</option>
-          <option value="te-IN">Telugu (తెలుగు)</option>
-        </select>
-      </div>
-
-      <!-- Editable Textarea -->
-      <label for="reviewed-transcript" class="block text-[11px] font-mono text-slate-400 uppercase mb-1">Transcript (Editable):</label>
-      <textarea id="reviewed-transcript" rows="5" class="w-full bg-brand-surface border border-brand-border rounded-xl p-3 text-sm text-slate-100 placeholder-slate-500 focus:border-amber-500 outline-none resize-none mb-4 leading-relaxed"></textarea>
-
-      <div class="flex items-center justify-end space-x-3">
-        <button type="button" onclick="discardTranscriptReview()" class="px-4 py-2 rounded-xl border border-brand-border text-xs font-mono text-slate-300 hover:text-white hover:bg-brand-surface transition">
-          Discard
-        </button>
-        <button type="button" onclick="submitReviewedTranscript()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono transition shadow-md">
-          Confirm & Analyze Rights
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. FACT EDIT MODAL (FOR INLINE REVISION OF CATEGORY, DATE, PLACE, OPPONENT) -->
-  <div id="fact-edit-modal" role="dialog" aria-modal="true" aria-label="Edit Fact Detail" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-brand-dark border border-brand-border rounded-2xl max-w-md w-full p-6 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-brand-border mb-4">
-        <h3 id="fact-edit-title" class="font-syne text-sm font-bold text-white">
-          Edit Fact Detail
-        </h3>
-        <button onclick="closeFactEditModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
-      </div>
-      <p id="fact-edit-desc" class="text-xs text-slate-300 mb-3 leading-relaxed">
-        Update this detail so NyayaVani can refine your legal rights and applicable sections.
-      </p>
-      <input type="hidden" id="fact-edit-key" value="">
-      <input type="text" id="fact-edit-input" class="w-full bg-brand-surface border border-brand-border rounded-xl p-3 text-sm text-slate-100 focus:border-amber-500 outline-none mb-4">
-      <div class="flex items-center justify-end space-x-2">
-        <button type="button" onclick="closeFactEditModal()" class="px-4 py-2 rounded-xl border border-brand-border text-xs font-mono text-slate-300 hover:text-white">Cancel</button>
-        <button type="button" onclick="saveFactEdit()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono">Save Correction</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. PRESETS MODAL -->
-  <div id="presets-modal" role="dialog" aria-modal="true" aria-label="Example questions" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-brand-dark border border-brand-border rounded-2xl max-w-xl w-full p-6 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-brand-border mb-4">
-        <h3 class="font-syne text-base font-bold text-white flex items-center space-x-2">
-          <span>Choose an example scenario to test</span>
-        </h3>
-        <button onclick="closePresetsModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
-      </div>
-      <div id="modal-presets-list" class="space-y-2.5 max-h-96 overflow-y-auto pr-1">
-        <!-- Injected via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- CLIENT JAVASCRIPT: NEBULA SHADER, AUDIO & LEGAL INTAKE   -->
-  <!-- ======================================================== -->
-  <script>
-    // System State Variables
-    let activeTier = 'BHARAT_GRASSROOTS_AID';
-    const SESSION_STORAGE_KEY = 'nyayavani_session_token';
-    let inMemorySessionToken = null;
-    let lastInputModality = 'voice';
-    let currentLayoutView = 'immersion'; // 'immersion' | 'dossier'
-    let currentLang = 'en';
-
-    // ========================================================
-    // CENTRAL UI LOCALIZATION MATRIX (EN, HI, MR)
-    // ========================================================
-    const UI_LOCALES = {
-      en: {
-        headerTitle: 'NYAYAVANI',
-        headerTitleDevanagari: '[न्यायवाणी]',
-        headerSubtitle: 'Sovereign Indic Legal Voice Co-Pilot',
-        tierGrassroots: '🏛️ Grassroots',
-        tierPro: '💼 Pro Suite',
-        examples: 'Examples',
-        purge: 'Purge',
-        orbPill: 'SOVEREIGN LIVING LIGHT ORB',
-        reset: 'Reset',
-        orb: {
-          idle: {
-            title: 'Tap sphere to speak your story',
-            sub: 'बोलिए अपनी समस्या · सांगा तुमची तक्रार · Speak freely'
-          },
-          listening: {
-            title: 'Listening to you... speak freely',
-            sub: 'Speak clearly into microphone'
-          },
-          thinking: {
-            title: 'Analyzing legal provisions...',
-            sub: 'Synthesizing statutes & rights'
-          },
-          speaking: {
-            title: 'NyayaVani is speaking...',
-            sub: 'Listen to legal guidance'
-          }
-        },
-        repeatBtn: '🔄 Repeat what it said',
-        speedLabel: 'Speed:',
-        privacyNotice: '🔒 Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.',
-        chatPlaceholder: 'Tap sphere above to speak, or type here...',
-        micLabel: 'Speak Answer',
-        sendBtn: 'Send',
-        dossierTitle: 'Interactive Legal Dossier',
-        statusBadge: {
-          idle: 'Awaiting input',
-          listening: 'Listening...',
-          thinking: 'Analyzing...',
-          speaking: 'Speaking guidance'
-        },
-        newCase: '✨ New Case',
-        stageA: {
-          understood: 'What We Understood So Far',
-          editTranscript: '✏️ Edit Transcript',
-          detectedFacts: 'Detected Facts (tap any chip to change):',
-          category: 'Category',
-          date: 'Date',
-          location: 'Location',
-          opposingParty: 'Other Party',
-          currentQuestion: 'Current Targeted Question:',
-          speakAnswer: 'Speak Answer',
-          typePlaceholder: 'Or type answer here (Press Enter)...',
-          enterBtn: 'Enter'
-        },
-        stageB: {
-          card1Title: 'Drafted Formal Notice & Representation',
-          outboundDisabled: 'Outbound transmission disabled (Review only)',
-          approvedRoles: 'Approved Signoff Roles:',
-          roleClient: 'Client',
-          roleRep: 'Authorized Representative',
-          roleCounsel: 'Independent Legal Counsel',
-          signoffNotice: 'Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It creates an internal timestamped review record.',
-          copyText: '📋 Copy Text',
-          printPdf: '🖨️ Print / Save PDF',
-          card2Title: 'Understand Your Rights & Applicable Dhaara',
-          disclaimerNotAdvice: 'Draft Incident Summary for Review — Not Legal Advice',
-          citationsPending: 'Statutory citations pending advocate verification',
-          applicableStatutes: 'Applicable Statutes & Protective Sections:',
-          generalProtections: 'General legal protections under Indian law apply.',
-          listenRights: 'Listen to Rights',
-          recap1Min: '1-Min Recap',
-          replay: 'Replay',
-          card3Title: '1-Minute Action Recap & DLSA 15100 Legal Aid',
-          whatNext: '📌 What You Should Do Next',
-          preserveEvidence: 'Preserve all evidence, receipts, and witness contact information.',
-          dlsaTitle: '🏛️ DLSA National Legal Services Authority Helpline: 15100',
-          dlsaDesc: 'Toll-free 24x7 government legal aid for free advocate representation and legal defense.',
-          call15100: '📞 Call 15100',
-          policeHelpline: '📞 112 (Police)',
-          cyberHelpline: '📞 1930 (Cyber Crime)',
-          legalAidHelpline: '📞 15100 (Legal Aid)',
-          revisionPrompt: 'Need to change a detail or add facts?',
-          editDetails: '✏️ Edit Details',
-          orSpeak: 'or tap the sphere to speak.'
-        }
-      },
-      hi: {
-        headerTitle: 'NYAYAVANI',
-        headerTitleDevanagari: '[न्यायवाणी]',
-        headerSubtitle: 'संप्रभु भारतीय विधिक वॉयस सह-पायलट',
-        tierGrassroots: '🏛️ जमीनी सहायता',
-        tierPro: '💼 प्रो सुइट',
-        examples: 'उदाहरण',
-        purge: 'डेटा हटाएं',
-        orbPill: 'सजीव प्रकाश गोल',
-        reset: 'रीसेट',
-        orb: {
-          idle: {
-            title: 'बोलने के लिए गोले को स्पर्श करें',
-            sub: 'बोलिए अपनी समस्या · सांगा तुमची तक्रार · Speak freely'
-          },
-          listening: {
-            title: 'सुन रहे हैं... बोलिए',
-            sub: 'स्पष्ट आवाज में अपनी बात कहें'
-          },
-          thinking: {
-            title: 'कानूनी धाराओं का विश्लेषण कर रहे हैं...',
-            sub: 'अधिकार व प्रावधान तैयार हो रहे हैं'
-          },
-          speaking: {
-            title: 'न्यायवाणी बोल रही है...',
-            sub: 'विधिक परामर्श ध्यान से सुनें'
-          }
-        },
-        repeatBtn: '🔄 जो कहा वह दोहराएं',
-        speedLabel: 'गति:',
-        privacyNotice: '🔒 आपकी आवाज सुरक्षित रूप से ट्रांसक्राइब की जाती है। त्वरित विधिक सहायता के लिए ऑडियो केवल सत्र अवधि में उपयोग होता है।',
-        chatPlaceholder: 'बोलने के लिए ऊपर गोले को स्पर्श करें, या यहाँ लिखें...',
-        micLabel: 'बोलकर बताएं',
-        sendBtn: 'भेजें',
-        dossierTitle: 'संवादी विधिक दस्तावेज़',
-        statusBadge: {
-          idle: 'प्रतीक्षारत',
-          listening: 'सुन रहे हैं...',
-          thinking: 'विश्लेषण...',
-          speaking: 'मार्गदर्शन बोल रहे हैं'
-        },
-        newCase: '✨ नया केस',
-        stageA: {
-          understood: 'हमने अब तक क्या समझा',
-          editTranscript: '✏️ ट्रांसक्रिप्ट बदलें',
-          detectedFacts: 'पहचाने गए तथ्य (बदलने के लिए स्पर्श करें):',
-          category: 'श्रेणी',
-          date: 'दिनांक',
-          location: 'स्थान',
-          opposingParty: 'अन्य पक्ष',
-          currentQuestion: 'वर्तमान प्रश्न (उत्तर दें):',
-          speakAnswer: 'बोलकर बताएं',
-          typePlaceholder: 'या यहाँ उत्तर लिखें (Enter दबाएं)...',
-          enterBtn: 'दर्ज करें'
-        },
-        stageB: {
-          card1Title: 'प्रारूपित औपचारिक विधिक नोटिस एवं अभ्यावेदन',
-          outboundDisabled: 'बाह्य प्रेषण निष्क्रिय (केवल समीक्षा)',
-          approvedRoles: 'अनुमोदित हस्ताक्षरकर्ता भूमिकाएं:',
-          roleClient: 'ग्राहक (मुवक्किल)',
-          roleRep: 'अधिकृत प्रतिनिधि',
-          roleCounsel: 'स्वतंत्र विधिक परामर्शदाता',
-          signoffNotice: 'हस्ताक्षर करने से यह दस्तावेज पुलिस, बीमाकर्ता या न्यायालय को <strong>नहीं</strong> भेजा जाता। यह केवल एक आंतरिक समीक्षा रिकॉर्ड बनाता है।',
-          copyText: '📋 कॉपी करें',
-          printPdf: '🖨️ प्रिंट / PDF सहेजें',
-          card2Title: 'आपके कानूनी अधिकार एवं धाराएं',
-          disclaimerNotAdvice: 'Draft Incident Summary for Review — Not Legal Advice',
-          citationsPending: 'Statutory citations pending advocate verification',
-          applicableStatutes: 'लागू वैधानिक धाराएं एवं सुरक्षा प्रावधान:',
-          generalProtections: 'भारतीय कानून के तहत सामान्य कानूनी सुरक्षा लागू होती है।',
-          listenRights: 'अधिकार सुनें',
-          recap1Min: '1-मिनट सारांश',
-          replay: 'दोबारा सुनें',
-          card3Title: '1-मिनट कार्य सारांश एवं DLSA 15100 विधिक सहायता',
-          whatNext: '📌 आपको आगे क्या करना चाहिए',
-          preserveEvidence: 'सभी साक्ष्य, रसीदें और गवाहों के संपर्क विवरण सुरक्षित रखें।',
-          dlsaTitle: '🏛️ DLSA राष्ट्रीय विधिक सेवा प्राधिकरण हेल्पलाइन: 15100',
-          dlsaDesc: 'निःशुल्क वकील प्रतिनिधित्व एवं कानूनी सहायता हेतु 24x7 टोल-फ्री सरकारी हेल्पलाइन।',
-          call15100: '📞 15100 पर कॉल करें',
-          policeHelpline: '📞 112 (पुलिस)',
-          cyberHelpline: '📞 1930 (साइबर अपराध)',
-          legalAidHelpline: '📞 15100 (विधिक सहायता)',
-          revisionPrompt: 'क्या कोई विवरण बदलना है या तथ्य जोड़ने हैं?',
-          editDetails: '✏️ विवरण बदलें',
-          orSpeak: 'या बोलने के लिए गोले को स्पर्श करें।'
-        }
-      },
-      mr: {
-        headerTitle: 'NYAYAVANI',
-        headerTitleDevanagari: '[न्यायवाणी]',
-        headerSubtitle: 'सार्वभौम भारतीय कायदेशीर व्हॉइस सह-पायलट',
-        tierGrassroots: '🏛️ मूलभूत सहाय्य',
-        tierPro: '💼 प्रो सूट',
-        examples: 'उदाहरणे',
-        purge: 'माहिती हटवा',
-        orbPill: 'सजीव प्रकाश गोल',
-        reset: 'पुन्हा सुरू करा',
-        orb: {
-          idle: {
-            title: 'बोलण्यासाठी गोलाला स्पर्श करा',
-            sub: 'बोलिए अपनी समस्या · सांगा तुमची तक्रार · Speak freely'
-          },
-          listening: {
-            title: 'ऐकत आहे... बोला',
-            sub: 'मायक्रोफोनमध्ये स्पष्टपणे बोला'
-          },
-          thinking: {
-            title: 'कायदेशीर कलमांचे विश्लेषण करत आहे...',
-            sub: 'अधिकार आणि कलमे तपासत आहे'
-          },
-          speaking: {
-            title: 'न्यायवाणी बोलत आहे...',
-            sub: 'कायदेशीर सल्ला काळजीपूर्वक ऐका'
-          }
-        },
-        repeatBtn: '🔄 पुन्हा ऐका',
-        speedLabel: 'गती:',
-        privacyNotice: '🔒 तुमचा आवाज सुरक्षितपणे रूपांतरित केला जातो. ऑडिओ केवळ तात्पुरता प्रक्रिया केला जातो. आपण कायदेशीर तपासणीपूर्वी मजकूर सुधारू शकता.',
-        chatPlaceholder: 'बोलण्यासाठी वर गोलाला स्पर्श करा, किंवा येथे लिहा...',
-        micLabel: 'बोलून सांगा',
-        sendBtn: 'पाठवा',
-        dossierTitle: 'संवादी कायदेशीर दस्तऐवज',
-        statusBadge: {
-          idle: 'प्रतीक्षेत',
-          listening: 'ऐकत आहे...',
-          thinking: 'विश्लेषण...',
-          speaking: 'मार्गदर्शन बोलत आहे'
-        },
-        newCase: '✨ नवीन प्रकरण',
-        stageA: {
-          understood: 'आम्हाला आतापर्यंत काय समजले',
-          editTranscript: '✏️ मजकूर बदला',
-          detectedFacts: 'ओळखलेली माहिती (बदलण्यासाठी स्पर्श करा):',
-          category: 'वर्गवारी',
-          date: 'तारीख',
-          location: 'स्थान',
-          opposingParty: 'दुसरा पक्ष',
-          currentQuestion: 'सध्याचा प्रश्न (उत्तर द्या):',
-          speakAnswer: 'बोलून सांगा',
-          typePlaceholder: 'किंवा येथे उत्तर लिहा (Enter दाबा)...',
-          enterBtn: 'दाखल करा'
-        },
-        stageB: {
-          card1Title: 'तयार केलेली औपचारिक कायदेशीर नोटीस व निवेदन',
-          outboundDisabled: 'बाहेर पाठवणे बंद (केवळ पुनरावलोकन)',
-          approvedRoles: 'मान्यताप्राप्त स्वाक्षरीकर्ता भूमिका:',
-          roleClient: 'क्लायंट (पक्षकार)',
-          roleRep: 'अधिकृत प्रतिनिधी',
-          roleCounsel: 'स्वतंत्र कायदेशीर सल्लागार',
-          signoffNotice: 'स्वाक्षरी केल्याने हा दस्तऐवज पोलीस, विमा कंपनी किंवा न्यायालयात <strong>पाठवला जात नाही</strong>. हा फक्त अंतर्गत पुनरावलोकन नोंद तयार करतो.',
-          copyText: '📋 प्रत बनवा',
-          printPdf: '🖨️ मुद्रित करा / PDF साठवा',
-          card2Title: 'आपले कायदेशीर हक्क आणि कलम',
-          disclaimerNotAdvice: 'Draft Incident Summary for Review — Not Legal Advice',
-          citationsPending: 'Statutory citations pending advocate verification',
-          applicableStatutes: 'लागू कायदेशीर कलमे आणि संरक्षण:',
-          generalProtections: 'भारतीय कायद्यानुसार सामान्य कायदेशीर संरक्षण लागू आहे.',
-          listenRights: 'हक्क ऐका',
-          recap1Min: '1-मिनिट सारांश',
-          replay: 'पुन्हा ऐका',
-          card3Title: '1-मिनिट कृती सारांश आणि DLSA 15100 कायदेशीर मदत',
-          whatNext: '📌 तुम्ही पुढे काय केले पाहिजे',
-          preserveEvidence: 'सर्व पुरावे, पावत्या आणि साक्षीदारांची संपर्क माहिती जतन करा.',
-          dlsaTitle: '🏛️ DLSA राष्ट्रीय विधी सेवा प्राधिकरण हेल्पलाइन: 15100',
-          dlsaDesc: 'विनामूल्य वकील प्रतिनिधित्व आणि कायदेशीर मदतीसाठी 24x7 टोल-फ्री सरकारी हेल्पलाइन.',
-          call15100: '📞 15100 वर कॉल करा',
-          policeHelpline: '📞 112 (पोलीस)',
-          cyberHelpline: '📞 1930 (सायबर गुन्हे)',
-          legalAidHelpline: '📞 15100 (कायदेशीर मदत)',
-          revisionPrompt: 'काही तपशील बदलायचा आहे किंवा माहिती जोडायची आहे का?',
-          editDetails: '✏️ तपशील बदला',
-          orSpeak: 'किंवा बोलण्यासाठी गोलाला स्पर्श करा.'
-        }
-      },
-      gu: {
-        headerTitle: 'NYAYAVANI',
-        headerTitleDevanagari: '[ન્યાયવાણી]',
-        headerSubtitle: 'સાર્વભૌમ ભારતીય કાનૂની અવાજ માર્ગદર્શક',
-        tierGrassroots: '🏛️ જમીની સહાય',
-        tierPro: '💼 પ્રો સુઇટ',
-        examples: 'ઉદાહરણો',
-        purge: 'ડેટા સાફ કરો',
-        orbPill: 'સજીવ પ્રકાશ ગોળ',
-        reset: 'રીસેટ',
-        orb: {
-          idle: {
-            title: 'તમારી સમસ્યા જણાવવા માટે ગોળાને સ્પર્શ કરો',
-            sub: 'તમારી કાનૂની સમસ્યા મુક્તપણે બોલો'
-          },
-          listening: {
-            title: 'સાંભળી રહ્યો છું... મુક્તપણે બોલો',
-            sub: 'માઇક્રોફોનમાં સ્પષ્ટ અવાજે બોલો'
-          },
-          thinking: {
-            title: 'કાનૂની કલમોનું વિશ્લેષણ થઈ રહ્યું છે...',
-            sub: 'અધિકારો અને જોગવાઈઓ તપાસાઈ રહી છે'
-          },
-          speaking: {
-            title: 'ન્યાયવાણી બોલી રહી છે...',
-            sub: 'કાનૂની સલાહ ધ્યાનથી સાંભળો'
-          }
-        },
-        repeatSaid: '🔄 જે કહ્યું તે ફરી સાંભળો',
-        speedLabel: 'ઝડપ:',
-        privacyNotice: '🔒 તમારી વાણી સુરક્ષિત રીતે ટ્રાન્સક્રાઇબ થાય છે. વિશ્લેષણ પહેલાં તમે લખાણમાં સુધારો કરી શકો છો.',
-        chatPlaceholder: 'બોલવા માટે ઉપરના ગોળાને સ્પર્શ કરો, અથવા અહીં લખો...',
-        micLabel: 'બોલીને જવાબ આપો',
-        send: 'મોકલો',
-        dossierTitle: 'સંવાદાત્મક કાનૂની દસ્તાવેજ',
-        dossierAwaiting: 'રાહ જુઓ',
-        newCase: '✨ નવો કેસ',
-        understoodTitle: '📋 અત્યાર સુધીની માહિતી',
-        editTranscript: '✏️ લખાણ સુધારો',
-        detectedFactsLabel: 'નોંધાયેલી વિગતો (બદલવા માટે ટૅપ કરો):',
-        currentQuestionLabel: 'હાલનો પ્રશ્ન (જવાબ આપો):',
-        speakAnswer: '🎙️ બોલીને જવાબ આપો',
-        quickReplyPlaceholder: 'અથવા અહીં જવાબ લખો (Enter દબાવો)...',
-        enterBtn: 'દાખલ કરો',
-        noticeTitle: '📝 તૈયાર કરેલ કાનૂની નોટિસ અને રજૂઆત',
-        reviewOnlyBadge: 'માત્ર ચકાસણી માટે (બાહ્ય મોકલવું બંધ)',
-        copyText: '📋 નકલ કરો',
-        printPdf: '🖨️ પ્રિન્ટ / PDF સાચવો',
-        approvedRoles: 'મંજૂર સહીકર્તા:',
-        signingNotice: 'આ દસ્તાવેજ પર સહી કરવાથી તે પોલીસ કે કોર્ટમાં જતો નથી. આ આંતરિક સમીક્ષા રેકોર્ડ બનાવે છે.',
-        rightsTitle: '⚖️ તમારા કાનૂની અધિકારો અને લાગુ કલમો',
-        statutoryReviewPending: 'પુરાવા તપાસ્યા પછી કલમો લાગુ થશે',
-        disclaimerNotice: 'કાનૂની સમીક્ષા માટેનો મસુદો — આ અંતિમ કાનૂની સલાહ નથી',
-        recapTitle: '⏱️ ૧-મિનિટનો કાનૂની સારાંશ:',
-        dlsaHelplineBadge: 'મફત કાનૂની સહાય હેલ્પલાઇન: ૧૫૧૦૦ (DLSA/NALSA)',
-        revisePrompt: 'વિગતો બદલવી છે કે નવી હકીકત ઉમેરવી છે? [✏️ વિગતો સુધારો] અથવા બોલવા માટે ગોળાને સ્પર્શ કરો.',
-        stageB: {
-          audioGuideFull: '🎧 સંપૂર્ણ કાનૂની વિશ્લેષણ સાંભળો',
-          audioGuideRecap: '⚡ ૧-મિનિટનો સારાંશ સાંભળો',
-          privateNoticePrefix: 'સામાયિક ફોન ગોપનીયતા: ',
-          dlsaBadge: 'મફત કાનૂની સહાય હેલ્પલાઇન: ૧૫૧૦૦ (DLSA/NALSA)',
-          dlsaSubtitle: 'જિલ્લા કાનૂની સેવા સત્તામંડળ (DLSA) / નાલસા',
-          callDlsaBtn: '📞 ૧૫૧૦૦ પર કૉલ કરો',
-          actionChecklistHeader: 'આગળનાં વ્યવહારુ પગલાં:',
-          emergencyPolice: '📞 ૧૧૨ (પોલીસ)',
-          cyberHelpline: '📞 ૧૯૩૦ (સાયબર ક્રાઇમ)',
-          legalAidHelpline: '📞 ૧૫૧૦૦ (કાનૂની સહાય)',
-          revisionPrompt: 'વિગતો બદલવી છે કે નવી હકીકત ઉમેરવી છે?',
-          editDetails: '✏️ વિગતો સુધારો',
-          orSpeak: 'અથવા બોલવા માટે ગોળાને સ્પર્શ કરો.'
-        }
-      },
-    };
-
-    function normalizeLang(lang) {
-      if (!lang) return 'en';
-      const l = String(lang).toLowerCase().trim();
-      for (const code of ['hi', 'mr', 'gu', 'ta', 'te', 'kn', 'bn', 'pa', 'ml']) {
-        if (l.startsWith(code) || l.includes(code)) return code;
-      }
-      return 'en';
-    }
-
-    function applyUILanguage(langCode) {
-      const norm = normalizeLang(langCode);
-      currentLang = norm;
-      const loc = UI_LOCALES[norm] || UI_LOCALES.en;
-
-      // Header Subtitle
-      const subEl = document.getElementById('header-subtitle');
-      if (subEl) subEl.innerText = loc.headerSubtitle;
-
-      // Header Buttons
-      const tierFreeSpan = document.getElementById('label-tier-free');
-      if (tierFreeSpan) tierFreeSpan.innerText = loc.tierGrassroots;
-      const tierProSpan = document.getElementById('label-tier-pro');
-      if (tierProSpan) tierProSpan.innerText = loc.tierPro;
-      const examplesBtn = document.getElementById('btn-examples-label');
-      if (examplesBtn) examplesBtn.innerText = loc.examples;
-      const purgeBtn = document.getElementById('btn-purge-label');
-      if (purgeBtn) purgeBtn.innerText = loc.purge;
-
-      // Orb Top Pill & Reset
-      const orbPill = document.getElementById('orb-pill-text');
-      if (orbPill) orbPill.innerText = loc.orbPill;
-      const resetBtn = document.getElementById('btn-reset-session');
-      if (resetBtn) resetBtn.innerText = loc.reset;
-
-      // Repeat & Speed
-      const repeatLabel = document.getElementById('btn-repeat-label');
-      if (repeatLabel) repeatLabel.innerText = loc.repeatBtn.replace('🔄 ', '');
-      const speedLabel = document.getElementById('speed-label');
-      if (speedLabel) speedLabel.innerText = loc.speedLabel;
-
-      // Bottom Input Bar
-      const privacyNotice = document.getElementById('intake-privacy-notice');
-      if (privacyNotice) privacyNotice.innerText = loc.privacyNotice;
-      const chatInput = document.getElementById('chat-input');
-      if (chatInput) chatInput.placeholder = loc.chatPlaceholder;
-      const micLabel = document.getElementById('mic-label');
-      if (micLabel && !isRecordingActive) micLabel.innerText = loc.micLabel;
-      const sendLabel = document.getElementById('btn-send-label');
-      if (sendLabel) sendLabel.innerText = loc.sendBtn;
-
-      // Right Panel Header
-      const dossierTitle = document.getElementById('dossier-header-title');
-      if (dossierTitle) dossierTitle.innerText = loc.dossierTitle;
-      const newCaseLabel = document.getElementById('btn-newcase-label');
-      if (newCaseLabel) newCaseLabel.innerText = loc.newCase.replace('✨ ', '');
-
-      // Refresh Orb state text for the new language
-      setOrbState(orbState);
-
-      // Re-render finalized dossier if already in Stage B so text is localized
-      if (lastSpokenCaseId && rightsDataStore[lastSpokenCaseId]) {
-        const lastData = rightsDataStore[lastSpokenCaseId];
-        const lastIntake = lastData.intake || {};
-        const questions = lastIntake.follow_up_questions || lastData.follow_up_questions || [];
-        const isNeedsFacts = Boolean(lastData.needs_more_information || lastIntake.status === 'needs_more_information' || lastIntake.status === 'needs_details' || (questions && questions.length > 0));
-        if (!isNeedsFacts) {
-          appendAssistantMessage(lastData);
-        }
-      }
-
-      // Sync select dropdown if appropriate
-      const selLang = document.getElementById('select-language');
-      if (selLang && selLang.value !== 'indic-auto') {
-        if (norm === 'hi') selLang.value = 'hi-IN';
-        else if (norm === 'mr') selLang.value = 'mr-IN';
-        else if (norm === 'en') selLang.value = 'en-IN';
-      }
-    }
-
-    function streamAudioChunk(data) {
-      if (!data) return;
-      const lang = data.detected_language_code || data.detected_language || data.language;
-      if (lang) {
-        applyUILanguage(lang);
-      }
-    }
-
-    // Global Recording & Audio State
-    let mediaRecorder = null;
-    let audioChunks = [];
-    let recordingAudioContext = null;
-    let recordingStream = null;
-    let recordingSourceNode = null;
-    let recordingProcessorNode = null;
-    let recordingPcmSamples = [];
-    let isRecordingActive = false;
-    let recordInterval = null;
-    let recordSeconds = 0;
-    let rawTranscript = '';
-    let pendingTranscript = '';
-    let detectedLangCode = 'indic-auto';
-    let detectedLangLabel = 'Indic Auto';
-    let currentAudio = null;
-    let currentPlaybackSpeed = 1.0;
-    let rightsDataStore = {};
-    let rightsAudioMap = {};
-    let lastSpokenCaseId = null;
-    let lastSpokenAudioUrl = null;
-
-    // Orb State: 'idle' | 'listening' | 'thinking' | 'speaking'
-    let orbState = 'idle';
-    let orbAnimFrame = null;
-    let orbAudioAnalyser = null;
-    let orbDataArray = null;
-
-    // Presets catalog
-    const presetsData = [
-      { id: 'vendor', title: 'Street stall being removed without notice', category: 'STREET_VENDOR', tier: 'BHARAT_GRASSROOTS_AID', icon: '🏛️', text: 'My street stall is being removed by municipality without 30-day notice or survey certificate. What should I do?' },
-      { id: 'wages', title: 'Unpaid wages & contractor default', category: 'WAGE_THEFT', tier: 'BHARAT_GRASSROOTS_AID', icon: '⚖️', text: 'My employer has not paid my wages for 3 months and is threatening me when demanded. What information should I collect?' },
-      { id: 'loan', title: 'Digital loan app blackmail & harassment', category: 'LOAN_FRAUD', tier: 'BHARAT_GRASSROOTS_AID', icon: '📱', text: 'A digital loan app accessed my contacts and is sending morphed photos to family. What legal steps should I take?' },
-      { id: 'accident', title: 'Road collision & insurance claim', category: 'MOTOR_ACCIDENT', tier: 'ENTERPRISE_LEGAL_SUITE', icon: '🚗', text: 'I was in a road collision with a commercial vehicle and need help organizing evidence and preparing an insurance claim draft.' }
-    ];
-
-    // ========================================================
-    // 1. SESSION TOKEN & PRIVACY MANAGEMENT
-    // ========================================================
-    function getSessionToken() {
-      if (inMemorySessionToken) return inMemorySessionToken;
-      try {
-        const stored = sessionStorage.getItem(SESSION_STORAGE_KEY);
-        if (stored) {
-          inMemorySessionToken = stored;
-          return stored;
-        }
-      } catch (e) {}
-      const fresh = 'nv-sess-' + Date.now() + '-' + Math.random().toString(36).substring(2, 10);
-      inMemorySessionToken = fresh;
-      try { sessionStorage.setItem(SESSION_STORAGE_KEY, fresh); } catch (e) {}
-      return fresh;
-    }
-
-    function resetSessionToken() {
-      inMemorySessionToken = 'nv-sess-' + Date.now() + '-' + Math.random().toString(36).substring(2, 10);
-      try { sessionStorage.setItem(SESSION_STORAGE_KEY, inMemorySessionToken); } catch (e) {}
-      return inMemorySessionToken;
-    }
-
-    function getAuthHeaders(extraHeaders = {}) {
-      const token = getSessionToken();
-      return {
-        'X-Session-Token': token,
-        'Authorization': `Bearer ${token}`,
-        ...extraHeaders
-      };
-    }
-
-    // ========================================================
-    // 2. LIVING CHROMATIC NEBULA & STARDUST CANVAS ENGINE
-    // ========================================================
-    const canvas = document.getElementById('nebula-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Living stardust particles
-    const stardustParticles = [];
-    for (let i = 0; i < 36; i++) {
-      stardustParticles.push({
-        angle: Math.random() * Math.PI * 2,
-        dist: 70 + Math.random() * 85,
-        speed: 0.003 + Math.random() * 0.007,
-        size: 1.0 + Math.random() * 2.2,
-        alpha: 0.2 + Math.random() * 0.6,
-        phase: Math.random() * Math.PI * 2
-      });
-    }
-
-    // Tier & State Dynamic Color Matrix
-    // Free: Ivory White, Coral Blue, Electric Purple Accent (highlights only)
-    // Pro: Gold, Black, Emerald Accent (highlights only)
-    const TIER_STATE_COLORS = {
-      BHARAT_GRASSROOTS_AID: {
-        idle: {
-          primary: [14, 165, 233],     // Coral Blue (#0ea5e9)
-          secondary: [15, 35, 65],     // Deep Coral Navy
-          accent: [168, 85, 247],      // Electric Purple Accent (#a855f7)
-          core: [255, 255, 240],       // Ivory White Core (#fffff0)
-          glow: 'rgba(168, 85, 247, 0.35)'
-        },
-        listening: {
-          primary: [255, 255, 240],    // Ivory White
-          secondary: [2, 132, 199],    // Vibrant Coral Blue (#0284c7)
-          accent: [192, 132, 252],     // Electric Purple Accent (#c084fc)
-          core: [255, 255, 240],
-          glow: 'rgba(192, 132, 252, 0.45)'
-        },
-        thinking: {
-          primary: [168, 85, 247],     // Electric Purple Accent
-          secondary: [14, 165, 233],   // Coral Blue
-          accent: [255, 255, 240],     // Ivory White
-          core: [255, 255, 240],
-          glow: 'rgba(168, 85, 247, 0.5)'
-        },
-        speaking: {
-          primary: [56, 189, 248],     // Radiant Coral Blue
-          secondary: [18, 42, 78],     // Deep Coral Marine
-          accent: [168, 85, 247],      // Electric Purple Accent
-          core: [255, 255, 240],
-          glow: 'rgba(56, 189, 248, 0.55)'
-        }
-      },
-      ENTERPRISE_LEGAL_SUITE: {
-        idle: {
-          primary: [245, 158, 11],     // Regal Gold (#f59e0b)
-          secondary: [15, 17, 24],     // Obsidian Black
-          accent: [16, 185, 129],      // Emerald Accent (#10b981)
-          core: [251, 191, 36],        // Solar Gold Core
-          glow: 'rgba(16, 185, 129, 0.35)'
-        },
-        listening: {
-          primary: [251, 191, 36],     // Solar Gold
-          secondary: [10, 12, 16],     // Pure Black
-          accent: [52, 211, 153],      // Bright Emerald Accent (#34d399)
-          core: [251, 191, 36],
-          glow: 'rgba(52, 211, 153, 0.45)'
-        },
-        thinking: {
-          primary: [16, 185, 129],     // Emerald Accent
-          secondary: [217, 119, 6],    // Warm Amber Gold
-          accent: [251, 191, 36],      // Solar Gold
-          core: [251, 191, 36],
-          glow: 'rgba(16, 185, 129, 0.5)'
-        },
-        speaking: {
-          primary: [245, 158, 11],     // Gold
-          secondary: [18, 20, 28],     // Carbon Black
-          accent: [52, 211, 153],      // Emerald Accent
-          core: [251, 191, 36],
-          glow: 'rgba(245, 158, 11, 0.55)'
-        }
-      }
-    };
-
-    function drawNebula(time) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const t = time * 0.0015;
-
-      // Extract real audio frequency volume
-      let audioLevel = 0;
-      if (orbAudioAnalyser && orbState === 'listening') {
-        orbAudioAnalyser.getByteFrequencyData(orbDataArray);
-        let sum = 0;
-        for (let i = 0; i < 16; i++) sum += orbDataArray[i];
-        audioLevel = Math.min(1.0, (sum / 16) / 105.0);
-      } else if (orbState === 'speaking') {
-        audioLevel = 0.35 + 0.32 * Math.sin(time * 0.009) * Math.cos(time * 0.013);
-      } else if (orbState === 'thinking') {
-        audioLevel = 0.22 + 0.16 * Math.sin(time * 0.012);
-      }
-
-      const tierPalette = TIER_STATE_COLORS[activeTier] || TIER_STATE_COLORS.BHARAT_GRASSROOTS_AID;
-      const colors = tierPalette[orbState] || tierPalette.idle;
-
-      // 1. Draw Stardust particles
-      stardustParticles.forEach(p => {
-        p.angle += p.speed * (1.0 + audioLevel * 1.5);
-        const curDist = p.dist + (orbState === 'listening' ? audioLevel * 25 : Math.sin(t + p.phase) * 6);
-        const px = cx + Math.cos(p.angle) * curDist;
-        const py = cy + Math.sin(p.angle) * curDist;
-        const pAlpha = p.alpha * (0.6 + 0.4 * Math.sin(t * 2 + p.phase));
-
-        ctx.beginPath();
-        ctx.arc(px, py, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${colors.accent.join(',')}, ${pAlpha})`;
-        ctx.fill();
-      });
-
-      // 2. Draw Multi-Layer Chromatic Liquid Nebula with 'screen' blending
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-
-      const layers = [
-        { r: 76, color: colors.secondary, rot: t * 0.7, varAmp: 14 + 32 * audioLevel, n: 7 },
-        { r: 68, color: colors.primary,   rot: -t * 1.1, varAmp: 18 + 42 * audioLevel, n: 6 },
-        { r: 54, color: colors.accent,    rot: t * 1.6, varAmp: 12 + 25 * audioLevel, n: 8 }
-      ];
-
-      layers.forEach(layer => {
-        const pts = [];
-        for (let i = 0; i < layer.n; i++) {
-          const a = (i / layer.n) * Math.PI * 2 + layer.rot;
-          const variance = Math.sin(t * 2.5 + i * 1.5) * layer.varAmp;
-          const r = layer.r + variance;
-          pts.push({ x: cx + Math.cos(a) * r, y: cy + Math.sin(a) * r });
-        }
-
-        // Draw smooth closed bezier curve
-        ctx.beginPath();
-        const n = pts.length;
-        ctx.moveTo(pts[0].x, pts[0].y);
-        for (let i = 0; i < n; i++) {
-          const p0 = pts[(i - 1 + n) % n];
-          const p1 = pts[i];
-          const p2 = pts[(i + 1) % n];
-          const p3 = pts[(i + 2) % n];
-          const c1x = p1.x + (p2.x - p0.x) / 6;
-          const c1y = p1.y + (p2.y - p0.y) / 6;
-          const c2x = p2.x - (p3.x - p1.x) / 6;
-          const c2y = p2.y - (p3.y - p1.y) / 6;
-          ctx.bezierCurveTo(c1x, c1y, c2x, c2y, p2.x, p2.y);
-        }
-        ctx.closePath();
-
-        const grad = ctx.createRadialGradient(cx, cy, 10, cx, cy, layer.r + layer.varAmp);
-        grad.addColorStop(0, `rgba(${layer.color.join(',')}, 0.85)`);
-        grad.addColorStop(0.7, `rgba(${layer.color.join(',')}, 0.4)`);
-        grad.addColorStop(1, `rgba(${layer.color.join(',')}, 0.0)`);
-        ctx.fillStyle = grad;
-        ctx.fill();
-      });
-
-      // 3. Central Molten Core
-      const coreR = 38 + (audioLevel * 14);
-      const coreGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreR);
-      coreGrad.addColorStop(0, activeTier === 'BHARAT_GRASSROOTS_AID' ? '#fffff0' : '#ffffff');
-      coreGrad.addColorStop(0.35, `rgba(${colors.core.join(',')}, 0.95)`);
-      coreGrad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, coreR, 0, Math.PI * 2);
-      ctx.fillStyle = coreGrad;
-      ctx.fill();
-
-      // 4. Center Mic Icon Badge
-      ctx.restore();
-      ctx.beginPath();
-      ctx.arc(cx, cy, 22, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(5, 7, 11, 0.55)';
-      ctx.fill();
-
-      // Draw crisp SVG-style microphone in center
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      // Mic capsule
-      ctx.roundRect ? ctx.roundRect(cx - 5, cy - 11, 10, 14, 5) : ctx.rect(cx - 5, cy - 11, 10, 14);
-      ctx.fill();
-      // Mic base arc
-      ctx.beginPath();
-      ctx.arc(cx, cy - 2, 8, 0, Math.PI);
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = '#ffffff';
-      ctx.stroke();
-      // Mic stand
-      ctx.beginPath();
-      ctx.moveTo(cx, cy + 6);
-      ctx.lineTo(cx, cy + 11);
-      ctx.stroke();
-
-      orbAnimFrame = requestAnimationFrame(drawNebula);
-    }
-
-    // Set Orb Visual State
-    function setOrbState(state) {
-      orbState = state;
-      const statusText = document.getElementById('orb-status-text');
-      const subText = document.getElementById('orb-sub-text');
-      const ambient1 = document.getElementById('ambient-core-1');
-      const ambient2 = document.getElementById('ambient-core-2');
-      const companionStatus = document.getElementById('companion-status-badge');
-      const loc = UI_LOCALES[currentLang] || UI_LOCALES.en;
-
-      const isFree = (activeTier === 'BHARAT_GRASSROOTS_AID');
-      if (state === 'listening') {
-        if (ambient1) ambient1.className = isFree 
-          ? 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-sky-500/30 ambient-pulse' 
-          : 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-amber-500/30 ambient-pulse';
-        if (ambient2) ambient2.className = isFree 
-          ? 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-purple-600/30 ambient-pulse' 
-          : 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-emerald-600/30 ambient-pulse';
-        if (statusText) {
-          statusText.innerText = loc.orb.listening.title;
-          statusText.className = isFree 
-            ? 'text-base sm:text-lg font-bold tracking-wide text-[#FFFFF0] transition-colors duration-300' 
-            : 'text-base sm:text-lg font-bold tracking-wide text-emerald-400 transition-colors duration-300';
-        }
-        if (subText) subText.innerText = loc.orb.listening.sub;
-        if (companionStatus) companionStatus.innerText = loc.statusBadge.listening;
-      } else if (state === 'thinking') {
-        if (ambient1) ambient1.className = isFree 
-          ? 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-purple-600/35 ambient-pulse' 
-          : 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-emerald-600/35 ambient-pulse';
-        if (ambient2) ambient2.className = isFree 
-          ? 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-sky-600/25 ambient-pulse' 
-          : 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-amber-600/25 ambient-pulse';
-        if (statusText) {
-          statusText.innerText = loc.orb.thinking.title;
-          statusText.className = isFree 
-            ? 'text-base sm:text-lg font-bold tracking-wide text-purple-300 transition-colors duration-300' 
-            : 'text-base sm:text-lg font-bold tracking-wide text-amber-300 transition-colors duration-300';
-        }
-        if (subText) subText.innerText = loc.orb.thinking.sub;
-        if (companionStatus) companionStatus.innerText = loc.statusBadge.thinking;
-      } else if (state === 'speaking') {
-        if (ambient1) ambient1.className = isFree 
-          ? 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-sky-400/35 ambient-pulse' 
-          : 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-amber-500/35 ambient-pulse';
-        if (ambient2) ambient2.className = isFree 
-          ? 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-purple-500/30 ambient-pulse' 
-          : 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-emerald-500/30 ambient-pulse';
-        if (statusText) {
-          statusText.innerText = loc.orb.speaking.title;
-          statusText.className = isFree 
-            ? 'text-base sm:text-lg font-bold tracking-wide text-sky-300 transition-colors duration-300' 
-            : 'text-base sm:text-lg font-bold tracking-wide text-amber-400 transition-colors duration-300';
-        }
-        if (subText) subText.innerText = loc.orb.speaking.sub;
-        if (companionStatus) companionStatus.innerText = loc.statusBadge.speaking;
-      } else {
-        if (ambient1) ambient1.className = isFree 
-          ? 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-sky-900/25 ambient-pulse' 
-          : 'absolute -top-40 -left-40 w-96 h-96 rounded-full blur-[120px] bg-amber-950/30 ambient-pulse';
-        if (ambient2) ambient2.className = isFree 
-          ? 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-purple-950/25 ambient-pulse' 
-          : 'absolute -bottom-40 -right-40 w-96 h-96 rounded-full blur-[140px] bg-emerald-950/25 ambient-pulse';
-        if (statusText) {
-          statusText.innerText = loc.orb.idle.title;
-          statusText.className = isFree 
-            ? 'text-base sm:text-lg font-bold tracking-wide text-[#FFFFF0] transition-colors duration-300' 
-            : 'text-base sm:text-lg font-bold tracking-wide text-amber-100 transition-colors duration-300';
-        }
-        if (subText) subText.innerText = loc.orb.idle.sub;
-        if (companionStatus) companionStatus.innerText = loc.statusBadge.idle;
-      }
-    }
-
-    // ========================================================
-    // 3. SOUND CHIMES & SPRING GLIDE LAYOUT TRANSITIONS
-    // ========================================================
-    function playUiChime(type) {
-      try {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        if (!AudioCtx) return;
-        const ctx = new AudioCtx();
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        const now = ctx.currentTime;
-        if (type === 'start') {
-          // Upward friendly chime (G4 to G5)
-          osc.frequency.setValueAtTime(392, now);
-          osc.frequency.exponentialRampToValueAtTime(784, now + 0.18);
-          gain.gain.setValueAtTime(0.08, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
-          osc.start(now);
-          osc.stop(now + 0.3);
-        } else if (type === 'stop') {
-          // Downward soft completion chime (G5 to C5)
-          osc.frequency.setValueAtTime(784, now);
-          osc.frequency.exponentialRampToValueAtTime(523.25, now + 0.22);
-          gain.gain.setValueAtTime(0.08, now);
-          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-          osc.start(now);
-          osc.stop(now + 0.35);
-        }
-      } catch (e) {}
-    }
-
-    // Transition from Full-Screen Voice Immersion to Two-Column Dossier
-    function transitionToDossierView() {
-      if (currentLayoutView === 'dossier') return;
-      currentLayoutView = 'dossier';
-
-      const orbContainer = document.getElementById('orb-container');
-      const companionPane = document.getElementById('companion-pane');
-      const scenarioGrid = document.getElementById('immersion-scenario-grid');
-
-      // 1. Hide full-screen scenario starter grid
-      if (scenarioGrid) scenarioGrid.classList.add('hidden');
-
-      // 2. Dock orb container to left column
-      if (orbContainer) {
-        orbContainer.className = 'spring-glide w-full lg:w-5/12 h-full overflow-hidden flex flex-col justify-between items-center p-6 border-b lg:border-b-0 lg:border-r border-brand-border bg-brand-dark relative shrink-0 min-h-0';
-      }
-
-      // 3. Reveal and slide up right legal companion dossier
-      if (companionPane) {
-        companionPane.classList.remove('hidden');
-        companionPane.classList.add('flex');
-      }
-    }
-
-    function resetToImmersionView() {
-      currentLayoutView = 'immersion';
-      resetSessionToken();
-      rightsDataStore = {};
-      rightsAudioMap = {};
-      const orbContainer = document.getElementById('orb-container');
-      const companionPane = document.getElementById('companion-pane');
-      const scenarioGrid = document.getElementById('immersion-scenario-grid');
-
-      if (companionPane) {
-        companionPane.classList.add('hidden');
-        companionPane.classList.remove('flex');
-      }
-      if (orbContainer) {
-        orbContainer.className = 'spring-glide w-full h-full overflow-hidden flex flex-col justify-between items-center p-6 lg:p-8 relative shrink-0';
-      }
-      if (scenarioGrid) scenarioGrid.classList.remove('hidden');
-      setOrbState('idle');
-      lastSpokenCaseId = null;
-      lastSpokenAudioUrl = null;
-    }
-
-    // ========================================================
-    // 4. AUDIO PLAYBACK & REPLAY CONTROLS
-    // ========================================================
-    function setGlobalSpeed(speed) {
-      currentPlaybackSpeed = speed;
-      ['085', '100', '115'].forEach(s => {
-        const btn = document.getElementById('speed-pill-' + s);
-        if (btn) {
-          const btnSpeed = s === '085' ? 0.85 : (s === '100' ? 1.0 : 1.15);
-          if (Math.abs(btnSpeed - speed) < 0.05) {
-            btn.className = 'px-2 py-1 rounded-lg text-[10px] font-mono transition bg-amber-500 text-black font-bold';
-          } else {
-            btn.className = 'px-2 py-1 rounded-lg text-[10px] font-mono transition bg-brand-surface2 text-slate-300 hover:text-white';
-          }
-        }
-      });
-      if (currentAudio) {
-        try { currentAudio.playbackRate = currentPlaybackSpeed; } catch (e) {}
-      }
-    }
-
-    function playAudioResponse(url, forcePlay = false) {
-      if (!url) return;
-      lastSpokenAudioUrl = url;
-      const protect = document.getElementById('shared-device-protect')?.checked ?? false;
-      if (protect && !forcePlay) {
-        console.log('Shared phone protection active: audio kept private until explicit tap.');
-        return;
-      }
-      if (currentAudio) {
-        try { currentAudio.pause(); } catch(e) {}
-        currentAudio = null;
-      }
-      try {
-        currentAudio = new Audio(url);
-        currentAudio.playbackRate = currentPlaybackSpeed;
-        setOrbState('speaking');
-        currentAudio.onplay = () => setOrbState('speaking');
-        currentAudio.onended = () => {
-          setOrbState('idle');
-          currentAudio = null;
-        };
-        currentAudio.onpause = () => { if (orbState === 'speaking') setOrbState('idle'); };
-        currentAudio.play().catch(e => {
-          console.warn('Audio autoplay note (user gesture may be needed):', e);
-          setOrbState('idle');
-        });
-      } catch (err) {
-        console.warn('Audio playback error:', err);
-        setOrbState('idle');
-      }
-    }
-
-    function replayLatestPrompt() {
-      if (currentAudio && !currentAudio.ended) {
-        try {
-          currentAudio.currentTime = 0;
-          currentAudio.playbackRate = currentPlaybackSpeed;
-          setOrbState('speaking');
-          currentAudio.play().catch(e => console.warn('Audio replay note:', e));
-          return;
-        } catch (e) {}
-      }
-      if (lastSpokenCaseId && rightsDataStore[lastSpokenCaseId]) {
-        replayRightsAudio(lastSpokenCaseId);
-      } else if (lastSpokenAudioUrl) {
-        playAudioResponse(lastSpokenAudioUrl, true);
-      } else {
-        // Initial spoken introduction
-        const lang = document.getElementById('select-language')?.value || 'hi-IN';
-        const voice = document.getElementById('select-voice')?.value || 'Shivani';
-        const greeting = lang.startsWith('mr')
-          ? "नमस्कार, न्यायवाणी मध्ये आपले स्वागत आहे. तुमची कायदेशीर समस्या सांगा, आम्ही तुमचे अधिकार समजावून सांगेन."
-          : (lang.startsWith('hi')
-            ? "नमस्ते, न्यायवाणी में आपका स्वागत है। अपनी समस्या बताएं, हम आपको कानूनी अधिकार और धाराएं समझाएंगे।"
-            : "Welcome to NyayaVani. Tell your story in your own words, and we will explain your legal rights and applicable sections.");
-        
-        setOrbState('thinking');
-        fetch('/api/rights/audio', {
-          method: 'POST',
-          headers: getAuthHeaders({'Content-Type': 'application/json'}),
-          body: JSON.stringify({ text: greeting, voice: voice, language: lang, session_id: getSessionToken() })
-        }).then(res => res.json()).then(data => {
-          if (data.audio_url) playAudioResponse(data.audio_url, true);
-          else setOrbState('idle');
-        }).catch(() => setOrbState('idle'));
-      }
-    }
-
-    async function playRightsAudio(caseId, scriptType) {
-      const data = rightsDataStore[caseId];
-      if (!data) return;
-      lastSpokenCaseId = caseId;
-      const uyr = data.understand_your_rights;
-      const scripts = uyr?.spoken_scripts || {};
-      
-      let textToSpeak = '';
-      if (scriptType === 'recap') {
-        textToSpeak = scripts.recap_spoken || uyr?.one_minute_recap?.recap_text || data.spoken_text;
-      } else if (scriptType === 'simplified') {
-        textToSpeak = scripts.simplified_spoken || uyr?.simpler_words_explanation?.explanation || data.spoken_text;
-      } else {
-        textToSpeak = scripts.full_rights_spoken || data.spoken_text;
-      }
-
-      if (!rightsAudioMap[caseId]) rightsAudioMap[caseId] = {};
-      const existing = rightsAudioMap[caseId];
-
-      if (existing.activeType === scriptType && existing.audioObj) {
-        if (!existing.audioObj.paused) {
-          existing.audioObj.pause();
-          setOrbState('idle');
-          updatePlayButtonUI(caseId, scriptType, false);
-          return;
-        } else {
-          existing.audioObj.playbackRate = currentPlaybackSpeed;
-          existing.audioObj.play();
-          setOrbState('speaking');
-          existing.audioObj.onended = () => {
-            setOrbState('idle');
-            updatePlayButtonUI(caseId, scriptType, false);
-          };
-          updatePlayButtonUI(caseId, scriptType, true);
-          return;
-        }
-      }
-
-      if (existing.audioObj) {
-        existing.audioObj.pause();
-        setOrbState('idle');
-        updatePlayButtonUI(caseId, existing.activeType, false);
-      }
-
-      showAudioLoadingUI(caseId, scriptType, true);
-      setOrbState('thinking');
-      try {
-        const voice = document.getElementById('select-voice')?.value || 'Shivani';
-        const res = await fetch('/api/rights/audio', {
-          method: 'POST',
-          headers: getAuthHeaders({'Content-Type': 'application/json'}),
-          body: JSON.stringify({
-            text: textToSpeak,
-            voice: voice,
-            language: data.language || 'hi-IN',
-            session_id: getSessionToken()
-          })
-        });
-        const resData = await res.json();
-        showAudioLoadingUI(caseId, scriptType, false);
-        if (resData.audio_url) {
-          const audio = new Audio(resData.audio_url);
-          audio.playbackRate = currentPlaybackSpeed;
-          existing.audioObj = audio;
-          existing.activeType = scriptType;
-          audio.play();
-          setOrbState('speaking');
-          audio.onended = () => {
-            setOrbState('idle');
-            updatePlayButtonUI(caseId, scriptType, false);
-          };
-          audio.onpause = () => {
-            if (orbState === 'speaking') setOrbState('idle');
-            updatePlayButtonUI(caseId, scriptType, false);
-          };
-          updatePlayButtonUI(caseId, scriptType, true);
-        }
-      } catch (err) {
-        showAudioLoadingUI(caseId, scriptType, false);
-        setOrbState('idle');
-        console.warn('Rights audio synthesis error:', err);
-      }
-    }
-
-    function replayRightsAudio(caseId) {
-      const existing = rightsAudioMap[caseId];
-      if (existing && existing.audioObj) {
-        existing.audioObj.currentTime = 0;
-        existing.audioObj.playbackRate = currentPlaybackSpeed;
-        existing.audioObj.play();
-        setOrbState('speaking');
-        existing.audioObj.onended = () => setOrbState('idle');
-      } else {
-        playRightsAudio(caseId, 'full');
-      }
-    }
-
-    function updatePlayButtonUI(caseId, scriptType, isPlaying) {
-      const icon = document.getElementById(`play-icon-${scriptType}-${caseId}`);
-      if (icon) icon.innerText = isPlaying ? '⏸️' : (scriptType === 'recap' ? '⏱️' : (scriptType === 'simplified' ? '💡' : '▶️'));
-    }
-
-    function showAudioLoadingUI(caseId, scriptType, isLoading) {
-      const icon = document.getElementById(`play-icon-${scriptType}-${caseId}`);
-      if (icon) icon.innerText = isLoading ? '⏳' : (scriptType === 'recap' ? '⏱️' : '▶️');
-    }
-
-    // ========================================================
-    // 5. MICROPHONE RECORDING & 16KHZ PCM DIRECT WAV ENCODING
-    // ========================================================
-    function encodePcmToWav(chunks, sourceSampleRate, targetSampleRate = 16000) {
-      let totalLength = 0;
-      for (let i = 0; i < chunks.length; i++) totalLength += chunks[i].length;
-      const fullPcm = new Float32Array(totalLength);
-      let offset = 0;
-      for (let i = 0; i < chunks.length; i++) {
-        fullPcm.set(chunks[i], offset);
-        offset += chunks[i].length;
-      }
-
-      let resampled;
-      if (sourceSampleRate === targetSampleRate) {
-        resampled = fullPcm;
-      } else {
-        const ratio = targetSampleRate / sourceSampleRate;
-        const newLength = Math.round(fullPcm.length * ratio);
-        resampled = new Float32Array(newLength);
-        for (let i = 0; i < newLength; i++) {
-          const origIdx = i / ratio;
-          const idxLow = Math.floor(origIdx);
-          const idxHigh = Math.min(idxLow + 1, fullPcm.length - 1);
-          const weight = origIdx - idxLow;
-          resampled[i] = fullPcm[idxLow] * (1 - weight) + fullPcm[idxHigh] * weight;
-        }
-      }
-
-      const numChannels = 1;
-      const bytesPerSample = 2;
-      const blockAlign = numChannels * bytesPerSample;
-      const byteRate = targetSampleRate * blockAlign;
-      const dataSize = resampled.length * bytesPerSample;
-      const buffer = new ArrayBuffer(44 + dataSize);
-      const view = new DataView(buffer);
-
-      function writeString(view, offset, string) {
-        for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i));
-      }
-
-      writeString(view, 0, 'RIFF');
-      view.setUint32(4, 36 + dataSize, true);
-      writeString(view, 8, 'WAVE');
-      writeString(view, 12, 'fmt ');
-      view.setUint32(16, 16, true);
-      view.setUint16(20, 1, true); // PCM
-      view.setUint16(22, numChannels, true);
-      view.setUint32(24, targetSampleRate, true);
-      view.setUint32(28, byteRate, true);
-      view.setUint16(32, blockAlign, true);
-      view.setUint16(34, 16, true);
-      writeString(view, 36, 'data');
-      view.setUint32(40, dataSize, true);
-
-      let p = 44;
-      for (let i = 0; i < resampled.length; i++, p += 2) {
-        let s = Math.max(-1, Math.min(1, resampled[i]));
-        view.setInt16(p, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
-      }
-      return new Blob([view], { type: 'audio/wav' });
-    }
-
-    function cleanUpRecordingResources() {
-      if (recordingProcessorNode) {
-        try { recordingProcessorNode.disconnect(); } catch (e) {}
-        recordingProcessorNode = null;
-      }
-      if (recordingSourceNode) {
-        try { recordingSourceNode.disconnect(); } catch (e) {}
-        recordingSourceNode = null;
-      }
-      if (orbAudioAnalyser) {
-        try { orbAudioAnalyser.disconnect(); } catch (e) {}
-        orbAudioAnalyser = null;
-      }
-      if (recordingStream) {
-        try { recordingStream.getTracks().forEach(t => t.stop()); } catch (e) {}
-        recordingStream = null;
-      }
-      if (recordingAudioContext) {
-        try { recordingAudioContext.close(); } catch (e) {}
-        recordingAudioContext = null;
-      }
-    }
-
-    async function toggleMicrophone() {
-      if (isRecordingActive) {
-        await stopRecording();
-      } else {
-        await startRecording();
-      }
-    }
-
-    async function startRecording() {
-      try {
-        if (!navigator.mediaDevices?.getUserMedia) {
-          appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
-          document.getElementById('voice-fallback-msg')?.classList.remove('hidden');
-          return;
-        }
-
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
-        });
-        recordingStream = stream;
-        recordingPcmSamples = [];
-        isRecordingActive = true;
-
-        // Play pleasant start chime
-        playUiChime('start');
-
-        // AudioContext for PCM & Visualizer Analyser
-        try {
-          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-          if (AudioContextClass) {
-            recordingAudioContext = new AudioContextClass();
-            recordingSourceNode = recordingAudioContext.createMediaStreamSource(stream);
-            
-            // Connect frequency analyser for fluid blob reactivity
-            orbAudioAnalyser = recordingAudioContext.createAnalyser();
-            orbAudioAnalyser.fftSize = 64;
-            orbDataArray = new Uint8Array(orbAudioAnalyser.frequencyBinCount);
-            recordingSourceNode.connect(orbAudioAnalyser);
-
-            // ScriptProcessor for PCM chunking
-            recordingProcessorNode = recordingAudioContext.createScriptProcessor(4096, 1, 1);
-            recordingProcessorNode.onaudioprocess = (e) => {
-              if (!isRecordingActive) return;
-              const inputData = e.inputBuffer.getChannelData(0);
-              recordingPcmSamples.push(new Float32Array(inputData));
-            };
-            recordingSourceNode.connect(recordingProcessorNode);
-            recordingProcessorNode.connect(recordingAudioContext.destination);
-          }
-        } catch (audioCtxErr) {
-          console.warn('AudioContext recording node note:', audioCtxErr);
-        }
-
-        // Set visual orb state to listening (Emerald & Cyan)
-        setOrbState('listening');
-
-        // Show recording toast and timer
-        recordSeconds = 0;
-        document.getElementById('recording-toast')?.classList.remove('hidden');
-        document.getElementById('mic-label').innerText = 'Stop Recording';
-
-        const updateTimer = () => {
-          const mins = String(Math.floor(recordSeconds / 60)).padStart(2, '0');
-          const secs = String(recordSeconds % 60).padStart(2, '0');
-          const remaining = Math.max(0, 30 - recordSeconds);
-          const timerEl = document.getElementById('record-timer');
-          const countEl = document.getElementById('record-countdown');
-          const progressEl = document.getElementById('record-progress');
-          if (timerEl) timerEl.innerText = `${mins}:${secs}`;
-          if (countEl) countEl.innerText = `${remaining}s remaining`;
-          if (progressEl) progressEl.style.width = `${Math.min(100, (recordSeconds / 30) * 100)}%`;
-        };
-        updateTimer();
-
-        recordInterval = setInterval(() => {
-          recordSeconds++;
-          updateTimer();
-          if (recordSeconds >= 30) {
-            clearInterval(recordInterval);
-            recordInterval = null;
-            stopRecording();
-          }
-        }, 1000);
-
-      } catch (err) {
-        cleanUpRecordingResources();
-        setOrbState('idle');
-        document.getElementById('recording-toast')?.classList.add('hidden');
-        document.getElementById('mic-label').innerText = 'Speak Answer';
-        appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
-        document.getElementById('voice-fallback-msg')?.classList.remove('hidden');
-      }
-    }
-
-    async function stopRecording() {
-      if (!isRecordingActive) return;
-      isRecordingActive = false;
-
-      // Play soft completion chime
-      playUiChime('stop');
-
-      if (recordInterval) {
-        clearInterval(recordInterval);
-        recordInterval = null;
-      }
-      document.getElementById('recording-toast')?.classList.add('hidden');
-      const micLabelEl = document.getElementById('mic-label');
-      if (micLabelEl) micLabelEl.innerText = UI_LOCALES[currentLang]?.micLabel || 'Speak Answer';
-
-      // Capture direct PCM WAV
-      let wavBlob = null;
-      if (recordingAudioContext && recordingPcmSamples.length > 0) {
-        try {
-          wavBlob = encodePcmToWav(recordingPcmSamples, recordingAudioContext.sampleRate, 16000);
-        } catch (e) {
-          console.warn('WAV encode note:', e);
-        }
-      }
-
-      cleanUpRecordingResources();
-      setOrbState('thinking');
-
-      if (wavBlob && wavBlob.size > 1024) {
-        lastInputModality = 'voice';
-        await transcribeAudio(wavBlob, 'speech_16k.wav');
-      } else {
-        setOrbState('idle');
-        appendErrorMessage('Recording was too short or empty. Please speak clearly into your microphone.');
-      }
-    }
-
-    function cancelRecording() {
-      if (recordInterval) {
-        clearInterval(recordInterval);
-        recordInterval = null;
-      }
-      isRecordingActive = false;
-      cleanUpRecordingResources();
-      setOrbState('idle');
-      document.getElementById('recording-toast')?.classList.add('hidden');
-      const micLabelEl = document.getElementById('mic-label');
-      if (micLabelEl) micLabelEl.innerText = UI_LOCALES[currentLang]?.micLabel || 'Speak Answer';
-    }
-
-    async function handleAudioUpload(input) {
-      if (!input.files || input.files.length === 0) return;
-      const file = input.files[0];
-      setOrbState('thinking');
-      lastInputModality = 'voice';
-      await transcribeAudio(file, file.name);
-      input.value = '';
-    }
-
-    // ========================================================
-    // 6. TRANSCRIPTION & TRANSCRIPT REVIEW MODAL
-    // ========================================================
-    async function transcribeAudio(audioBlob, filename) {
-      showLoadingAssistant('Transcribing voice via Gnani Prisma ASR...');
-      try {
-        const formData = new FormData();
-        formData.append('audio', audioBlob, filename);
-        formData.append('session_id', getSessionToken());
-        
-        const selLang = document.getElementById('select-language')?.value || 'indic-auto';
-        // Always send indic-auto for dynamic live voice recognition unless user explicitly selected a fixed language
-        const reqLang = (selLang === 'indic-auto' || !selLang) ? 'indic-auto' : selLang;
-        formData.append('language_code', reqLang);
-        formData.append('language', reqLang);
-
-        const res = await fetch('/api/transcribe', {
-          method: 'POST',
-          headers: getAuthHeaders(),
-          body: formData
-        });
-        const data = await res.json();
-        removeLoadingAssistant();
-
-        const transcript = (data.transcript || '').trim();
-        if (transcript) {
-          rawTranscript = transcript;
-          detectedLangCode = data.detected_language_code || data.detected_language || 'en-IN';
-          detectedLangLabel = data.detected_language_label || data.language_label || 'Auto';
-          applyUILanguage(detectedLangCode);
-          syncLanguageUI(detectedLangCode);
-
-          // Select matching voice persona for detected language
-          let voiceForLang = 'Avinash';
-          if (detectedLangCode.startsWith('hi')) voiceForLang = 'Shivani';
-          else if (detectedLangCode.startsWith('mr')) voiceForLang = 'Vasudha';
-          else if (detectedLangCode.startsWith('ta')) voiceForLang = 'Kalpana';
-          else if (detectedLangCode.startsWith('te')) voiceForLang = 'Lakshmi';
-          else if (detectedLangCode.startsWith('kn')) voiceForLang = 'Chetana';
-          else if (detectedLangCode.startsWith('bn')) voiceForLang = 'Riyaa';
-          else if (detectedLangCode.startsWith('gu') || detectedLangCode.startsWith('pa')) voiceForLang = 'Tarika';
-
-          // Seamless conversational voice loop: Directly triage & speak advice without blocking modals
-          await submitCase(rawTranscript, {
-            original_transcript: rawTranscript,
-            reviewed_transcript: rawTranscript,
-            modality: 'voice',
-            language: detectedLangCode,
-            voice: voiceForLang
-          });
-        } else {
-          setOrbState('idle');
-          appendErrorMessage('Could not understand speech audio. Please speak clearly or type your message.');
-        }
-      } catch (err) {
-        removeLoadingAssistant();
-        setOrbState('idle');
-        appendErrorMessage('Transcription service error. Please try typing your issue directly.');
-      }
-    }
-
-    function showTranscriptReview(transcript, langLabel = '') {
-      pendingTranscript = transcript;
-      const modal = document.getElementById('transcript-review-modal');
-      const textarea = document.getElementById('reviewed-transcript');
-      const langOverride = document.getElementById('review-lang-override');
-
-      if (textarea) textarea.value = transcript;
-      if (langOverride && detectedLangCode) {
-        syncLanguageUI(detectedLangCode);
-        langOverride.value = detectedLangCode;
-      }
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function onReviewLanguageChanged(selectedVal) {
-      detectedLangCode = selectedVal;
-      applyUILanguage(selectedVal);
-      syncLanguageUI(selectedVal);
-    }
-
-    function syncLanguageUI(langCode) {
-      const reviewSelect = document.getElementById('review-lang-override');
-      const voiceSelect = document.getElementById('select-voice');
-
-      if (reviewSelect && langCode) reviewSelect.value = langCode;
-
-      if (voiceSelect && langCode) {
-        if (langCode.startsWith('en')) voiceSelect.value = 'Avinash';
-        else if (langCode.startsWith('mr')) voiceSelect.value = 'Vasudha';
-        else if (langCode.startsWith('hi')) voiceSelect.value = 'Shivani';
-        else if (langCode.startsWith('ta')) voiceSelect.value = 'Kalpana';
-        else if (langCode.startsWith('te')) voiceSelect.value = 'Lakshmi';
-        else if (langCode.startsWith('kn')) voiceSelect.value = 'Chetana';
-        else if (langCode.startsWith('bn')) voiceSelect.value = 'Riyaa';
-        else if (langCode.startsWith('gu') || langCode.startsWith('pa')) voiceSelect.value = 'Tarika';
-      }
-    }
-
-    function onLanguageChanged(langVal) {
-      detectedLangCode = langVal;
-      applyUILanguage(langVal);
-      syncLanguageUI(langVal);
-    }
-
-    async function submitReviewedTranscript() {
-      const textarea = document.getElementById('reviewed-transcript');
-      const reviewed = textarea ? textarea.value.trim() : pendingTranscript;
-      discardTranscriptReview();
-
-      if (!reviewed) {
-        setOrbState('idle');
-        return;
-      }
-
-      await submitCase(reviewed, {
-        original_transcript: rawTranscript,
-        reviewed_transcript: reviewed,
-        modality: 'voice',
-        language: detectedLangCode
-      });
-    }
-
-    function discardTranscriptReview() {
-      document.getElementById('transcript-review-modal')?.classList.add('hidden');
-      setOrbState('idle');
-    }
-
-    // ========================================================
-    // 7. CHAT & CASE SUBMISSION ENGINE
-    // ========================================================
-    async function sendMessage() {
-      const input = document.getElementById('chat-input');
-      const msg = input.value.trim();
-      if (!msg) return;
-      input.value = '';
-      lastInputModality = 'text';
-      await submitCase(msg, { modality: 'text' });
-    }
-
-    async function submitCase(msg, extraMeta = {}, extraPayload = {}) {
-      // Transition from full-screen voice sanctuary to docked dossier
-      transitionToDossierView();
-
-      appendUserMessage(msg);
-      showLoadingAssistant('Evaluating statutory provisions & applicable Dhaara...');
-      setOrbState('thinking');
-
-      try {
-        const langVal = document.getElementById('select-language')?.value || 'indic-auto';
-        const targetLang = extraMeta.language || (langVal !== 'indic-auto' ? langVal : null);
-        const voiceVal = extraMeta.voice || document.getElementById('select-voice')?.value || 'Avinash';
-        const payload = {
-          session_id: getSessionToken(),
-          message: msg,
-          language: targetLang,
-          language_code: targetLang,
-          detected_language: targetLang,
-          voice: voiceVal,
-          tier: activeTier,
-          ...extraPayload
-        };
-
-        const res = await fetch('/api/chat', {
-          method: 'POST',
-          headers: getAuthHeaders({'Content-Type': 'application/json'}),
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        removeLoadingAssistant();
-
-        const respLang = data.detected_language_code || data.detected_language || data.language;
-        if (respLang) {
-          applyUILanguage(respLang);
-        }
-
-        appendAssistantMessage(data, msg);
-
-        // If audio returned and user preferred voice, speak it aloud
-        if (data.audio_url && (lastInputModality === 'voice' || !document.getElementById('shared-device-protect')?.checked)) {
-          playAudioResponse(data.audio_url, true);
-        } else {
-          setOrbState('idle');
-        }
-      } catch (err) {
-        removeLoadingAssistant();
-        setOrbState('idle');
-        appendErrorMessage('Unable to reach NyayaVani server. Please verify your connection.');
-      }
-    }
-
-    function appendUserMessage(text) {
-      const container = document.getElementById('messages-container');
-      const msgDiv = document.createElement('div');
-      msgDiv.className = 'flex justify-end';
-      const safeText = escapeHtml(text);
-      const encodedText = encodeURIComponent(text);
-      msgDiv.innerHTML = `
-        <div class="max-w-xl glass-card rounded-2xl p-4 text-slate-100 text-sm shadow-md border border-brand-border/60">
-          <div class="flex items-center justify-between pb-1 mb-2 border-b border-brand-border/40">
-            <span class="text-[10px] font-mono text-amber-400 uppercase tracking-wider">Your Spoken Account:</span>
-            <button type="button" onclick="showTranscriptReview(decodeURIComponent('${encodedText}'), detectedLangLabel)" class="text-[10px] font-mono text-cyan-400 hover:text-cyan-300 underline cursor-pointer">
-              ✏️ Edit
-            </button>
-          </div>
-          <p class="leading-relaxed whitespace-pre-wrap">${safeText}</p>
-        </div>
-      `;
-      container.appendChild(msgDiv);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function showLoadingAssistant(loadingText = "Analyzing facts and statutory protections...") {
-      removeLoadingAssistant();
-      const container = document.getElementById('messages-container');
-      const loader = document.createElement('div');
-      loader.id = 'loading-assistant';
-      loader.className = 'flex justify-start';
-      loader.innerHTML = `
-        <div class="glass-card rounded-2xl p-4 text-slate-300 text-xs font-mono shadow-md flex items-center space-x-3">
-          <span class="text-base animate-spin text-amber-400">⚖️</span>
-          <span>${escapeHtml(loadingText)}</span>
-        </div>
-      `;
-      container.appendChild(loader);
-      container.scrollTop = container.scrollHeight;
-    }
-
-    function removeLoadingAssistant() {
-      document.getElementById('loading-assistant')?.remove();
-    }
-
-    // ========================================================
-    // 8. ASSISTANT MESSAGE & DYNAMIC STAGE RENDERING
-    // ========================================================
-    function appendAssistantMessage(data, originalAccount = '') {
-      const container = document.getElementById('messages-container');
-      const intake = data.intake || {};
-      const questions = intake.follow_up_questions || data.follow_up_questions || [];
-      const needsFacts = Boolean(data.needs_more_information || intake.status === 'needs_more_information' || intake.status === 'needs_details' || (questions && questions.length > 0));
-      const caseId = `case-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-      rightsDataStore[caseId] = data;
-      lastSpokenCaseId = caseId;
-
-      const activeQuestion = questions.length ? questions[0] : (data.spoken_text || '');
-      const curLang = normalizeLang(data.language || currentLang);
-      const loc = UI_LOCALES[curLang] || UI_LOCALES.en;
-      const uyr = data.understand_your_rights || {};
-      const urgent = data.urgent_situation_action || uyr.urgent_safety_notice;
-
-      if (!needsFacts) {
-        // ==========================================
-        // STAGE B: Phase 2: Complete Legal Package (Single-Stage Final Presentation)
-        // Purge entire conversational intake clutter / chat history
-        // ==========================================
-        container.innerHTML = '';
-
-        const sectionsList = uyr.sections_and_dhaara || uyr.applicable_sections || [];
-        const actionsList = uyr.what_you_should_do?.immediate_steps || uyr.immediate_steps || data.recommended_actions || [];
-        const draftedNotice = data.formal_document || data.draft_document || data.formal_notice || data.pro_packet?.draft_message || data.ai_synthesized_summary || 'FORMAL LEGAL NOTICE PENDING REVIEW';
-
-        const wrap = document.createElement('div');
-        wrap.className = 'space-y-6';
-
-        wrap.innerHTML = `
-          <!-- CARD 1: DRAFTED FORMAL NOTICE & REPRESENTATION -->
-          <div class="rounded-2xl border border-brand-border glass-card p-5 sm:p-6 shadow-xl">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-brand-border mb-4 gap-2">
-              <div class="flex items-center space-x-2.5">
-                <span class="text-xl">📝</span>
-                <h3 class="text-base font-bold text-slate-100 font-syne">
-                  ${curLang === 'en' ? 'Drafted Formal Notice & Representation' : escapeHtml(loc.stageB.card1Title)}
-                </h3>
-              </div>
-              <span class="text-[10px] font-mono text-slate-400">
-                ${curLang === 'en' ? 'Outbound transmission disabled (Review only)' : escapeHtml(loc.stageB.outboundDisabled)}
-              </span>
-            </div>
-
-            <!-- Monospace Notice Document -->
-            <div class="bg-brand-dark rounded-xl p-4 border border-brand-border text-xs font-mono text-slate-300 leading-relaxed whitespace-pre-wrap max-h-72 overflow-y-auto mb-4 select-text">
-${escapeHtml(draftedNotice)}
-            </div>
-
-            <!-- Signoff & Roles Safeguard -->
-            <div class="mb-4 p-3.5 rounded-xl bg-brand-surface2 border border-brand-border text-[11px] text-slate-400">
-              <div class="font-bold text-slate-300 mb-1.5">${curLang === 'en' ? 'Approved Signoff Roles:' : escapeHtml(loc.stageB.approvedRoles)}</div>
-              <div class="flex flex-wrap gap-2 mb-2 font-mono text-xs">
-                <span class="px-2.5 py-0.5 rounded bg-brand-dark border border-brand-border text-slate-300">Client</span>
-                <span class="px-2.5 py-0.5 rounded bg-brand-dark border border-brand-border text-slate-300">Authorized Representative</span>
-                <span class="px-2.5 py-0.5 rounded bg-brand-dark border border-brand-border text-slate-300">Independent Legal Counsel</span>
-              </div>
-              <p class="leading-relaxed">
-                Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It creates an internal timestamped review record.
-              </p>
-            </div>
-
-            <!-- Document Actions -->
-            <div class="flex items-center justify-end space-x-2 pt-1">
-              <button onclick="copyDocument(this)" class="px-3.5 py-2 rounded-xl border border-brand-border bg-brand-dark hover:bg-brand-surface2 text-slate-200 hover:text-white text-xs font-mono transition flex items-center space-x-1.5 shadow-sm cursor-pointer">
-                <span>📋</span>
-                <span>${curLang === 'en' ? 'Copy Text' : escapeHtml(loc.stageB.copyText.replace('📋 ', ''))}</span>
-              </button>
-              <button onclick="printDocument()" class="px-3.5 py-2 rounded-xl border border-brand-border bg-brand-dark hover:bg-brand-surface2 text-slate-200 hover:text-white text-xs font-mono transition flex items-center space-x-1.5 shadow-sm cursor-pointer">
-                <span>🖨️</span>
-                <span>${curLang === 'en' ? 'Print / Save PDF' : escapeHtml(loc.stageB.printPdf.replace('🖨️ ', ''))}</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- CARD 2: UNDERSTAND YOUR RIGHTS & APPLICABLE DHAARA -->
-          <div class="rounded-2xl border-2 border-amber-500/40 glass-card p-5 sm:p-6 shadow-xl">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-brand-border mb-4 gap-2">
-              <div class="flex items-center space-x-2.5">
-                <span class="text-xl">⚖️</span>
-                <div>
-                  <h3 class="text-base font-bold text-amber-400 font-syne">
-                    ${curLang === 'en' ? 'Understand Your Rights & Applicable Dhaara' : escapeHtml(loc.stageB.card2Title)}
-                  </h3>
-                  <div class="text-[11px] font-mono text-slate-400">
-                    Draft Incident Summary for Review — Not Legal Advice
-                  </div>
-                </div>
-              </div>
-              <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-semibold self-start sm:self-auto">
-                Statutory citations pending advocate verification
-              </span>
-            </div>
-
-            <!-- Applicable Sections & Dhaara Badges -->
-            <div class="mb-4">
-              <div class="text-xs font-bold text-slate-300 mb-2.5 font-mono">${curLang === 'en' ? 'Applicable Statutes & Protective Sections:' : escapeHtml(loc.stageB.applicableStatutes)}</div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                ${sectionsList.length ? sectionsList.map(sec => `
-                  <div class="p-3 rounded-xl border border-brand-border bg-brand-dark text-xs text-slate-200">
-                    <div class="font-bold text-amber-400 text-xs">${escapeHtml(sec.statute_name || sec.act || 'Statutory Code')}</div>
-                    <div class="text-[11px] text-slate-300 font-semibold mt-0.5">${escapeHtml(sec.section_number || sec.section || '')}: ${escapeHtml(sec.what_it_protects || sec.title || '')}</div>
-                    ${(sec.why_it_applies || sec.description) ? `
-                      <div class="text-[10px] text-slate-400 mt-1 leading-snug">${escapeHtml(sec.why_it_applies || sec.description)}</div>
-                    ` : ''}
-                  </div>
-                `).join('') : `
-                  <div class="text-xs text-slate-400 font-mono p-3 rounded-xl bg-brand-dark border border-brand-border">${escapeHtml(loc.stageB.generalProtections)}</div>
-                `}
-              </div>
-            </div>
-
-            <!-- Interactive Spoken Audio Bar for this Verdict -->
-            <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-brand-border">
-              <button type="button"
-                      onclick="playRightsAudio('${caseId}', 'full')"
-                      class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono transition flex items-center space-x-1.5 cursor-pointer shadow-md">
-                <span id="play-icon-full-${caseId}">▶️</span>
-                <span>${escapeHtml(loc.stageB.listenRights)}</span>
-              </button>
-              <button type="button"
-                      onclick="playRightsAudio('${caseId}', 'recap')"
-                      class="px-3.5 py-2 rounded-xl border border-brand-border bg-brand-dark hover:bg-brand-surface2 text-slate-300 text-xs font-mono transition flex items-center space-x-1.5 cursor-pointer">
-                <span id="play-icon-recap-${caseId}">⏱️</span>
-                <span>${escapeHtml(loc.stageB.recap1Min)}</span>
-              </button>
-              <button type="button"
-                      onclick="replayRightsAudio('${caseId}')"
-                      class="px-3 py-2 rounded-xl border border-brand-border bg-brand-dark hover:bg-brand-surface2 text-slate-400 hover:text-white text-xs font-mono transition cursor-pointer">
-                🔄 ${escapeHtml(loc.stageB.replay)}
-              </button>
-            </div>
-          </div>
-
-          <!-- CARD 3: 1-MINUTE ACTION RECAP & DLSA 15100 LEGAL AID -->
-          <div class="rounded-2xl border border-brand-border glass-card p-5 sm:p-6 shadow-xl">
-            <div class="flex items-center space-x-2.5 pb-3 border-b border-brand-border mb-4">
-              <span class="text-xl">⏱️</span>
-              <h3 class="text-base font-bold text-slate-100 font-syne">
-                ${curLang === 'en' ? '1-Minute Action Recap & DLSA 15100 Legal Aid' : escapeHtml(loc.stageB.card3Title)}
-              </h3>
-            </div>
-
-            <!-- Urgent Safety & Helpline Card (if detected) -->
-            ${urgent ? `
-              <div class="mb-4 p-4 rounded-xl bg-red-950/40 border border-red-500 text-white">
-                <div class="flex items-center justify-between mb-1">
-                  <div class="flex items-center space-x-2">
-                    <span class="text-base">🚨</span>
-                    <span class="font-bold text-red-300 text-xs">${escapeHtml(urgent.heading || 'Urgent Safety Protection')}</span>
-                  </div>
-                  <a href="tel:${escapeHtml(urgent.helpline || '112')}" class="px-3 py-1 rounded bg-red-500 text-white font-bold text-xs font-mono">
-                    📞 Call ${escapeHtml(urgent.helpline || '112')}
-                  </a>
-                </div>
-                <p class="text-xs text-slate-200 mt-1">${escapeHtml(urgent.message || '')}</p>
-              </div>
-            ` : ''}
-
-            <!-- 1-Minute Summary Paragraph -->
-            <div class="mb-4 p-4 rounded-xl bg-brand-dark border border-brand-border">
-              <div class="text-xs font-bold text-amber-400 mb-1.5 flex items-center space-x-1.5 font-mono">
-                <span>⏱️</span>
-                <span>1-MINUTE LEGAL RECAP:</span>
-              </div>
-              <p class="text-xs text-slate-200 leading-relaxed">
-                ${escapeHtml(uyr.one_minute_recap?.recap_text || data.spoken_text || 'Your incident has been analyzed against relevant statutory protections.')}
-              </p>
-            </div>
-
-            <!-- Action Steps Checklist -->
-            <div class="mb-4">
-              <div class="text-xs font-bold text-slate-300 mb-2.5 font-mono">${curLang === 'en' ? '📌 What You Should Do Next' : escapeHtml(loc.stageB.whatNext)}</div>
-              <div class="space-y-2">
-                ${actionsList.length ? actionsList.map((step, idx) => `
-                  <div class="flex items-start space-x-2.5 text-xs text-slate-200 bg-brand-dark/50 p-2.5 rounded-lg border border-brand-border/60">
-                    <span class="w-5 h-5 rounded-full bg-brand-surface border border-brand-border flex items-center justify-center font-mono font-bold text-amber-400 shrink-0 text-[10px]">${idx + 1}</span>
-                    <span class="leading-relaxed">${escapeHtml(typeof step === 'string' ? step : (step.action_text || step.text || ''))}</span>
-                  </div>
-                `).join('') : `
-                  <div class="text-xs text-slate-400 font-mono">${escapeHtml(loc.stageB.preserveEvidence)}</div>
-                `}
-              </div>
-            </div>
-
-            <!-- DLSA 15100 Legal Aid Banner -->
-            <div class="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <div>
-                <div class="text-xs font-bold text-amber-400 font-mono">${curLang === 'en' ? '🏛️ DLSA National Legal Services Authority Helpline: 15100' : escapeHtml(loc.stageB.dlsaTitle)}</div>
-                <div class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">${curLang === 'en' ? 'Toll-free 24x7 government legal aid for free advocate representation and legal defense.' : escapeHtml(loc.stageB.dlsaDesc)}</div>
-              </div>
-              <a href="tel:15100" class="px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono transition shrink-0">
-                ${escapeHtml(loc.stageB.call15100)}
-              </a>
-            </div>
-
-            <!-- Quick Direct Helplines -->
-            <div class="flex flex-wrap gap-2 pt-3 mt-3 border-t border-brand-border text-xs font-mono">
-              <a href="tel:112" class="px-2.5 py-1 rounded bg-brand-dark border border-brand-border text-slate-300 hover:text-white">📞 112 (Police)</a>
-              <a href="tel:1930" class="px-2.5 py-1 rounded bg-brand-dark border border-brand-border text-slate-300 hover:text-white">📞 1930 (Cyber Crime)</a>
-              <a href="tel:15100" class="px-2.5 py-1 rounded bg-brand-dark border border-brand-border text-slate-300 hover:text-white">📞 15100 (Legal Aid)</a>
-            </div>
-          </div>
-
-          <!-- REVISION BAR -->
-          <div class="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
-            <div class="flex items-center space-x-2.5 text-xs text-slate-300">
-              <span class="text-lg">💡</span>
-              <div>
-                <span class="font-medium text-slate-200">${curLang === 'en' ? 'Need to change a detail or add facts?' : escapeHtml(loc.stageB.revisionPrompt)}</span>
-                <span class="text-slate-400 font-mono text-[11px] block sm:inline sm:ml-1">${curLang === 'en' ? 'or tap the sphere to speak.' : escapeHtml(loc.stageB.orSpeak)}</span>
-              </div>
-            </div>
-            <button type="button" onclick="openFactEditModal('general_facts', '')" class="px-4 py-2 rounded-xl border border-amber-500/40 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-mono font-bold transition flex items-center space-x-1.5 shrink-0 cursor-pointer shadow-sm">
-              <span>✏️</span>
-              <span>${curLang === 'en' ? 'Edit Details' : escapeHtml(loc.stageB.editDetails.replace('✏️ ', ''))}</span>
-            </button>
-          </div>
-        `;
-
-        container.appendChild(wrap);
-        container.scrollTop = 0;
-      } else {
-        // ==========================================
-        // STAGE A: Phase 1: Conversational Fact Intake
-        // Replace previous Stage A question card if one exists
-        // ==========================================
-        const prevStageACard = document.getElementById('stage-a-intake-card');
-        if (prevStageACard) {
-          prevStageACard.remove();
-        }
-
-        const facts = intake.known_facts || {};
-        const wrap = document.createElement('div');
-        wrap.id = 'stage-a-intake-card';
-        wrap.className = 'space-y-5';
-
-        wrap.innerHTML = `
-          <!-- Phase 1: Conversational Fact Intake -->
-          <!-- CARD 1: WHAT NYAYAVANI UNDERSTOOD & EDITABLE FACT CHIPS -->
-          <div class="rounded-2xl glass-card p-5 shadow-lg">
-            <div class="flex items-center justify-between pb-3 border-b border-brand-border mb-3">
-              <div class="flex items-center space-x-2">
-                <span class="text-base">📋</span>
-                <h3 class="text-sm font-bold text-slate-100 font-syne">${curLang === 'en' ? 'What We Understood So Far' : escapeHtml(loc.stageA.understood)}</h3>
-              </div>
-              <button onclick="showTranscriptReview('${escapeHtml(originalAccount || data.spoken_text || '')}', '${curLang}')" class="text-xs font-mono text-amber-400 hover:text-amber-300 flex items-center space-x-1 cursor-pointer">
-                <span>✏️ Edit Transcript</span>
-              </button>
-            </div>
-
-            <p class="text-xs text-slate-300 leading-relaxed mb-4">
-              "${escapeHtml(originalAccount || data.spoken_text || 'Information recorded.')}"
+            <h2 class="font-syne text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-3">
+              What happened? Tell us in your own words.
+            </h2>
+            <p class="text-sm text-[var(--text-secondary)] max-w-xl mx-auto mb-6 font-light leading-relaxed">
+              Record your voice or type in Hindi, Marathi, Gujarati, English, or your regional language. NyayaVani maps your statement to immediate statutory protections (Dhaara) and drafts a formal legal notice.
             </p>
 
-            <!-- Detected Fact Chips with Click-to-Edit -->
-            <div class="text-[11px] font-mono text-slate-400 mb-2">${curLang === 'en' ? 'Detected Facts (tap any chip to change):' : escapeHtml(loc.stageA.detectedFacts)}</div>
-            <div class="flex flex-wrap gap-2">
-              <button type="button" onclick="openFactEditModal('category', '${escapeHtml(data.category || 'General Incident')}')" class="px-3 py-1.5 rounded-lg border border-brand-border bg-brand-dark hover:border-amber-500/50 text-xs font-mono text-amber-400 transition flex items-center space-x-1.5 cursor-pointer" title="Tap to change category">
-                <span>🏛️</span>
-                <span>Category: <strong>${escapeHtml(data.category || 'Incident')}</strong></span>
-                <span class="text-[10px] text-slate-500">✏️</span>
-              </button>
+            <!-- Explicit Privacy Guarantee -->
+            <div class="p-3.5 rounded-2xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] max-w-lg mx-auto mb-6 text-xs font-mono text-[var(--text-muted)] text-left flex items-start space-x-2.5">
+              <span class="text-[var(--accent)] text-base mt-0.5">🔒</span>
+              <div class="leading-relaxed">
+                Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.
+              </div>
+            </div>
 
-              <button type="button" onclick="openFactEditModal('incident_date', '${escapeHtml(facts.incident_date || 'Recent')}')" class="px-3 py-1.5 rounded-lg border border-brand-border bg-brand-dark hover:border-cyan-500/50 text-xs font-mono text-cyan-300 transition flex items-center space-x-1.5 cursor-pointer" title="Tap to change date">
-                <span>📅</span>
-                <span>Date: <strong>${escapeHtml(facts.incident_date || 'Recent')}</strong></span>
-                <span class="text-[10px] text-slate-500">✏️</span>
-              </button>
+            <!-- Voice Error Fallback Message Container -->
+            <div id="voice-fallback-msg" class="p-3 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent-border)] max-w-md mx-auto mb-6 text-xs text-[var(--accent)] font-mono">
+              Voice unavailable in this browser or network. You can type your account directly below.
+            </div>
 
-              <button type="button" onclick="openFactEditModal('location', '${escapeHtml(facts.location || 'Local Jurisdiction')}')" class="px-3 py-1.5 rounded-lg border border-brand-border bg-brand-dark hover:border-emerald-500/50 text-xs font-mono text-emerald-400 transition flex items-center space-x-1.5 cursor-pointer" title="Tap to change location">
-                <span>📍</span>
-                <span>Location: <strong>${escapeHtml(facts.location || 'Local')}</strong></span>
-                <span class="text-[10px] text-slate-500">✏️</span>
+            <!-- Quick Start Action Chips -->
+            <div class="flex flex-wrap items-center justify-center gap-2">
+              <button onclick="startVoiceChatFlow()" class="cta-primary-btn py-2.5 px-5 text-xs rounded-xl shadow-md">
+                <span>🎙️ Speak Answer (Tap to talk)</span>
               </button>
-
-              <button type="button" onclick="openFactEditModal('opposing_party', '${escapeHtml(facts.opposing_party || 'Opposing Party')}')" class="px-3 py-1.5 rounded-lg border border-brand-border bg-brand-dark hover:border-purple-500/50 text-xs font-mono text-purple-300 transition flex items-center space-x-1.5 cursor-pointer" title="Tap to change other party">
-                <span>👤</span>
-                <span>Other Party: <strong>${escapeHtml(facts.opposing_party || 'Reported Party')}</strong></span>
-                <span class="text-[10px] text-slate-500">✏️</span>
+              <button onclick="openPresetsModal()" class="cta-contrast-btn py-2.5 px-4 text-xs rounded-xl">
+                <span>Browse Scenarios</span>
               </button>
             </div>
           </div>
 
-          <!-- CARD 2: CURRENT TARGETED QUESTION WITH VOICE & QUICK REPLY -->
-          <div class="rounded-2xl border-2 border-sky-500/50 bg-[#090f1d] p-5 sm:p-6 shadow-xl">
-            <div class="flex items-center space-x-2 text-xs font-mono text-sky-400 font-bold uppercase tracking-wider mb-2">
-              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-              <span>${curLang === 'mr' ? 'सध्याचा प्रश्न (उत्तर द्या):' : (curLang === 'hi' ? 'वर्तमान प्रश्न (उत्तर दें):' : 'Current Targeted Question:')}</span>
+          <!-- Static Statutory Safeguards & Disclaimers Card (Ensures Legal Safeguards Compliance) -->
+          <div id="statutory-safeguards-card" class="p-5 rounded-2xl themed-card border border-[var(--border-subtle)] space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-[var(--border-subtle)] gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">📄</span>
+                <span class="font-syne font-bold text-sm text-[var(--text-primary)]">Draft Incident Summary for Review — Not Legal Advice</span>
+              </div>
+              <span class="text-[10px] font-mono text-[var(--text-muted)] px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
+                Outbound transmission disabled (Review only)
+              </span>
             </div>
             
-            <h3 class="text-base sm:text-lg font-bold text-white leading-relaxed mb-4">
-              ${escapeHtml(activeQuestion)}
-            </h3>
+            <div class="text-xs text-[var(--text-secondary)] leading-relaxed">
+              Statutory citations pending advocate verification. All analysis is generated from your spoken or written statement for structured pre-litigation review.
+            </div>
 
-            <!-- Quick Reply Accessible Form -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-              <button type="button"
-                      onclick="startVoiceReply('${caseId}')"
-                      role="button"
-                      aria-label="Speak Answer"
-                      class="flex items-center justify-center space-x-2 rounded-xl bg-sky-400 hover:bg-sky-300 px-5 py-3 text-xs font-mono font-bold text-black transition shadow-md min-h-[44px] cursor-pointer">
-                <span>🎙️</span>
-                <span>${curLang === 'mr' ? 'बोलून सांगा' : (curLang === 'hi' ? 'बोलकर बताएं' : 'Speak Answer')}</span>
-              </button>
-
-              <div class="flex-1 min-w-[200px]">
-                <label for="quick-reply-${caseId}" class="sr-only">Type answer</label>
-                <div class="flex items-center space-x-2">
-                  <input id="quick-reply-${caseId}"
-                         type="text"
-                         role="textbox"
-                         aria-label="Type answer to question"
-                         placeholder="${curLang === 'mr' ? 'किंवा येथे उत्तर लिहा (Enter दाबा)...' : (curLang === 'hi' ? 'या यहाँ उत्तर लिखें (Enter दबाएं)...' : 'Or type answer here (Press Enter)...')}"
-                         onkeydown="if(event.key==='Enter') submitQuickReply('${caseId}')"
-                         class="w-full rounded-xl border border-brand-border bg-brand-dark px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:border-sky-400 outline-none min-h-[44px]">
-                  <button type="button"
-                          onclick="submitQuickReply('${caseId}')"
-                          class="rounded-xl bg-brand-surface hover:bg-brand-surface2 border border-brand-border px-4 py-2.5 text-xs font-mono text-white transition min-h-[44px] cursor-pointer">
-                    Enter
-                  </button>
-                </div>
+            <!-- Approved Signoff Roles & Statutory Safeguards -->
+            <div class="pt-2 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-[var(--text-muted)] font-bold">Approved Signoff Roles:</span>
+                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Client</span>
+                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Authorized Representative</span>
+                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Independent Legal Counsel</span>
+              </div>
+              <div class="text-[10px] text-[var(--text-muted)]">
+                Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It creates an internal timestamped review record.
               </div>
             </div>
           </div>
-        `;
 
-        container.appendChild(wrap);
-        container.scrollTop = container.scrollHeight;
-      }
-    }
-
-    function appendErrorMessage(err) {
-      const container = document.getElementById('messages-container');
-      const errDiv = document.createElement('div');
-      errDiv.className = 'flex justify-start';
-      errDiv.innerHTML = `
-        <div class="max-w-xl bg-red-950/40 border border-red-500/40 rounded-xl p-3.5 text-red-200 text-xs font-mono shadow-md">
-          <span class="font-bold">Notice:</span> ${escapeHtml(err)}
         </div>
-      `;
-      container.appendChild(errDiv);
-      container.scrollTop = container.scrollHeight;
+
+        <!-- Input Bar Section -->
+        <div class="p-4 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)] shrink-0">
+          <div class="max-w-4xl mx-auto">
+            
+            <!-- Privacy notice badge -->
+            <div id="intake-privacy-notice" class="mb-2 px-1 flex flex-col sm:flex-row sm:items-center sm:justify-between text-[11px] font-mono text-[var(--text-muted)] gap-1">
+              <div class="flex items-center space-x-1.5">
+                <span class="text-[var(--accent)] font-bold text-sm">🔒</span>
+                <span>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</span>
+              </div>
+              <span class="text-[10px] font-bold text-[var(--accent)] whitespace-nowrap px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-border)]">30s live limit · DPDP compliant</span>
+            </div>
+
+            <!-- Input Box -->
+            <div class="relative themed-input-container p-2.5">
+              <label for="chat-input" class="sr-only">Describe your legal issue</label>
+              <textarea id="chat-input" role="textbox" rows="2" placeholder="Speak or describe your legal issue in your own language..." class="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none resize-none px-3 py-2 leading-relaxed"></textarea>
+
+              <div class="flex items-center justify-between pt-2 px-2 border-t border-[var(--border-subtle)]">
+                <div class="flex items-center space-x-2">
+                  
+                  <!-- Audio File Upload -->
+                  <label class="cursor-pointer p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition" title="Upload audio file" aria-label="Upload audio file">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                    <input type="file" id="audio-file-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(this)">
+                  </label>
+
+                  <!-- Camera Photo Evidence Upload -->
+                  <label class="cursor-pointer p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--primary)] hover:bg-[var(--primary-subtle)] transition" title="Attach photo evidence or notice document" aria-label="Attach photo evidence">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <input type="file" id="camera-file-input" accept="image/*" capture="environment" class="hidden" onchange="NyayaVaniApp.handleProCameraUpload(this)">
+                  </label>
+
+                  <!-- Live Microphone Recording Button -->
+                  <button onclick="toggleMicrophone()" id="btn-mic" role="button" aria-label="Start voice recording" class="p-2 rounded-lg text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1.5 font-bold" title="Record your account">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/></svg>
+                    <span id="mic-label" class="text-[11px] font-mono">Speak now</span>
+                  </button>
+
+                  <!-- Example Questions Trigger -->
+                  <button onclick="openPresetsModal()" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1 text-xs font-mono">
+                    <span>Example questions</span>
+                  </button>
+                </div>
+
+                <!-- Send Button -->
+                <button onclick="sendMessage()" id="btn-send" role="button" aria-label="Send your account" class="cta-primary-btn p-2.5 rounded-xl">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="text-center text-[10px] font-mono text-[var(--text-muted)] mt-2">
+              Press <kbd class="px-1.5 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">Enter</kbd> to submit. Voice recordings use live speech recognition when the service is available.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================== -->
+      <!-- 2B. PRO WORKSPACE VIEW (Autonomous End-to-End Agent)     -->
+      <!-- ======================================================== -->
+      <div id="pro-workspace-view" class="flex-1 min-w-0 flex flex-col h-full overflow-y-auto hidden">
+        <!-- Pro Header -->
+        <div class="h-14 border-b border-[var(--border-subtle)] flex items-center justify-between px-6 bg-[var(--bg-surface)] backdrop-blur z-10 shadow-sm shrink-0">
+          <div class="flex items-center space-x-3">
+            <div class="w-7 h-7 rounded-lg bg-[var(--primary-subtle)] border border-[var(--primary)] flex items-center justify-center text-[var(--primary)] font-bold text-xs" style="box-shadow: var(--gold-glow);">
+              💼
+            </div>
+            <div>
+              <span class="text-xs font-mono font-bold text-[var(--primary)] tracking-wider">NYAYAVANI PRO · AUTONOMOUS END-TO-END GUIDELINE AGENT</span>
+              <span class="text-[10px] font-mono text-emerald-400 ml-2 font-bold px-2 py-0.5 rounded-full bg-emerald-950/50 border border-emerald-500/40">● MULTI-STAGE CASE ENGINE</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="NyayaVaniApp.resetProGuideline()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--primary)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
+              New Case Guideline
+            </button>
+          </div>
+        </div>
+
+        <div class="p-6 md:p-8 space-y-6 max-w-5xl mx-auto w-full">
+          <!-- 4-Stage End-to-End Pipeline Interactive Navigation Stepper -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
+            <button id="pro-step-1" onclick="NyayaVaniApp.selectProStage(1)" class="p-3.5 text-left rounded-xl border-2 border-[var(--primary)] bg-[var(--bg-card)] shadow-md transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+              <div class="text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+                <span>STAGE 01 // INTAKE</span>
+                <span class="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse"></span>
+              </div>
+              <div class="font-bold text-[var(--text-primary)]">Fact & Chronology Audit</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Timeline & Evidence Gap Check</div>
+            </button>
+
+            <button id="pro-step-2" onclick="NyayaVaniApp.selectProStage(2)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+                <span>STAGE 02 // STATUTES</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+              </div>
+              <div class="font-bold text-[var(--text-primary)]">Precedent Citation Graph</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Automated BNS / Central Acts</div>
+            </button>
+
+            <button id="pro-step-3" onclick="NyayaVaniApp.selectProStage(3)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+                <span>STAGE 03 // STRATEGY</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+              </div>
+              <div class="font-bold text-[var(--text-primary)]">Rebuttal & Calling Rehearsal</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Simulated Negotiation Call</div>
+            </button>
+
+            <button id="pro-step-4" onclick="NyayaVaniApp.selectProStage(4)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+                <span>STAGE 04 // DOSSIER</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+              </div>
+              <div class="font-bold text-[var(--text-primary)]">Court Packet & Hashing</div>
+              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">SHA-256 Frozen Sign-off</div>
+            </button>
+          </div>
+
+          <!-- STAGE 01: Case Briefing & Evidence Intake Station -->
+          <div id="pro-stage-section-1" class="p-6 rounded-2xl themed-card border-2 border-[var(--primary-border)] shadow-lg" style="box-shadow: var(--gold-glow);">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-5 gap-2">
+              <div>
+                <h2 class="font-syne text-xl font-bold text-[var(--text-primary)] flex items-center space-x-2">
+                  <span>⚖️ Stage 01: Case Briefing & Multi-Evidence Intake</span>
+                </h2>
+                <p class="text-xs text-[var(--text-secondary)] mt-0.5">
+                  Submit dispute particulars, attach documents or capture camera evidence to trigger multi-stage legal synthesis.
+                </p>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-[10px] font-mono font-bold text-[var(--primary)] px-2.5 py-1 rounded-full bg-[var(--primary-subtle)] border border-[var(--primary-border)]">ENTERPRISE GRADE</span>
+              </div>
+            </div>
+
+            <!-- Quick Case Archetypes -->
+            <div class="mb-4">
+              <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Select Dispute Archetype (1-Tap Fast Intake):</label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+                <button onclick="NyayaVaniApp.loadProArchetype('accident')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                  <div class="font-bold text-[var(--primary)] mb-0.5">🚗 Motor Collision</div>
+                  <div class="text-[10px] text-[var(--text-muted)]">Sec 166 MV Act / Insurer Claim</div>
+                </button>
+                <button onclick="NyayaVaniApp.loadProArchetype('wages')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                  <div class="font-bold text-[var(--primary)] mb-0.5">💼 Commercial Default</div>
+                  <div class="text-[10px] text-[var(--text-muted)]">Wage Theft & Contract Default</div>
+                </button>
+                <button onclick="NyayaVaniApp.loadProArchetype('eviction')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                  <div class="font-bold text-[var(--primary)] mb-0.5">🏢 Tenancy & Injunction</div>
+                  <div class="text-[10px] text-[var(--text-muted)]">Sec 38 Specific Relief Act</div>
+                </button>
+                <button onclick="NyayaVaniApp.loadProArchetype('cyber')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                  <div class="font-bold text-[var(--primary)] mb-0.5">🛡️ Cyber Extortion</div>
+                  <div class="text-[10px] text-[var(--text-muted)]">IT Act 66D & Privacy Breach</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Case Narrative Textarea -->
+            <div class="mb-4">
+              <label for="pro-case-input" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1.5">Factual Account & Chronology:</label>
+              <textarea id="pro-case-input" rows="4" placeholder="Detail the chronological dispute facts, involved entities, damages incurred, dates, and relief sought..." class="w-full p-3.5 rounded-xl bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:border-[var(--primary)] outline-none leading-relaxed resize-none"></textarea>
+            </div>
+
+            <!-- Evidence Attachments & Camera Station -->
+            <div class="mb-5 p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-bold">Evidence Attachments & Camera Station:</span>
+                <span id="pro-evidence-count" class="text-[10px] font-mono text-[var(--primary)] font-semibold">0 files attached</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
+                  <span>📎</span>
+                  <span>Attach Evidence Files (PDF, Docs, Audio)</span>
+                  <input type="file" id="pro-file-input" multiple onchange="NyayaVaniApp.handleProFileUpload(this)" class="hidden">
+                </label>
+
+                <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
+                  <span>📸</span>
+                  <span>Take Photo / Camera Capture</span>
+                  <input type="file" id="pro-camera-input" accept="image/*" capture="environment" onchange="NyayaVaniApp.handleProCameraUpload(this)" class="hidden">
+                </label>
+
+                <button type="button" onclick="NyayaVaniApp.toggleProVoice()" id="btn-pro-mic" class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--primary-border)] hover:bg-[var(--primary-subtle)] text-[var(--primary)] text-xs font-mono font-bold flex items-center space-x-1.5 transition">
+                  <span>🎙️</span>
+                  <span id="pro-mic-label">Dictate Case Narrative</span>
+                </button>
+              </div>
+
+              <!-- Attached Evidence Chips Container -->
+              <div id="pro-evidence-list" class="flex flex-wrap gap-2 text-xs font-mono min-h-[1.5rem]">
+                <span class="text-[11px] text-[var(--text-muted)] italic">No attachments added yet. Upload contracts, police GD slips, medical receipts, or photos.</span>
+              </div>
+            </div>
+
+            <!-- Action Row -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <div class="text-[11px] font-mono text-[var(--text-muted)]">
+                🔒 <em>Evidence files are hashed ephemerally for court dossier integrity.</em>
+              </div>
+              <button onclick="NyayaVaniApp.runProGuidelineAnalysis()" id="btn-run-pro-agent" class="cta-primary-btn py-3 px-6 text-xs w-full sm:w-auto">
+                <span>GENERATE END-TO-END GUIDELINE & DOSSIER</span>
+                <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Guideline Container -->
+          <div id="pro-guideline-output" class="space-y-6">
+            <!-- Dynamically generated via ui.js renderProGuideline -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- MODALS & DRAWERS                                         -->
+  <!-- ======================================================== -->
+
+  <!-- 1. Presets Modal -->
+  <div id="presets-modal" role="dialog" aria-modal="true" aria-label="Example questions" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-card)] border-2 border-[var(--accent)] rounded-3xl max-w-2xl w-full p-6 shadow-2xl" style="box-shadow: var(--accent-glow);">
+      <div class="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-4">
+        <h3 class="font-syne text-lg font-bold text-[var(--text-primary)] flex items-center space-x-2">
+          <span>Choose an example question to edit</span>
+        </h3>
+        <button onclick="closePresetsModal()" class="text-[var(--text-muted)] hover:text-[var(--accent)] text-xl">&times;</button>
+      </div>
+      <div id="modal-presets-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
+        <!-- Dynamically injected via ui.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Transcript Review Modal (Preserves Transcript Review & Verification Flow) -->
+  <div id="transcript-review-modal" role="dialog" aria-modal="true" aria-label="Review and edit your statement" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-card)] border-2 border-[var(--accent)] rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
+        <div class="flex items-center space-x-2">
+          <span class="text-xl">✏️</span>
+          <h3 class="font-syne text-base font-bold text-[var(--text-primary)]">Review & Edit Your Statement</h3>
+        </div>
+        <button onclick="closeTranscriptReview()" class="text-[var(--text-muted)] hover:text-[var(--accent)] text-xl font-bold">&times;</button>
+      </div>
+
+      <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
+        Verify your spoken words below. You can correct names, dates, or amounts before submitting for statutory legal analysis:
+      </p>
+
+      <input type="hidden" id="original-transcript-hidden" name="original_transcript">
+      <div>
+        <label for="reviewed-transcript" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase mb-1">Editable Statement:</label>
+        <textarea id="reviewed-transcript" name="reviewed_transcript" rows="5" class="w-full p-3 rounded-xl bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:border-[var(--accent)] outline-none leading-relaxed"></textarea>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+        <div class="flex items-center space-x-2">
+          <label for="review-lang-override" class="text-[11px] font-mono text-[var(--text-muted)]">Language:</label>
+          <select id="review-lang-override" class="bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
+            <option value="indic-auto">Auto detect</option>
+            <option value="hi-IN">Hindi (हिंदी)</option>
+            <option value="mr-IN">Marathi (मराठी)</option>
+            <option value="gu-IN">Gujarati (ગુજરાતી)</option>
+            <option value="en-IN">English</option>
+          </select>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button type="button" onclick="closeTranscriptReview()" class="px-4 py-2 rounded-xl border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-muted)] hover:bg-[var(--bg-subtle)] transition">
+            Cancel
+          </button>
+          <button type="button" onclick="submitReviewedTranscript()" class="cta-primary-btn px-5 py-2 text-xs rounded-xl shadow-md">
+            <span>Confirm & Analyze</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phase 1: Conversational Fact Intake -->
+  <!-- Phase 2: Complete Legal Package -->
+  <!-- Inline Helper Bridge for Direct Global Invocations & Accessibility Verification -->
+  <script>
+    let isRecordingActive = false;
+    let lastInputModality = 'voice';
+    function encodePcmToWav(chunks, sourceSampleRate, targetSampleRate = 16000) {
+      if (window.AudioEngine && window.AudioEngine.encodePcmToWav) {
+        return window.AudioEngine.encodePcmToWav(chunks, sourceSampleRate, targetSampleRate);
+      }
+      return null;
     }
-
-    function startVoiceReply(caseId) {
-      toggleMicrophone();
-    }
-
-    async function submitQuickReply(caseId) {
-      const input = document.getElementById(`quick-reply-${caseId}`);
-      if (!input || !input.value.trim()) return;
-      const ans = input.value.trim();
-      input.value = '';
-      lastInputModality = 'text';
-      await submitCase(ans, { modality: 'text' });
-    }
-
-    // ========================================================
-    // 9. FACT EDIT MODAL HANDLERS
-    // ========================================================
-    function openFactEditModal(key, currentVal) {
-      document.getElementById('fact-edit-key').value = key;
-      const titleMap = {
-        'category': 'Edit Incident Category',
-        'incident_date': 'Edit Incident Date / Time',
-        'location': 'Edit Location / Jurisdiction',
-        'opposing_party': 'Edit Other Involved Party',
-        'general_facts': 'Revise Incident Facts & Details',
-        'facts': 'Revise Incident Facts & Details'
-      };
-      document.getElementById('fact-edit-title').innerText = titleMap[key] || 'Edit Detail';
-      document.getElementById('fact-edit-input').value = currentVal || '';
-      document.getElementById('fact-edit-modal')?.classList.remove('hidden');
-    }
-
-    function closeFactEditModal() {
-      document.getElementById('fact-edit-modal')?.classList.add('hidden');
-    }
-
-    async function saveFactEdit() {
-      const key = document.getElementById('fact-edit-key').value;
-      const val = document.getElementById('fact-edit-input').value.trim();
-      closeFactEditModal();
-      if (!val) return;
-
-      const correctionMsg = (key === 'general_facts' || key === 'facts')
-        ? `Correction/Additional facts: ${val}`
-        : `Correction: The ${key.replace('_', ' ')} is actually "${val}".`;
-      await submitCase(correctionMsg, { modality: 'text' });
-    }
-
-    // ========================================================
-    // 10. PRESETS, COPY & PURGE ROUTINES
-    // ========================================================
-    function renderModalPresets() {
-      const list = document.getElementById('modal-presets-list');
-      if (!list) return;
-      list.innerHTML = presetsData.map(p => `
-        <button onclick="selectPreset('${p.id}')" class="w-full text-left p-3.5 rounded-xl border border-brand-border hover:border-amber-500/60 bg-brand-surface hover:bg-brand-surface2 transition">
-          <div class="text-xs font-bold text-amber-400 mb-0.5">${p.icon} ${p.title}</div>
-          <div class="text-xs text-slate-300 leading-relaxed font-light">"${p.text}"</div>
-        </button>
-      `).join('');
-    }
-
-    function openPresetsModal() {
-      renderModalPresets();
-      document.getElementById('presets-modal')?.classList.remove('hidden');
-    }
-
-    function closePresetsModal() {
-      document.getElementById('presets-modal')?.classList.add('hidden');
-    }
-
-    function selectPreset(presetId) {
-      closePresetsModal();
-      resetSessionToken();
-      rightsDataStore = {};
-      rightsAudioMap = {};
-      const container = document.getElementById('messages-container');
-      if (container) container.innerHTML = '';
-      const p = presetsData.find(item => item.id === presetId);
-      if (p) {
-        if (p.tier) setTier(p.tier);
-        submitCase(p.text, { modality: 'text' });
+    function submitQuickReply(caseId) {
+      if (window.NyayaVaniApp && window.NyayaVaniApp.submitQuickReply) {
+        window.NyayaVaniApp.submitQuickReply(caseId);
       }
     }
-
-    function setTier(tier) {
-      activeTier = tier;
-      document.body.setAttribute('data-tier', tier);
-
-      const btnFree = document.getElementById('btn-tier-free');
-      const btnPro = document.getElementById('btn-tier-pro');
-      const btnSend = document.getElementById('btn-send');
-      const btnMic = document.getElementById('btn-mic');
-      const btnRepeat = document.getElementById('btn-repeat-orb');
-      const orbPillDot = document.querySelector('#orb-header-pill .rounded-full');
-      const dossierDot = document.querySelector('#companion-pane .h-12 .rounded-full');
-
-      if (tier === 'BHARAT_GRASSROOTS_AID') {
-        // Free Tier: Ivory White, Coral Blue, Electric Purple Accent (highlights only)
-        if (btnFree) btnFree.className = 'px-3 py-1.5 rounded-md text-[#FFFFF0] font-bold bg-sky-500/20 border border-purple-500/50 glow-purple transition';
-        if (btnPro) btnPro.className = 'px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition border border-transparent';
-        if (btnSend) btnSend.className = 'px-3.5 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-[#FFFFF0] font-bold text-xs font-mono transition shadow-md border border-purple-500/40 hover:glow-purple flex items-center space-x-1';
-        if (btnMic) btnMic.className = 'px-2.5 py-1 rounded-lg text-[#FFFFF0] hover:text-purple-300 hover:bg-purple-500/10 transition flex items-center space-x-1.5 text-xs font-mono';
-        if (btnRepeat) btnRepeat.className = 'flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-sky-500/30 hover:border-purple-500/60 bg-brand-surface hover:bg-brand-surface2 text-[#FFFFF0] hover:text-white text-xs font-mono font-medium transition shadow-md active:scale-95 cursor-pointer';
-        if (orbPillDot) orbPillDot.className = 'w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#a855f7]';
-        if (dossierDot) dossierDot.className = 'w-2 h-2 rounded-full bg-purple-400 shadow-[0_0_8px_#a855f7]';
-      } else {
-        // Pro Tier: Gold, Black, Emerald Accent (highlights only)
-        if (btnPro) btnPro.className = 'px-3 py-1.5 rounded-md text-amber-300 font-bold bg-amber-500/20 border border-emerald-500/50 glow-emerald transition';
-        if (btnFree) btnFree.className = 'px-3 py-1.5 rounded-md text-slate-400 hover:text-white transition border border-transparent';
-        if (btnSend) btnSend.className = 'px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs font-mono transition shadow-md border border-emerald-500/40 hover:glow-emerald flex items-center space-x-1';
-        if (btnMic) btnMic.className = 'px-2.5 py-1 rounded-lg text-amber-400 hover:text-emerald-300 hover:bg-emerald-500/10 transition flex items-center space-x-1.5 text-xs font-mono';
-        if (btnRepeat) btnRepeat.className = 'flex items-center space-x-2 px-4 py-2.5 rounded-xl border border-amber-500/30 hover:border-emerald-500/60 bg-brand-surface hover:bg-brand-surface2 text-amber-200 hover:text-amber-100 text-xs font-mono font-medium transition shadow-md active:scale-95 cursor-pointer';
-        if (orbPillDot) orbPillDot.className = 'w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]';
-        if (dossierDot) dossierDot.className = 'w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]';
-      }
-      setOrbState(orbState);
-    }
-
-    function printDocument() {
-      window.print();
-    }
-
-    async function copyDocument(btn) {
-      const parent = btn.closest('.glass-card') || btn.closest('.rounded-2xl');
-      const textContainer = parent?.querySelector('.whitespace-pre-wrap');
-      if (textContainer) {
-        const textToCopy = textContainer.innerText || textContainer.textContent || '';
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(textToCopy);
-          } else {
-            const ta = document.createElement('textarea');
-            ta.value = textToCopy;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-          }
-        } catch (e) {
-          console.warn('Clipboard copy error:', e);
-        }
-        const orig = btn.innerText;
-        btn.innerText = 'Copied!';
-        setTimeout(() => { btn.innerText = orig; }, 2000);
+    function showTranscriptReview(transcript, langLabel) {
+      if (window.NyayaVaniApp && window.NyayaVaniApp.showTranscriptReview) {
+        window.NyayaVaniApp.showTranscriptReview(transcript, langLabel);
       }
     }
-
-    function clearChat() {
-      resetSessionToken();
-      resetToImmersionView();
-      const container = document.getElementById('messages-container');
-      if (container) container.innerHTML = '';
-      setOrbState('idle');
-      lastSpokenCaseId = null;
-      lastSpokenAudioUrl = null;
-      rightsDataStore = {};
-      rightsAudioMap = {};
+    function submitReviewedTranscript() {
+      if (window.NyayaVaniApp && window.NyayaVaniApp.submitReviewedTranscript) {
+        window.NyayaVaniApp.submitReviewedTranscript();
+      }
     }
-
-    async function purgeSessionData() {
-      if (!confirm('Purge all ephemeral voice data and session tokens on this device? (DPDP Act Compliance)')) return;
-      try {
-        await fetch('/api/privacy/purge', {
-          method: 'POST',
-          headers: getAuthHeaders({'Content-Type': 'application/json'}),
-          body: JSON.stringify({ session_id: getSessionToken() })
-        });
-      } catch (e) {}
-      resetSessionToken();
-      rightsDataStore = {};
-      rightsAudioMap = {};
-      clearChat();
-      alert('Session data and voice cache purged successfully.');
-    }
-
-    function escapeHtml(string) {
-      if (!string) return '';
-      return String(string)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    // ========================================================
-    // 11. SYSTEM BOOTSTRAP
-    // ========================================================
-    window.addEventListener('DOMContentLoaded', () => {
-      // Start Living Chromatic Nebula animation loop
-      requestAnimationFrame(drawNebula);
-
-      // Ping status endpoint to confirm server readiness
-      fetch('/api/status')
-        .then(res => res.json())
-        .then(data => {
-          const statusEl = document.getElementById('chat-api-status');
-          if (statusEl) {
-            statusEl.innerText = (data.service_status === 'HEALTHY' || data.status === 'ok') ? 'Online' : 'Degraded';
-            statusEl.className = 'text-[11px] text-emerald-400 font-semibold';
-          }
-        })
-        .catch(() => {
-          const statusEl = document.getElementById('chat-api-status');
-          if (statusEl) {
-            statusEl.innerText = 'Offline';
-            statusEl.className = 'text-[11px] text-red-400 font-semibold';
-          }
-        });
-    });
   </script>
+
+  <!-- Quick Reply Conversational Accessibility Hook -->
+  <div id="quick-reply-accessibility-hook" class="hidden" aria-hidden="true">
+    <button type="button" role="button" id="quick-reply-sample-btn">🎙️ Speak Answer</button>
+    <input id="quick-reply-input-template" role="textbox" placeholder="quick-reply-">
+  </div>
+
+  <!-- Modular Application Entry Point -->
+  <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>

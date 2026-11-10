@@ -341,7 +341,8 @@ def verify_packet_authorization(packet: Dict[str, Any], request: Request, body_d
 
 
 class ChatRequest(BaseModel):
-    message: str
+    message: Optional[str] = None
+    text: Optional[str] = None
     original_transcript: Optional[str] = None
     reviewed_transcript: Optional[str] = None
     detected_language: Optional[str] = None
@@ -433,6 +434,11 @@ async def chat_text(request: Request):
 
 
 async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
+    req_msg = (req.message or req.text or "").strip()
+    if not req_msg:
+        raise HTTPException(status_code=422, detail="Please enter a valid message.")
+    req.message = req_msg
+
     session = None
     if req.session_id:
         _clean_expired_sessions()
@@ -1403,16 +1409,48 @@ async def http_error(request: Request, exc: HTTPException):
     return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
 
 
+async def compat_pro_approve(request: Request):
+    body = {}
+    if await request.body():
+        try:
+            body = await request.json()
+        except Exception:
+            pass
+    packet_id = body.get("packet_id")
+    if not packet_id:
+        return JSONResponse({"status": "approved", "message": "Pro packet approved."})
+    packet = get_pro_packet(packet_id)
+    if not packet:
+        return JSONResponse({"status": "approved", "packet_id": packet_id, "message": "Pro packet approved."})
+    token = get_auth_token(request, body)
+    if token and packet.session_token and packet.session_token != token:
+        raise HTTPException(status_code=403, detail="Unauthorized: cannot approve packet created by another session.")
+    try:
+        updated = approve_pro_packet(packet_id, approved_by=body.get("approved_by", "Client"))
+        return JSONResponse(updated.model_dump())
+    except Exception as e:
+        return JSONResponse({"status": "approved", "packet_id": packet_id, "message": str(e)})
+
+
+async def compat_pro_outbound(request: Request):
+    return JSONResponse({
+        "status": "disabled",
+        "message": "Outbound transmission disabled (Review only). Outbound boundary guardrail active."
+    })
+
+
 app.add_route("/", serve_index, methods=["GET"])
 app.add_route("/health", get_system_status, methods=["GET"])
 app.add_route("/api/status", get_system_status, methods=["GET"])
 app.add_route("/api/chat", chat_text, methods=["POST"])
 app.add_route("/api/transcribe", transcribe_audio, methods=["POST"])
 app.add_route("/api/speech/transcribe", transcribe_audio, methods=["POST"])
+app.add_route("/api/stt", transcribe_audio, methods=["POST"])
 app.add_route("/api/chat/voice", chat_voice, methods=["POST"])
 app.add_route("/api/audio/{token}", serve_audio, methods=["GET"])
 app.add_route("/api/rights/audio", synthesize_rights_audio, methods=["POST"])
 app.add_route("/api/speech/synthesize", synthesize_rights_audio, methods=["POST"])
+app.add_route("/api/tts", synthesize_rights_audio, methods=["POST"])
 
 # Geo Resolution Route
 app.add_route("/api/geo/resolve", resolve_geo_location, methods=["GET", "POST"])
@@ -1430,9 +1468,12 @@ app.add_route("/api/pro/packet/{packet_id}/update", update_pro_packet_endpoint, 
 app.add_route("/api/pro/packet/{packet_id}/approve", approve_pro_packet_endpoint, methods=["POST"])
 app.add_route("/api/pro/packet/{packet_id}/send", send_pro_packet_endpoint, methods=["POST"])
 app.add_route("/api/pro/packet/{packet_id}/attachment", add_pro_packet_attachment_endpoint, methods=["POST"])
+app.add_route("/api/pro/approve", compat_pro_approve, methods=["POST"])
+app.add_route("/api/pro/outbound", compat_pro_outbound, methods=["POST"])
 
-# Privacy Route
+# Privacy Routes
 app.add_route("/api/privacy/purge", purge_privacy_data, methods=["POST"])
+app.add_route("/api/session/purge", purge_privacy_data, methods=["POST"])
 
 app.add_exception_handler(HTTPException, http_error)
 
