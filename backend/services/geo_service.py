@@ -221,46 +221,45 @@ class GeoLanguageService:
         if not text:
             return current_lang or "indic-auto", "Shivani"
 
-        # Check Kannada script
+        try:
+            from backend.services.legal_engine import detect_language
+            base_lang = detect_language(text, lang_code=current_lang, detected_language=current_lang)
+            voice_map = {
+                "mr": ("mr-IN", "Vasudha"),
+                "hi": ("hi-IN", "Shivani"),
+                "ta": ("ta-IN", "Kalpana"),
+                "te": ("te-IN", "Lakshmi"),
+                "kn": ("kn-IN", "Chetana"),
+                "bn": ("bn-IN", "Riyaa"),
+                "gu": ("gu-IN", "Tarika"),
+                "pa": ("pa-IN", "Tarika"),
+                "ml": ("ml-IN", "Lakshmi"),
+                "en": ("en-IN", "Avinash" if any(w in text.lower() for w in ["court", "police", "money", "delay", "lawyer", "notice"]) else "Shivani"),
+            }
+            if base_lang in voice_map:
+                return voice_map[base_lang]
+        except Exception:
+            pass
+
+        # Fallback to direct script inspection
         if re.search(r"[\u0C80-\u0CFF]", text):
             return "kn-IN", "Chetana"
-
-        # Check Tamil script
         if re.search(r"[\u0B80-\u0BFF]", text):
             return "ta-IN", "Kalpana"
-
-        # Check Telugu script
         if re.search(r"[\u0C00-\u0C7F]", text):
             return "te-IN", "Lakshmi"
-
-        # Check Bengali script
         if re.search(r"[\u0980-\u09FF]", text):
             return "bn-IN", "Riyaa"
-
-        # Check Gujarati script
         if re.search(r"[\u0A80-\u0AFF]", text):
             return "gu-IN", "Tarika"
-
-        # Check Gurmukhi (Punjabi) script
         if re.search(r"[\u0A00-\u0A7F]", text):
             return "pa-IN", "Tarika"
-
-        # Check Malayalam script
         if re.search(r"[\u0D00-\u0D7F]", text):
             return "ml-IN", "Lakshmi"
-
-        # Check Devanagari script (Hindi / Marathi)
         if re.search(r"[\u0900-\u097F]", text):
-            marathi_markers = ["आहे", "नाही", "केले", "दिले", "झाले", "पगार", "कंत्राटदार", "पोलीस", "पैसे", "काम", "झाला", "आले", "होते", "माझे", "माझ्या", "ठाणे"]
-            if current_lang == "mr-IN" or any(m in text for m in marathi_markers):
+            marathi_markers = ["आहे", "नाही", "केले", "दिले", "झाले", "पगार", "कंत्राटदार", "पोलीस", "पैसे", "काम", "झाला", "आले", "होते", "माझे", "माझ्या", "ठाणे", "पुणे", "मुंबई", "तक्रार", "गाडी"]
+            if current_lang in ("mr", "mr-IN") or any(m in text for m in marathi_markers):
                 return "mr-IN", "Vasudha"
             return "hi-IN", "Shivani"
-
-        # English Latin script fallback
-        if current_lang in ["kn-IN", "ta-IN", "te-IN", "bn-IN", "mr-IN", "gu-IN", "pa-IN", "ml-IN"]:
-            # Check if query is largely English
-            if re.search(r"\b(the|is|my|court|police|notice|lawyer|judge|money|delay)\b", text.lower()):
-                return "en-IN", "Avinash"
-            return current_lang, "Shivani"
 
         return current_lang or "en-IN", "Shivani"

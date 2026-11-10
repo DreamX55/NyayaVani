@@ -238,10 +238,19 @@
           </select>
           <label for="select-voice" class="block text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2">Spoken guidance voice</label>
           <select id="select-voice" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2.5 focus:border-amber-500 outline-none mb-3">
-            <option value="Shivani">Shivani (Authoritative Formal Hindi - Rights Shield)</option>
-            <option value="Lakshmi">Lakshmi (Empathetic Conversational Hindi)</option>
+            <option value="Shivani">Shivani (Hindi - Rights Shield)</option>
+            <option value="Vasudha">Vasudha (Marathi - अस्खलित मराठी)</option>
+            <option value="Kalpana">Kalpana (Tamil - தமிழ்)</option>
+            <option value="Lakshmi">Lakshmi (Telugu / Malayalam / Conversational Hindi)</option>
+            <option value="Chetana">Chetana (Kannada - ಕನ್ನಡ)</option>
+            <option value="Riyaa">Riyaa (Bengali - বাংলা)</option>
+            <option value="Tarika">Tarika (Gujarati & Punjabi)</option>
             <option value="Avinash">Avinash (Corporate English / Incident Co-Pilot)</option>
-            <option value="Kalpana">Kalpana (Warm Indic Dialect)</option>
+            <option value="Harshad">Harshad (Indic Bar Counsel)</option>
+            <option value="Shubham">Shubham (Clear Hindi Guidance)</option>
+            <option value="Prakash">Prakash (Deep Resonant Voice)</option>
+            <option value="Devansh">Devansh (Articulate Legal Voice)</option>
+            <option value="Yashraj">Yashraj (Formal Legal Tone)</option>
           </select>
           <div class="p-3 rounded-xl bg-[#090d14] border border-cyan-500/30">
             <label class="flex items-center space-x-2 text-xs font-mono text-cyan-300 cursor-pointer">
@@ -493,6 +502,12 @@
 
     let mediaRecorder = null;
     let audioChunks = [];
+    let recordingAudioContext = null;
+    let recordingStream = null;
+    let recordingSourceNode = null;
+    let recordingProcessorNode = null;
+    let recordingPcmSamples = [];
+    let isRecordingActive = false;
     let recordInterval = null;
     let recordSeconds = 0;
     let rawTranscript = '';
@@ -568,7 +583,7 @@
         if (resp.ok) {
           const res = await resp.json();
           if (res.profile && res.profile.city_display) {
-            const locEl = document.getElementById('location-input');
+            const locEl = document.getElementById('input-location') || document.getElementById('location-input');
             if (locEl && (!locEl.value || locEl.value === 'India')) {
               locEl.value = res.profile.city_display;
             }
@@ -629,58 +644,142 @@
     // LIVE AUDIO RECORDING WITH 30-SECOND COUNTDOWN & PRIVACY
     // ========================================================
     async function toggleMicrophone() {
-      if (mediaRecorder && mediaRecorder.state === 'recording') {
+      if (isRecordingActive || (mediaRecorder && mediaRecorder.state === 'recording')) {
         stopRecording();
       } else {
         startRecording();
       }
     }
 
+    function encodePcmToWav(chunks, sourceSampleRate, targetSampleRate = 16000) {
+      let totalLength = 0;
+      for (let i = 0; i < chunks.length; i++) totalLength += chunks[i].length;
+      if (totalLength === 0) return null;
+
+      const merged = new Float32Array(totalLength);
+      let offset = 0;
+      for (let i = 0; i < chunks.length; i++) {
+        merged.set(chunks[i], offset);
+        offset += chunks[i].length;
+      }
+
+      let samples;
+      if (sourceSampleRate === targetSampleRate) {
+        samples = merged;
+      } else {
+        const ratio = sourceSampleRate / targetSampleRate;
+        const newLength = Math.round(merged.length / ratio);
+        samples = new Float32Array(newLength);
+        for (let i = 0; i < newLength; i++) {
+          const srcIdx = i * ratio;
+          const i0 = Math.floor(srcIdx);
+          const i1 = Math.min(i0 + 1, merged.length - 1);
+          const weight = srcIdx - i0;
+          samples[i] = merged[i0] * (1 - weight) + merged[i1] * weight;
+        }
+      }
+
+      const buffer = new ArrayBuffer(44 + samples.length * 2);
+      const view = new DataView(buffer);
+      const writeText = (off, val) => { for (let i = 0; i < val.length; i++) view.setUint8(off + i, val.charCodeAt(i)); };
+
+      writeText(0, 'RIFF');
+      view.setUint32(4, 36 + samples.length * 2, true);
+      writeText(8, 'WAVE');
+      writeText(12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true); // Linear PCM
+      view.setUint16(22, 1, true); // Mono (1 channel)
+      view.setUint32(24, targetSampleRate, true);
+      view.setUint32(28, targetSampleRate * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeText(36, 'data');
+      view.setUint32(40, samples.length * 2, true);
+
+      let p = 44;
+      for (let i = 0; i < samples.length; i++, p += 2) {
+        const s = Math.max(-1, Math.min(1, samples[i]));
+        view.setInt16(p, s < 0 ? s * 32768 : s * 32767, true);
+      }
+
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
+    function cleanUpRecordingResources() {
+      if (recordingProcessorNode) {
+        try {
+          recordingProcessorNode.disconnect();
+          recordingProcessorNode.onaudioprocess = null;
+        } catch (e) {}
+        recordingProcessorNode = null;
+      }
+      if (recordingSourceNode) {
+        try { recordingSourceNode.disconnect(); } catch (e) {}
+        recordingSourceNode = null;
+      }
+      if (recordingAudioContext) {
+        try { recordingAudioContext.close(); } catch (e) {}
+        recordingAudioContext = null;
+      }
+      recordingStream = null;
+    }
+
     async function startRecording() {
       try {
-        if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+        if (!navigator.mediaDevices?.getUserMedia) {
           appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
           document.getElementById('chat-input')?.focus();
           return;
         }
 
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            channelCount: 1,
+            echoCancellation: true,
+            noiseSuppression: true,
+            autoGainControl: true
+          }
+        });
+        recordingStream = stream;
+        recordingPcmSamples = [];
+        isRecordingActive = true;
+
+        // 1. Direct Web Audio API PCM capture (native 16kHz linear WAV, avoids WebM decode bugs)
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            recordingAudioContext = new AudioContextClass();
+            recordingSourceNode = recordingAudioContext.createMediaStreamSource(stream);
+            recordingProcessorNode = recordingAudioContext.createScriptProcessor(4096, 1, 1);
+            recordingProcessorNode.onaudioprocess = (e) => {
+              if (!isRecordingActive) return;
+              const inputData = e.inputBuffer.getChannelData(0);
+              recordingPcmSamples.push(new Float32Array(inputData));
+            };
+            recordingSourceNode.connect(recordingProcessorNode);
+            recordingProcessorNode.connect(recordingAudioContext.destination);
+          }
+        } catch (audioCtxErr) {
+          console.warn('AudioContext PCM direct capture note:', audioCtxErr);
+        }
+
+        // 2. MediaRecorder fallback
         audioChunks = [];
-
-        mediaRecorder.ondataavailable = e => {
-          if (e.data.size > 0) audioChunks.push(e.data);
-        };
-
-        mediaRecorder.onstop = async () => {
-          if (recordInterval) {
-            clearInterval(recordInterval);
-            recordInterval = null;
+        if (window.MediaRecorder) {
+          try {
+            mediaRecorder = new MediaRecorder(stream);
+            mediaRecorder.ondataavailable = (e) => {
+              if (e.data.size > 0) audioChunks.push(e.data);
+            };
+            mediaRecorder.start();
+          } catch (mrErr) {
+            console.warn('MediaRecorder init note:', mrErr);
+            mediaRecorder = null;
           }
-          document.getElementById('recording-toast')?.classList.add('hidden');
-          const btnMic = document.getElementById('btn-mic');
-          if (btnMic) {
-            btnMic.classList.remove('bg-red-500/20', 'text-red-400');
-            btnMic.setAttribute('aria-label', 'Start voice recording');
-          }
-          document.getElementById('mic-label').innerText = 'Speak now';
+        }
 
-          const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType || 'audio/webm' });
-          stream.getTracks().forEach(track => track.stop());
-
-          if (!audioBlob.size) {
-            appendErrorMessage('The recording was empty. You can type your account directly below or tap Speak now to record again.');
-            document.getElementById('chat-input')?.focus();
-            return;
-          }
-
-          await transcribeAudio(audioBlob, 'live_speech.wav');
-        };
-
-        mediaRecorder.start();
         recordSeconds = 0;
-
-        // Display visible countdown and timer indicator (Requirement V3 & Req 2)
         const toastEl = document.getElementById('recording-toast');
         if (toastEl) toastEl.classList.remove('hidden');
 
@@ -715,6 +814,7 @@
         }, 1000);
 
       } catch (err) {
+        cleanUpRecordingResources();
         if (recordInterval) {
           clearInterval(recordInterval);
           recordInterval = null;
@@ -731,11 +831,61 @@
       }
     }
 
-    function stopRecording() {
-      if (mediaRecorder && mediaRecorder.state === 'recording') {
-        mediaRecorder.stop();
-        document.getElementById('btn-mic')?.setAttribute('aria-label', 'Start voice recording');
+    async function stopRecording() {
+      if (!isRecordingActive && (!mediaRecorder || mediaRecorder.state !== 'recording')) {
+        return;
       }
+      isRecordingActive = false;
+
+      if (recordInterval) {
+        clearInterval(recordInterval);
+        recordInterval = null;
+      }
+      document.getElementById('recording-toast')?.classList.add('hidden');
+      const btnMic = document.getElementById('btn-mic');
+      if (btnMic) {
+        btnMic.classList.remove('bg-red-500/20', 'text-red-400');
+        btnMic.setAttribute('aria-label', 'Start voice recording');
+      }
+      document.getElementById('mic-label').innerText = 'Speak now';
+
+      // Capture direct PCM WAV
+      let wavBlob = null;
+      if (recordingAudioContext && recordingPcmSamples.length > 0) {
+        try {
+          wavBlob = encodePcmToWav(recordingPcmSamples, recordingAudioContext.sampleRate, 16000);
+        } catch (wavErr) {
+          console.warn('Direct PCM to WAV note:', wavErr);
+        }
+      }
+
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        try { mediaRecorder.stop(); } catch (e) {}
+      }
+
+      const streamToStop = recordingStream;
+      cleanUpRecordingResources();
+      if (streamToStop) {
+        streamToStop.getTracks().forEach(t => t.stop());
+      }
+
+      // If direct PCM WAV succeeded
+      if (wavBlob && wavBlob.size > 800) {
+        await transcribeAudio(wavBlob, 'live_speech.wav');
+        return;
+      }
+
+      // Fallback: If MediaRecorder audioChunks exist
+      if (audioChunks.length > 0) {
+        const fallbackBlob = new Blob(audioChunks, { type: mediaRecorder?.mimeType || 'audio/webm' });
+        if (fallbackBlob.size > 0) {
+          await transcribeAudio(fallbackBlob, 'live_speech.wav');
+          return;
+        }
+      }
+
+      appendErrorMessage('The recording was empty. You can type your account directly below or tap Speak now to record again.');
+      document.getElementById('chat-input')?.focus();
     }
 
     function cancelRecording() {
@@ -743,13 +893,18 @@
         clearInterval(recordInterval);
         recordInterval = null;
       }
+      isRecordingActive = false;
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.ondataavailable = null;
         mediaRecorder.onstop = null;
-        mediaRecorder.stop();
-        mediaRecorder.stream.getTracks().forEach(t => t.stop());
+        try { mediaRecorder.stop(); } catch (e) {}
       }
+      if (recordingStream) {
+        recordingStream.getTracks().forEach(t => t.stop());
+      }
+      cleanUpRecordingResources();
       audioChunks = [];
+      recordingPcmSamples = [];
       document.getElementById('recording-toast')?.classList.add('hidden');
       const btnMic = document.getElementById('btn-mic');
       if (btnMic) {
@@ -760,9 +915,26 @@
     }
 
     async function toWav(audioFile) {
-      const context = new (window.AudioContext || window.webkitAudioContext)();
+      if (!audioFile) return audioFile;
+      // Fast check: if already audio/wav or ends with .wav, preserve it
+      if (audioFile.type === 'audio/wav' || audioFile.name?.toLowerCase().endsWith('.wav')) {
+        return audioFile;
+      }
+
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return audioFile;
+
+      const context = new AudioCtx();
       try {
-        const decoded = await context.decodeAudioData(await audioFile.arrayBuffer());
+        const arrayBuf = await audioFile.arrayBuffer();
+        if (arrayBuf.byteLength >= 12) {
+          const header = new Uint8Array(arrayBuf, 0, 4);
+          const riff = String.fromCharCode(...header);
+          if (riff === 'RIFF') {
+            return new Blob([arrayBuf], { type: 'audio/wav' });
+          }
+        }
+        const decoded = await context.decodeAudioData(arrayBuf);
         const targetRate = 16000;
         const offline = new OfflineAudioContext(1, Math.ceil(decoded.duration * targetRate), targetRate);
         const source = offline.createBufferSource();
@@ -792,8 +964,11 @@
           view.setInt16(44 + i * 2, value < 0 ? value * 32768 : value * 32767, true);
         });
         return new Blob([bytes], { type: 'audio/wav' });
+      } catch (err) {
+        console.warn('toWav conversion note, using original blob:', err);
+        return audioFile;
       } finally {
-        await context.close();
+        try { await context.close(); } catch (e) {}
       }
     }
 
@@ -1140,11 +1315,10 @@
       document.getElementById('welcome-banner')?.classList.add('hidden');
       const formData = new FormData();
       try {
-        formData.append('audio', await toWav(audioBlob), filename);
+        const preparedAudio = await toWav(audioBlob);
+        formData.append('audio', preparedAudio, filename);
       } catch (err) {
-        appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
-        document.getElementById('chat-input')?.focus();
-        return;
+        formData.append('audio', audioBlob, filename);
       }
       formData.append('language_code', document.getElementById('select-language').value);
       showLoadingAssistant('AI is transcribing your voice with Prisma STT...');
@@ -1162,7 +1336,7 @@
         syncLanguageUI(detectedLangCode);
 
         if (!rawTranscript) {
-          appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
+          appendErrorMessage('No speech was detected. You can type your account directly below or tap Speak now to record again.');
           document.getElementById('chat-input')?.focus();
           return;
         }
@@ -1171,7 +1345,7 @@
         showTranscriptReview(rawTranscript, detectedLangLabel);
         initSystem();
       } catch (err) {
-        appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
+        appendErrorMessage(err.message || 'Voice unavailable in this browser or network. You can type your account directly below.');
         document.getElementById('chat-input')?.focus();
       } finally {
         removeLoadingAssistant();
@@ -1185,23 +1359,43 @@
       input.value = '';
     }
 
+    function onReviewLanguageChanged(selectedVal) {
+      if (selectedVal && selectedVal !== 'indic-auto') {
+        detectedLangCode = selectedVal;
+        syncLanguageUI(selectedVal);
+      }
+    }
+
     function showTranscriptReview(transcript, langLabel = '') {
       document.getElementById('transcript-review')?.remove();
       const container = document.getElementById('messages-container');
       const displayLang = langLabel || detectedLangLabel || 'Indic Auto';
       container.insertAdjacentHTML('beforeend', `
         <div id="transcript-review" role="region" aria-label="Review transcript" class="rounded-3xl border-2 border-cyan-400 bg-[#0f1724] p-5 sm:p-6 max-w-3xl my-4 shadow-2xl shadow-cyan-950/60 animate-fadeIn">
-          <div class="flex items-center justify-between mb-3 pb-2.5 border-b border-cyan-500/30">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3 pb-2.5 border-b border-cyan-500/30">
             <div class="flex items-center space-x-2">
               <span class="text-xl">🎙️</span>
               <h3 class="text-sm font-bold text-cyan-300 font-syne">Review Transcript Before Legal Triage</h3>
             </div>
-            <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-500/50 font-bold">
-              Detected: ${escapeHtml(displayLang)}
-            </span>
+            <div class="flex items-center space-x-2">
+              <label for="review-lang-override" class="text-[11px] font-mono text-cyan-400 font-bold">Language:</label>
+              <select id="review-lang-override" onchange="onReviewLanguageChanged(this.value)" class="text-xs font-mono px-2.5 py-1 rounded-lg bg-cyan-950 text-cyan-200 border border-cyan-500/50 font-bold outline-none cursor-pointer focus:border-cyan-300">
+                <option value="indic-auto">Auto (${escapeHtml(displayLang)})</option>
+                <option value="mr-IN">Marathi (मराठी)</option>
+                <option value="hi-IN">Hindi (हिन्दी)</option>
+                <option value="ta-IN">Tamil (தமிழ்)</option>
+                <option value="te-IN">Telugu (తెలుగు)</option>
+                <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+                <option value="bn-IN">Bengali (বাংলা)</option>
+                <option value="gu-IN">Gujarati (ગુજરાતી)</option>
+                <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
+                <option value="ml-IN">Malayalam (മലയാളം)</option>
+                <option value="en-IN">English</option>
+              </select>
+            </div>
           </div>
           <div class="mb-3 p-3 rounded-xl bg-cyan-950/40 border border-cyan-500/20 text-xs text-cyan-200 leading-relaxed">
-            🔒 <strong>Ephemeral Audio Privacy:</strong> Your speech was transcribed ephemerally on the server. Please check names, dates, amounts, and places. You can correct any mistranscriptions below before legal analysis begins. Both the original transcript and your confirmed version will be preserved.
+            🔒 <strong>Ephemeral Audio Privacy:</strong> Your speech was transcribed ephemerally on the server. Please check names, dates, amounts, and places. You can correct any mistranscriptions or adjust the language above before legal analysis begins. Both the original transcript and your confirmed version will be preserved.
           </div>
           <div class="mb-3">
             <label for="reviewed-transcript" class="block text-xs font-mono font-bold text-gray-200 mb-1.5">
@@ -1224,6 +1418,18 @@
           </div>
         </div>
       `);
+
+      const langDropdown = document.getElementById('review-lang-override');
+      if (langDropdown && detectedLangCode) {
+        const targetVal = detectedLangCode.includes('-') ? detectedLangCode : `${detectedLangCode}-IN`;
+        for (let opt of langDropdown.options) {
+          if (opt.value.toLowerCase() === targetVal.toLowerCase() || opt.value.toLowerCase().startsWith(detectedLangCode.toLowerCase())) {
+            langDropdown.value = opt.value;
+            break;
+          }
+        }
+      }
+
       container.scrollTop = container.scrollHeight;
       document.getElementById('reviewed-transcript')?.focus();
     }
@@ -1231,9 +1437,14 @@
     function submitReviewedTranscript() {
       const reviewed = document.getElementById('reviewed-transcript')?.value.trim();
       if (!reviewed) {
-        appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
-        document.getElementById('chat-input')?.focus();
+        appendErrorMessage('Please enter or confirm your statement before submitting.');
+        document.getElementById('reviewed-transcript')?.focus();
         return;
+      }
+      const overrideLang = document.getElementById('review-lang-override')?.value;
+      if (overrideLang && overrideLang !== 'indic-auto') {
+        detectedLangCode = overrideLang;
+        syncLanguageUI(overrideLang);
       }
       document.getElementById('transcript-review')?.remove();
       const orig = rawTranscript || pendingTranscript || reviewed;
@@ -1243,6 +1454,7 @@
         original_transcript: orig,
         reviewed_transcript: reviewed,
         detected_language: detectedLangCode,
+        language_code: detectedLangCode,
         is_voice_spoken: true
       });
     }
@@ -1281,7 +1493,7 @@
           detected_language: extraPayload.detected_language || 'indic-auto',
           tier: activeTier,
           voice: document.getElementById('select-voice').value,
-          language_code: document.getElementById('select-language').value,
+          language_code: extraPayload.language_code || document.getElementById('select-language').value,
           client_name: document.getElementById('input-client-name').value.trim() || 'Citizen / Applicant',
           location: document.getElementById('input-location').value.trim() || 'India',
           meta: extraMeta
@@ -2119,6 +2331,10 @@
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closePresetsModal();
+    });
+
+    document.getElementById('select-language')?.addEventListener('change', function(e) {
+      syncLanguageUI(e.target.value);
     });
 
     window.addEventListener('DOMContentLoaded', () => {

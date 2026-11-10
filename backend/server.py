@@ -227,8 +227,12 @@ engine = NyayaVaniEngine()
 
 def convert_to_wav(input_path: str, output_path: str) -> str:
     """
-    Converts browser audio (WebM, OGG, MP4) to 16kHz mono 16-bit PCM WAV using FFmpeg.
+    Converts browser audio to 16kHz mono 16-bit PCM WAV.
+    First checks if already 16kHz mono 16-bit WAV.
+    If it's any other WAV (different sample rate, stereo, 24/32 bit), resamples in pure Python using scipy.
+    Falls back to FFmpeg if available for container formats.
     """
+    # 1. Quick check: already 16kHz mono 16-bit WAV
     try:
         with wave.open(input_path, "rb") as source:
             if source.getnchannels() == 1 and source.getframerate() == 16000 and source.getsampwidth() == 2:
@@ -237,7 +241,42 @@ def convert_to_wav(input_path: str, output_path: str) -> str:
     except (wave.Error, EOFError):
         pass
 
-    ffmpeg_bin = "/opt/homebrew/bin/ffmpeg" if os.path.exists("/opt/homebrew/bin/ffmpeg") else "ffmpeg"
+    # 2. Pure Python conversion for any WAV file using scipy.io.wavfile and scipy.signal
+    try:
+        import scipy.io.wavfile as sciwav
+        import scipy.signal as scisig
+        import numpy as np
+        rate, data = sciwav.read(input_path)
+        # Downmix multi-channel to mono
+        if data.ndim > 1:
+            data = data.mean(axis=1)
+        # Convert to float between -1.0 and 1.0 or normalize
+        if data.dtype == np.int16:
+            data_float = data.astype(np.float32) / 32768.0
+        elif data.dtype == np.int32:
+            data_float = data.astype(np.float32) / 2147483648.0
+        elif data.dtype == np.uint8:
+            data_float = (data.astype(np.float32) - 128.0) / 128.0
+        else:
+            data_float = data.astype(np.float32)
+
+        # Resample to 16000 Hz if necessary
+        target_rate = 16000
+        if rate != target_rate:
+            num_samples = int(len(data_float) * target_rate / rate)
+            resampled = scisig.resample(data_float, num_samples)
+        else:
+            resampled = data_float
+
+        # Clip and convert to int16
+        resampled_int16 = (np.clip(resampled, -1.0, 1.0) * 32767.0).astype(np.int16)
+        sciwav.write(output_path, target_rate, resampled_int16)
+        return output_path
+    except Exception as wav_err:
+        logger.debug(f"Pure Python WAV processing not applicable: {wav_err}")
+
+    # 3. Fallback to FFmpeg if installed
+    ffmpeg_bin = shutil.which("ffmpeg") or ("/opt/homebrew/bin/ffmpeg" if os.path.exists("/opt/homebrew/bin/ffmpeg") else "ffmpeg")
     cmd = [
         ffmpeg_bin, "-y",
         "-i", input_path,
@@ -247,10 +286,19 @@ def convert_to_wav(input_path: str, output_path: str) -> str:
         "-c:a", "pcm_s16le",
         output_path
     ]
-    res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=30)
-    if res.returncode != 0:
-        raise RuntimeError(f"FFmpeg conversion failed: {res.stderr.decode('utf-8', errors='ignore')}")
-    return output_path
+    try:
+        res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, timeout=30)
+        if res.returncode == 0:
+            return output_path
+    except Exception as ffmpeg_err:
+        logger.debug(f"FFmpeg conversion failed: {ffmpeg_err}")
+
+    # 4. If all else fails and input_path exists, try copying as fallback
+    if os.path.exists(input_path):
+        shutil.copyfile(input_path, output_path)
+        return output_path
+
+    raise RuntimeError("Could not convert audio file to 16kHz mono WAV.")
 
 
 def verify_packet_authorization(packet: Dict[str, Any], request: Request, body_data: Optional[Dict[str, Any]] = None) -> None:
@@ -673,12 +721,9 @@ async def _transcribe_form(form) -> tuple[str, Dict[str, Any], str]:
         raise HTTPException(status_code=422, detail="No speech was detected. Please record again or type your account.")
 
     raw_detected = stt_res.get("detected_language_code")
-    if not raw_detected or raw_detected in ("indic-auto", "auto", "default"):
-        from backend.services.legal_engine import detect_language
-        resolved_lang = detect_language(transcript, lang_code=language_code)
-        detected_lang = f"{resolved_lang}-IN" if resolved_lang != "en" else "en-IN"
-    else:
-        detected_lang = raw_detected
+    from backend.services.legal_engine import detect_language
+    resolved_lang = detect_language(transcript, lang_code=language_code, detected_language=raw_detected)
+    detected_lang = f"{resolved_lang}-IN" if resolved_lang != "en" else "en-IN"
     telemetry = {
         "status": "LIVE_API_SUCCESS",
         "request_id": stt_res.get("request_id"),

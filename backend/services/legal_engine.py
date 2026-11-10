@@ -429,7 +429,231 @@ ISSUE_QUESTIONS = {
         "GENERAL_CITIZEN_AID": "ਕੀ ਘਟਨਾ ਵਾਪਰੀ ਹੈ, ਅਤੇ ਤੁਹਾਨੂੰ ਸਭ ਤੋਂ ਪਹਿਲਾਂ ਕਿਸ ਤਰ੍ਹਾਂ ਦੀ ਕਾਨੂੰਨੀ ਮਦਦ ਚਾਹੀਦੀ ਹੈ?",
 
     }
+}
 
+CATEGORY_QUESTIONS = {
+    "en": {
+        "WAGE_THEFT": {
+            "specific_details": "What work was done, for which employer, and what wages are unpaid?",
+            "other_party": "Who was your immediate employer, contractor, or thekedar who refused to pay?",
+            "incident_date": "Since when have these wages been pending, or when was the last date of work?",
+            "incident_location": "Where was the worksite, construction project, or factory located?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "Are you vending at this site, and did you receive a survey certificate or written notice?",
+            "other_party": "Which municipal ward authority, anti-encroachment squad, or police station carried out the eviction?",
+            "incident_date": "On what date and time was your cart or goods removed or seized?",
+            "incident_location": "Where was your vending stall located (street, ward, or market area)?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "Was anyone arrested or detained, and what did the police say or provide in writing?",
+            "other_party": "Which police station, chowki, or investigating officers are involved?",
+            "incident_date": "When (date and approximate time) was the person taken into custody?",
+            "incident_location": "At which police station, lockup, or facility is the person being held?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "Was anyone injured, which vehicles were involved, and what insurer and policy details are confirmed?",
+            "other_party": "What was the vehicle number, driver name, or insurance company of the other vehicle?",
+            "incident_date": "On what date and approximately what time did the accident happen?",
+            "incident_location": "Where did the collision occur (highway, road junction, or landmark)?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "What are the project registration number, promised possession date, and payment records?",
+            "other_party": "What is the name of the builder, developer, or housing promoter entity?",
+            "incident_date": "When was the allotment or agreement for sale signed, and what was your last payment date?",
+            "incident_location": "In which city, locality, and project site is the property situated?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "Was the supplier registered as a micro or small enterprise when the order was accepted, and when were the goods or services accepted?",
+            "other_party": "What is the legal name of the corporate buyer or client holding the unpaid invoices?",
+            "incident_date": "When were the goods or services delivered, and have 45 days passed?",
+            "incident_location": "In which city or state was the commercial contract or delivery executed?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "Who occupies the property now, and are there title, tenancy, or eviction papers?",
+            "other_party": "Who is the trespasser, encroacher, or party attempting illegal possession?",
+            "incident_date": "When was boundary demarcation damaged or illegal entry attempted?",
+            "incident_location": "Where is the land situated (village, taluka, survey/gat number, or district)?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "Which app or person contacted you, what was requested, and what messages or transactions can you document?",
+            "other_party": "What is the name of the digital lending app, recovery agency, or caller harassing you?",
+            "incident_date": "When did the threats, unauthorized debits, or blackmail begin?",
+            "incident_location": "Through which bank account, UPI ID, or digital platform did transactions take place?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "Is anyone in immediate danger, and what support or safe contact method do you want?",
+            "other_party": "Who is the respondent or person causing harm or threats in the shared household?",
+            "incident_date": "When did the most recent incident of violence, harassment, or eviction threat occur?",
+            "incident_location": "In which city or district is the shared household situated?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "Which office or benefit is involved, and do you have an application or receipt number?",
+            "other_party": "Which public official, department, or office demanded bribes or withheld service?",
+            "incident_date": "When was your application or grievance submitted, and what was the deadline?",
+            "incident_location": "In which municipal office, collectorate, or tehsil is this public office located?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "What occurred at the gathering, and were there threats, injuries, or a police report?",
+            "other_party": "Which group, persons, or police personnel interfered with the peaceful gathering?",
+            "incident_date": "On what date and time was the prayer or gathering disrupted?",
+            "incident_location": "Where was the prayer hall or gathering held (premises address and locality)?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "What happened, and what help do you want first?",
+            "other_party": "Who is the other person, officer, company, or authority involved?",
+            "incident_date": "When did this occur (date or time period)?",
+            "incident_location": "Where did this happen (city, landmark, or jurisdiction)?",
+        },
+    },
+    "hi": {
+        "WAGE_THEFT": {
+            "specific_details": "आप किस कंपनी या ठेकेदार के पास क्या काम करते थे, और आपकी कितनी मजदूरी बकाया है?",
+            "other_party": "आपको काम पर रखने वाला ठेकेदार, सुपरवाइजर या कंपनी कौन सी है?",
+            "incident_date": "यह मजदूरी किस महीने से बकाया है या आपने आखिरी बार काम कब किया था?",
+            "incident_location": "काम की जगह, कंस्ट्रक्शन साइट या फैक्ट्री किस इलाके या शहर में थी?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "क्या आपके पास वेंडिंग सर्टिफिकेट या टीवीसी रसीद है, और क्या नगर निगम ने कोई लिखित नोटिस दिया?",
+            "other_party": "किस नगर निगम, अतिक्रमण विरोधी दस्ते या पुलिस थाने ने दुकान हटाई या सामान जब्त किया?",
+            "incident_date": "आपकी दुकान या रेहड़ी किस तारीख और समय पर हटाई गई?",
+            "incident_location": "आपकी दुकान किस बाजार, सड़क या वेंडिंग जोन में स्थित थी?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "क्या पुलिस ने कोई लिखित अरेस्ट मेमो या कारण बताया, और क्या किसी रिश्तेदार को सूचना दी गई?",
+            "other_party": "कौन सा पुलिस थाना, चौकी या जांच अधिकारी इस मामले में शामिल हैं?",
+            "incident_date": "उन्हें कब (किस तारीख और समय पर) हिरासत में लिया गया था?",
+            "incident_location": "उन्हें इस समय किस पुलिस थाने, लॉकअप या स्थान पर रखा गया है?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "क्या किसी को चोट आई है, गाड़ियों के नंबर क्या हैं, और क्या अस्पताल का मेडिकल/एमएलसी पर्चा बना है?",
+            "other_party": "टक्कर मारने वाली गाड़ी का नंबर, चालक का नाम या बीमा कंपनी कौन सी है?",
+            "incident_date": "यह दुर्घटना किस तारीख को और लगभग किस समय हुई थी?",
+            "incident_location": "हादसा किस सड़क, चौराहे, हाईवे या लैंडमार्क के पास हुआ?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "प्रोजेक्ट का रेरा (RERA) रजिस्ट्रेशन नंबर क्या है और एग्रीमेंट में कब्जा देने की क्या तारीख थी?",
+            "other_party": "बिल्डर, प्रमोटर या हाउसिंग कंपनी का पंजीकृत नाम क्या है?",
+            "incident_date": "फ्लैट का एग्रीमेंट कब हुआ था, और आपने आखिरी किस्त किस तारीख को दी थी?",
+            "incident_location": "हाउसिंग प्रोजेक्ट किस शहर, इलाके और पते पर स्थित है?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "क्या आपकी फर्म MSME उद्यम में रजिस्टर्ड है, और इनवॉइस की कुल कितनी रकम बकाया है?",
+            "other_party": "भुगतान रोकने वाली खरीदार कंपनी या कारोबारी का कानूनी नाम क्या है?",
+            "incident_date": "माल या सेवाएं किस तारीख को डिलीवर की गई थीं, और क्या 45 दिन बीत चुके हैं?",
+            "incident_location": "यह अनुबंध या डिलीवरी किस शहर अथवा राज्य में हुई थी?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "जमीन पर किसका कब्जा है और आपके पास 7/12, रजिस्ट्री या मालिकाना हक के क्या दस्तावेज हैं?",
+            "other_party": "जमीन पर अवैध कब्जा या अतिक्रमण करने वाला व्यक्ति या संस्था कौन है?",
+            "incident_date": "जमीन की मेड़ कब तोड़ी गई या अवैध रूप से घुसने का प्रयास कब हुआ?",
+            "incident_location": "यह जमीन किस गांव, तहसील, खसरा/सर्वे नंबर और जिले में स्थित है?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "लोन ऐप का नाम क्या है, और क्या वे आपके संपर्कों को फोन करके या फोटो एडिट करके ब्लैकमेल कर रहे हैं?",
+            "other_party": "कौन सा लोन ऐप, फर्जी वसूली एजेंट या रिकवरी एजेंसी आपको परेशान कर रही है?",
+            "incident_date": "धमकियां, ब्लैकमेलिंग या खाते से गलत कटौती कब शुरू हुई?",
+            "incident_location": "पैसे किस बैंक खाते, यूपीआई आईडी या डिजिटल वॉलेट के जरिए ट्रांसफर हुए?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "क्या आप या बच्चे इस समय किसी खतरे में हैं, और क्या आपको तुरंत सुरक्षित आश्रय या डॉक्टरी सहायता चाहिए?",
+            "other_party": "साझा घर में आपको नुकसान या धमकी पहुंचाने वाला मुख्य व्यक्ति कौन है?",
+            "incident_date": "हिंसा, मारपीट या घर से निकालने की धमकी की ताजा घटना कब हुई थी?",
+            "incident_location": "साझा घर किस शहर या जिले में स्थित है?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "यह किस सरकारी दफ्तर का मामला है, और आपके पास आवेदन या पावती संख्या क्या है?",
+            "other_party": "किस अधिकारी, जन सूचना अधिकारी या विभाग ने काम रोका या रिश्वत की मांग की?",
+            "incident_date": "आपने आवेदन किस तारीख को दिया था, और क्या 30 दिन की वैधानिक सीमा समाप्त हो गई है?",
+            "incident_location": "यह सरकारी दफ्तर, कलेक्टरेट या नगर निगम किस शहर या जिले में है?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "क्या प्रार्थना सभा में बाधा डाली गई या लोगों को धमकाया अथवा हिरासत में लिया गया?",
+            "other_party": "प्रार्थना सभा में किस समूह, व्यक्तियों या पुलिसकर्मियों ने हस्तक्षेप किया?",
+            "incident_date": "यह घटना किस तारीख और समय पर घटी थी?",
+            "incident_location": "प्रार्थना सभा या कार्यक्रम किस जगह या परिसर में आयोजित किया गया था?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "क्या घटना घटी, और आपको सबसे पहले किस प्रकार की कानूनी मदद या राहत चाहिए?",
+            "other_party": "इसमें संबंधित दूसरा व्यक्ति, कंपनी या सरकारी अधिकारी कौन है?",
+            "incident_date": "यह घटना या विवाद किस तारीख को हुआ था?",
+            "incident_location": "यह घटना किस शहर, इलाके या जगह पर घटी थी?",
+        },
+    },
+    "mr": {
+        "WAGE_THEFT": {
+            "specific_details": "तुम्ही कोणत्या कंपनीत किंवा कंत्राटदाराकडे काय काम केले, आणि तुमचा किती पगार थकला आहे?",
+            "other_party": "तुम्हाला कामावर ठेवणारा कंत्राटदार, सुपरवायझर किंवा मालक कोण आहे?",
+            "incident_date": "हा पगार कोणत्या महिन्यांपासून थकला आहे किंवा कामाचा शेवटचा दिवस कोणता होता?",
+            "incident_location": "कामाची जागा, बांधकाम साईट किंवा कारखाना कोणत्या भागात किंवा शहरात होता?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "तुमच्याकडे फेरीवाला प्रमाणपत्र (वेंडिंग सर्टिफिकेट) किंवा पावती आहे का, आणि महापालिकेने काही लेखी नोटीस दिली का?",
+            "other_party": "कोणत्या महापालिका प्रभाग अधिकाऱ्यांनी, अतिक्रमण विरोधी पथकाने किंवा पोलिसांनी ही कारवाई केली?",
+            "incident_date": "तुमची गाडी कोणत्या तारखेला आणि साधारण किती वाजता हटवली गेली?",
+            "incident_location": "तुमचा स्टॉल किंवा गाडी कोणत्या रस्त्यावर, मार्केटमध्ये किंवा प्रभागात होती?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "पोलिसांनी अटकेचे लेखी कारण किंवा अरेस्ट मेमो दिला आहे का, आणि नातेवाईकांना माहिती दिली का?",
+            "other_party": "कोणते पोलीस ठाणे, चौकी किंवा कोणते पोलीस अधिकारी यात सहभागी आहेत?",
+            "incident_date": "त्यांना कोणत्या तारखेला आणि किती वाजता ताब्यात घेण्यात आले होते?",
+            "incident_location": "त्यांना सध्या कोणत्या पोलीस ठाण्यात किंवा कोठडीत ठेवले आहे?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "कोणाला दुखापत झाली आहे का, वाहनांचे क्रमांक काय आहेत, आणि हॉस्पिटलचा रिपोर्ट आहे का?",
+            "other_party": "धडक देणाऱ्या दुसऱ्या वाहनाचा क्रमांक, चालक किंवा त्यांची विमा कंपनी कोणती आहे?",
+            "incident_date": "हा अपघात कोणत्या दिवशी आणि साधारण किती वाजता घडला होता?",
+            "incident_location": "हा अपघात कोणत्या रस्त्यावर, महामार्गावर किंवा चौकात झाला?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "प्रकल्पाचा रेरा (RERA) नंबर काय आहे आणि करारनाम्यात ताबा देण्याची कोणती तारीख दिली होती?",
+            "other_party": "बिल्डर, डेव्हलपर किंवा बांधकाम कंपनीचे नाव काय आहे?",
+            "incident_date": "फ्लॅटचा करारनामा केव्हा झाला होता, आणि तुम्ही शेवटचा हप्ता कधी भरला?",
+            "incident_location": "हा गृहनिर्माण प्रकल्प कोणत्या शहरात, भागात किंवा पत्त्यावर आहे?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "तुमची संस्था MSME उद्यममध्ये नोंदणीकृत आहे का, आणि बिलाची एकूण किती रक्कम येणे बाकी आहे?",
+            "other_party": "पैसे थकवणाऱ्या खरेदीदार कंपनीचे किंवा व्यापाऱ्याचे नाव काय आहे?",
+            "incident_date": "माल किंवा सेवा कोणत्या तारखेला दिली होती, आणि ४५ दिवसांची मुदत संपली आहे का?",
+            "incident_location": "हा व्यावसायिक करार किंवा डिलिव्हरी कोणत्या शहरात अथवा राज्यात झाली होती?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "जमिनीवर कोणाचा ताबा आहे आणि तुमच्याकडे सातबारा, खरेदीखत किंवा मालकीहक्काचे काय कागदपत्रे आहेत?",
+            "other_party": "जमिनीवर बेकायदेशीर ताबा किंवा अतिक्रमण करणारी व्यक्ती कोण आहे?",
+            "incident_date": "जमिनीची हद्द केव्हा तोडली किंवा अतिक्रमण करण्याचा प्रयत्न कधी झाला?",
+            "incident_location": "ही जमीन कोणत्या गावात, तालुक्यात, गट/सर्व्हे नंबरवर आणि जिल्ह्यात आहे?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "कर्ज ॲपचे नाव काय आहे, आणि ते तुमच्या संपर्कांना फोन करून किंवा खोटे फोटो पाठवून धमकावत आहेत का?",
+            "other_party": "कोणते लोन ॲप, वसुली एजंट किंवा कोणती कंपनी तुम्हाला त्रास देत आहे?",
+            "incident_date": "धमक्या, ब्लॅकमेलिंग किंवा खात्यातून परस्पर पैसे कापले जाणे केव्हा सुरू झाले?",
+            "incident_location": "पैसे कोणत्या बँकेतून, यूपीआय आयडीवरून किंवा ॲपवरून कापले गेले?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "तुम्हाला किंवा मुलांना सध्या काही धोका आहे का, आणि तुम्हाला सुरक्षित निवारा किंवा वैद्यकीय मदतीची गरज आहे का?",
+            "other_party": "सामायिक घरामध्ये तुम्हाला त्रास किंवा इजा पोहोचवणारी व्यक्ती कोण आहे?",
+            "incident_date": "हिंसाचाराची, शिवीगाळीची किंवा घराबाहेर काढण्याची ताजी घटना केव्हा घडली?",
+            "incident_location": "सामायिक घर कोणत्या शहरात किंवा जिल्ह्यात आहे?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "हे कोणत्या शासकीय कार्यालयाशी संबंधित आहे, आणि तुमच्याकडे अर्जाचा किंवा पावतीचा क्रमांक आहे का?",
+            "other_party": "कोणत्या अधिकाऱ्याने किंवा जन माहिती अधिकाऱ्याने माहिती नाकारली किंवा लाच मागितली?",
+            "incident_date": "तुम्ही अर्ज कधी केला होता, आणि ३० दिवसांची वैधानिक मुदत संपली आहे का?",
+            "incident_location": "हे शासकीय कार्यालय, कलेक्टरेट किंवा महापालिका कोणत्या शहरात/जिल्ह्यात आहे?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "प्रार्थना सभेत कोणी अडथळा आणला किंवा लोकांना धमकावले/ताब्यात घेतले का?",
+            "other_party": "प्रार्थना सभेत कोणत्या व्यक्तींनी, जमावाने किंवा पोलिसांनी हस्तक्षेप केला?",
+            "incident_date": "ही घटना कोणत्या दिवशी आणि वेळेस घडली?",
+            "incident_location": "प्रार्थना सभा कोणत्या सभागृहात किंवा जागेवर आयोजित केली होती?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "नेमकी काय घटना घडली, आणि तुम्हाला सर्वप्रथम कोणती कायदेशीर मदत किंवा न्याय हवा आहे?",
+            "other_party": "यामध्ये संबंधित दुसरी व्यक्ती, कंपनी किंवा शासकीय अधिकारी कोण आहे?",
+            "incident_date": "ही घटना किंवा वाद केव्हा घडला होता?",
+            "incident_location": "ही घटना कोणत्या शहरात, भागात किंवा ठिकाणी घडली?",
+        },
+    },
 }
 
 
@@ -555,7 +779,231 @@ SPOKEN_TEMPLATES = {
         "revised": "ਤੁਹਾਡੀ ਹਦਾਇਤ ਅਨੁਸਾਰ ਡਰਾਫਟ ਵਿੱਚ ਸੋਧ ਕੀਤੀ ਗਈ ਹੈ। ਸੋਧਿਆ ਹੋਇਆ ਡਰਾਫਟ ਹੇਠਾਂ ਦਿੱਤਾ ਗਿਆ ਹੈ।"
 
     }
+}
 
+CATEGORY_QUESTIONS = {
+    "en": {
+        "WAGE_THEFT": {
+            "specific_details": "What work was done, for which employer, and what wages are unpaid?",
+            "other_party": "Who was your immediate employer, contractor, or thekedar who refused to pay?",
+            "incident_date": "Since when have these wages been pending, or when was the last date of work?",
+            "incident_location": "Where was the worksite, construction project, or factory located?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "Are you vending at this site, and did you receive a survey certificate or written notice?",
+            "other_party": "Which municipal ward authority, anti-encroachment squad, or police station carried out the eviction?",
+            "incident_date": "On what date and time was your cart or goods removed or seized?",
+            "incident_location": "Where was your vending stall located (street, ward, or market area)?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "Was anyone arrested or detained, and what did the police say or provide in writing?",
+            "other_party": "Which police station, chowki, or investigating officers are involved?",
+            "incident_date": "When (date and approximate time) was the person taken into custody?",
+            "incident_location": "At which police station, lockup, or facility is the person being held?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "Was anyone injured, which vehicles were involved, and what insurer and policy details are confirmed?",
+            "other_party": "What was the vehicle number, driver name, or insurance company of the other vehicle?",
+            "incident_date": "On what date and approximately what time did the accident happen?",
+            "incident_location": "Where did the collision occur (highway, road junction, or landmark)?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "What are the project registration number, promised possession date, and payment records?",
+            "other_party": "What is the name of the builder, developer, or housing promoter entity?",
+            "incident_date": "When was the allotment or agreement for sale signed, and what was your last payment date?",
+            "incident_location": "In which city, locality, and project site is the property situated?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "Was the supplier registered as a micro or small enterprise when the order was accepted, and when were the goods or services accepted?",
+            "other_party": "What is the legal name of the corporate buyer or client holding the unpaid invoices?",
+            "incident_date": "When were the goods or services delivered, and have 45 days passed?",
+            "incident_location": "In which city or state was the commercial contract or delivery executed?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "Who occupies the property now, and are there title, tenancy, or eviction papers?",
+            "other_party": "Who is the trespasser, encroacher, or party attempting illegal possession?",
+            "incident_date": "When was boundary demarcation damaged or illegal entry attempted?",
+            "incident_location": "Where is the land situated (village, taluka, survey/gat number, or district)?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "Which app or person contacted you, what was requested, and what messages or transactions can you document?",
+            "other_party": "What is the name of the digital lending app, recovery agency, or caller harassing you?",
+            "incident_date": "When did the threats, unauthorized debits, or blackmail begin?",
+            "incident_location": "Through which bank account, UPI ID, or digital platform did transactions take place?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "Is anyone in immediate danger, and what support or safe contact method do you want?",
+            "other_party": "Who is the respondent or person causing harm or threats in the shared household?",
+            "incident_date": "When did the most recent incident of violence, harassment, or eviction threat occur?",
+            "incident_location": "In which city or district is the shared household situated?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "Which office or benefit is involved, and do you have an application or receipt number?",
+            "other_party": "Which public official, department, or office demanded bribes or withheld service?",
+            "incident_date": "When was your application or grievance submitted, and what was the deadline?",
+            "incident_location": "In which municipal office, collectorate, or tehsil is this public office located?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "What occurred at the gathering, and were there threats, injuries, or a police report?",
+            "other_party": "Which group, persons, or police personnel interfered with the peaceful gathering?",
+            "incident_date": "On what date and time was the prayer or gathering disrupted?",
+            "incident_location": "Where was the prayer hall or gathering held (premises address and locality)?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "What happened, and what help do you want first?",
+            "other_party": "Who is the other person, officer, company, or authority involved?",
+            "incident_date": "When did this occur (date or time period)?",
+            "incident_location": "Where did this happen (city, landmark, or jurisdiction)?",
+        },
+    },
+    "hi": {
+        "WAGE_THEFT": {
+            "specific_details": "आप किस कंपनी या ठेकेदार के पास क्या काम करते थे, और आपकी कितनी मजदूरी बकाया है?",
+            "other_party": "आपको काम पर रखने वाला ठेकेदार, सुपरवाइजर या कंपनी कौन सी है?",
+            "incident_date": "यह मजदूरी किस महीने से बकाया है या आपने आखिरी बार काम कब किया था?",
+            "incident_location": "काम की जगह, कंस्ट्रक्शन साइट या फैक्ट्री किस इलाके या शहर में थी?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "क्या आपके पास वेंडिंग सर्टिफिकेट या टीवीसी रसीद है, और क्या नगर निगम ने कोई लिखित नोटिस दिया?",
+            "other_party": "किस नगर निगम, अतिक्रमण विरोधी दस्ते या पुलिस थाने ने दुकान हटाई या सामान जब्त किया?",
+            "incident_date": "आपकी दुकान या रेहड़ी किस तारीख और समय पर हटाई गई?",
+            "incident_location": "आपकी दुकान किस बाजार, सड़क या वेंडिंग जोन में स्थित थी?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "क्या पुलिस ने कोई लिखित अरेस्ट मेमो या कारण बताया, और क्या किसी रिश्तेदार को सूचना दी गई?",
+            "other_party": "कौन सा पुलिस थाना, चौकी या जांच अधिकारी इस मामले में शामिल हैं?",
+            "incident_date": "उन्हें कब (किस तारीख और समय पर) हिरासत में लिया गया था?",
+            "incident_location": "उन्हें इस समय किस पुलिस थाने, लॉकअप या स्थान पर रखा गया है?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "क्या किसी को चोट आई है, गाड़ियों के नंबर क्या हैं, और क्या अस्पताल का मेडिकल/एमएलसी पर्चा बना है?",
+            "other_party": "टक्कर मारने वाली गाड़ी का नंबर, चालक का नाम या बीमा कंपनी कौन सी है?",
+            "incident_date": "यह दुर्घटना किस तारीख को और लगभग किस समय हुई थी?",
+            "incident_location": "हादसा किस सड़क, चौराहे, हाईवे या लैंडमार्क के पास हुआ?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "प्रोजेक्ट का रेरा (RERA) रजिस्ट्रेशन नंबर क्या है और एग्रीमेंट में कब्जा देने की क्या तारीख थी?",
+            "other_party": "बिल्डर, प्रमोटर या हाउसिंग कंपनी का पंजीकृत नाम क्या है?",
+            "incident_date": "फ्लैट का एग्रीमेंट कब हुआ था, और आपने आखिरी किस्त किस तारीख को दी थी?",
+            "incident_location": "हाउसिंग प्रोजेक्ट किस शहर, इलाके और पते पर स्थित है?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "क्या आपकी फर्म MSME उद्यम में रजिस्टर्ड है, और इनवॉइस की कुल कितनी रकम बकाया है?",
+            "other_party": "भुगतान रोकने वाली खरीदार कंपनी या कारोबारी का कानूनी नाम क्या है?",
+            "incident_date": "माल या सेवाएं किस तारीख को डिलीवर की गई थीं, और क्या 45 दिन बीत चुके हैं?",
+            "incident_location": "यह अनुबंध या डिलीवरी किस शहर अथवा राज्य में हुई थी?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "जमीन पर किसका कब्जा है और आपके पास 7/12, रजिस्ट्री या मालिकाना हक के क्या दस्तावेज हैं?",
+            "other_party": "जमीन पर अवैध कब्जा या अतिक्रमण करने वाला व्यक्ति या संस्था कौन है?",
+            "incident_date": "जमीन की मेड़ कब तोड़ी गई या अवैध रूप से घुसने का प्रयास कब हुआ?",
+            "incident_location": "यह जमीन किस गांव, तहसील, खसरा/सर्वे नंबर और जिले में स्थित है?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "लोन ऐप का नाम क्या है, और क्या वे आपके संपर्कों को फोन करके या फोटो एडिट करके ब्लैकमेल कर रहे हैं?",
+            "other_party": "कौन सा लोन ऐप, फर्जी वसूली एजेंट या रिकवरी एजेंसी आपको परेशान कर रही है?",
+            "incident_date": "धमकियां, ब्लैकमेलिंग या खाते से गलत कटौती कब शुरू हुई?",
+            "incident_location": "पैसे किस बैंक खाते, यूपीआई आईडी या डिजिटल वॉलेट के जरिए ट्रांसफर हुए?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "क्या आप या बच्चे इस समय किसी खतरे में हैं, और क्या आपको तुरंत सुरक्षित आश्रय या डॉक्टरी सहायता चाहिए?",
+            "other_party": "साझा घर में आपको नुकसान या धमकी पहुंचाने वाला मुख्य व्यक्ति कौन है?",
+            "incident_date": "हिंसा, मारपीट या घर से निकालने की धमकी की ताजा घटना कब हुई थी?",
+            "incident_location": "साझा घर किस शहर या जिले में स्थित है?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "यह किस सरकारी दफ्तर का मामला है, और आपके पास आवेदन या पावती संख्या क्या है?",
+            "other_party": "किस अधिकारी, जन सूचना अधिकारी या विभाग ने काम रोका या रिश्वत की मांग की?",
+            "incident_date": "आपने आवेदन किस तारीख को दिया था, और क्या 30 दिन की वैधानिक सीमा समाप्त हो गई है?",
+            "incident_location": "यह सरकारी दफ्तर, कलेक्टरेट या नगर निगम किस शहर या जिले में है?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "क्या प्रार्थना सभा में बाधा डाली गई या लोगों को धमकाया अथवा हिरासत में लिया गया?",
+            "other_party": "प्रार्थना सभा में किस समूह, व्यक्तियों या पुलिसकर्मियों ने हस्तक्षेप किया?",
+            "incident_date": "यह घटना किस तारीख और समय पर घटी थी?",
+            "incident_location": "प्रार्थना सभा या कार्यक्रम किस जगह या परिसर में आयोजित किया गया था?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "क्या घटना घटी, और आपको सबसे पहले किस प्रकार की कानूनी मदद या राहत चाहिए?",
+            "other_party": "इसमें संबंधित दूसरा व्यक्ति, कंपनी या सरकारी अधिकारी कौन है?",
+            "incident_date": "यह घटना या विवाद किस तारीख को हुआ था?",
+            "incident_location": "यह घटना किस शहर, इलाके या जगह पर घटी थी?",
+        },
+    },
+    "mr": {
+        "WAGE_THEFT": {
+            "specific_details": "तुम्ही कोणत्या कंपनीत किंवा कंत्राटदाराकडे काय काम केले, आणि तुमचा किती पगार थकला आहे?",
+            "other_party": "तुम्हाला कामावर ठेवणारा कंत्राटदार, सुपरवायझर किंवा मालक कोण आहे?",
+            "incident_date": "हा पगार कोणत्या महिन्यांपासून थकला आहे किंवा कामाचा शेवटचा दिवस कोणता होता?",
+            "incident_location": "कामाची जागा, बांधकाम साईट किंवा कारखाना कोणत्या भागात किंवा शहरात होता?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "तुमच्याकडे फेरीवाला प्रमाणपत्र (वेंडिंग सर्टिफिकेट) किंवा पावती आहे का, आणि महापालिकेने काही लेखी नोटीस दिली का?",
+            "other_party": "कोणत्या महापालिका प्रभाग अधिकाऱ्यांनी, अतिक्रमण विरोधी पथकाने किंवा पोलिसांनी ही कारवाई केली?",
+            "incident_date": "तुमची गाडी कोणत्या तारखेला आणि साधारण किती वाजता हटवली गेली?",
+            "incident_location": "तुमचा स्टॉल किंवा गाडी कोणत्या रस्त्यावर, मार्केटमध्ये किंवा प्रभागात होती?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "पोलिसांनी अटकेचे लेखी कारण किंवा अरेस्ट मेमो दिला आहे का, आणि नातेवाईकांना माहिती दिली का?",
+            "other_party": "कोणते पोलीस ठाणे, चौकी किंवा कोणते पोलीस अधिकारी यात सहभागी आहेत?",
+            "incident_date": "त्यांना कोणत्या तारखेला आणि किती वाजता ताब्यात घेण्यात आले होते?",
+            "incident_location": "त्यांना सध्या कोणत्या पोलीस ठाण्यात किंवा कोठडीत ठेवले आहे?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "कोणाला दुखापत झाली आहे का, वाहनांचे क्रमांक काय आहेत, आणि हॉस्पिटलचा रिपोर्ट आहे का?",
+            "other_party": "धडक देणाऱ्या दुसऱ्या वाहनाचा क्रमांक, चालक किंवा त्यांची विमा कंपनी कोणती आहे?",
+            "incident_date": "हा अपघात कोणत्या दिवशी आणि साधारण किती वाजता घडला होता?",
+            "incident_location": "हा अपघात कोणत्या रस्त्यावर, महामार्गावर किंवा चौकात झाला?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "प्रकल्पाचा रेरा (RERA) नंबर काय आहे आणि करारनाम्यात ताबा देण्याची कोणती तारीख दिली होती?",
+            "other_party": "बिल्डर, डेव्हलपर किंवा बांधकाम कंपनीचे नाव काय आहे?",
+            "incident_date": "फ्लॅटचा करारनामा केव्हा झाला होता, आणि तुम्ही शेवटचा हप्ता कधी भरला?",
+            "incident_location": "हा गृहनिर्माण प्रकल्प कोणत्या शहरात, भागात किंवा पत्त्यावर आहे?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "तुमची संस्था MSME उद्यममध्ये नोंदणीकृत आहे का, आणि बिलाची एकूण किती रक्कम येणे बाकी आहे?",
+            "other_party": "पैसे थकवणाऱ्या खरेदीदार कंपनीचे किंवा व्यापाऱ्याचे नाव काय आहे?",
+            "incident_date": "माल किंवा सेवा कोणत्या तारखेला दिली होती, आणि ४५ दिवसांची मुदत संपली आहे का?",
+            "incident_location": "हा व्यावसायिक करार किंवा डिलिव्हरी कोणत्या शहरात अथवा राज्यात झाली होती?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "जमिनीवर कोणाचा ताबा आहे आणि तुमच्याकडे सातबारा, खरेदीखत किंवा मालकीहक्काचे काय कागदपत्रे आहेत?",
+            "other_party": "जमिनीवर बेकायदेशीर ताबा किंवा अतिक्रमण करणारी व्यक्ती कोण आहे?",
+            "incident_date": "जमिनीची हद्द केव्हा तोडली किंवा अतिक्रमण करण्याचा प्रयत्न कधी झाला?",
+            "incident_location": "ही जमीन कोणत्या गावात, तालुक्यात, गट/सर्व्हे नंबरवर आणि जिल्ह्यात आहे?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "कर्ज ॲपचे नाव काय आहे, आणि ते तुमच्या संपर्कांना फोन करून किंवा खोटे फोटो पाठवून धमकावत आहेत का?",
+            "other_party": "कोणते लोन ॲप, वसुली एजंट किंवा कोणती कंपनी तुम्हाला त्रास देत आहे?",
+            "incident_date": "धमक्या, ब्लॅकमेलिंग किंवा खात्यातून परस्पर पैसे कापले जाणे केव्हा सुरू झाले?",
+            "incident_location": "पैसे कोणत्या बँकेतून, यूपीआय आयडीवरून किंवा ॲपवरून कापले गेले?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "तुम्हाला किंवा मुलांना सध्या काही धोका आहे का, आणि तुम्हाला सुरक्षित निवारा किंवा वैद्यकीय मदतीची गरज आहे का?",
+            "other_party": "सामायिक घरामध्ये तुम्हाला त्रास किंवा इजा पोहोचवणारी व्यक्ती कोण आहे?",
+            "incident_date": "हिंसाचाराची, शिवीगाळीची किंवा घराबाहेर काढण्याची ताजी घटना केव्हा घडली?",
+            "incident_location": "सामायिक घर कोणत्या शहरात किंवा जिल्ह्यात आहे?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "हे कोणत्या शासकीय कार्यालयाशी संबंधित आहे, आणि तुमच्याकडे अर्जाचा किंवा पावतीचा क्रमांक आहे का?",
+            "other_party": "कोणत्या अधिकाऱ्याने किंवा जन माहिती अधिकाऱ्याने माहिती नाकारली किंवा लाच मागितली?",
+            "incident_date": "तुम्ही अर्ज कधी केला होता, आणि ३० दिवसांची वैधानिक मुदत संपली आहे का?",
+            "incident_location": "हे शासकीय कार्यालय, कलेक्टरेट किंवा महापालिका कोणत्या शहरात/जिल्ह्यात आहे?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "प्रार्थना सभेत कोणी अडथळा आणला किंवा लोकांना धमकावले/ताब्यात घेतले का?",
+            "other_party": "प्रार्थना सभेत कोणत्या व्यक्तींनी, जमावाने किंवा पोलिसांनी हस्तक्षेप केला?",
+            "incident_date": "ही घटना कोणत्या दिवशी आणि वेळेस घडली?",
+            "incident_location": "प्रार्थना सभा कोणत्या सभागृहात किंवा जागेवर आयोजित केली होती?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "नेमकी काय घटना घडली, आणि तुम्हाला सर्वप्रथम कोणती कायदेशीर मदत किंवा न्याय हवा आहे?",
+            "other_party": "यामध्ये संबंधित दुसरी व्यक्ती, कंपनी किंवा शासकीय अधिकारी कोण आहे?",
+            "incident_date": "ही घटना किंवा वाद केव्हा घडला होता?",
+            "incident_location": "ही घटना कोणत्या शहरात, भागात किंवा ठिकाणी घडली?",
+        },
+    },
 }
 
 
@@ -687,196 +1135,122 @@ ACTION_STEPS = {
 
 
 def detect_language(text: str, lang_code: Optional[str] = None, detected_language: Optional[str] = None, session_language: Optional[str] = None) -> str:
-
     """Accurately detects one of the 10 supported Indic languages or English:
-
     'mr', 'hi', 'ta', 'te', 'kn', 'bn', 'gu', 'ml', 'pa', 'en'.
-
-    Prioritizes actual spoken/transcribed text and explicit ASR detection over dropdown defaults.
-
+    Prioritizes actual spoken/transcribed text and explicit ASR acoustic detection over fallback defaults.
     """
-
     text = text or ""
-
     lower_text = text.lower()
 
-
-
-    # 1. Script-based Unicode block detection (most definitive)
-
+    # 1. Distinct Non-Devanagari Unicode script block detection (most definitive)
     if any("\u0B80" <= ch <= "\u0BFF" for ch in text): return "ta"
-
     if any("\u0C00" <= ch <= "\u0C7F" for ch in text): return "te"
-
     if any("\u0C80" <= ch <= "\u0CFF" for ch in text): return "kn"
-
     if any("\u0D00" <= ch <= "\u0D7F" for ch in text): return "ml"
-
     if any("\u0980" <= ch <= "\u09FF" for ch in text): return "bn"
-
     if any("\u0A80" <= ch <= "\u0AFF" for ch in text): return "gu"
-
     if any("\u0A00" <= ch <= "\u0A7F" for ch in text): return "pa"
 
+    def _extract_base_lang(val: Optional[str]) -> Optional[str]:
+        if not val:
+            return None
+        v = str(val).lower().strip()
+        if v in ("indic-auto", "auto", "default", "none"):
+            return None
+        for code in ["mr", "hi", "ta", "te", "kn", "bn", "gu", "ml", "pa", "en"]:
+            if code in v:
+                return code
+        return None
 
+    explicit_user_lang = _extract_base_lang(lang_code)
+    asr_detected_lang = _extract_base_lang(detected_language)
+    sess_lang = _extract_base_lang(session_language)
 
     # 2. Devanagari script: Marathi vs Hindi discrimination
+    has_devanagari = any("\u0900" <= ch <= "\u097F" for ch in text)
 
-    if any("\u0900" <= ch <= "\u097F" for ch in text):
-
+    if has_devanagari:
+        # Unique Marathi phonetic characters
         if "ळ" in text or "ऱ" in text:
-
             return "mr"
 
         mr_markers = [
-
-            "आहे", "नाही", "झाला", "झाली", "झाले", "केले", "केला", "केली", "दिले",
-
-            "माझा", "माझी", "माझे", "माझ्या", "माझं", "पाहिजे", "गेलो", "गेले", "पोलीस",
-
-            "पगार", "तक्रार", "केव्हा", "कुठे", "कोणी", "सांगा", "आम्हाला", "त्यांनी",
-
-            "मारहाण", "सातबारा", "मध्ये", "साठी", "बदल", "तारीख", "काल", "रात्री", "वाजता",
-
-            "सकाळी", "दुपारी", "पुणे", "मुंबई", "ठाणे", "नाशिक", "रस्त्यावर", "गाडी", "धडक"
-
+            "आहे", "नाही", "झाला", "झाली", "झाले", "झालं", "केले", "केला", "केली", "केलं", "दिले", "दिला", "दिली", "दिलं",
+            "माझा", "माझी", "माझे", "माझ्या", "माझं", "मला", "मी", "आम्ही", "आम्हाला", "आमचे", "आमची", "पाहिजे",
+            "गेलो", "गेले", "गेली", "पोलीस", "पोलिस", "पगार", "तक्रार", "केव्हा", "कुठे", "कोणी", "सांगा", "सांगितले",
+            "त्यांनी", "त्याला", "तिला", "मारहाण", "सातबारा", "मध्ये", "साठी", "बदल", "तारीख", "काल", "रात्री", "वाजता",
+            "सकाळी", "दुपारी", "पुणे", "मुंबई", "ठाणे", "नाशिक", "नागपूर", "रस्त्यावर", "गाडी", "धडक", "धडकली", "अपघात",
+            "तोडली", "तोडले", "काढली", "काढले", "हटवली", "हटवले", "नेले", "आणले", "ठेवले", "ठेवली", "पैसे", "मागितले",
+            "कामगार", "ठेकेदार", "दुकान", "आणि", "किंवा", "पण", "तर", "व", "होतो", "होती", "होते", "नव्हते", "नव्हता", "नव्हती"
         ]
-
         hi_markers = [
-
-            "है", "हैं", "हुआ", "हुई", "हुए", "मेरा", "मेरी", "मेरे", "किया", "किए",
-
-            "गया", "गई", "गए", "कब", "कहाँ", "कैसे", "किसने", "मुझे", "हमने", "थाने",
-
-            "मारपीट", "झगड़ा", "मदद", "तनख्वाह", "बदलाव", "कल रात", "बजे"
-
+            "है", "हैं", "हुआ", "हुई", "हुए", "था", "थी", "थे", "रहा", "रही", "रहे",
+            "मेरा", "मेरी", "मेरे", "मुझे", "मुझको", "हम", "हमें", "हमारा", "हमारी", "हमारे",
+            "किया", "किए", "की", "दिया", "दिए", "दी", "लिया", "लिए", "ली", "कहा", "बोला", "बोले",
+            "गया", "गई", "गए", "कब", "कहाँ", "कैसे", "किसने", "किसको", "थाने", "मारपीट", "झगड़ा",
+            "मदद", "तनख्वाह", "बदलाव", "कल", "रात", "बजे", "टक्कर", "दुर्घटना", "शिकायत", "पुलिस",
+            "गाड़ी", "मजदूर", "मालिक", "ठेकेदार", "दुकान", "ठेला", "रेहड़ी", "हटाया", "तोड़ा", "और",
+            "लेकिन", "किन्तु", "चाहिए", "बताओ", "पूछो", "क्या"
         ]
 
         mr_score = sum(1 for m in mr_markers if m in text)
-
         hi_score = sum(1 for m in hi_markers if m in text)
 
         if mr_score > hi_score:
-
             return "mr"
-
         elif hi_score > mr_score:
-
             return "hi"
 
-        if session_language in ("mr", "hi"):
-
-            return session_language
+        # When score is tied or 0: Prioritize ASR acoustic detection or explicit user selection
+        if asr_detected_lang in ("mr", "hi"):
+            return asr_detected_lang
+        if explicit_user_lang in ("mr", "hi"):
+            return explicit_user_lang
+        if sess_lang in ("mr", "hi"):
+            return sess_lang
 
         return "mr" if mr_score > 0 else "hi"
 
-
-
     # 3. Transliterated / Romanized Indic vocabulary markers
-
-    mr_roman = ["majha", "majhi", "majhe", "jhala", "jhali", "jhale", "aahe", "nahi", "kela", "keli", "kele", "gaadi", "thukli", "thanayt", "paise", "kamavar", "malak", "pagar", "bhandan", "marhan", "kasa", "kashi", "kevha", "kuthe", "sang", "sanga", "madat", "badla"]
-
+    mr_roman = ["majha", "majhi", "majhe", "jhala", "jhali", "jhale", "aahe", "nahi", "kela", "keli", "kele", "gaadi", "thukli", "thanayt", "paise", "kamavar", "malak", "pagar", "bhandan", "marhan", "kasa", "kashi", "kevha", "kuthe", "sang", "sanga", "madat", "badla", "aani"]
     if any(re.search(rf"\b{w}\b", lower_text) for w in mr_roman):
-
         return "mr"
 
-
-
     ta_roman = ["enna", "ennoda", "aachu", "aayidichu", "illa", "vandhu", "kaaru", "thala", "panam", "udhavi", "vanakkam", "sollunga"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in ta_roman):
-
         return "ta"
 
-
-
     te_roman = ["naaku", "ayyindi", "kaaru", "ledu", "sahayam", "emiti", "cheppandi", "namaskaram", "dhanyavadalu"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in te_roman):
-
         return "te"
 
-
-
     kn_roman = ["nanna", "nannadu", "aayitu", "illa", "sahaya", "hege", "namaskara", "dhanyavada"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in kn_roman):
-
         return "kn"
 
-
-
     bn_roman = ["aamar", "hoyechhe", "gaari", "taka", "sahajjo", "ki", "bolun", "nomoshkar"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in bn_roman):
-
         return "bn"
 
-
-
     gu_roman = ["maru", "mari", "maro", "thayu", "thayo", "nathi", "kem", "aabhar"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in gu_roman):
-
         return "gu"
 
-
-
     pa_roman = ["mera", "meri", "hoya", "hoyi", "sahayta", "sat sri akal"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in pa_roman):
-
         return "pa"
 
-
-
     hi_roman = ["mera", "meri", "mere", "hua", "hui", "hue", "kiya", "kiye", "hai", "hain", "nahi", "takkar", "paisa", "pulis", "thana", "maalik", "vetan", "batao", "namaste"]
-
     if any(re.search(rf"\b{w}\b", lower_text) for w in hi_roman):
-
         return "hi"
 
-
-
-    # 4. Check explicit detected_language / lang_code
-
-    for code in [detected_language, lang_code]:
-
-        if code:
-
-            c = str(code).lower().strip()
-
-            if c in ("indic-auto", "auto", "default"):
-
-                continue
-
-            if "mr" in c: return "mr"
-
-            if "ta" in c: return "ta"
-
-            if "te" in c: return "te"
-
-            if "kn" in c: return "kn"
-
-            if "bn" in c: return "bn"
-
-            if "gu" in c: return "gu"
-
-            if "ml" in c: return "ml"
-
-            if "pa" in c: return "pa"
-
-            if "hi" in c: return "hi"
-
-            if "en" in c and not any("\u0900" <= ch <= "\u0D7F" for ch in text):
-
-                return "en"
-
-
-
-    if session_language:
-
-        return session_language
+    # 4. Check explicit selections/ASR signals if text has no script indicators
+    if asr_detected_lang:
+        return asr_detected_lang
+    if explicit_user_lang:
+        return explicit_user_lang
+    if sess_lang:
+        return sess_lang
 
     return "en"
 
@@ -1127,63 +1501,63 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
 
 
     # Opportunistic extraction of already-stated facts from the person's account
-
     t_lower = transcript.lower()
 
     if not facts.get("incident_date"):
-
-        if any(w in t_lower for w in ["last night", "काल रात्री", "काल", "yesterday", "today", "आज", "कल रात", "कल"]):
-
-            if "last night" in t_lower or "रात्री" in t_lower or "कल रात" in t_lower:
-
-                facts["incident_date"] = "Last night / काल रात्री"
-
-            elif "yesterday" in t_lower or "काल" in t_lower or "कल" in t_lower:
-
-                facts["incident_date"] = "Yesterday / काल"
-
-            elif "today" in t_lower or "आज" in t_lower:
-
-                facts["incident_date"] = "Today / आज"
-
-
+        date_patterns = [
+            ("last night", "Last night"), ("काल रात्री", "काल रात्री"), ("कल रात", "कल रात"),
+            ("yesterday", "Yesterday"), ("काल", "काल"), ("कल", "कल"),
+            ("today", "Today"), ("आज", "आज"),
+            ("last week", "Last week"), ("गेल्या आठवड्यात", "गेल्या आठवड्यात"), ("पिछले हफ्ते", "पिछले हफ्ते"),
+            ("last month", "Last month"), ("गेल्या महिन्यात", "गेल्या महिन्यात"), ("पिछले महीने", "पिछले महीने"),
+            ("days ago", "Few days ago"), ("दिवसांपूर्वी", "काही दिवसांपूर्वी"), ("दिन पहले", "कुछ दिन पहले")
+        ]
+        for pat, val in date_patterns:
+            if pat in t_lower:
+                facts["incident_date"] = val
+                break
 
     if not facts.get("incident_location"):
-
-        for loc_kw in ["expressway", "highway", "juhu", "bandra", "dadar", "market", "pune", "mumbai", "delhi", "bengaluru", "पुणे", "मुंबई", "ठाणे", "रस्त्यावर", "हायवे", "मार्केट"]:
-
+        loc_patterns = [
+            "swargate", "kothrud", "hadapsar", "hinjawadi", "viman nagar", "camp", "deccan",
+            "pune", "mumbai", "thane", "nashik", "nagpur", "delhi", "bengaluru", "chennai", "hyderabad",
+            "expressway", "highway", "juhu", "bandra", "dadar", "market",
+            "पुणे", "मुंबई", "ठाणे", "नाशिक", "नागपूर", "रस्त्यावर", "हायवे", "मार्केट", "चौकात", "स्थानक", "दुकान", "गावात", "घरी"
+        ]
+        for loc_kw in loc_patterns:
             if loc_kw in t_lower:
-
                 facts["incident_location"] = loc_kw.title()
-
                 break
-
-
 
     if not facts.get("other_party"):
-
-        for p_kw in ["police", "bmc", "municipality", "ward officer", "thekedar", "truck", "पोलीस", "कंत्राटदार", "ट्रक", "बिल्डर", "मालक", "कंपनी"]:
-
+        party_patterns = [
+            ("police", "Police"), ("पोलीस", "पोलीस"), ("पोलिस", "पोलीस"), ("थाने", "पोलीस"),
+            ("bmc", "BMC / महानगरपालिका"), ("pmc", "PMC / महानगरपालिका"), ("municipality", "Municipality"),
+            ("ward officer", "Ward Officer"), ("महापालिक", "महानगरपालिका"), ("नगरपालिक", "नगरपालिका"),
+            ("thekedar", "Contractor / ठेकेदार"), ("contractor", "Contractor"), ("कंत्राटदार", "कंत्राटदार"),
+            ("builder", "Builder"), ("बिल्डर", "बिल्डर"), ("मालक", "मालक / Employer"),
+            ("landlord", "Landlord"), ("घरमालक", "घरमालक"), ("कंपनी", "कंपनी"),
+            ("truck", "Truck Driver"), ("ट्रक", "ट्रक चालक"), ("ड्रायव्हर", "चालक"), ("driver", "Driver"),
+            ("bank", "Bank"), ("बँक", "बँक"), ("loan app", "Loan App"), ("लोन ॲप", "लोन ॲप"),
+            ("सावकार", "सावकार")
+        ]
+        for p_kw, p_label in party_patterns:
             if p_kw in t_lower:
-
-                facts["other_party"] = p_kw.title()
-
+                facts["other_party"] = p_label
                 break
 
-
-
-    # Prioritize the case-specific substantive legal question FIRST
+    # Prioritize situation-specific substantive legal questions
+    cat_q = (
+        CATEGORY_QUESTIONS.get(lang, {}).get(category)
+        or CATEGORY_QUESTIONS.get("en", {}).get(category)
+        or {}
+    )
 
     fields = (
-
-        ("specific_details", spec_q),
-
-        ("other_party", lang_fields["other_party"]),
-
-        ("incident_date", lang_fields["incident_date"]),
-
-        ("incident_location", lang_fields["incident_location"]),
-
+        ("specific_details", cat_q.get("specific_details", spec_q)),
+        ("other_party", cat_q.get("other_party", lang_fields["other_party"])),
+        ("incident_date", cat_q.get("incident_date", lang_fields["incident_date"])),
+        ("incident_location", cat_q.get("incident_location", lang_fields["incident_location"])),
     )
 
 
@@ -1578,11 +1952,9 @@ class GrassrootsLegalAdvisor:
         ],
 
         "STREET_VENDOR": [
-
             "street stall", "stall", "cart", "vendor", "hawker", "ठेला", "रेहड़ी", "दुकान", "bmc", "municipality", "svanidhi", "tvc",
-
-            "फेरीवाला", "गाडीवर", "வியாபாரி", "தள்ளுவண்டி", "తోపుడు బండి", "ತಳ್ಳುಗಾಡಿ", "হকার", "લારી", "തട്ടുകട", "ਰੇਹੜੀ"
-
+            "फेरीवाला", "गाडीवर", "गाडी", "हातगाडी", "सामान", "हटवली", "तोडली", "तोडले", "नेले", "महापालिका", "नगरपालिका", "अतिक्रमण", "हटाया", "तोड़ा",
+            "வியாபாரி", "தள்ளுவண்டி", "తోపుడు బండి", "ತಳ್ಳುಗಾಡಿ", "হকার", "લારી", "തട്ടുകട", "ਰੇਹੜੀ"
         ],
 
         "RELIGIOUS_GATHERING": [
@@ -1638,18 +2010,22 @@ class EnterpriseLegalSuite:
 
 
     def detect_category(self, text: str) -> str:
-
         text_lower = text.lower()
-
         if any(k in text_lower for k in ["rera", "builder", "flat", "possession", "occupancy certificate", "developer", "delay", "बिल्डर", "फ्लॅट"]):
-
             return "REAL_ESTATE_RERA"
-
         if any(k in text_lower for k in ["contract", "agreement", "msme", "vendor", "payment pending", "breach", "invoice", "करार", "कंत्राट"]):
-
             return "COMMERCIAL_CONTRACT_MSME"
-
-        return "MOTOR_ACCIDENT_PRO"
+        collision_terms = [
+            "crash", "accident", "collision", "insurance", "hit and run", "अपघात", "धडकली", "ठोकली", "दुर्घटना", "एक्सीडेंट", "टक्कर"
+        ]
+        is_veh_collision = any(k in text_lower for k in collision_terms) or bool(
+            re.search(r"\b(car|vehicle|truck|bike|bus|auto|scooter|गाडी|वाहन)\b.*?\b(hit|crash|struck|damaged|धडक|ठोकली|अपघात)\b", text_lower)
+            or re.search(r"\b(hit|struck|damaged|धडक|ठोकली|अपघात)\b.*?\b(car|vehicle|truck|bike|bus|auto|scooter|गाडी|वाहन)\b", text_lower)
+        )
+        if is_veh_collision:
+            return "MOTOR_ACCIDENT_PRO"
+        grassroots_cat = GrassrootsLegalAdvisor().detect_category(text)
+        return grassroots_cat if grassroots_cat != "GENERAL_CITIZEN_AID" else "MOTOR_ACCIDENT_PRO"
 
 
 
@@ -1696,14 +2072,26 @@ class NyayaVaniEngine:
 
         # Determine Tier
         if suite_tier == "AUTO_DETECT":
-            accident_terms = [
-                "rera", "builder", "contract", "agreement", "msme",
-                "crash", "accident", "insurance claim",
-                "अपघात", "धडक", "गाडी", "वाहन", "ठोकली", "दुर्घटना", "एक्सीडेंट", "टक्कर", "बीमा",
-                "விபத்து", "வாகனம்", "மோதியது", "ప్రమాదం", "ఢీకొంది", "ಅಪಘಾತ", "ಡಿಕ್ಕಿ",
+            vendor_indicators = [
+                "ठेला", "रेहड़ी", "दुकान", "फेरीवाला", "सामान", "हटवली", "तोडली", "महापालिका", "नगरपालिका",
+                "street stall", "stall", "cart", "vendor", "hawker", "tvc", "svanidhi"
+            ]
+            is_vendor = any(k in text_lower for k in vendor_indicators)
+
+            collision_terms = [
+                "crash", "accident", "collision", "insurance claim", "hit and run",
+                "अपघात", "धडकली", "ठोकली", "दुर्घटना", "एक्सीडेंट", "टक्कर",
+                "விபத்து", "மோதியது", "ప్రమాదం", "ఢీకొంది", "ಅಪಘಾತ", "ಡಿಕ್ಕಿ",
                 "দুর্ঘটনা", "ধাক্কা", "અકસ્માત", "ટક્કર", "അപകടം", "ਹਾਦਸਾ"
             ]
-            if any(k in text_lower for k in accident_terms) or re.search(r"\b(car|गाडी|वाहन|கார்|కారు|ಕಾರು|গাড়ি|ગાડી|കാർ|ਗੱਡੀ)\b", text_lower):
+            is_collision = any(k in text_lower for k in collision_terms) or bool(
+                re.search(r"\b(car|vehicle|truck|bike|bus|auto|scooter|गाडी|वाहन)\b.*?\b(hit|crash|struck|damaged|धडक|ठोकली|अपघात)\b", text_lower)
+                or re.search(r"\b(hit|struck|damaged|धडक|ठोकली|अपघात)\b.*?\b(car|vehicle|truck|bike|bus|auto|scooter|गाडी|वाहन)\b", text_lower)
+            )
+            corporate_terms = ["rera", "builder", "agreement", "msme", "invoice overdue", "बिल्डर", "फ्लॅट", "उद्यम"]
+            is_corporate = any(k in text_lower for k in corporate_terms)
+
+            if (is_corporate or is_collision) and not is_vendor:
                 suite_tier = "ENTERPRISE_LEGAL_SUITE"
             else:
                 suite_tier = "BHARAT_GRASSROOTS_AID"
