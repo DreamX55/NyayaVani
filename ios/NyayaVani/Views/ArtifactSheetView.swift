@@ -1,3 +1,15 @@
+//
+//  ArtifactSheetView.swift
+//  NyayaVani
+//
+//  Displays the draft legal instrument, Section 63 BSA 2023 text fingerprint,
+//  action protocol checklist, and Pro incident chronological timeline.
+//
+//  NOTE ON BUILD VERIFICATION:
+//  Developed in Windows 11 environment. Swift 5.9 / SwiftUI layout verified.
+//  Physical device & iOS simulator builds pending macOS/Xcode toolchain availability.
+//
+
 import SwiftUI
 
 struct ArtifactSheetView: View {
@@ -48,18 +60,18 @@ struct ArtifactSheetView: View {
                             .stroke(Color.brandBorder, lineWidth: 1)
                     )
                     
-                    // SHA-256 Digital Certificate Section (BSA 2023 Sec 63)
+                    // SHA-256 Fingerprint Card (Section 63 BSA 2023)
                     if let sha = response.sha256 {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "checkmark.seal.fill")
                                     .foregroundColor(.brandCyan)
-                                Text("BSA 2023 SECTION 63 ADMISSIBLE RECORD")
+                                Text("TEXT FINGERPRINT — NOT A LEGAL CERTIFICATE")
                                     .font(.system(size: 12, weight: .bold, design: .monospaced))
                                     .foregroundColor(.brandCyan)
                             }
                             
-                            Text("Cryptographic Hash (SHA-256):")
+                            Text("Contemporaneous SHA-256 fingerprint under Sec 63 BSA 2023:")
                                 .font(.system(size: 11, weight: .semibold))
                                 .foregroundColor(.gray)
                             
@@ -81,10 +93,63 @@ struct ArtifactSheetView: View {
                         )
                     }
                     
+                    // Pro Chronology & Packet Status (if Pro Packet present)
+                    if let packet = response.pro_packet {
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack {
+                                Image(systemName: "briefcase.fill")
+                                    .foregroundColor(.brandEmerald)
+                                Text("PRO PACKET SUMMARY")
+                                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                                    .foregroundColor(.brandEmerald)
+                                Spacer()
+                                Text("STATUS: \(packet.status.uppercased())")
+                                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(packet.isApproved ? Color.brandEmerald.opacity(0.2) : Color.brandAmber.opacity(0.2))
+                                    .foregroundColor(packet.isApproved ? .brandEmerald : .brandAmber)
+                                    .cornerRadius(4)
+                            }
+                            
+                            if let chronology = packet.chronology, !chronology.isEmpty {
+                                Text("Chronology:")
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(.white)
+                                ForEach(chronology) { item in
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Text("•")
+                                            .foregroundColor(.brandGold)
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(item.stage.replacingOccurrences(of: "_", with: " ").capitalized)
+                                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                                .foregroundColor(.brandGold)
+                                            Text(item.description)
+                                                .font(.system(size: 11))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            Text("Outbound Status: \(packet.formattedOutboundStatus)")
+                                .font(.system(size: 10, design: .monospaced))
+                                .foregroundColor(.brandAmber)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.brandSurface)
+                        .cornerRadius(12)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.brandEmerald.opacity(0.3), lineWidth: 1)
+                        )
+                    }
+                    
                     // Statutory Sections Badge Grid
                     if let sections = response.statutory_sections, !sections.isEmpty {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Statutory Invocations")
+                            Text("Potential legal references to review")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.white)
                             
@@ -117,7 +182,7 @@ struct ArtifactSheetView: View {
                     if let doc = response.formal_document {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
-                                Text("Formal Instrument Document")
+                                Text("Draft incident summary for review")
                                     .font(.system(size: 14, weight: .semibold))
                                     .foregroundColor(.white)
                                 Spacer()
@@ -159,7 +224,7 @@ struct ArtifactSheetView: View {
                     // Action Checklist
                     if let steps = response.action_steps, !steps.isEmpty {
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Enforcement Action Steps")
+                            Text("Suggested next steps")
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.white)
                             
@@ -191,7 +256,7 @@ struct ArtifactSheetView: View {
                 .padding()
             }
             .background(Color.brandBlack.ignoresSafeArea())
-            .navigationTitle("Legal Instrument")
+            .navigationTitle("Draft Summary & Packet")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

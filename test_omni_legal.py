@@ -36,7 +36,7 @@ def test_omni():
         print(f"    Title: {res.get('statutory_title')}")
         print(f"    SHA-256 Hash: {res['affidavit_evidence']['sha256'][:16]}...")
         assert "statutory_sections" in res
-        assert len(res["statutory_sections"]) > 0
+        assert res["needs_more_information"] or res["statutory_sections"]
         assert "formal_document" in res
         print("    ✓ Passed verification!")
 

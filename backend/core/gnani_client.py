@@ -3,12 +3,47 @@ import time
 import requests
 import json
 from typing import Dict, Any, List, Optional
-from dotenv import load_dotenv
-
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+    if os.path.exists(env_path):
+        with open(env_path, encoding="utf-8") as env_file:
+            for line in env_file:
+                if "=" in line and not line.lstrip().startswith("#"):
+                    key, value = line.strip().split("=", 1)
+                    os.environ.setdefault(key, value)
 
 GNANI_API_KEY = os.getenv("GNANI_API_KEY")
 GNANI_BASE_URL = os.getenv("GNANI_BASE_URL", "https://api.vachana.ai")
+
+V3_VOICES = {
+    "Avinash", "Shivani", "Lakshmi", "Kalpana", "Shubham", "Prakash",
+    "Devansh", "Yashraj", "Chetana", "Vasudha", "Riyaa", "Tarika", "Harshad"
+}
+TTS_LANGUAGES = {
+    "auto", "hi-IN", "en-IN", "hi-en", "ta-IN", "te-IN", "kn-IN",
+    "ml-IN", "mr-IN", "pa-IN", "bn-IN", "gu-IN"
+}
+
+class GnaniAPIError(RuntimeError):
+    def __init__(self, service: str, category: str, status_code: Optional[int] = None):
+        self.service = service
+        self.category = category
+        self.status_code = status_code
+        super().__init__(f"{service} {category}" + (f" (HTTP {status_code})" if status_code else ""))
+
+def _response_error(service: str, status_code: int) -> GnaniAPIError:
+    if status_code in (401, 403):
+        category = "authentication_rejected"
+    elif status_code == 429:
+        category = "rate_limited"
+    elif status_code >= 500:
+        category = "provider_unavailable"
+    else:
+        category = "request_rejected"
+    return GnaniAPIError(service, category, status_code)
 
 class GnaniClient:
     def __init__(self, api_key: str = None, base_url: str = None):
@@ -24,8 +59,8 @@ class GnaniClient:
     def transcribe(
         self,
         audio_file_path: str,
-        language_code: str = "hi-IN",
-        model: str = "prisma-v2.5",
+        language_code: str = "indic-auto",
+        model: str = "prisma-v3.0",
         keyterms: Optional[List[str]] = None
     ) -> Dict[str, Any]:
         """
@@ -50,31 +85,32 @@ class GnaniClient:
             data = {
                 "language_code": language_code,
                 "model": model,
-                "keyterms": json.dumps(boost_terms)
+                "format": "codemix",
+                "keyterms": json.dumps(boost_terms, ensure_ascii=False)
             }
-            response = requests.post(
-                endpoint,
-                headers=self.headers,
-                files=files,
-                data=data,
-                timeout=60
-            )
+            try:
+                response = requests.post(endpoint, headers=self.headers, files=files, data=data, timeout=60)
+            except requests.RequestException as err:
+                raise GnaniAPIError("stt", "network_unavailable") from err
 
         elapsed = time.time() - start_time
 
         if response.status_code == 200:
-            res_json = response.json()
+            try:
+                res_json = response.json()
+            except ValueError as err:
+                raise GnaniAPIError("stt", "invalid_response") from err
+            if not isinstance(res_json, dict) or res_json.get("success") is False:
+                raise GnaniAPIError("stt", "invalid_response")
             res_json["client_elapsed_seconds"] = round(elapsed, 3)
             return res_json
         else:
-            raise RuntimeError(
-                f"Gnani Prisma STT API returned HTTP {response.status_code}: {response.text}"
-            )
+            raise _response_error("stt", response.status_code)
 
     def synthesize(
         self,
         text: str,
-        language: str = "hi-IN",
+        language: str = "auto",
         voice: str = "Shivani",
         model: str = "timbre-v3.0",
         speed: float = 1.0,
@@ -87,6 +123,12 @@ class GnaniClient:
         Shivani, Lakshmi, Kalpana, Chetana, Vasudha, Riyaa, Tarika, Avinash, Shubham, Prakash, Devansh, Yashraj, Harshad
         """
         endpoint = f"{self.base_url}/api/v1/tts/inference"
+        if model != "timbre-v3.0" or voice not in V3_VOICES:
+            raise ValueError("Choose a supported Timbre v3.0 voice.")
+        if language not in TTS_LANGUAGES:
+            raise ValueError("Choose a supported TTS language.")
+        if not 0.85 <= speed <= 1.15:
+            raise ValueError("TTS speed must be between 0.85 and 1.15.")
         payload = {
             "text": text,
             "voice": voice,
@@ -105,16 +147,16 @@ class GnaniClient:
         }
 
         start_time = time.time()
-        response = requests.post(
-            endpoint,
-            headers=headers,
-            json=payload,
-            timeout=60
-        )
+        try:
+            response = requests.post(endpoint, headers=headers, json=payload, timeout=60)
+        except requests.RequestException as err:
+            raise GnaniAPIError("tts", "network_unavailable") from err
         elapsed = time.time() - start_time
 
         if response.status_code == 200:
-            os.makedirs(os.path.dirname(output_path), exist_ok=True)
+            if not response.content.startswith(b"RIFF") or response.content[8:12] != b"WAVE":
+                raise GnaniAPIError("tts", "invalid_response")
+            os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
             with open(output_path, "wb") as f:
                 f.write(response.content)
             return {
@@ -125,9 +167,7 @@ class GnaniClient:
                 "model": model
             }
         else:
-            raise RuntimeError(
-                f"Gnani Timbre TTS API returned HTTP {response.status_code}: {response.text}"
-            )
+            raise _response_error("tts", response.status_code)
 
 if __name__ == "__main__":
     client = GnaniClient()

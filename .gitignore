@@ -6,6 +6,8 @@ venv/
 *.wav
 *.mp3
 *.webm
+generated_audio/
+runtime_tmp/
 .DS_Store
 xcuserdata/
 *.xcworkspace/xcuserdata/

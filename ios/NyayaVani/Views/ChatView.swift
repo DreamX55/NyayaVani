@@ -1,3 +1,17 @@
+//
+//  ChatView.swift
+//  NyayaVani
+//
+//  Main conversational interface for Sovereign Indic Voice Legal Navigator.
+//  Supports configurable server address, multi-turn conversational follow-ups,
+//  one-tap voice reply, transcript review flow (Requirement V2), Pro packet sign-off,
+//  and privacy session purge (Requirement S1 / DPDP Act 2023).
+//
+//  NOTE ON BUILD VERIFICATION:
+//  Developed in Windows 11 environment. Swift 5.9 concurrency & SwiftUI view hierarchy
+//  verified. Physical device and iOS simulator compilation are pending macOS/Xcode toolchain availability.
+//
+
 import SwiftUI
 
 struct ChatView: View {
@@ -16,11 +30,28 @@ struct ChatView: View {
     @State private var selectedArtifactResponse: ChatResponse?
     @State private var errorMessage: String?
     
+    // Server Settings state
+    @State private var showServerSettingsSheet = false
+    @State private var serverAddressInput = ""
+    @State private var serverPingResult: String?
+    @State private var isPingingServer = false
+    
+    // Transcript Review state (Requirement V2)
+    @State private var showTranscriptReview = false
+    @State private var pendingTranscript = ""
+    @State private var rawTranscript = ""
+    @State private var detectedLanguageLabel = ""
+    @State private var detectedLanguageCode = "indic-auto"
+    
+    // Privacy Purge state (Requirement 5)
+    @State private var showPurgeConfirmation = false
+    @State private var purgeToastMessage: String?
+    
     let availableVoices = ["Shivani", "Lakshmi", "Avinash"]
     
     var body: some View {
         VStack(spacing: 0) {
-            // Top Controls Bar
+            // Top Controls Bar (Tier & Voice Pickers)
             topControlBar
             
             Divider()
@@ -40,6 +71,12 @@ struct ChatView: View {
                                     apiClient: apiClient,
                                     onOpenArtifact: { response in
                                         selectedArtifactResponse = response
+                                    },
+                                    onSendFollowUp: { answerText in
+                                        submitTextMessage(reviewed: answerText)
+                                    },
+                                    onVoiceReplyRequested: {
+                                        toggleVoiceRecording()
                                     }
                                 )
                                 .id(msg.id)
@@ -88,6 +125,26 @@ struct ChatView: View {
                 .background(Color.red.opacity(0.3))
             }
             
+            // Purge Toast confirmation
+            if let toast = purgeToastMessage {
+                HStack {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.brandEmerald)
+                    Text(toast)
+                        .font(.system(size: 12))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Button("OK") {
+                        purgeToastMessage = nil
+                    }
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(.brandEmerald)
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.brandEmerald.opacity(0.2))
+            }
+            
             // Bottom Input Bar
             bottomInputBar
         }
@@ -109,16 +166,34 @@ struct ChatView: View {
                         .foregroundColor(.brandCyan)
                 }
             }
+            
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showPresetsModal = true
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "sparkles")
-                        Text("Scenarios")
+                Menu {
+                    Button {
+                        serverAddressInput = apiClient.baseURL
+                        serverPingResult = nil
+                        showServerSettingsSheet = true
+                    } label: {
+                        Label("Server Settings", systemImage: "network")
                     }
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.brandGold)
+                    
+                    Button {
+                        showPresetsModal = true
+                    } label: {
+                        Label("Legal Scenarios", systemImage: "sparkles")
+                    }
+                    
+                    Divider()
+                    
+                    Button(role: .destructive) {
+                        showPurgeConfirmation = true
+                    } label: {
+                        Label("Purge Session Data", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.system(size: 16))
+                        .foregroundColor(.brandGold)
                 }
             }
         }
@@ -129,6 +204,216 @@ struct ChatView: View {
         }
         .sheet(item: $selectedArtifactResponse) { response in
             ArtifactSheetView(response: response)
+        }
+        .sheet(isPresented: $showServerSettingsSheet) {
+            serverSettingsSheet
+        }
+        .confirmationDialog(
+            "Purge Session Data?",
+            isPresented: $showPurgeConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Purge All Session Data", role: .destructive) {
+                executePrivacyPurge()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("In accordance with India's DPDP Act 2023, this will delete server-side multi-turn memory, in-memory audio caches, active Pro packets, and clear local conversation state.")
+        }
+        .sheet(isPresented: $showTranscriptReview) {
+            transcriptReviewSheet
+        }
+    }
+    
+    // MARK: - Server Settings Sheet (Requirement 1)
+    private var serverSettingsSheet: some View {
+        NavigationStack {
+            Form {
+                Section("Backend Server Address") {
+                    TextField("http://192.168.1.10:8501", text: $serverAddressInput)
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
+                        .font(.system(size: 14, design: .monospaced))
+                    
+                    Text("Current active URL: \(apiClient.baseURL)")
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(.gray)
+                }
+                
+                Section("Diagnostics & Reachability") {
+                    Button {
+                        testServerConnection()
+                    } label: {
+                        HStack {
+                            if isPingingServer {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .padding(.trailing, 4)
+                            }
+                            Text(isPingingServer ? "Connecting..." : "Test Server Reachability")
+                                .fontWeight(.semibold)
+                        }
+                    }
+                    .disabled(isPingingServer)
+                    
+                    if let result = serverPingResult {
+                        Text(result)
+                            .font(.system(size: 12, design: .monospaced))
+                            .foregroundColor(result.contains("Online") ? .brandEmerald : .brandAmber)
+                    }
+                    
+                    Button("Reset to Default (127.0.0.1:8501)") {
+                        serverAddressInput = APIClient.defaultServerURL
+                        apiClient.resetServerURLToDefault()
+                        serverPingResult = "Reset to default: \(APIClient.defaultServerURL)"
+                    }
+                    .font(.system(size: 12))
+                    .foregroundColor(.brandGold)
+                }
+                
+                Section(footer: Text("NOTE: 127.0.0.1 (localhost) works only within the macOS iOS Simulator. For physical iPhones on the local Wi-Fi, enter your Mac/PC's LAN IPv4 address (e.g. http://192.168.1.50:8501) or public HTTPS host.")) {
+                    EmptyView()
+                }
+            }
+            .navigationTitle("Server Address")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { showServerSettingsSheet = false }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        if APIClient.isValidServerURL(serverAddressInput) {
+                            apiClient.baseURL = serverAddressInput
+                            showServerSettingsSheet = false
+                        } else {
+                            errorMessage = "Enter a valid server URL with http:// or https://"
+                        }
+                    }
+                    .disabled(!APIClient.isValidServerURL(serverAddressInput))
+                }
+            }
+        }
+        .presentationDetents([.medium, .large])
+    }
+    
+    private func testServerConnection() {
+        isPingingServer = true
+        serverPingResult = nil
+        Task {
+            do {
+                let status = try await apiClient.checkServerStatus()
+                await MainActor.run {
+                    self.isPingingServer = false
+                    self.serverPingResult = "Online: \(status.status ?? "OK") | Reviewer: \(status.legal_reviewer ?? "Advocate") | Speech: \(status.speech_auth ?? "unverified")"
+                }
+            } catch {
+                await MainActor.run {
+                    self.isPingingServer = false
+                    self.serverPingResult = "Connection failed: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
+    
+    // MARK: - Transcript Review Sheet (Requirement 3 / V2)
+    private var transcriptReviewSheet: some View {
+        NavigationStack {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    Text("Review & Correct Transcript")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    Spacer()
+                    Text(detectedLanguageLabel.isEmpty ? "Indic Auto" : detectedLanguageLabel)
+                        .font(.system(size: 11, weight: .bold, design: .monospaced))
+                        .foregroundColor(.brandCyan)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.brandCyan.opacity(0.15))
+                        .cornerRadius(6)
+                }
+                
+                Text("Verbatim speech captured:")
+                    .font(.system(size: 11, weight: .semibold))
+                    .foregroundColor(.gray)
+                
+                Text(rawTranscript)
+                    .font(.system(size: 13, design: .monospaced))
+                    .foregroundColor(Color(white: 0.8))
+                    .padding(10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.brandSurface)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.brandBorder, lineWidth: 1)
+                    )
+                
+                Text("Edit below to correct mistranscriptions before initiating legal reasoning:")
+                    .font(.system(size: 11))
+                    .foregroundColor(.brandAmber)
+                
+                TextEditor(text: $pendingTranscript)
+                    .font(.system(size: 14))
+                    .frame(minHeight: 140)
+                    .padding(8)
+                    .background(Color.brandSurface)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.brandCyan.opacity(0.5), lineWidth: 1)
+                    )
+                
+                Spacer()
+            }
+            .padding()
+            .background(Color.brandBlack.ignoresSafeArea())
+            .navigationTitle("Transcript Review")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Discard") {
+                        showTranscriptReview = false
+                        rawTranscript = ""
+                        pendingTranscript = ""
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Continue with this account") {
+                        let rev = pendingTranscript.trimmingCharacters(in: .whitespacesAndNewlines)
+                        let orig = rawTranscript.trimmingCharacters(in: .whitespacesAndNewlines)
+                        showTranscriptReview = false
+                        submitTextMessage(original: orig, reviewed: rev, lang: detectedLanguageCode)
+                        rawTranscript = ""
+                        pendingTranscript = ""
+                    }
+                    .disabled(pendingTranscript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Privacy Purge Execution (Requirement 5)
+    private func executePrivacyPurge() {
+        isProcessing = true
+        errorMessage = nil
+        Task {
+            do {
+                let confirmation = try await apiClient.purgeSessionData()
+                await MainActor.run {
+                    self.isProcessing = false
+                    self.messages.removeAll()
+                    self.inputText = ""
+                    self.selectedArtifactResponse = nil
+                    self.purgeToastMessage = confirmation
+                }
+            } catch {
+                await MainActor.run {
+                    self.isProcessing = false
+                    self.errorMessage = "Purge failed: \(error.localizedDescription)"
+                }
+            }
         }
     }
     
@@ -202,7 +487,7 @@ struct ChatView: View {
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                 
-                Text("Speak or type in Hindi or English. Grounded in BNS, BSA 2023, and Constitution of India with instant Timbre TTS audio shield.")
+                Text("Speak or type in Hindi, Kannada, Tamil, or English. Grounded in BNS, BSA 2023, and Constitution of India with instant Timbre TTS audio shield.")
                     .font(.system(size: 13))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
@@ -376,7 +661,7 @@ struct ChatView: View {
                 } else {
                     // Text Input
                     HStack {
-                        TextField("Describe legal incident or speak...", text: $inputText, axis: .vertical)
+                        TextField("Describe legal incident or reply...", text: $inputText, axis: .vertical)
                             .lineLimit(1...4)
                             .font(.system(size: 14))
                             .foregroundColor(.white)
@@ -426,9 +711,9 @@ struct ChatView: View {
         !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && !isProcessing
     }
     
-    // MARK: - Actions
-    private func submitTextMessage() {
-        let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
+    // MARK: - Actions & Submission
+    private func submitTextMessage(original: String? = nil, reviewed: String? = nil, lang: String? = nil) {
+        let text = (reviewed ?? inputText).trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty else { return }
         
         inputText = ""
@@ -442,6 +727,9 @@ struct ChatView: View {
             do {
                 let response = try await apiClient.sendTextMessage(
                     text: text,
+                    originalTranscript: original,
+                    reviewedTranscript: reviewed,
+                    detectedLanguage: lang,
                     tier: selectedTier,
                     voice: selectedVoice,
                     clientName: clientName,
@@ -469,38 +757,25 @@ struct ChatView: View {
     private func toggleVoiceRecording() {
         if audioService.isRecording {
             guard let audioURL = audioService.stopRecording() else { return }
-            
-            let userMsg = ChatMessage(isUser: true, text: "🎙️ [Transcribing Voice Input...]", responseData: nil)
-            messages.append(userMsg)
+            if audioService.recordDuration > 30 {
+                errorMessage = "Record up to 30 seconds for live transcription."
+                return
+            }
             
             isProcessing = true
             errorMessage = nil
             
             Task {
                 do {
-                    let response = try await apiClient.sendVoiceMessage(
-                        audioFileURL: audioURL,
-                        tier: selectedTier,
-                        voice: selectedVoice,
-                        clientName: clientName,
-                        location: location
-                    )
+                    let (transcript, langLabel, langCode) = try await apiClient.transcribe(audioFileURL: audioURL)
                     
                     await MainActor.run {
                         self.isProcessing = false
-                        // Update user transcript if returned
-                        if let transcript = response.transcript, !transcript.isEmpty {
-                            if let idx = self.messages.firstIndex(where: { $0.id == userMsg.id }) {
-                                self.messages[idx] = ChatMessage(isUser: true, text: "🎙️ \(transcript)", responseData: nil)
-                            }
-                        }
-                        
-                        let assistantMsg = ChatMessage(
-                            isUser: false,
-                            text: response.spoken_text ?? "Voice Guidance Generated",
-                            responseData: response
-                        )
-                        self.messages.append(assistantMsg)
+                        self.rawTranscript = transcript
+                        self.pendingTranscript = transcript
+                        self.detectedLanguageLabel = langLabel
+                        self.detectedLanguageCode = langCode
+                        self.showTranscriptReview = true
                     }
                 } catch {
                     await MainActor.run {

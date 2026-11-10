@@ -1,7 +1,11 @@
 # NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator & Incident Response Suite
 
 > Built for the **Gnani.ai Great Indian AI Internship Challenge (Nov 2026)**  
-> Powered by **Prisma ASR**, **Timbre TTS**, and **Evon 30B MoE LLM**
+> Uses **Prisma ASR** and **Timbre TTS** when the Gnani service is reachable. Evon integration is planned.
+
+## Current build
+
+The web app accepts live microphone recordings, uploaded audio, or typed accounts. Example questions fill the editor but do not submit themselves or play bundled audio. The legal guidance and document drafts currently come from local scenario rules; Evon reasoning is planned but is not connected. Pro prepares drafts and next steps; it does not contact insurers, lawyers, or police. Voice transcription and spoken output require the configured Gnani service to be reachable. If spoken output fails, the written result remains available.
 
 ---
 
@@ -119,9 +123,12 @@ Gnani Challenge/
 
 ### 1. Launch the Backend & Web Application
 ```bash
+python -m pip install -r requirements.txt
 ./run_app.sh
 ```
 Open `http://localhost:8501` to access the Mondragon landing page and Claude-style conversational legal assistant.
+
+On Windows, run `python -m pip install -r requirements.txt` and then `./run_app.ps1` from PowerShell. The app listens on `127.0.0.1:8501`. The browser prepares 16 kHz WAV for live recordings; FFmpeg is only needed for audio formats the browser cannot decode.
 
 ### 2. Build & Run Native iOS Application
 Requirements: macOS with Xcode 15+ installed.

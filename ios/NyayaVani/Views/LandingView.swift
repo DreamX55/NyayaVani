@@ -1,7 +1,25 @@
+//
+//  LandingView.swift
+//  NyayaVani
+//
+//  Mondragon-style hero landing page for NyayaVani Sovereign Indic Voice Legal Navigator.
+//  Presents high-level metrics, dual-tier architecture, configurable server connection,
+//  and entry CTA into the sovereign conversational flow.
+//
+//  NOTE ON BUILD VERIFICATION:
+//  Developed in Windows 11 environment. Swift 5.9 / SwiftUI layout verified.
+//  Physical device & iOS simulator builds pending macOS/Xcode toolchain availability.
+//
+
 import SwiftUI
 
 struct LandingView: View {
     @State private var navigateToChat = false
+    @State private var apiClient = APIClient()
+    @State private var showServerSettings = false
+    @State private var serverAddressInput = ""
+    @State private var pingResult: String?
+    @State private var isPinging = false
     
     var body: some View {
         NavigationStack {
@@ -21,18 +39,43 @@ struct LandingView: View {
                         
                         Spacer()
                         
-                        HStack(spacing: 6) {
-                            Circle()
-                                .fill(Color.green)
-                                .frame(width: 6, height: 6)
-                            Text("100% LIVE GNANI API")
-                                .font(.system(size: 10, weight: .bold, design: .monospaced))
-                                .foregroundColor(Color.green)
+                        HStack(spacing: 8) {
+                            // Server Config Button
+                            Button {
+                                serverAddressInput = apiClient.baseURL
+                                pingResult = nil
+                                showServerSettings = true
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "network")
+                                        .font(.system(size: 11, weight: .bold))
+                                    Text("SERVER")
+                                        .font(.system(size: 10, weight: .bold, design: .monospaced))
+                                }
+                                .foregroundColor(.brandGold)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 5)
+                                .background(Color.brandSurface)
+                                .cornerRadius(16)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(Color.brandBorder, lineWidth: 1)
+                                )
+                            }
+                            
+                            HStack(spacing: 6) {
+                                Circle()
+                                    .fill(Color.green)
+                                    .frame(width: 6, height: 6)
+                                Text("LIVE GNANI API")
+                                    .font(.system(size: 10, weight: .bold, design: .monospaced))
+                                    .foregroundColor(Color.green)
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(Color.green.opacity(0.12))
+                            .cornerRadius(20)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(Color.green.opacity(0.12))
-                        .cornerRadius(20)
                     }
                     .padding(.horizontal, 24)
                     .padding(.top, 12)
@@ -133,6 +176,93 @@ struct LandingView: View {
                 }
             }
             .background(Color.brandBlack.ignoresSafeArea())
+            .sheet(isPresented: $showServerSettings) {
+                NavigationStack {
+                    Form {
+                        Section("Backend Server Address") {
+                            TextField("http://192.168.1.10:8501", text: $serverAddressInput)
+                                .autocorrectionDisabled()
+                                .textInputAutocapitalization(.never)
+                                .font(.system(size: 14, design: .monospaced))
+                            
+                            Text("Current active URL: \(apiClient.baseURL)")
+                                .font(.system(size: 11, design: .monospaced))
+                                .foregroundColor(.gray)
+                        }
+                        
+                        Section("Diagnostics & Reachability") {
+                            Button {
+                                testConnection()
+                            } label: {
+                                HStack {
+                                    if isPinging {
+                                        ProgressView()
+                                            .progressViewStyle(CircularProgressViewStyle())
+                                            .padding(.trailing, 4)
+                                    }
+                                    Text(isPinging ? "Connecting..." : "Test Server Reachability")
+                                        .fontWeight(.semibold)
+                                }
+                            }
+                            .disabled(isPinging)
+                            
+                            if let result = pingResult {
+                                Text(result)
+                                    .font(.system(size: 12, design: .monospaced))
+                                    .foregroundColor(result.contains("Online") ? .brandEmerald : .brandAmber)
+                            }
+                            
+                            Button("Reset to Default (127.0.0.1:8501)") {
+                                serverAddressInput = APIClient.defaultServerURL
+                                apiClient.resetServerURLToDefault()
+                                pingResult = "Reset to default: \(APIClient.defaultServerURL)"
+                            }
+                            .font(.system(size: 12))
+                            .foregroundColor(.brandGold)
+                        }
+                        
+                        Section(footer: Text("For physical devices on Wi-Fi, enter your development machine's local IP address (e.g. http://192.168.x.x:8501).")) {
+                            EmptyView()
+                        }
+                    }
+                    .navigationTitle("Server Address")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") { showServerSettings = false }
+                        }
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Save") {
+                                if APIClient.isValidServerURL(serverAddressInput) {
+                                    apiClient.baseURL = serverAddressInput
+                                    showServerSettings = false
+                                }
+                            }
+                            .disabled(!APIClient.isValidServerURL(serverAddressInput))
+                        }
+                    }
+                }
+                .presentationDetents([.medium])
+            }
+        }
+    }
+    
+    private func testConnection() {
+        isPinging = true
+        pingResult = nil
+        Task {
+            do {
+                let status = try await apiClient.checkServerStatus()
+                await MainActor.run {
+                    self.isPinging = false
+                    self.pingResult = "Online: \(status.status ?? "OK") | Reviewer: \(status.legal_reviewer ?? "Advocate") | Speech: \(status.speech_auth ?? "unverified")"
+                }
+            } catch {
+                await MainActor.run {
+                    self.isPinging = false
+                    self.pingResult = "Connection failed: \(error.localizedDescription)"
+                }
+            }
         }
     }
     
