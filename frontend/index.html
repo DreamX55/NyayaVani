@@ -222,18 +222,18 @@
           </div>
         </div>
 
-        <!-- Pro Outbound Telephony Launcher -->
-        <div class="mb-6 p-3 rounded-2xl border border-emerald-500/40 bg-emerald-950/20">
+        <!-- Pro Outbound Telephony Launcher (Gated to Pro Suite) -->
+        <div id="sidebar-pro-call-card" class="mb-6 p-3 rounded-2xl border border-brand-border/60 bg-[#12141c]/60 opacity-60 transition">
           <div class="flex items-center justify-between mb-1.5">
-            <span class="text-xs font-bold text-emerald-400 flex items-center space-x-1.5">
-              <span>📞</span>
+            <span class="text-xs font-bold text-gray-400 flex items-center space-x-1.5">
+              <span>🔒</span>
               <span>Pro Outbound Call</span>
             </span>
-            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">PRO TIER</span>
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 font-bold">LOCKED</span>
           </div>
-          <p class="text-[11px] text-gray-400 leading-relaxed mb-2.5">Automated 2-way voice call to opposing party with statutory citations & BSA Sec 63 evidence sealing.</p>
-          <button onclick="openCallModal()" class="w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-300 hover:text-white text-xs font-mono font-bold rounded-xl transition flex items-center justify-center space-x-1.5">
-            <span>⚡ Open Softphone Console</span>
+          <p class="text-[11px] text-gray-500 leading-relaxed mb-2.5">Pipeline inactive in Grassroots Aid. Select NyayaVani Pro Suite to activate.</p>
+          <button onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="w-full py-2 bg-brand-surface border border-gray-700 text-gray-400 hover:text-emerald-400 hover:border-emerald-500/40 text-xs font-mono font-bold rounded-xl transition flex items-center justify-center space-x-1.5">
+            <span>⚡ Switch to Pro Suite to Unlock</span>
           </button>
         </div>
 
@@ -419,6 +419,7 @@
           <div>
             <div class="flex items-center space-x-2">
               <h3 class="font-syne text-base font-bold text-white">Autonomous Legal Outbound Telephony</h3>
+              <span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PRO PIPELINE</span>
               <span id="call-status-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400">READY</span>
             </div>
             <p class="text-xs text-gray-400">Section 63 BSA 2023 Contemporaneous Voice Negotiation Engine</p>
@@ -594,6 +595,7 @@
       activeTier = tier;
       const btnFree = document.getElementById('btn-tier-free');
       const btnPro = document.getElementById('btn-tier-pro');
+      const proCard = document.getElementById('sidebar-pro-call-card');
 
       if (tier === 'BHARAT_GRASSROOTS_AID') {
         btnFree.className = 'p-3 text-left rounded-xl border border-amber-500/50 bg-amber-500/10 text-white transition flex items-center justify-between';
@@ -603,6 +605,23 @@
         btnPro.className = 'p-3 text-left rounded-xl border border-brand-border bg-brand-surface/40 hover:border-gray-500 text-gray-300 transition flex items-center justify-between';
         btnPro.querySelector('span').innerText = 'PRO';
         btnPro.querySelector('span').className = 'text-xs text-gray-500 font-mono';
+
+        if (proCard) {
+          proCard.className = 'mb-6 p-3 rounded-2xl border border-brand-border/60 bg-[#12141c]/60 opacity-60 transition';
+          proCard.innerHTML = `
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-bold text-gray-400 flex items-center space-x-1.5">
+                <span>🔒</span>
+                <span>Pro Outbound Call</span>
+              </span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 font-bold">LOCKED</span>
+            </div>
+            <p class="text-[11px] text-gray-500 leading-relaxed mb-2.5">Pipeline inactive in Grassroots Aid. Select NyayaVani Pro Suite to activate.</p>
+            <button onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="w-full py-2 bg-brand-surface border border-gray-700 text-gray-400 hover:text-emerald-400 hover:border-emerald-500/40 text-xs font-mono font-bold rounded-xl transition flex items-center justify-center space-x-1.5">
+              <span>⚡ Switch to Pro Suite to Unlock</span>
+            </button>
+          `;
+        }
       } else {
         btnPro.className = 'p-3 text-left rounded-xl border border-emerald-500/50 bg-emerald-500/10 text-white transition flex items-center justify-between';
         btnPro.querySelector('span').innerText = 'ACTIVE';
@@ -611,6 +630,23 @@
         btnFree.className = 'p-3 text-left rounded-xl border border-brand-border bg-brand-surface/40 hover:border-gray-500 text-gray-300 transition flex items-center justify-between';
         btnFree.querySelector('span').innerText = 'FREE';
         btnFree.querySelector('span').className = 'text-xs text-gray-500 font-mono';
+
+        if (proCard) {
+          proCard.className = 'mb-6 p-3 rounded-2xl border border-emerald-500/50 bg-emerald-950/30 transition shadow-lg shadow-emerald-950/20';
+          proCard.innerHTML = `
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-xs font-bold text-emerald-400 flex items-center space-x-1.5">
+                <span class="animate-pulse">📞</span>
+                <span>Pro Outbound Call</span>
+              </span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">PRO ACTIVE</span>
+            </div>
+            <p class="text-[11px] text-gray-300 leading-relaxed mb-2.5">Autonomous 2-way voice call engine to opposing party with BSA Sec 63 evidence sealing.</p>
+            <button onclick="openCallModal()" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-mono font-bold rounded-xl transition flex items-center justify-center space-x-1.5 shadow-md">
+              <span>⚡ Open Softphone Console</span>
+            </button>
+          `;
+        }
       }
     }
 
@@ -939,6 +975,7 @@
 
       // Check if call dispatch button should be enabled
       const isCallActionable = data.category && ['WAGE_THEFT', 'REAL_ESTATE_RERA', 'MOTOR_ACCIDENT', 'LOAN_FRAUD', 'COMMERCIAL', 'STREET_VENDOR'].includes(data.category);
+      const isProTier = activeTier === 'ENTERPRISE_LEGAL_SUITE';
 
       const msgHtml = `
         <div class="flex justify-start">
@@ -1047,20 +1084,39 @@
               `}
             ` : ''}
 
-            <!-- 3. AUTONOMOUS PRO CALL DISPATCH ACTION BUTTON -->
-            <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-black border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-lg shrink-0">📞</div>
-                <div>
-                  <div class="text-xs font-bold text-white font-syne">Auto-Call Opposing Party (Contractor / Builder / Defaulting Party)</div>
-                  <div class="text-[11px] text-gray-400">Dispatch an autonomous 2-way legal call citing statutory sections & sealing BSA 2023 proof.</div>
+            <!-- 3. AUTONOMOUS PRO CALL DISPATCH ACTION (GATED BY PRO SUITE) -->
+            ${isProTier ? `
+              <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-black border border-emerald-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+                <div class="flex items-center space-x-3">
+                  <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-lg shrink-0">📞</div>
+                  <div>
+                    <div class="flex items-center space-x-2">
+                      <span class="text-xs font-bold text-white font-syne">Auto-Call Opposing Party</span>
+                      <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">PRO PIPELINE ACTIVE</span>
+                    </div>
+                    <div class="text-[11px] text-gray-300 mt-0.5">Dispatch an autonomous 2-way legal call citing statutory sections & sealing BSA 2023 proof.</div>
+                  </div>
                 </div>
+                <button onclick="triggerCallFromChat('${escapeHtml(data.category || 'GENERAL_LEGAL_CLAIM')}', '${escapeHtml(data.statutory_title || 'Legal Notice')}')" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold font-mono text-xs rounded-xl shadow-lg transition whitespace-nowrap flex items-center space-x-1.5 shrink-0">
+                  <span>Dispatch Call</span>
+                  <span>➔</span>
+                </button>
               </div>
-              <button onclick="triggerCallFromChat('${escapeHtml(data.category || 'GENERAL_LEGAL_CLAIM')}', '${escapeHtml(data.statutory_title || 'Legal Notice')}')" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold font-mono text-xs rounded-xl shadow-lg transition whitespace-nowrap flex items-center space-x-1.5 shrink-0">
-                <span>Dispatch Call</span>
-                <span>➔</span>
-              </button>
-            </div>
+            ` : `
+              <div class="mb-5 p-3.5 rounded-2xl bg-[#12141c] border border-brand-border/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs opacity-75">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 rounded-xl bg-gray-800 border border-gray-700 flex items-center justify-center text-sm shrink-0">🔒</div>
+                  <div>
+                    <div class="text-xs font-mono font-bold text-gray-300">Autonomous Outbound Legal Call (Pro Feature)</div>
+                    <div class="text-[10px] text-gray-500">Pipeline inactive in Bharat Grassroots Aid. Select NyayaVani Pro Suite to activate.</div>
+                  </div>
+                </div>
+                <button onclick="triggerCallFromChat('${escapeHtml(data.category || 'GENERAL_LEGAL_CLAIM')}', '${escapeHtml(data.statutory_title || 'Legal Notice')}')" class="px-3.5 py-2 bg-brand-surface hover:bg-emerald-500/20 border border-gray-600 hover:border-emerald-500/50 text-gray-300 hover:text-emerald-300 font-mono text-[11px] rounded-xl transition whitespace-nowrap flex items-center space-x-1">
+                  <span>Switch to Pro & Unlock</span>
+                  <span>➔</span>
+                </button>
+              </div>
+            `}
 
             <!-- 4. ACTION ROADMAP -->
             <div class="mb-5 p-3.5 rounded-xl bg-brand-surface/60 border border-brand-border">
@@ -1177,6 +1233,15 @@
     let isCallRecording = false;
 
     function openCallModal(category = "GENERAL_LEGAL_CLAIM", title = "Statutory Dispute Notice") {
+      if (activeTier !== 'ENTERPRISE_LEGAL_SUITE') {
+        const proceed = confirm("🔒 Pro Telephony Pipeline Locked:\n\nThe Autonomous Outbound Voice Calling pipeline is exclusively available in the NyayaVani Pro Suite.\n\nWould you like to switch to NyayaVani Pro Suite now to unlock this feature?");
+        if (proceed) {
+          setTier('ENTERPRISE_LEGAL_SUITE');
+        } else {
+          return;
+        }
+      }
+
       const clientName = document.getElementById('input-client-name').value || "Citizen";
       document.getElementById('call-client-name').value = clientName;
       if (category && category !== "GENERAL_LEGAL_CLAIM") {
@@ -1190,6 +1255,9 @@
     }
 
     function triggerCallFromChat(category, title) {
+      if (activeTier !== 'ENTERPRISE_LEGAL_SUITE') {
+        setTier('ENTERPRISE_LEGAL_SUITE');
+      }
       openCallModal(category, title);
     }
 
@@ -1230,6 +1298,7 @@
             client_phone: clientPhone,
             target_name: targetName,
             target_phone: targetPhone,
+            tier: activeTier,
             domain: domain,
             statutory_notice: `Statutory Notice under ${domain}`,
             goal: goal

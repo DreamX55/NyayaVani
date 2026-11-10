@@ -62,6 +62,7 @@ class CallDispatchRequest(BaseModel):
     client_phone: Optional[str] = "+91 98765 00000"
     target_name: str
     target_phone: str
+    tier: Optional[str] = "ENTERPRISE_LEGAL_SUITE"
     domain: Optional[str] = "GENERAL_LEGAL_CLAIM"
     statutory_notice: Optional[str] = "Formal Statutory Notice"
     goal: Optional[str] = "Enforce compliance and demand immediate payment or acknowledgment"
@@ -310,6 +311,11 @@ async def chat_voice(
 
 @app.post("/api/pro/call/dispatch")
 async def dispatch_call(req: CallDispatchRequest):
+    if req.tier == "BHARAT_GRASSROOTS_AID":
+        raise HTTPException(
+            status_code=403,
+            detail="The Autonomous Outbound Telephony pipeline requires NyayaVani Pro Suite activation."
+        )
     try:
         session_info = call_manager.create_session(
             client_name=req.client_name,
