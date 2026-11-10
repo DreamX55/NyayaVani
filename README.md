@@ -115,6 +115,12 @@ Gnani Challenge/
 
 ---
 
+## 4.1 Frontend Data Dictionary & Component Catalog
+For frontend developers, mobile engineers, and UI designers integrating NyayaVani's conversational intelligence:
+* Refer to **[`docs/UI_DATA_DICTIONARY_AND_COMPONENT_CATALOG.md`](file:///Users/apple/Documents/Jonath/Hackathons/Gnani%20Challenge/docs/UI_DATA_DICTIONARY_AND_COMPONENT_CATALOG.md)** for the complete schema breakdown of all 18 backend fields, recommended UI display tiers (Citizen View vs. Legal Drawer vs. Hackathon Telemetry), and ready-to-use parser functions.
+
+---
+
 ## 5. Quickstart
 
 ### 1. Launch the Backend & Web Application
