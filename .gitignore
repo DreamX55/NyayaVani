@@ -13,3 +13,6 @@ xcuserdata/
 *.xcworkspace/xcuserdata/
 DerivedData/
 
+*.mp4
+audio_samples/
+.agents/
