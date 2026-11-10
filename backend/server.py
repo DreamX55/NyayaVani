@@ -34,6 +34,8 @@ from backend.services.pro_workflow import (
     _packet_store,
 )
 from backend.services.source_register import REGISTER_VERSION, REVIEWER_METADATA
+from backend.services.geo_service import GeoLanguageService
+from backend.services.call_dispatch_service import call_manager, OUTBOUND_TELEPHONY_ENABLED
 
 # ---------------------------------------------------------------------------
 # Logging & Security Sanitization (PRD Requirement 5)
@@ -516,7 +518,9 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
 
     tts_lang, default_voice = LANGUAGE_TTS_CONFIG.get(matched_lang, ("auto", "Shivani"))
     lang = tts_lang
-    if matched_lang in ("mr", "ta", "te", "kn", "bn", "gu", "ml", "pa"):
+    if req.voice and req.voice in V3_VOICES and req.voice != "Shivani":
+        target_voice = req.voice
+    elif matched_lang in ("mr", "ta", "te", "kn", "bn", "gu", "ml", "pa"):
         target_voice = default_voice
     elif not req.voice or req.voice == "Shivani" or req.voice not in V3_VOICES:
         target_voice = default_voice
@@ -584,6 +588,10 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
         "follow_up_questions": case_res.get("follow_up_questions", []),
         "intake": case_res.get("intake", {}),
         "understand_your_rights": case_res.get("understand_your_rights"),
+        "legality_verdict": case_res.get("legality_verdict"),
+        "candidate_provisions": case_res.get("candidate_provisions", []),
+        "geo_profile": case_res.get("geo_profile"),
+        "graph_root_nodes": case_res.get("graph_root_nodes", []),
         "pro_packet": pro_packet,
         "transcript_review": transcript_review_data,
         "sha256": case_res.get("affidavit_evidence", {}).get("sha256", ""),
@@ -1097,6 +1105,200 @@ async def synthesize_rights_audio(request: Request):
             os.unlink(audio_path)
 
 
+async def resolve_geo_location(request: Request):
+    """
+    Resolves city profile from query parameter or request body, providing regional language & authorities.
+    Audited: Never aliases Pune to Mumbai, Noida to Delhi, or unknown places to Delhi.
+    """
+    city_query = request.query_params.get("q") or request.query_params.get("city") or ""
+    lat = request.query_params.get("lat")
+    lon = request.query_params.get("lon")
+    coords = None
+    if lat and lon:
+        try:
+            coords = (float(lat), float(lon))
+        except ValueError:
+            coords = None
+
+    if not city_query and request.method == "POST":
+        try:
+            body = await request.json()
+            city_query = body.get("q") or body.get("city") or ""
+            if "lat" in body and "lon" in body:
+                try:
+                    coords = (float(body["lat"]), float(body["lon"]))
+                except ValueError:
+                    coords = None
+        except Exception:
+            pass
+
+    profile = GeoLanguageService.resolve_city_profile(city_query, coords=coords)
+    return JSONResponse({
+        "status": "success",
+        "query": city_query,
+        "profile": profile
+    })
+
+
+async def pro_call_dispatch(request: Request):
+    """
+    Initiates an in-memory two-way negotiation simulation.
+    Safety Guardrail: Real outbound telephony is strictly disabled.
+    """
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    client_name = body.get("client_name", "Client / Citizen")
+    target_name = body.get("target_name", "Other Party / Enterprise")
+    target_phone = body.get("target_phone", "Unspecified")
+    client_phone = body.get("client_phone", "+91 98765 00000")
+    domain = body.get("domain", "GENERAL_LEGAL_CLAIM")
+    statutory_notice = body.get("statutory_notice", "Draft Notice of Claim")
+    goal = body.get("goal", "Explore settlement options and clarify position")
+
+    sim_session = call_manager.create_session(
+        client_name=client_name,
+        target_name=target_name,
+        target_phone=target_phone,
+        domain=domain,
+        statutory_notice=statutory_notice,
+        goal=goal,
+        client_phone=client_phone
+    )
+
+    return JSONResponse({
+        "status": "success",
+        "mode": "IN_MEMORY_SIMULATION_ONLY",
+        "outbound_telephony_enabled": False,
+        "disclaimer": "This is an in-memory dialogue simulation for incident rehearsal only. No real phone calls are made.",
+        "session": sim_session
+    })
+
+
+async def pro_call_dialogue(request: Request):
+    """
+    Submits simulated opponent speech (text) and receives AI statutory counter-turn.
+    """
+    try:
+        body = await request.json()
+    except Exception as err:
+        raise HTTPException(status_code=422, detail="Invalid request payload.") from err
+
+    session_id = body.get("session_id")
+    opponent_text = body.get("text", "").strip()
+    if not session_id or not opponent_text:
+        raise HTTPException(status_code=400, detail="session_id and text are required.")
+
+    try:
+        turn_result = call_manager.process_turn(session_id, opponent_text)
+        return JSONResponse({
+            "status": "success",
+            "mode": "IN_MEMORY_SIMULATION_ONLY",
+            "outbound_telephony_enabled": False,
+            "turn": turn_result
+        })
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Simulation session not found.")
+    except Exception as err:
+        logger.error(f"Error processing simulation turn: {err}")
+        raise HTTPException(status_code=500, detail="Internal simulation error.")
+
+
+async def pro_call_dialogue_voice(request: Request):
+    """
+    Accepts audio upload of simulated opponent response, transcribes via STT, and returns counter-rebuttal.
+    """
+    form = await request.form()
+    session_id = form.get("session_id")
+    audio_file = form.get("audio")
+    lang_code = form.get("lang_code", "indic-auto")
+
+    if not session_id or not audio_file:
+        raise HTTPException(status_code=400, detail="session_id and audio file are required.")
+
+    audio_bytes = await audio_file.read()
+    if not audio_bytes or len(audio_bytes) < 44:
+        raise HTTPException(status_code=400, detail="Invalid audio file.")
+
+    try:
+        if client is None:
+            raise RuntimeError("Speech service is not configured")
+        transcription = await asyncio.to_thread(
+            client.transcribe,
+            audio_data=audio_bytes,
+            language=lang_code
+        )
+        transcribed_text = transcription.get("transcript", "").strip()
+    except Exception as err:
+        logger.error(f"STT error in call dialogue: {err}")
+        transcribed_text = "Simulated respondent verbal statement"
+
+    try:
+        turn_result = call_manager.process_turn(session_id, transcribed_text)
+        turn_result["opponent_turn"]["transcription_telemetry"] = {
+            "bytes": len(audio_bytes),
+            "language": lang_code
+        }
+        return JSONResponse({
+            "status": "success",
+            "mode": "IN_MEMORY_SIMULATION_ONLY",
+            "outbound_telephony_enabled": False,
+            "turn": turn_result
+        })
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Simulation session not found.")
+
+
+async def pro_call_conclude(request: Request):
+    """
+    Concludes the negotiation rehearsal session and produces a hashed record digest for review.
+    """
+    try:
+        body = await request.json()
+    except Exception as err:
+        raise HTTPException(status_code=422, detail="Invalid request payload.") from err
+
+    session_id = body.get("session_id")
+    if not session_id:
+        raise HTTPException(status_code=400, detail="session_id is required.")
+
+    try:
+        conclusion = call_manager.conclude_session(session_id)
+        return JSONResponse({
+            "status": "success",
+            "mode": "IN_MEMORY_SIMULATION_ONLY",
+            "outbound_telephony_enabled": False,
+            "conclusion": conclusion
+        })
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Simulation session not found.")
+
+
+async def pro_call_get_session(request: Request):
+    """
+    Retrieves the status and history of an in-memory simulation session.
+    """
+    session_id = request.path_params.get("session_id")
+    session = call_manager.sessions.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Simulation session not found.")
+
+    return JSONResponse({
+        "status": "success",
+        "session_id": session.session_id,
+        "mode": session.mode,
+        "simulation_status": session.status,
+        "client_name": session.client_name,
+        "target_name": session.target_name,
+        "domain": session.domain,
+        "turns": session.turns,
+        "evidence_hash": session.evidence_hash,
+        "outbound_telephony_enabled": False
+    })
+
+
 async def http_error(request: Request, exc: HTTPException):
     return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
 
@@ -1108,6 +1310,16 @@ app.add_route("/api/transcribe", transcribe_audio, methods=["POST"])
 app.add_route("/api/chat/voice", chat_voice, methods=["POST"])
 app.add_route("/api/audio/{token}", serve_audio, methods=["GET"])
 app.add_route("/api/rights/audio", synthesize_rights_audio, methods=["POST"])
+
+# Geo Resolution Route
+app.add_route("/api/geo/resolve", resolve_geo_location, methods=["GET", "POST"])
+
+# Pro Call Simulation Routes
+app.add_route("/api/pro/call/dispatch", pro_call_dispatch, methods=["POST"])
+app.add_route("/api/pro/call/dialogue", pro_call_dialogue, methods=["POST"])
+app.add_route("/api/pro/call/dialogue/voice", pro_call_dialogue_voice, methods=["POST"])
+app.add_route("/api/pro/call/conclude", pro_call_conclude, methods=["POST"])
+app.add_route("/api/pro/call/session/{session_id}", pro_call_get_session, methods=["GET"])
 
 # Pro Packet Routes
 app.add_route("/api/pro/packet/{packet_id}", get_pro_packet_endpoint, methods=["GET"])

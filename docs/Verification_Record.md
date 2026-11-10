@@ -139,3 +139,27 @@ tests/test_voice_pipeline.py::VoiceRouteTests::test_transcribe_returns_editable_
   - **Constitution of India** (Articles 21, 23, 25, 39A)
   - **Legal Services Authorities Act, 1987** (Section 12; NALSA / DLSA Helpline 15100)
 - **Status:** **DRAFT PENDING QUALIFIED LEGAL REVIEW — OUTBOUND TRANSMISSION DISABLED**
+
+---
+
+## 4. Two-Phase Voice-First Interaction Flow & Modality Symmetry Verification
+
+- **Phase 1: Socratic Conversational Intake (When Facts Are Needed):**
+  - Premature Citizen Legality Verdicts, statutory citations, 7-part "Understand Your Rights" cards, and Pro draft packets are strictly gated and hidden during initial fact collection.
+  - Prominently displays the active conversational question, upcoming questions, verified transcript hash check ("What we heard"), and accessible one-tap voice/text reply controls.
+  - **Zero Boilerplate:** First turn features crisp natural acknowledgement; subsequent follow-up turns directly ask the case-specific substantive legal question without repetitive "I understand and will provide help" preamble.
+- **Phase 2: Comprehensive Legal Rights Shield (When Facts Are Complete):**
+  - Once all necessary facts are collected (`needs_more_information == False`), the complete legal package is presented:
+    - Plain-Language Citizen Legality Verdict Card with conditional framing and primary India Code links.
+    - 7-Part "Understand Your Rights" Breakdown (What I understood, What may be wrong, Possible Act & Dhaara, Why it applies, Action steps, Urgent help, 1-minute recap).
+    - AI-synthesized narrative in Section 1 and raw citizen account in Section 2 of the formal draft summary.
+    - Pro Incident Packet with offline sign-off and outbound boundaries intact.
+    - Statutory citations and NALSA/DLSA legal aid handoff (15100).
+- **Modality Symmetry (Voice-in -> Voice-out, Text-in -> Text-out):**
+  - **Voice In:** When a user records speech or taps "Speak Answer", the AI speaks back aloud via live Gnani Timbre TTS in their chosen language.
+  - **Text In:** When a user types in the input box, the AI responds in text quietly without unprompted auto-play.
+- **Mobile Parity:**
+  - `ios/NyayaVani/Views/MessageBubbleView.swift` updated with identical two-phase gating and voice auto-playback.
+- **Verification Results:**
+  - Total Pytest Suite: **71 passed out of 71 tests** (`tests/test_merged_integration.py`, `tests/test_frontend_ux.py`, `tests/test_ios_mobile_parity.py`, etc.).
+  - Web Server running live on `http://127.0.0.1:8501`.

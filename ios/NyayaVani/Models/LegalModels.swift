@@ -175,6 +175,31 @@ struct STTTelemetry: Codable, Hashable {
     let detected_language_code: String?
 }
 
+// MARK: - Legality Verdict & Knowledge Graph Models
+struct LegalSourceStatute: Codable, Hashable {
+    let act: String?
+    let section: String?
+    let rule: String?
+    let source_url: String?
+    let review_status: String?
+}
+
+struct LegalityVerdict: Codable, Hashable {
+    let is_lawful: Bool?
+    let citizen_fault: Bool?
+    let status: String?
+    let follow_up_required: Bool?
+    let follow_up_question: String?
+    let follow_up_reason: String?
+    let plain_explanation: String?
+    let what_to_do: String?
+    let legal_source_statutes: [LegalSourceStatute]?
+    let verdict_summary: String?
+    let citizen_standing: String?
+    let violator_liability: String?
+    let review_status: String?
+}
+
 // MARK: - Chat Response
 struct ChatResponse: Codable, Identifiable, Hashable {
     var id: String { sha256 ?? UUID().uuidString }
@@ -184,6 +209,7 @@ struct ChatResponse: Codable, Identifiable, Hashable {
     let api_mode: String?
     let category: String?
     let tier: String?
+    let legality_verdict: LegalityVerdict?
     let statutory_title: String?
     let statutory_sections: [StatutorySection]?
     let legal_aid_referral: LegalAidReferral?

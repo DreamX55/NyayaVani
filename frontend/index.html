@@ -453,6 +453,7 @@
     // ========================================================
     const SESSION_STORAGE_KEY = 'nyayavani_session_token';
     let inMemorySessionToken = null;
+    let lastInputModality = 'voice'; // 'voice' or 'text' tracks user preference
 
     function getSessionToken() {
       if (inMemorySessionToken) return inMemorySessionToken;
@@ -556,6 +557,25 @@
         document.getElementById('sidebar-key-status').innerText = 'Offline';
         document.getElementById('nav-api-status').innerText = 'SERVICE OFFLINE';
         document.getElementById('chat-api-status').innerText = '● SERVICE OFFLINE';
+      }
+      resolveGeoProfile('Pune');
+    }
+
+    async function resolveGeoProfile(query) {
+      if (!query) return;
+      try {
+        const resp = await fetch(`/api/geo/resolve?q=${encodeURIComponent(query)}`);
+        if (resp.ok) {
+          const res = await resp.json();
+          if (res.profile && res.profile.city_display) {
+            const locEl = document.getElementById('location-input');
+            if (locEl && (!locEl.value || locEl.value === 'India')) {
+              locEl.value = res.profile.city_display;
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Geo profile resolution note:', e);
       }
     }
 
@@ -781,10 +801,10 @@
     let rightsDataStore = {};
     let rightsAudioMap = {};
 
-    function playAudioResponse(url) {
+    function playAudioResponse(url, forcePlay = false) {
       if (!url) return;
-      const protect = document.getElementById('shared-device-protect')?.checked ?? true;
-      if (protect) {
+      const protect = document.getElementById('shared-device-protect')?.checked ?? false;
+      if (protect && !forcePlay) {
         console.log('Shared phone protection active: audio kept private until explicit tap.');
         return;
       }
@@ -1218,6 +1238,7 @@
       document.getElementById('transcript-review')?.remove();
       const orig = rawTranscript || pendingTranscript || reviewed;
       pendingTranscript = '';
+      lastInputModality = 'voice';
       submitCase(reviewed, {}, {
         original_transcript: orig,
         reviewed_transcript: reviewed,
@@ -1237,6 +1258,7 @@
       const msg = input.value.trim();
       if (!msg) return;
       input.value = '';
+      lastInputModality = 'text';
       await submitCase(msg);
     }
 
@@ -1285,8 +1307,8 @@
           detectedLangCode = data.language + '-IN';
         }
         appendAssistantMessage(data, msg);
-        if (data.audio_url) {
-          playAudioResponse(data.audio_url);
+        if (lastInputModality === 'voice' && data.audio_url) {
+          playAudioResponse(data.audio_url, true);
         }
       } catch (err) {
         appendErrorMessage(err.message || 'Could not complete request. Voice unavailable in this browser or network. You can type your account directly below.');
@@ -1339,7 +1361,7 @@
       const tagColor = isFree ? 'text-amber-400 bg-amber-500/10' : 'text-emerald-400 bg-emerald-500/10';
       const intake = data.intake || {};
       const questions = intake.follow_up_questions || data.follow_up_questions || [];
-      const needsFacts = Boolean(data.needs_more_information || intake.status === 'needs_more_information' || questions.length);
+      const needsFacts = Boolean(data.needs_more_information || intake.status === 'needs_more_information' || intake.status === 'needs_details' || (questions && questions.length > 0));
       const caseId = `case-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
       rightsDataStore[caseId] = data;
 
@@ -1721,6 +1743,66 @@
         `;
       }
 
+      // Plain-Language Citizen Legality Verdict Card (Layer 1 Component)
+      const lv = data.legality_verdict;
+      let verdictHtml = '';
+      if (lv && lv.status) {
+        const isLawful = Boolean(lv.is_lawful);
+        const verdictBg = isLawful ? 'bg-emerald-950/40 border-emerald-500/50' : 'bg-gradient-to-br from-amber-950/40 via-[#16120e] to-[#0c0d12] border-amber-500/50';
+        const badgeColor = isLawful ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border-amber-500/40';
+        const statutes = lv.legal_source_statutes || [];
+        
+        verdictHtml = `
+          <div class="mb-5 rounded-3xl border-2 ${verdictBg} p-5 sm:p-6 shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 mb-3 gap-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">${isLawful ? '🛡️' : '⚖️'}</span>
+                <span class="text-xs font-mono font-bold tracking-wider uppercase text-white">${escapeHtml(lv.status.replace(/_/g, ' '))}</span>
+              </div>
+              <span class="text-[9px] font-mono px-2.5 py-0.5 rounded-full border ${badgeColor} font-bold">${escapeHtml(lv.review_status || 'DRAFT PENDING QUALIFIED REVIEW')}</span>
+            </div>
+
+            <div class="text-sm font-bold text-white mb-2 leading-relaxed bg-black/30 p-3 rounded-xl border border-white/10">
+              ${escapeHtml(lv.verdict_summary || '')}
+            </div>
+
+            ${lv.plain_explanation ? `
+              <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                <strong class="text-amber-400 font-mono">📢 IN PLAIN WORDS:</strong> ${escapeHtml(lv.plain_explanation)}
+              </div>
+            ` : ''}
+
+            ${lv.what_to_do ? `
+              <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                <strong class="text-emerald-400 font-mono">🛡️ WHAT YOU SHOULD DO:</strong> ${escapeHtml(lv.what_to_do)}
+              </div>
+            ` : ''}
+
+            ${lv.citizen_standing ? `
+              <div class="text-[11px] text-gray-300 leading-relaxed mb-2.5">
+                <strong class="text-cyan-400 font-mono">⚖️ CITIZEN STANDING:</strong> ${escapeHtml(lv.citizen_standing)}
+              </div>
+            ` : ''}
+
+            ${statutes.length > 0 ? `
+              <div class="mt-3 pt-3 border-t border-white/10">
+                <div class="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1.5 font-bold">Governing Statutory Citations:</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  ${statutes.map(s => `
+                    <div class="p-2.5 rounded-xl bg-black/40 border border-brand-border/60 text-xs">
+                      <div class="font-bold text-amber-300 font-mono">${escapeHtml(s.act || '')}</div>
+                      <div class="text-cyan-300 font-mono text-[11px] font-semibold">${escapeHtml(s.section || '')}</div>
+                      <div class="text-[10px] text-gray-400 mt-0.5 leading-relaxed">${escapeHtml(s.rule || '')}</div>
+                      ${s.source_url ? `<a href="${escapeHtml(s.source_url)}" target="_blank" rel="noopener noreferrer" class="text-[10px] text-cyan-400 underline mt-1.5 inline-block">Official Source ↗</a>` : ''}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }
+
       const msgHtml = `
         <div id="${caseId}" data-account="${encodeURIComponent(originalAccount)}" class="flex justify-start">
           <div class="w-full max-w-3xl claude-bubble rounded-3xl p-5 sm:p-6 text-sm text-gray-200 shadow-xl border ${borderAccent}">
@@ -1748,79 +1830,89 @@
               </div>
             </div>
 
-            ${followupHtml}
-            ${rightsHtml}
-            ${proHtml}
+            ${needsFacts ? `
+              <!-- Phase 1: Conversational Fact Intake (Socratic Turn) -->
+              ${followupHtml}
 
-            <!-- Verified Transcript Hash Badge -->
-            ${data.transcript ? `<div class="mb-4 p-3 rounded-xl bg-[#11131a] border border-brand-border"><div class="text-[10px] font-mono text-cyan-400 mb-1">WHAT WE HEARD · PLEASE CHECK</div><p class="text-sm text-gray-200">${escapeHtml(data.transcript)}</p></div>` : ''}
-            ${data.sha256 ? `<div class="mb-4 p-2.5 rounded-xl bg-[#11131a] border border-brand-border flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-1"><span class="text-gray-400">Electronic Record Integrity Hash (SHA-256):</span><span class="text-cyan-400 font-bold truncate max-w-xs">${escapeHtml(data.sha256)}</span></div>` : ''}
+              <!-- Verified Transcript Hash Badge -->
+              ${data.transcript ? `<div class="mb-4 p-3 rounded-xl bg-[#11131a] border border-brand-border"><div class="text-[10px] font-mono text-cyan-400 mb-1">WHAT WE HEARD · PLEASE CHECK</div><p class="text-sm text-gray-200">${escapeHtml(data.transcript)}</p></div>` : ''}
+              ${data.sha256 ? `<div class="mb-4 p-2.5 rounded-xl bg-[#11131a] border border-brand-border flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-1"><span class="text-gray-400">Electronic Record Integrity Hash (SHA-256):</span><span class="text-cyan-400 font-bold truncate max-w-xs">${escapeHtml(data.sha256)}</span></div>` : ''}
 
-            <!-- Spoken Audio Player Pill -->
-            <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-mono font-bold text-amber-400 flex items-center space-x-2">
-                  <span>${spokenTitle}</span>
-                </span>
-                <span class="text-[10px] font-mono text-gray-400">${data.audio_url ? 'GENERATED AUDIO' : 'AUDIO UNAVAILABLE'}</span>
-              </div>
-              <p class="text-xs text-gray-300 italic mb-3 leading-relaxed">${escapeHtml(data.spoken_text || '')}</p>
-              ${data.audio_url ? `<audio controls src="${escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>` : '<p class="text-xs text-amber-300">Spoken audio is unavailable. You can read and review the written guidance below.</p>'}
-            </div>
-
-            <!-- Recommended Next Actions -->
-            <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#1a1712] to-amber-500/5 border border-amber-500/40 shadow-lg">
-              <div class="flex items-center space-x-2 mb-2">
-                <span class="text-base">🎯</span>
-                <h4 class="text-xs font-mono font-bold uppercase text-amber-300">${actionTitle}</h4>
-              </div>
-              <div class="space-y-1">
-                ${stepsHtml}
-              </div>
-            </div>
-
-            <!-- Legal Aid Handoff Card (PRD L3) -->
-            ${data.legal_aid_referral ? `
+              <!-- Spoken Audio Player Pill for Follow-Up Question -->
               <div class="mb-5 p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/40">
                 <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center space-x-2">
-                    <span class="text-cyan-400 font-bold text-xs font-mono">🏛️ FREE LEGAL AID HANDOFF (NALSA / DLSA)</span>
-                  </div>
-                  <a href="tel:15100" class="px-2.5 py-1 rounded-full bg-cyan-400 text-black font-bold text-[11px] font-mono hover:bg-cyan-300 transition">Call 15100</a>
+                  <span class="text-xs font-mono font-bold text-cyan-300 flex items-center space-x-2">
+                    <span>🎙️ ${spokenTitle}</span>
+                  </span>
+                  <span class="text-[10px] font-mono text-gray-400">${data.audio_url ? 'GENERATED AUDIO' : 'AUDIO UNAVAILABLE'}</span>
                 </div>
-                <p class="text-xs text-gray-200 mb-2">${escapeHtml(data.legal_aid_referral.eligibility_summary || '')}</p>
-                <div class="text-[11px] font-mono text-gray-400 mb-1">Documents to bring to your District Legal Services Authority:</div>
-                <ul class="list-disc pl-5 text-[11px] text-gray-300 mb-2">
-                  ${(data.legal_aid_referral.documents_to_carry || []).map(doc => `<li>${escapeHtml(doc)}</li>`).join('')}
-                </ul>
-                <div class="text-[10px] font-mono text-gray-400 italic">Notice: ${escapeHtml(data.legal_aid_referral.disclaimer || '')}</div>
-              </div>
-            ` : ''}
-
-            <!-- Statutory Citations Pending Advocate Verification (Req 1) -->
-            <div class="mb-5">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="text-xs font-mono font-bold uppercase text-gray-400">// STATUTORY CITATIONS PENDING ADVOCATE VERIFICATION</h4>
-                <span class="text-[10px] font-mono text-amber-400/90 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">Statutory citations pending advocate verification</span>
-              </div>
-              <p class="text-[11px] text-gray-400 mb-2 italic">These citations are informational references identified from your statements and require verification by an enrolled advocate before formal submission.</p>
-              <ul class="list-disc pl-4 space-y-1">
-                ${statutesHtml}
-              </ul>
-            </div>
-
-            <!-- Incident Draft Window (Pending vs Ready) -->
-            ${needsFacts ? `
-              <div class="border border-brand-border/70 rounded-2xl p-4 bg-[#10121a]">
-                <div class="flex items-center space-x-2 mb-1.5 text-amber-400 font-mono text-xs font-bold">
-                  <span class="text-sm">⏳</span>
-                  <span>${L.draftPending}</span>
-                </div>
-                <p class="text-xs text-gray-400 leading-relaxed">
-                  ${curLang === 'mr' ? 'आम्ही आवाजी संभाषणाद्वारे माहिती गोळा करत आहोत. आवश्यक तथ्ये मिळताच मसुदा येथे पुनरावलोकनासाठी तयार केला जाईल.' : (curLang === 'hi' ? 'हम बोलकर जानकारी एकत्र कर रहे हैं। सभी आवश्यक तथ्य मिलते ही ड्राफ्ट सारांश यहां समीक्षा के लिए तैयार हो जाएगा।' : 'Gathering facts conversationally. Your draft incident summary will compile here once essential facts are gathered.')}
-                </p>
+                <p class="text-xs text-gray-300 italic mb-3 leading-relaxed">${escapeHtml(data.spoken_text || '')}</p>
+                ${data.audio_url ? `<audio controls src="${escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>` : '<p class="text-xs text-cyan-300">Spoken audio is unavailable. You can read the question above.</p>'}
               </div>
             ` : `
+              <!-- Phase 2: Complete Legal Package (Revealed Only When All Facts Are Gathered) -->
+              ${verdictHtml}
+              ${rightsHtml}
+              ${proHtml}
+
+              <!-- Verified Transcript Hash Badge -->
+              ${data.transcript ? `<div class="mb-4 p-3 rounded-xl bg-[#11131a] border border-brand-border"><div class="text-[10px] font-mono text-cyan-400 mb-1">WHAT WE HEARD · PLEASE CHECK</div><p class="text-sm text-gray-200">${escapeHtml(data.transcript)}</p></div>` : ''}
+              ${data.sha256 ? `<div class="mb-4 p-2.5 rounded-xl bg-[#11131a] border border-brand-border flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-1"><span class="text-gray-400">Electronic Record Integrity Hash (SHA-256):</span><span class="text-cyan-400 font-bold truncate max-w-xs">${escapeHtml(data.sha256)}</span></div>` : ''}
+
+              <!-- Spoken Audio Player Pill -->
+              <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-mono font-bold text-amber-400 flex items-center space-x-2">
+                    <span>${spokenTitle}</span>
+                  </span>
+                  <span class="text-[10px] font-mono text-gray-400">${data.audio_url ? 'GENERATED AUDIO' : 'AUDIO UNAVAILABLE'}</span>
+                </div>
+                <p class="text-xs text-gray-300 italic mb-3 leading-relaxed">${escapeHtml(data.spoken_text || '')}</p>
+                ${data.audio_url ? `<audio controls src="${escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>` : '<p class="text-xs text-amber-300">Spoken audio is unavailable. You can read and review the written guidance below.</p>'}
+              </div>
+
+              <!-- Recommended Next Actions -->
+              <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#1a1712] to-amber-500/5 border border-amber-500/40 shadow-lg">
+                <div class="flex items-center space-x-2 mb-2">
+                  <span class="text-base">🎯</span>
+                  <h4 class="text-xs font-mono font-bold uppercase text-amber-300">${actionTitle}</h4>
+                </div>
+                <div class="space-y-1">
+                  ${stepsHtml}
+                </div>
+              </div>
+
+              <!-- Legal Aid Handoff Card (PRD L3) -->
+              ${data.legal_aid_referral ? `
+                <div class="mb-5 p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/40">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center space-x-2">
+                      <span class="text-cyan-400 font-bold text-xs font-mono">🏛️ FREE LEGAL AID HANDOFF (NALSA / DLSA)</span>
+                    </div>
+                    <a href="tel:15100" class="px-2.5 py-1 rounded-full bg-cyan-400 text-black font-bold text-[11px] font-mono hover:bg-cyan-300 transition">Call 15100</a>
+                  </div>
+                  <p class="text-xs text-gray-200 mb-2">${escapeHtml(data.legal_aid_referral.eligibility_summary || '')}</p>
+                  <div class="text-[11px] font-mono text-gray-400 mb-1">Documents to bring to your District Legal Services Authority:</div>
+                  <ul class="list-disc pl-5 text-[11px] text-gray-300 mb-2">
+                    ${(data.legal_aid_referral.documents_to_carry || []).map(doc => `<li>${escapeHtml(doc)}</li>`).join('')}
+                  </ul>
+                  <div class="text-[10px] font-mono text-gray-400 italic">Notice: ${escapeHtml(data.legal_aid_referral.disclaimer || '')}</div>
+                </div>
+              ` : ''}
+
+              <!-- Statutory Citations Pending Advocate Verification (Req 1) -->
+              <div class="mb-5">
+                <div class="flex items-center justify-between mb-2">
+                  <h4 class="text-xs font-mono font-bold uppercase text-gray-400">// STATUTORY CITATIONS PENDING ADVOCATE VERIFICATION</h4>
+                  <span class="text-[10px] font-mono text-amber-400/90 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">Statutory citations pending advocate verification</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mb-2 italic">These citations are informational references identified from your statements and require verification by an enrolled advocate before formal submission.</p>
+                <ul class="list-disc pl-4 space-y-1">
+                  ${statutesHtml}
+                </ul>
+              </div>
+
+              <!-- Incident Draft Window (Ready) -->
               <div class="border border-emerald-500/50 rounded-2xl overflow-hidden bg-[#12141c] shadow-2xl shadow-emerald-950/30">
                 <div class="p-3.5 bg-gradient-to-r from-emerald-950/60 via-[#171922] to-[#12141c] border-b border-emerald-500/40 flex flex-wrap items-center justify-between gap-2">
                   <span class="text-xs font-mono font-bold text-emerald-300 flex items-center space-x-2">
@@ -1864,6 +1956,7 @@
     }
 
     function startVoiceReply(caseId) {
+      lastInputModality = 'voice';
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       if (!mediaRecorder || mediaRecorder.state !== 'recording') {
         startRecording();
@@ -1874,11 +1967,12 @@
       const input = document.getElementById(`quick-reply-${caseId}`);
       const val = input ? input.value.trim() : '';
       if (!val) {
-        appendErrorMessage('Voice unavailable in this browser or network. You can type your account directly below.');
+        appendErrorMessage('Please type your answer or tap Speak Answer to respond by voice.');
         input?.focus();
         return;
       }
       input.value = '';
+      lastInputModality = 'text';
       await submitCase(val);
     }
 

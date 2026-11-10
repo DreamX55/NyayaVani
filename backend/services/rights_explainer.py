@@ -484,7 +484,8 @@ def build_understand_your_rights(
     lang: str = "en",
     missing: Optional[List[str]] = None,
     client_name: str = "",
-    location: str = ""
+    location: str = "",
+    candidate_statutes: Optional[List[Dict[str, Any]]] = None
 ) -> Dict[str, Any]:
     """Generates the full 7-part structured 'Understand Your Rights' explanation."""
     lang = lang if lang in SECTION_HEADINGS else "en"
@@ -519,10 +520,13 @@ def build_understand_your_rights(
         "allegation_vs_fact_note": H["allegation_disclaimer"]
     }
 
-    # 3. Possible Act and dhaara (from Source Register)
+    # 3. Possible Act and dhaara (from Source Register + Candidate Graph Provisions)
     reg_entry = get_source_register_entry(category)
     possible_acts = []
+    seen_laws = set()
     for ref in reg_entry.get("references", []):
+        law_key = ref.get("law", "")
+        seen_laws.add(law_key)
         possible_acts.append({
             "act_name": ref.get("act", ref.get("law", "")),
             "section": ref.get("law", ""),
@@ -531,6 +535,22 @@ def build_understand_your_rights(
             "conditions_to_check": ref.get("conditions", "Statutory provision compiled from primary sources pending qualified legal review."),
             "review_status": "DRAFT_PENDING_QUALIFIED_LEGAL_REVIEW"
         })
+
+    # Integrate candidate statutes from Knowledge Graph if not already present
+    if candidate_statutes:
+        for cand in candidate_statutes:
+            cand_law = cand.get("law", "") or cand.get("section", "")
+            if cand_law and cand_law not in seen_laws and len(possible_acts) < 4:
+                seen_laws.add(cand_law)
+                possible_acts.append({
+                    "act_name": cand.get("act", cand.get("law", "Primary Indian Statute")),
+                    "section": cand_law,
+                    "source_url": cand.get("source_url", "https://www.indiacode.nic.in/"),
+                    "coverage_explanation": cand.get("rule", cand.get("details", "Identified by knowledge graph candidate retrieval.")),
+                    "conditions_to_check": "Candidate statutory provision identified by Knowledge Graph retrieval; application depends on verified facts.",
+                    "review_status": "DRAFT_PENDING_QUALIFIED_LEGAL_REVIEW",
+                    "is_candidate": True
+                })
 
     # If no reliable references exist
     if not possible_acts:

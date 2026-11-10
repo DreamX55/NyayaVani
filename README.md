@@ -119,6 +119,13 @@ Gnani Challenge/
 
 ---
 
+## 4.1 Frontend Data Dictionary & Component Catalog
+For frontend developers, mobile engineers, and UI designers integrating NyayaVani's conversational intelligence:
+* Refer to **[`docs/UI_DATA_DICTIONARY_AND_COMPONENT_CATALOG.md`](file:///C:/Gnanai/Gnani%20Challenge/docs/UI_DATA_DICTIONARY_AND_COMPONENT_CATALOG.md)** for the complete schema breakdown of all backend fields, recommended UI display tiers (Citizen View vs. Legal Drawer vs. Hackathon Telemetry), and ready-to-use parser functions.
+* Refer to **[`scripts/BENCHMARK_PROVENANCE_AND_REPRODUCIBILITY.md`](file:///C:/Gnanai/Gnani%20Challenge/scripts/BENCHMARK_PROVENANCE_AND_REPRODUCIBILITY.md)** for offline benchmark provenance, held-out evaluation datasets, and reproduction instructions.
+
+---
+
 ## 5. Quickstart
 
 ### 1. Launch the Backend & Web Application

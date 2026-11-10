@@ -15,14 +15,12 @@ from typing import Dict, Any, List, Optional
 
 
 from backend.services.source_register import (
-
     REGISTER_VERSION,
-
     REVIEWER_METADATA,
-
     get_source_register_entry
-
 )
+from backend.services.graph_retriever import LegalGraphRetriever
+from backend.services.geo_service import GeoLanguageService
 
 
 
@@ -1384,6 +1382,7 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
     from backend.services.rights_explainer import build_understand_your_rights
     client_name = facts.get("client_name") or ""
     location = facts.get("incident_location") or facts.get("location") or ""
+    cand_statutes = facts.get("candidate_statutes")
     rights_data = build_understand_your_rights(
         category=category,
         facts=facts,
@@ -1391,7 +1390,8 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
         lang=lang,
         missing=missing,
         client_name=client_name,
-        location=location
+        location=location,
+        candidate_statutes=cand_statutes
     )
     result["understand_your_rights"] = rights_data
 
@@ -1672,86 +1672,84 @@ class EnterpriseLegalSuite:
 
 
 class NyayaVaniEngine:
-
     """Unified Dual-Tier Sovereign Legal Intelligence Engine."""
 
     def __init__(self):
-
         self.grassroots_advisor = GrassrootsLegalAdvisor()
-
         self.enterprise_advisor = EnterpriseLegalSuite()
-
         self.hasher = OralAffidavitHasher()
-
-
+        self.graph_retriever = LegalGraphRetriever()
 
     def process_case(
-
         self,
-
         transcript: str,
-
         suite_tier: str = "AUTO_DETECT",
-
         meta: Optional[Dict[str, Any]] = None
-
     ) -> Dict[str, Any]:
-
-        meta = meta or {}
-
+        meta = dict(meta or {})
         text_lower = transcript.lower()
 
-
+        # Knowledge Graph Candidate Retrieval Layer
+        graph_res = self.graph_retriever.query(transcript)
+        if "candidate_statutes" not in meta and graph_res.get("statutory_sections"):
+            meta["candidate_statutes"] = graph_res.get("statutory_sections")
 
         # Determine Tier
-
         if suite_tier == "AUTO_DETECT":
-
             accident_terms = [
-
                 "rera", "builder", "contract", "agreement", "msme",
-
                 "crash", "accident", "insurance claim",
-
                 "अपघात", "धडक", "गाडी", "वाहन", "ठोकली", "दुर्घटना", "एक्सीडेंट", "टक्कर", "बीमा",
-
                 "விபத்து", "வாகனம்", "மோதியது", "ప్రమాదం", "ఢీకొంది", "ಅಪಘಾತ", "ಡಿಕ್ಕಿ",
-
                 "দুর্ঘটনা", "ধাক্কা", "અકસ્માત", "ટક્કર", "അപകടം", "ਹਾਦਸਾ"
-
             ]
-
             if any(k in text_lower for k in accident_terms) or re.search(r"\b(car|गाडी|वाहन|கார்|కారు|ಕಾರು|গাড়ি|ગાડી|കാർ|ਗੱਡੀ)\b", text_lower):
-
                 suite_tier = "ENTERPRISE_LEGAL_SUITE"
-
             else:
-
                 suite_tier = "BHARAT_GRASSROOTS_AID"
 
-
-
         if suite_tier == "ENTERPRISE_LEGAL_SUITE":
-
             result = self.enterprise_advisor.analyze(transcript, meta)
-
         else:
-
             result = self.grassroots_advisor.analyze(transcript, meta)
 
+        # Attach Graph Candidate Sourcing and Upfront Legality Verdict
+        result["legality_verdict"] = graph_res.get("legality_verdict")
+        result["graph_subgraph"] = graph_res.get("subgraph")
+        result["graph_root_nodes"] = [n.get("id") for n in graph_res.get("root_nodes", [])]
 
+        # Merge candidate provisions without overriding confirmed statutory facts
+        existing_laws = {s.get("law") for s in result.get("statutory_sections", [])}
+        candidate_sections = []
+        for cand in graph_res.get("statutory_sections", []):
+            if cand.get("law") not in existing_laws:
+                candidate_sections.append({
+                    "law": cand.get("law"),
+                    "details": cand.get("details"),
+                    "source_url": "https://www.indiacode.nic.in/",
+                    "review_status": "DRAFT_PENDING_QUALIFIED_LEGAL_REVIEW",
+                    "is_verified": False,
+                    "is_candidate": True
+                })
+                existing_laws.add(cand.get("law"))
+
+        result["candidate_provisions"] = candidate_sections
+
+        # Geo-Resolution for Regional Jurisdiction & Authorities
+        loc_str = meta.get("incident_location") or meta.get("location") or ""
+        city_profile = GeoLanguageService.resolve_city_profile(loc_str)
+        result["geo_profile"] = city_profile
+
+        if result.get("legal_aid_referral") and city_profile:
+            result["legal_aid_referral"]["local_authority"] = city_profile.get("legal_aid_authority")
+            result["legal_aid_referral"]["municipal_body"] = city_profile.get("municipal_body")
+            result["legal_aid_referral"]["police_emergency"] = city_profile.get("police_emergency")
 
         # Cryptographic Hash & Certificate
-
         loc = meta.get("location", "India")
-
         affidavit = self.hasher.generate_hash(transcript, location=loc)
-
         result["affidavit_evidence"] = affidavit
-
         result["input_transcript"] = transcript
-
-
 
         return result
 

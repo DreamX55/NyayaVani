@@ -154,22 +154,63 @@ struct MessageBubbleView: View {
                     if let audioPath = response.audio_url, !audioPath.isEmpty {
                         audioPlayerBar(audioPath: audioPath)
                     }
-                    
-                    // Conversational Voice Follow-Up Box (Requirement 4)
+
                     if response.hasActiveFollowUp {
+                        // Phase 1: Socratic Conversational Intake (Only the active question)
                         followUpCard(response: response)
+                    } else {
+                        // Phase 2: Full Legal Rights Shield (Revealed once all facts are gathered)
+                        if let verdict = response.legality_verdict, verdict.status != nil {
+                            legalityVerdictCard(verdict: verdict)
+                        }
+                        
+                        // Statutory Badges
+                        if let sections = response.statutory_sections, !sections.isEmpty {
+                            statutorySectionsCard(sections: sections)
+                        }
+                        
+                        // Action Protocol Steps
+                        if let steps = response.action_steps, !steps.isEmpty {
+                            actionStepsCard(steps: steps)
+                        }
+                        
+                        // Legal Aid Referral (NALSA / DLSA)
+                        if let referral = response.legal_aid_referral {
+                            legalAidCard(referral: referral)
+                        }
+
+                        // Pro Packet Review, Chronology, Editable Draft, & Approval (PRD P1 & P2)
+                        if let rawPacket = response.pro_packet {
+                            proPacketCard(packet: currentPacket ?? rawPacket)
+                        }
+
+                        // View Draft Incident Summary Button
+                        if response.formal_document != nil || response.sha256 != nil {
+                            Button {
+                                onOpenArtifact(response)
+                            } label: {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "doc.badge.gearshape.fill")
+                                        .foregroundColor(.brandGold)
+                                    Text("View draft incident summary & certificate")
+                                        .font(.system(size: 12, weight: .semibold))
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(12)
+                                .background(Color.brandSurface)
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(Color.brandGold.opacity(0.3), lineWidth: 1)
+                                )
+                            }
+                        }
                     }
-                    
-                    // Statutory Badges
-                    if let sections = response.statutory_sections, !sections.isEmpty {
-                        statutorySectionsCard(sections: sections)
-                    }
-                    
-                    // Action Protocol Steps
-                    if let steps = response.action_steps, !steps.isEmpty {
-                        actionStepsCard(steps: steps)
-                    }
-                    
+
                     // Transcript Review Feedback (Requirement V2)
                     if let rev = response.transcript_review, rev.was_corrected == true {
                         VStack(alignment: .leading, spacing: 4) {
@@ -192,27 +233,6 @@ struct MessageBubbleView: View {
                         .background(Color.brandCyan.opacity(0.1))
                         .cornerRadius(6)
                     }
-
-                    // Legal Aid Referral (NALSA / DLSA)
-                    if let referral = response.legal_aid_referral {
-                        legalAidCard(referral: referral)
-                    }
-
-                    // Pro Packet Review, Chronology, Editable Draft, & Approval (PRD P1 & P2)
-                    if let rawPacket = response.pro_packet {
-                        proPacketCard(packet: currentPacket ?? rawPacket)
-                    }
-
-                    // View Draft Incident Summary Button
-                    if response.formal_document != nil || response.sha256 != nil {
-                        Button {
-                            onOpenArtifact(response)
-                        } label: {
-                            HStack(spacing: 8) {
-                                Image(systemName: "doc.badge.gearshape.fill")
-                                    .foregroundColor(.brandGold)
-                                Text("View draft incident summary & certificate")
-                                    .font(.system(size: 12, weight: .semibold))
                                     .foregroundColor(.white)
                                 Spacer()
                                 Image(systemName: "chevron.right")
@@ -242,6 +262,47 @@ struct MessageBubbleView: View {
         }
     }
     
+    // MARK: - Upfront Citizen Legality Verdict Card
+    private func legalityVerdictCard(verdict: LegalityVerdict) -> some View {
+        let isLawful = verdict.is_lawful ?? false
+        return VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: isLawful ? "checkmark.shield.fill" : "exclamationmark.triangle.fill")
+                    .foregroundColor(isLawful ? .green : .brandAmber)
+                Text(verdict.verdict_summary ?? "POTENTIALLY IMPROPER CONDUCT (SUBJECT TO VERIFICATION)")
+                    .font(.system(size: 11, weight: .bold, design: .monospaced))
+                    .foregroundColor(isLawful ? .green : .brandGold)
+            }
+            if let plain = verdict.plain_explanation {
+                Text("IN PLAIN WORDS: \(plain)")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundColor(.white)
+                    .lineSpacing(2)
+            }
+            if let whatToDo = verdict.what_to_do {
+                Text("WHAT TO DO: \(whatToDo)")
+                    .font(.system(size: 12))
+                    .foregroundColor(Color(white: 0.85))
+            }
+            if let standing = verdict.citizen_standing {
+                Text("STANDING: \(standing)")
+                    .font(.system(size: 11))
+                    .foregroundColor(Color(white: 0.75))
+            }
+            Text("DRAFT PENDING QUALIFIED LEGAL REVIEW")
+                .font(.system(size: 9, weight: .bold, design: .monospaced))
+                .foregroundColor(.brandAmber.opacity(0.8))
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(isLawful ? Color.green.opacity(0.1) : Color.brandAmber.opacity(0.1))
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(isLawful ? Color.green.opacity(0.3) : Color.brandAmber.opacity(0.3), lineWidth: 1)
+        )
+    }
+
     // MARK: - Follow-Up Card (Requirement 4)
     private func followUpCard(response: ChatResponse) -> some View {
         let questions = response.allFollowUpQuestions

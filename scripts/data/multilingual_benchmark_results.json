@@ -1,0 +1,1062 @@
+{
+  "summary": {
+    "benchmark_timestamp": "2026-11-10 02:53:14",
+    "total_cases_evaluated": 60,
+    "statutory_retrieval_accuracy_percent": 83.33,
+    "citizen_legality_verdict_precision_percent": 100.0,
+    "average_retrieval_latency_ms": 50.85,
+    "total_evaluation_time_seconds": 8.29,
+    "credit_telemetry": {
+      "initial_credit_balance": 4900.0,
+      "cost_per_live_audio_request_credits": 0.38,
+      "live_speech_calls_executed": 5,
+      "credits_consumed_this_run": 1.9,
+      "credits_remaining": 4898.1,
+      "projected_cost_for_50_runs_credits": 19.0,
+      "projected_cost_for_100_runs_credits": 38.0,
+      "is_within_budget": true
+    },
+    "live_audio_samples_generated": [
+      "audio_samples/benchmark/benchmark_GUJ_01_Yashraj.wav",
+      "audio_samples/benchmark/benchmark_MAR_01_Harshad.wav"
+    ]
+  },
+  "details": [
+    {
+      "id": "GUJ_01",
+      "language": "Gujarati (Native)",
+      "dialect": "Formal Gujarati",
+      "input_text": "પોલીસ મારો લારી ગલ્લો જબરદસ્તી હટાવે છે અને 500 રૂપિયા લાંચ માંગે છે, મારી પાસે વેન્ડિંગ સ્લિપ છે.",
+      "root_nodes": [
+        "STATUTE_STREET_VENDORS_SEC_3_3",
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "UNLAWFUL_ACT_BY_AUTHORITY",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 384.32,
+      "traversed_statutes_count": 12,
+      "audio_telemetry": {
+        "audio_file": "audio_samples/benchmark/benchmark_GUJ_01_Yashraj.wav",
+        "voice": "Yashraj",
+        "elapsed_seconds": 2.653,
+        "bytes": 340524
+      }
+    },
+    {
+      "id": "GUJ_02",
+      "language": "Gujlish (Broken/Code-switched)",
+      "dialect": "Gujlish Street",
+      "input_text": "Loan app walas mara contacts ma morphed photo send kare che and abuse kare che, police ma complaint karvi che.",
+      "root_nodes": [
+        "PENAL_BNS_318_CHEATING_FRAUD",
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 90.52,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_03",
+      "language": "Gujlish (Mixed)",
+      "dialect": "Broken Gujarati",
+      "input_text": "Highway par truck sathe collision thayo che, truck walo bhagi gayo and car totally damage thai che.",
+      "root_nodes": [
+        "PENAL_BNS_106_NEGLIGENT_DRIVING",
+        "STATUTE_MOTOR_VEHICLES_SEC_166_MACT"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 55.06,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_04",
+      "language": "Gujarati (Commercial)",
+      "dialect": "Business Gujarati",
+      "input_text": "અમારી MSME ફર્મનું 15 લાખનું પેમેન્ટ કંપની 60 દિવસથી અટકાવી રાખ્યું છે અને વ્યાજ પણ આપતા નથી.",
+      "root_nodes": [
+        "STATUTE_MSMED_SEC_15_16_INTEREST",
+        "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_COMMERCIAL_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 56.88,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_05",
+      "language": "Gujarati (Real Estate)",
+      "dialect": "Formal Gujarati",
+      "input_text": "બિલ્ડરે ફ્લેટનો કબજો બે વર્ષથી મોડો કર્યો છે અને OC વગર વધુ પૈસા માંગી રહ્યો છે.",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "PENAL_BNS_106_NEGLIGENT_DRIVING"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 60.51,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_06",
+      "language": "Gujlish (Labor)",
+      "dialect": "Broken Gujlish",
+      "input_text": "Contractor amari 3 month ni majoori nathi aapti and dhamki aape che ke police ma case kari daish.",
+      "root_nodes": [
+        "STATUTE_PAYMENT_OF_WAGES_SEC_15",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "UNLAWFUL_WAGE_WITHHOLDING",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.9,
+      "traversed_statutes_count": 9,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_07",
+      "language": "Gujarati (Eviction)",
+      "dialect": "Colloquial Gujarati",
+      "input_text": "કોઈપણ નોટિસ આપ્યા વિના મ્યુનિસિપાલિટી બુલડોઝર લઈને અમારી ઝૂંપડપટ્ટી તોડવા આવી ગઈ છે.",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "CONSTITUTION_ART_21_LIVELIHOOD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.31,
+      "traversed_statutes_count": 3,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_08",
+      "language": "Gujlish (Religious)",
+      "dialect": "Mixed Gujlish",
+      "input_text": "Amara prayer gathering par mob attack karyo and police FIR nathi nondhti.",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.08,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_09",
+      "language": "Gujlish (Cheating)",
+      "dialect": "Street Gujlish",
+      "input_text": "Online fake investment scam ma mara 5 lakh rupiya cheatiing kari lidha che.",
+      "root_nodes": [
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+        "PENAL_BNS_318_CHEATING_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 60.85,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "GUJ_10",
+      "language": "Gujlish (Police Refusal)",
+      "dialect": "Broken Gujlish",
+      "input_text": "Police station ma SHO bolya ke bija area ma jao complaint nahi lakhiye.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 62.33,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_01",
+      "language": "Marathi (Native)",
+      "dialect": "Mumbai Street Marathi",
+      "input_text": "बीएमसी कर्मचारी दादर स्टेशन बाहेर माझा फळांचा हातगाडा जप्त करत आहेत, माझ्याकडे पावती आहे पण ते ऐकत नाहीत.",
+      "root_nodes": [
+        "PENAL_BNS_106_NEGLIGENT_DRIVING",
+        "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY"
+      ],
+      "matched_domain": false,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 66.4,
+      "traversed_statutes_count": 4,
+      "audio_telemetry": {
+        "audio_file": "audio_samples/benchmark/benchmark_MAR_01_Harshad.wav",
+        "voice": "Harshad",
+        "elapsed_seconds": 2.248,
+        "bytes": 273964
+      }
+    },
+    {
+      "id": "MAR_02",
+      "language": "Marathlish (Broken)",
+      "dialect": "Pune Marathlish",
+      "input_text": "Loan app walya agents ni majhe photos morph kele ahet ani relatives la whatsapp var send karun blackmail kartayt.",
+      "root_nodes": [
+        "STATUTE_RBI_DIGITAL_LENDING_2022",
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 97.0,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_03",
+      "language": "Marathi (Accident)",
+      "dialect": "Highway Marathi",
+      "input_text": "हायवेवर भरधाव ट्रकने आमच्या गाडीला धडक दिली, ड्रायव्हर पळून गेला आणि भावाला गंभीर दुखापत झाली आहे.",
+      "root_nodes": [
+        "PENAL_BNS_106_NEGLIGENT_DRIVING",
+        "CONSTITUTION_ART_19_1_G_TRADE"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 59.84,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_04",
+      "language": "Marathlish (Commercial)",
+      "dialect": "Business Marathi",
+      "input_text": "Amchya MSME unit che 20 lakh che invoice buyer ne 75 divas pasun unpaid thevle ahe ani compound interest pan det nahi.",
+      "root_nodes": [
+        "STATUTE_MSMED_SEC_15_16_INTEREST",
+        "PENAL_BNS_318_CHEATING_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_COMMERCIAL_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 59.83,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_05",
+      "language": "Marathi (RERA)",
+      "dialect": "Urban Marathi",
+      "input_text": "बिल्डरने ठाण्यातील फ्लॅटचा ताबा तीन वर्षे उलटूनही दिलेला नाही, आम्हाला पूर्ण पैशांचा परतावा व्याजासह हवा आहे.",
+      "root_nodes": [
+        "STATUTE_RERA_SEC_18_DELAY_REFUND",
+        "STATUTE_RBI_DIGITAL_LENDING_2022"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_DEVELOPER_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.36,
+      "traversed_statutes_count": 5,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_06",
+      "language": "Marathi (Wage Theft)",
+      "dialect": "Rural Labor Marathi",
+      "input_text": "कंत्रાટदाराने चार महिन्यांची मजुरी अडवून ठेवली आहे आणि पैसे मागितल्यावर मारहाण करण्याची धमकी दिली.",
+      "root_nodes": [
+        "PENAL_BNS_308_EXTORTION",
+        "PENAL_BNS_318_CHEATING_FRAUD"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.76,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_07",
+      "language": "Marathlish (Slum Eviction)",
+      "dialect": "Slum Slang Marathlish",
+      "input_text": "Kuthlihi notice na deta nagarpalika bulldozer gheun amchi vasti todaila aali ahe.",
+      "root_nodes": [
+        "CONSTITUTION_ART_21_LIVELIHOOD",
+        "PENAL_BNS_329_CRIMINAL_TRESPASS"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 12.71,
+      "traversed_statutes_count": 3,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_08",
+      "language": "Marathi (FIR Refusal)",
+      "dialect": "Colloquial Marathi",
+      "input_text": "पोलीस ठाण्यात तक्रार नोंदवून घेत नाहीत, ते म्हणतात आमच्या हद्दीत घटना घडली नाही.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 56.47,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_09",
+      "language": "Marathlish (Extortion)",
+      "dialect": "Street Slang",
+      "input_text": "Hafta nahi dila tar dukan udavun taku ashi gunda loka police samor bolat ahet.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 15.76,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "MAR_10",
+      "language": "Marathi (Religious)",
+      "dialect": "Formal Marathi",
+      "input_text": "शांततामय प्रार्थनेच्या ठिकाणी टोळक्याने येऊन मोडतोड केली आणि जीवे मारण्याची धमकी दिली.",
+      "root_nodes": [
+        "PENAL_BNS_308_EXTORTION",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.66,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_01",
+      "language": "Bhojpuri (Purvanchal)",
+      "dialect": "Rural Bhojpuri",
+      "input_text": "दारोगा जी हमार ठेला जबरदस्ती हटावत बाड़न आ पाँच सौ रुपया हफ्ता माँगताड़न, हमार लगे वेंडिंग रसीद बा।",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "PENAL_BNS_308_EXTORTION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 62.8,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": {
+        "error": "Gnani Timbre TTS API returned HTTP 429: {\"detail\":{\"error_code\":\"RATE_LIMITED\",\"message\":\"Only 1 active request is allowed at a time. Wait for your current request to finish before sending another.\",\"status_code\":429}}"
+      }
+    },
+    {
+      "id": "BHOJ_02",
+      "language": "Bhojpuri (Cyber Loan)",
+      "dialect": "Colloquial Bhojpuri",
+      "input_text": "लोन एप वाला हमार फोटो मॉर्फ कइके सब रिश्तेदार के वाट्सएप पर भेजत बा आ गंदा-गंदा गाली देके धमकावत बा।",
+      "root_nodes": [
+        "PENAL_BNS_308_EXTORTION",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.95,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_03",
+      "language": "Bhojpuri (Accident)",
+      "dialect": "Highway Bhojpuri",
+      "input_text": "तेज रफ्तार ट्रक हमार गाड़ी में टक्कर मार दिहलस आ भाग गइल, भाई के पैर टूट गइल बा अस्पताल में भर्ती बाड़न।",
+      "root_nodes": [
+        "PENAL_BNS_106_NEGLIGENT_DRIVING",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.71,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_04",
+      "language": "Bhojpuri (Labor Wage Theft)",
+      "dialect": "Migrant Labor Bhojpuri",
+      "input_text": "ठेकेदार तीन महीना से हमनी के मजदूरी नइखे देत, 50 हजार रुपया रोक के बइठल बा आ माँगे पर मारपीट करत बा।",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "PENAL_BNS_106_NEGLIGENT_DRIVING"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 12.83,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_05",
+      "language": "Bhojpuri (Land Grabbing)",
+      "dialect": "Village Bhojpuri",
+      "input_text": "गाँव के दबंग लोग हमार पुश्तैनी जमीन पर जबरन कब्जा कइले बा आ खेत जोते से रोकत बा।",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 59.05,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_06",
+      "language": "Bhojpuri (FIR Refusal)",
+      "dialect": "Colloquial Bhojpuri",
+      "input_text": "थानेदार साहब हमनी के रपट नइखन लिखत, कहत बाड़न कि इहाँ से भाग जा ना त तोहरे के बंद कइ देब।",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 60.46,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_07",
+      "language": "Bhojpuri (Slum Eviction)",
+      "dialect": "Urban Bhojpuri",
+      "input_text": "बिना कौनों नोटिस आ पर्चा के नगर निगम बुलडोजर लेके हमनी के झुग्गी तोड़े आ गइल बा।",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "PENAL_BNS_106_NEGLIGENT_DRIVING"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 59.22,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_08",
+      "language": "Bhojpuri (Prayer Disruption)",
+      "dialect": "Purvanchal Hindi-Bhojpuri",
+      "input_text": "शांति से प्रार्थना चलत रहे त कुछ लफुआ लोग आके हुड़दंग मचवलस आ मार-पीट कइके सब सामान फेंक दिहलस।",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "PENAL_BNS_308_EXTORTION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 61.18,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_09",
+      "language": "Bhojpuri (Bribe Demand)",
+      "dialect": "Bhojpuri Street",
+      "input_text": "दुकान लगावे खातिर रोज सौ रुपया घूस माँगत बाड़न, ना देवे पर सामान नाली में फेंक दिहलन।",
+      "root_nodes": [
+        "PENAL_BNS_308_EXTORTION",
+        "PENAL_BNS_329_CRIMINAL_TRESPASS"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.83,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BHOJ_10",
+      "language": "Bhojpuri (Cheating)",
+      "dialect": "Bhojpuri Scam",
+      "input_text": "फर्जी सरकारी योजना के नाम पर हमार अंगूठा लगवा के बैंक से पूरा पइसा उड़ा लिहलस।",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "PENAL_BNS_329_CRIMINAL_TRESPASS"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 62.79,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_01",
+      "language": "Hinglish (Code-switched)",
+      "dialect": "Urban Street Hinglish",
+      "input_text": "Main Lajpat Nagar me cart lagata hu, police unauthorized eviction kar rahi hai and vendor certificate dekhne se refuse kar rahi hai.",
+      "root_nodes": [
+        "STATUTE_STREET_VENDORS_SEC_3_3",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "UNLAWFUL_ACT_BY_AUTHORITY",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.7,
+      "traversed_statutes_count": 12,
+      "audio_telemetry": {
+        "error": "Gnani Timbre TTS API returned HTTP 429: {\"detail\":{\"error_code\":\"RATE_LIMITED\",\"message\":\"Only 1 active request is allowed at a time. Wait for your current request to finish before sending another.\",\"status_code\":429}}"
+      }
+    },
+    {
+      "id": "HING_02",
+      "language": "Hinglish (Cyber Crime)",
+      "dialect": "Tech Hinglish",
+      "input_text": "Instant loan app hacked my contact permission and sending morphed inappropriate images to my colleagues demanding extortion.",
+      "root_nodes": [
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+        "PENAL_BNS_318_CHEATING_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.85,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_03",
+      "language": "Hinglish (Traffic Collision)",
+      "dialect": "Highway Hinglish",
+      "input_text": "Signal par commercial truck jumped red light and rammed my sedan car, driver ran away ho gaya and I need MACT claim report.",
+      "root_nodes": [
+        "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+        "PENAL_BNS_106_NEGLIGENT_DRIVING"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 60.43,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_04",
+      "language": "Hinglish (Commercial MSME)",
+      "dialect": "Corporate Hinglish",
+      "input_text": "Supplied auto components worth 18 lakhs, corporate buyer payment withhold kar raha hai 65 days se, interest claim karna hai.",
+      "root_nodes": [
+        "STATUTE_MSMED_SEC_15_16_INTEREST",
+        "STATUTE_RERA_SEC_18_DELAY_REFUND"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_COMMERCIAL_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.62,
+      "traversed_statutes_count": 5,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_05",
+      "language": "Hinglish (Real Estate)",
+      "dialect": "Buyer Hinglish",
+      "input_text": "Builder flat possession delay kar raha hai 20 months se after taking 85% amount, no occupancy certificate yet.",
+      "root_nodes": [
+        "STATUTE_RERA_SEC_18_DELAY_REFUND",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_DEVELOPER_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.45,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_06",
+      "language": "Hinglish (Labor Rights)",
+      "dialect": "Worker Hinglish",
+      "input_text": "Contractor hamari salary and overtime wages clear nahi kar raha, ulta abuse kar raha hai bolta hai jaha jaana hai jao.",
+      "root_nodes": [
+        "STATUTE_PAYMENT_OF_WAGES_SEC_15",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "UNLAWFUL_WAGE_WITHHOLDING",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 58.26,
+      "traversed_statutes_count": 9,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_07",
+      "language": "Hinglish (Zero FIR)",
+      "dialect": "Police Station Hinglish",
+      "input_text": "Local police station refused to lodge FIR saying jurisdiction belongs to another circle, need Zero FIR enforcement.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.84,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_08",
+      "language": "Hinglish (Land Trespass)",
+      "dialect": "Property Hinglish",
+      "input_text": "Local land mafia plot boundary wall break karke unauthorized encroachment kar raha hai without court decree.",
+      "root_nodes": [
+        "PENAL_BNS_329_CRIMINAL_TRESPASS",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 62.21,
+      "traversed_statutes_count": 9,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_09",
+      "language": "Hinglish (Religious Attack)",
+      "dialect": "Community Hinglish",
+      "input_text": "Peaceful prayer hall assembly me goons forcefully enter karke vandalism kiye and threat diye band karne ke liye.",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "PENAL_BNS_329_CRIMINAL_TRESPASS"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.42,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HING_10",
+      "language": "Hinglish (Evidence Hash)",
+      "dialect": "Legal Tech Hinglish",
+      "input_text": "Roadside extortion statement ka audio recording hai, isko court me admissible proof banana hai under BSA digital certificate.",
+      "root_nodes": [
+        "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+        "STATUTE_RBI_DIGITAL_LENDING_2022"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 15.39,
+      "traversed_statutes_count": 12,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_01",
+      "language": "Broken Hindi/Slang",
+      "dialect": "Street Panic",
+      "input_text": "Arre bhaiya police wale aake dukan tod rahe hai bolte hai 500 rupay hafta do nahi to thela gaadi me daal lenge.",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 63.0,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_02",
+      "language": "Broken Hinglish",
+      "dialect": "Extreme Panic Loan",
+      "input_text": "Sir help me loan app wale mera ganda morphed photo sabko whatsapp group me daal rahe hai please protect me.",
+      "root_nodes": [
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD",
+        "STATUTE_RBI_DIGITAL_LENDING_2022"
+      ],
+      "matched_domain": true,
+      "verdict_status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 107.07,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_03",
+      "language": "Broken English",
+      "dialect": "Panic Roadside",
+      "input_text": "Heavy vehicle truck hit my private car and run fast, my leg broken blood coming police not coming fast.",
+      "root_nodes": [
+        "PENAL_BNS_106_NEGLIGENT_DRIVING",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.08,
+      "traversed_statutes_count": 10,
+      "audio_telemetry": {
+        "error": "Gnani Timbre TTS API returned HTTP 429: {\"detail\":{\"error_code\":\"RATE_LIMITED\",\"message\":\"Only 1 active request is allowed at a time. Wait for your current request to finish before sending another.\",\"status_code\":429}}"
+      }
+    },
+    {
+      "id": "BROKEN_04",
+      "language": "Broken Hindi",
+      "dialect": "Labor Slang",
+      "input_text": "Saab thekedar paisa maar diya bolta hai bhag ja yahan se ek rupya nahi dunga ham bhukhe mar rahe hai.",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "STATUTE_PAYMENT_OF_WAGES_SEC_15"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 79.03,
+      "traversed_statutes_count": 7,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_05",
+      "language": "Broken Mixed",
+      "dialect": "Slum Emergency",
+      "input_text": "Subah subah bulldozer leke aagaye bina paper dikhaye jhuggi gira rahe hai bache sadak pe hai.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION",
+        "PENAL_BNS_318_CHEATING_FRAUD"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.41,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_06",
+      "language": "Broken Police",
+      "dialect": "Thana Grievance",
+      "input_text": "Chowki wala bolta hai case nahi likhenge dusre thane jao hum chakkar kaat kaat ke thak gaye hai.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 70.41,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_07",
+      "language": "Broken Commercial",
+      "dialect": "Small Business",
+      "input_text": "Bada company payment nahi de raha 4 mahina ho gaya invoice ka paisa fasa hai diwali pe staff ko kya de.",
+      "root_nodes": [
+        "PENAL_BNS_318_CHEATING_FRAUD",
+        "STATUTE_MSMED_SEC_15_16_INTEREST"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.94,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_08",
+      "language": "Broken Real Estate",
+      "dialect": "Buyer Distress",
+      "input_text": "Builder flat ka chabi nahi de raha 3 saal se date aage badha raha hai mera pura saving chala gaya.",
+      "root_nodes": [
+        "STATUTE_RERA_SEC_18_DELAY_REFUND",
+        "PENAL_BNS_329_CRIMINAL_TRESPASS"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_DEVELOPER_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 15.26,
+      "traversed_statutes_count": 4,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_09",
+      "language": "Broken Extortion",
+      "dialect": "Market Threat",
+      "input_text": "Gunda log aake bolta hai roz 200 rupya entry do nahi to dukan jalwa denge police unke sath baithti hai.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": false,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 15.25,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "BROKEN_10",
+      "language": "Broken Religious",
+      "dialect": "Prayer Threat",
+      "input_text": "Hall me baithe the aake chillane lage mic cheen liya aur bole yahan pooja nahi karne denge.",
+      "root_nodes": [
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM",
+        "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 18.42,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_01",
+      "language": "Indian English (Formal)",
+      "dialect": "MACT Highway Litigation",
+      "input_text": "Commercial container truck collided with our private vehicle on National Highway 48 resulting in severe spinal injury, seeking compensation claim.",
+      "root_nodes": [
+        "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+        "PENAL_BNS_106_NEGLIGENT_DRIVING"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.48,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_02",
+      "language": "Indian English (Corporate)",
+      "dialect": "MSMED Statutory Demand",
+      "input_text": "We are registered under UDYAM and supplied precision machinery worth 24 lakhs, payment defaulted beyond 45 days requiring 3x RBI compound interest.",
+      "root_nodes": [
+        "STATUTE_MSMED_SEC_15_16_INTEREST",
+        "STATUTE_RBI_DIGITAL_LENDING_2022"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_COMMERCIAL_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 89.12,
+      "traversed_statutes_count": 8,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_03",
+      "language": "Indian English (Real Estate)",
+      "dialect": "RERA Form M Action",
+      "input_text": "Promoter failed to provide Occupancy Certificate and possession for 32 months past registered agreement date, demanding 100 percent refund with MCLR interest.",
+      "root_nodes": [
+        "STATUTE_RERA_SEC_18_DELAY_REFUND",
+        "STATUTE_MSMED_SEC_15_16_INTEREST"
+      ],
+      "matched_domain": true,
+      "verdict_status": "STATUTORY_DEVELOPER_DEFAULT",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.02,
+      "traversed_statutes_count": 5,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_04",
+      "language": "Indian English (Road Duty)",
+      "dialect": "Accident Intake",
+      "input_text": "Accident occurred at junction involving pedestrian, driver provided immediate medical assistance and reporting to police within 24 hours.",
+      "root_nodes": [
+        "STATUTE_MOTOR_VEHICLES_SEC_134_DUTY",
+        "STATUTE_MOTOR_VEHICLES_SEC_166_MACT"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 16.76,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_05",
+      "language": "Indian English (Cyber Extortion)",
+      "dialect": "Cyber Legal Action",
+      "input_text": "Unlicensed digital lending application accessed contact permissions illegally and engaged in extortion through synthetic media defamation.",
+      "root_nodes": [
+        "STATUTE_RBI_DIGITAL_LENDING_2022",
+        "STATUTE_IT_ACT_66D_CYBER_FRAUD"
+      ],
+      "matched_domain": true,
+      "verdict_status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 14.4,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_06",
+      "language": "Indian English (Wage Default)",
+      "dialect": "Labor Dispute",
+      "input_text": "Contractual staff employed in logistics warehouse unpaid for three months, seeking claim under Section 15 with statutory 10x compensation.",
+      "root_nodes": [
+        "STATUTE_MOTOR_VEHICLES_SEC_166_MACT",
+        "STATUTE_PAYMENT_OF_WAGES_SEC_15"
+      ],
+      "matched_domain": true,
+      "verdict_status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 15.02,
+      "traversed_statutes_count": 9,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_07",
+      "language": "Indian English (Police Mandate)",
+      "dialect": "BNSS Mandate",
+      "input_text": "Station House Officer refused to register cognizable complaint, requiring immediate escalation to Superintendent of Police under BNSS Section 173(3).",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 186.4,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_08",
+      "language": "Indian English (Electronic Evidence)",
+      "dialect": "BSA Compliance",
+      "input_text": "Submitting electronic dashcam video and contemporaneous spoken testimony requiring cryptographic hash certificate under Section 63 BSA 2023.",
+      "root_nodes": [
+        "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT",
+        "PROCEDURAL_BNSS_173_ZERO_FIR"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.52,
+      "traversed_statutes_count": 14,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_09",
+      "language": "Indian English (Vendor Rights)",
+      "dialect": "Municipal Administrative",
+      "input_text": "Municipal enforcement squad initiated summary eviction of licensed street hawkers prior to completion of mandatory Town Vending Committee survey.",
+      "root_nodes": [
+        "STATUTE_STREET_VENDORS_SEC_3_3",
+        "PROCEDURAL_BNSS_173_3_SP_ESCALATION"
+      ],
+      "matched_domain": true,
+      "verdict_status": "UNLAWFUL_ACT_BY_AUTHORITY",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 17.95,
+      "traversed_statutes_count": 10,
+      "audio_telemetry": null
+    },
+    {
+      "id": "HIGH_10",
+      "language": "Indian English (Assembly Protection)",
+      "dialect": "Constitutional Rights",
+      "input_text": "Vigilante mob trespassed upon peaceful lawful religious congregation and issued death threats, seeking Zero FIR and police protection.",
+      "root_nodes": [
+        "PROCEDURAL_BNSS_173_ZERO_FIR",
+        "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"
+      ],
+      "matched_domain": true,
+      "verdict_status": "COGNIZABLE_STATUTORY_VIOLATION",
+      "is_lawful": false,
+      "verdict_valid": true,
+      "latency_ms": 76.88,
+      "traversed_statutes_count": 6,
+      "audio_telemetry": null
+    }
+  ]
+}
