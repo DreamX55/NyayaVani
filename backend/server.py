@@ -52,7 +52,7 @@ class ChatRequest(BaseModel):
     message: str
     tier: Optional[str] = "AUTO_DETECT"
     voice: Optional[str] = "Shivani"
-    client_name: Optional[str] = "Citizen / Applicant"
+    client_name: Optional[str] = "Citizen"
     location: Optional[str] = "India"
     meta: Optional[Dict[str, Any]] = None
 
@@ -160,22 +160,27 @@ async def get_presets():
 @app.post("/api/chat")
 async def chat_text(req: ChatRequest):
     case_meta = req.meta or {}
-    case_meta["client_name"] = req.client_name
-    case_meta["location"] = req.location
+    case_meta["client_name"] = req.client_name if req.client_name else "Citizen"
+    case_meta["location"] = req.location if req.location else "India"
 
     # 1. Resolve City & Dynamic Language
     city_prof = GeoLanguageService.resolve_city_profile(req.location or "India")
     detected_lang, detected_voice = GeoLanguageService.adapt_language_from_text(
         req.message, current_lang=city_prof["primary_language"]
     )
-    target_voice = req.voice if (req.voice and req.voice != "Shivani") else detected_voice
+    # Strictly respect the user's selected voice from the frontend dropdown
+    target_voice = req.voice if req.voice else detected_voice
     lang = detected_lang
 
     # 2. Process through Legal GraphRAG reasoning engine
     case_res = engine.process_case(req.message, suite_tier=req.tier, meta=case_meta)
 
     # 3. Live Gnani Timbre TTS API Call using X-API-Key-ID
-    shield_text = case_res.get("spoken_rights_shield_hi") or case_res.get("spoken_guidance_en", "")
+    # Choose English spoken guidance if input is English, otherwise native rights shield
+    if lang.startswith("en"):
+        shield_text = case_res.get("spoken_guidance_en") or case_res.get("spoken_rights_shield_hi", "")
+    else:
+        shield_text = case_res.get("spoken_rights_shield_hi") or case_res.get("spoken_guidance_en", "")
 
     audio_filename = f"tts_live_{int(time.time() * 1000)}.wav"
     audio_path = os.path.join("audio_samples", audio_filename)
@@ -224,7 +229,7 @@ async def chat_voice(
     audio: UploadFile = File(...),
     tier: str = Form("AUTO_DETECT"),
     voice: str = Form("Shivani"),
-    client_name: str = Form("Citizen / Applicant"),
+    client_name: str = Form("Citizen"),
     location: str = Form("India")
 ):
     # 1. Save uploaded live audio chunk

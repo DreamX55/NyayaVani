@@ -213,59 +213,136 @@ class LegalGraphRetriever:
             "relations": visited_edges
         }
 
+    def check_ambiguity_and_followup(self, transcript: str) -> Optional[Dict[str, Any]]:
+        """
+        Determines whether a citizen query is ambiguous or missing essential qualifiers.
+        If incomplete, returns a structured follow-up question instead of rendering a premature verdict.
+        """
+        t_low = transcript.lower()
+
+        # 1. Vendor / Stall closure without specific legal grounds
+        vendor_stall_terms = ["stall", "shop", "thela", "cart", "dukan", "vendor", "hawker", "rehdi", "khomcha", "lari", "gallo", "hatgadi", "thalluvandi", "thallugadi"]
+        police_stop_terms = [
+            "police came", "police stopped", "police told", "police asked", "told me to close", "told to close",
+            "close it", "shut it", "close my", "shut my", "remove my", "move my", "police aayi", "police aakar",
+            "dukan band", "thela hata", "band karne", "band karwaya", "dukaan band", "police bolya"
+        ]
+        
+        has_vendor = any(w in t_low for w in vendor_stall_terms)
+        has_police_action = any(w in t_low for w in police_stop_terms) or ("police" in t_low and any(w in t_low for w in ["close", "shut", "leave", "stop", "move"]))
+
+        # Check if specific facts are present
+        has_extortion_facts = any(w in t_low for w in ["hafta", "bribe", "lanch", "ghoos", "extortion", "500", "paisa", "rupiya", "paise", "money", "demanding cash", "unauthorized payment"])
+        has_health_facts = any(w in t_low for w in ["rotten", "spoiled", "contaminated", "expired", "unhygienic", "fssai", "food safety", "sada hua", "kharab khana", "poisoning", "fungus"])
+        has_obstruction_facts = any(w in t_low for w in ["ambulance", "hospital gate", "emergency gate", "fire station", "fire exit", "permanent brick", "pakka nirman", "concrete structure"])
+        has_license_facts = any(w in t_low for w in ["certificate", "slip", "pm svanidhi", "vending receipt", "license", "survey"])
+
+        if (has_vendor and has_police_action) or any(term in t_low for term in ["[ambiguous]", "ambiguous_query"]):
+            if not (has_extortion_facts or has_health_facts or has_obstruction_facts):
+                return {
+                    "is_lawful": None,
+                    "citizen_fault": None,
+                    "status": "INSUFFICIENT_FACTS",
+                    "follow_up_required": True,
+                    "follow_up_question": "Did the police state a specific reason (like spoiled food or blocking traffic), or did they demand money/bribes without an official receipt?",
+                    "follow_up_reason": "Missing factual ground for authority action (distinguishes lawful FSSAI/traffic enforcement from criminal extortion).",
+                    "plain_explanation": "Under Indian law, a police officer or municipal squad cannot simply tell a street vendor to shut down without a valid legal reason. However, to advise you accurately, we need to know why they intervened.",
+                    "what_to_do": "Reply by clarifying: 1) What exact reason did the officer give? 2) Do you have a PM SVANidhi certificate or vending receipt?",
+                    "legal_source_statutes": [
+                        {"act": "The Street Vendors Act, 2014", "section": "Section 3(3)", "rule": "Protection against eviction pending Town Vending Committee survey"},
+                        {"act": "Food Safety and Standards Act (FSSAI), 2006", "section": "Section 26 & 59", "rule": "Lawful power to inspect and seize unsafe or spoiled food"}
+                    ],
+                    "verdict_summary": "CLARIFICATION REQUIRED. Did the police state a specific reason (like spoiled food or blocking traffic), or did they demand money/bribes without an official receipt?",
+                    "citizen_standing": "Standing cannot be determined until the reason for the stop and your licensing status are clarified.",
+                    "violator_liability": "Pending clarification."
+                }
+
+        # 2. Salary / Wage deduction without grounds
+        has_salary_terms = any(w in t_low for w in ["salary", "wage", "wages", "pay", "pagar", "vetan", "majdoori", "sambala"])
+        has_deduct_terms = any(w in t_low for w in ["deducted", "cut", "paisa kata", "less money", "withheld", "kapla", "didn't give full", "reduced", "bina bataye"])
+        has_wage_theft_facts = any(w in t_low for w in ["contractor", "thekedar", "malik", "unpaid 3 month", "3 mahina", "40000", "45000", "overtime", "refused to pay", "threatened", "dhamki"])
+        has_legal_deduction_facts = any(w in t_low for w in ["pf", "provident fund", "tds", "tax", "advance", "disciplinary"])
+
+        if (has_salary_terms and has_deduct_terms) and not (has_wage_theft_facts or has_legal_deduction_facts):
+            return {
+                "is_lawful": None,
+                "citizen_fault": None,
+                "status": "INSUFFICIENT_FACTS",
+                "follow_up_required": True,
+                "follow_up_question": "What reason did your employer give for cutting your pay? Was it an official deduction for taxes/PF, or are they refusing to pay your earned wages?",
+                "follow_up_reason": "Missing grounds for wage deduction (distinguishes legitimate statutory deductions from illegal wage withholding under Section 15 Payment of Wages Act).",
+                "plain_explanation": "An employer is legally prohibited from making arbitrary deductions from your earned wages. But we must know if they claimed it was for taxes/provident fund or if it was pure wage theft.",
+                "what_to_do": "Reply with: 1) What reason did your employer give? 2) How much was deducted and for how many days of work?",
+                "legal_source_statutes": [
+                    {"act": "Payment of Wages Act, 1936", "section": "Section 7 & 15", "rule": "Authorized deductions limited; unlawful wage withholding punishable with up to 10x penalty"}
+                ],
+                "verdict_summary": "CLARIFICATION REQUIRED. What reason did your employer give for cutting your pay? Was it an official deduction for taxes/PF, or are they refusing to pay your earned wages?",
+                "citizen_standing": "Standing depends on whether the deduction is statutory or unauthorized.",
+                "violator_liability": "Pending clarification."
+            }
+
+        # 3. Accident without injury status
+        has_crash_terms = any(w in t_low for w in ["accident", "collision", "hit my car", "hit my bike", "car crash", "two vehicles", "gadi thuk", "gaadi lad", "bumped into"])
+        has_injury_facts = any(w in t_low for w in ["injured", "hospital", "dead", "fracture", "blood", "hit and run", "fled", "rash", "red light", "speeding", "overturn"])
+
+        if has_crash_terms and not has_injury_facts:
+            return {
+                "is_lawful": None,
+                "citizen_fault": None,
+                "status": "INSUFFICIENT_FACTS",
+                "follow_up_required": True,
+                "follow_up_question": "Was anyone injured requiring emergency medical care, or was the damage limited strictly to vehicle body damage?",
+                "follow_up_reason": "Missing injury classification (determines whether BNS 106 criminal negligence applies or a standard third-party MACT insurance claim).",
+                "plain_explanation": "How the law handles a traffic accident depends on whether anyone was physically injured or if it was just vehicle damage.",
+                "what_to_do": "Reply with: 1) Did anyone suffer bodily injury? 2) Was a First Accident Report (FAR) or police diary entry made?",
+                "legal_source_statutes": [
+                    {"act": "Motor Vehicles Act, 1988", "section": "Section 134 & 166", "rule": "Duty of driver to provide medical aid; MACT tribunal compensation claims"}
+                ],
+                "verdict_summary": "CLARIFICATION REQUIRED. Was anyone injured requiring emergency medical care, or was the damage limited strictly to vehicle body damage?",
+                "citizen_standing": "Standing depends on whether bodily injury occurred.",
+                "violator_liability": "Pending clarification."
+            }
+
+        # 4. Loan call without lender identity
+        has_loan_terms = any(w in t_low for w in ["loan notice", "recovery call", "repay loan", "loan payment", "phone call for money", "phone aaya loan", "loan call", "purane paise"])
+        has_app_facts = any(w in t_low for w in ["morph", "contacts", "relatives", "photos", "blackmail", "whatsapp threat", "threat to call relatives"])
+        has_bank_facts = any(w in t_low for w in ["sarfaesi", "npa", "60 days", "bank notice", "loan account", "auction notice"])
+
+        if has_loan_terms and not (has_app_facts or has_bank_facts):
+            return {
+                "is_lawful": None,
+                "citizen_fault": None,
+                "status": "INSUFFICIENT_FACTS",
+                "follow_up_required": True,
+                "follow_up_question": "Is this demand coming from an official RBI-regulated bank where you have an account, or is it an unauthorized mobile app harassing your contacts?",
+                "follow_up_reason": "Missing lender status (distinguishes legitimate bank default under SARFAESI from criminal cyber extortion under IT Act Section 66D).",
+                "plain_explanation": "If an official bank is contacting you, there is a legal process they must follow under RBI rules. If it is an unapproved app blackmailing you, that is a cybercrime.",
+                "what_to_do": "Reply with: 1) Who is calling (a bank or an app)? 2) Are they threatening to contact your family or morph your photos?",
+                "legal_source_statutes": [
+                    {"act": "RBI Guidelines on Digital Lending, 2022", "section": "Clause 4 & 6", "rule": "Strict prohibition of harassment and accessing borrower phone contacts"},
+                    {"act": "SARFAESI Act, 2002", "section": "Section 13(2)", "rule": "Lawful 60-day demand notice procedure for bank NPA loans"}
+                ],
+                "verdict_summary": "CLARIFICATION REQUIRED. Is this demand coming from an official RBI-regulated bank where you have an account, or is it an unauthorized mobile app harassing your contacts?",
+                "citizen_standing": "Standing depends on whether the creditor is an authorized bank or an illegal lending app.",
+                "violator_liability": "Pending clarification."
+            }
+
+        return None
+
     def generate_legality_verdict(self, subgraph: Dict[str, Any], transcript: str) -> Dict[str, Any]:
         """
         Synthesizes an upfront Citizen Legality Verdict based on graph traversal.
-        Explicitly answers: Is this legal/illegal? What is my legal standing? Who is liable?
-        Also detects if Citizen is at Fault (Lawful Authority Power) or if facts are Ambiguous (Follow-up Required).
+        Translates legal conclusions into plain, explainable English with transparent statutory sourcing.
         """
         root_nodes = subgraph.get("root_nodes", [])
         penal = subgraph.get("penal_offenses", [])
         statutes = subgraph.get("statutory_protections", [])
         const = subgraph.get("constitutional_anchors", [])
 
-        t_low = transcript.lower()
-
-        # 1. Ambiguity & Missing Facts Detection (Mandatory Follow-Up Question Trigger)
-        is_ambiguous = False
-        follow_up_q = None
-        follow_up_reason = None
-        
-        if any(term in t_low for term in ["[ambiguous]", "ambiguous_query", "need clarification", "incomplete facts"]) or (
-            any(w in t_low for w in ["police stopped", "police aayi", "police boli", "police aakar", "दुकान बंद करने", "પોલીસે દુકાન", "ಪೊಲೀಸರು ಅಂಗಡಿ", "போலீஸ் கடை", "పోలీసులు దుకాణం", "পুলিশ দোকান", "ਪੁਲਿਸ ਦੁਕਾਨ", "പോലീസ് കട"])
-            and not any(w in t_low for w in ["hafta", "bribe", "lanch", "ghoos", "500", "paisa", "rupiya", "paise", "rotten", "sada", "kharab", "fssai", "ambulance", "pakka", "emergency", "certificate", "slip", "vending"])
-        ):
-            is_ambiguous = True
-            follow_up_q = "Did the authorities state a violation regarding food contamination/physical obstruction, or did they demand an unauthorized payment without issuing an official receipt?"
-            follow_up_reason = "Missing factual basis for the authority intervention (distinguishes lawful FSSAI/obstruction clearance from criminal extortion)."
-
-        elif any(w in t_low for w in ["deducted salary", "paisa kata", "salary cut", "wage cut", "pagar kapla", "sambala kadita", "vetan kata", "sambala piditham", "jeetam kota"]) and not any(w in t_low for w in ["contractor", "thekedar", "malik", "overtime", "unpaid 3 month", "3 mahina", "45000", "bina bataye", "dhamki", "threat"]):
-            is_ambiguous = True
-            follow_up_q = "What specific reason did your employer provide for the deduction, and was it a statutory deduction (PF/TDS) or an arbitrary withholding of earned wages?"
-            follow_up_reason = "Missing grounds for wage deduction (distinguishes legitimate statutory deductions from illegal wage withholding under Section 15 Payment of Wages Act)."
-
-        elif any(w in t_low for w in ["accident hua", "gadi thuk gayi", "collision on road", "car clash", "vahanam apaghata", "vahan tatkal", "gaadi lad gayi"]) and not any(w in t_low for w in ["injured", "hospital", "dead", "fracture", "rash", "speeding", "red light", "dashcam", "insurance claim", "mact"]):
-            is_ambiguous = True
-            follow_up_q = "Was any person bodily injured requiring immediate medical care under Section 134 MV Act, or was the damage limited strictly to vehicular property?"
-            follow_up_reason = "Missing injury classification (determines whether Section 106 BNS criminal negligence and MACT bodily injury procedures apply)."
-
-        elif any(w in t_low for w in ["repay loan", "loan call", "recovery notice", "paisa wapas", "kist bharo", "loan recovery"]) and not any(w in t_low for w in ["morph", "contacts", "relatives", "photos", "blackmail", "npa", "sarfaesi", "60 days", "bank notice", "threat to kill"]):
-            is_ambiguous = True
-            follow_up_q = "Is this payment demand originating from an RBI-regulated bank with an official loan account number, or an unapproved mobile application accessing your personal contacts?"
-            follow_up_reason = "Missing lender regulatory status (distinguishes lawful SARFAESI recovery from predatory cyber extortion under IT Act Section 66D)."
-
-        if is_ambiguous:
-            return {
-                "is_lawful": None,
-                "citizen_fault": None,
-                "status": "INSUFFICIENT_FACTS",
-                "follow_up_required": True,
-                "follow_up_question": follow_up_q,
-                "follow_up_reason": follow_up_reason,
-                "verdict_summary": f"CLARIFICATION REQUIRED. {follow_up_q}",
-                "citizen_standing": "Standing cannot be determined until factual qualifiers (licensing, grounds for action, or injury) are provided.",
-                "violator_liability": "Pending clarification."
-            }
+        # 1. Ambiguity & Missing Facts Pre-check
+        amb_check = self.check_ambiguity_and_followup(transcript)
+        if amb_check:
+            return amb_check
 
         if not root_nodes:
             return {
@@ -273,8 +350,13 @@ class LegalGraphRetriever:
                 "citizen_fault": None,
                 "status": "INSUFFICIENT_FACTS",
                 "follow_up_required": True,
-                "follow_up_question": "Please provide additional details: what specific action was taken, who initiated it, and what statutory notices or receipts were provided?",
+                "follow_up_question": "Could you provide additional details on what happened, who was involved, and if any official notices or slips were given?",
                 "follow_up_reason": "No matched statutory nodes in Knowledge Graph.",
+                "plain_explanation": "I need a few more details about your situation to identify the relevant legal protections under Indian law.",
+                "what_to_do": "Tell me what specific action was taken and who initiated it.",
+                "legal_source_statutes": [
+                    {"act": "Bharatiya Nagarik Suraksha Sanhita (BNSS), 2023", "section": "Section 173", "rule": "Right to inquiry and reporting of cognizable incidents"}
+                ],
                 "verdict_summary": "Further factual details required to determine exact statutory liability.",
                 "citizen_standing": "Consult nearest Legal Services Authority (DLSA) or file an inquiry under BNSS Section 173.",
                 "violator_liability": "Subject to formal verification of acts committed."
@@ -296,6 +378,12 @@ class LegalGraphRetriever:
                 "status": "LAWFUL_REGULATORY_ENFORCEMENT",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: If food being sold is spoiled, stale, or contaminated, food safety officers and police have a legal duty to protect the public health. Selling unsafe food violates Indian law, and authorities have lawful power to stop sales and seize hazardous stock.",
+                "what_to_do": "Do not resist inspecting officers. Discard the spoiled goods. You cannot challenge lawful seizure of bad food before court. To reopen, ensure clean drinking water, proper hygiene, and an FSSAI registration.",
+                "legal_source_statutes": [
+                    {"act": "Food Safety and Standards Act (FSSAI), 2006", "section": "Section 26 & Section 59", "rule": "Prohibition of unsafe food and statutory power of food safety officers to seize contaminated items"},
+                    {"act": "Bharatiya Nyaya Sanhita (BNS), 2023", "section": "Section 274", "rule": "Criminal punishment for sale of noxious food or drink"}
+                ],
                 "verdict_summary": "LAWFUL AUTHORITY ENFORCEMENT. Under Sections 26 and 59 of the Food Safety and Standards Act (FSSAI), 2006 and BNS Section 274, authorities have lawful jurisdiction to seize contaminated, rotten, or unhygienic food. You are legally at fault.",
                 "citizen_standing": "You are in statutory violation. You DO NOT have the right to challenge lawful public health confiscation or obstruct inspecting officers. You must comply with food safety standards.",
                 "violator_liability": "Citizen/vendor liable for statutory fines up to ₹5,00,000 under FSSAI and criminal prosecution under BNS Section 274."
@@ -307,6 +395,12 @@ class LegalGraphRetriever:
                 "status": "LAWFUL_TRAFFIC_ENFORCEMENT",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: Driving after drinking alcohol, riding without a helmet, or driving on the wrong side of the road violates motor vehicle safety rules. Traffic police have the legal right to check you with a breathalyzer and impound your vehicle.",
+                "what_to_do": "Do not challenge the lawful seizure. Settle the compounding fine through official traffic challan channels or appear before the Metropolitan Magistrate.",
+                "legal_source_statutes": [
+                    {"act": "Motor Vehicles Act, 1988 (Amended 2019)", "section": "Section 185", "rule": "Driving by a drunken person (blood alcohol > 30mg/100ml)"},
+                    {"act": "Motor Vehicles Act, 1988", "section": "Section 207", "rule": "Power of police officer to impound and detain vehicle"}
+                ],
                 "verdict_summary": "LAWFUL POLICE POWER. Traffic police possess lawful statutory authority under Section 207 of the Motor Vehicles Act, 1988 to impound vehicles and issue compounding challans for drunk driving (Section 185), helmetless riding, or dangerous wrong-side operation. You are legally at fault.",
                 "citizen_standing": "You are legally in violation. The police have full authority to seize the vehicle. You must pay the statutory compounding fine or appear before the Metropolitan Magistrate.",
                 "violator_liability": "Citizen liable for statutory challan and license suspension up to 3 months."
@@ -318,6 +412,12 @@ class LegalGraphRetriever:
                 "status": "LAWFUL_MUNICIPAL_CLEARANCE",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: Street vendor protections apply only to mobile carts and approved vending zones. Building a permanent brick structure on a public sidewalk or blocking an emergency ambulance gate is an unlawful encroachment that authorities can lawfully demolish.",
+                "what_to_do": "Street vendor protections do not cover permanent brick encroachments. Clear the obstruction and apply through the Town Vending Committee for a designated mobile vending slot.",
+                "legal_source_statutes": [
+                    {"act": "The Street Vendors Act, 2014", "section": "Section 3(2)", "rule": "Vending protection strictly excludes permanent structures and emergency zones"},
+                    {"act": "Municipal Corporation Act", "section": "Section 314", "rule": "Lawful removal of obstructions on public streets and footpaths"}
+                ],
                 "verdict_summary": "LAWFUL MUNICIPAL CLEARANCE. Section 3(2) of the Street Vendors Act, 2014 expressly excludes permanent brick/concrete structures or vending that blocks hospital gates, emergency services, or public thoroughfares. The municipal action is lawful.",
                 "citizen_standing": "You do not possess statutory vending immunity for permanent encroachments or emergency blockages.",
                 "violator_liability": "Citizen liable for removal costs and obstruction penalties under Section 314 of Municipal Corporation Act."
@@ -329,6 +429,11 @@ class LegalGraphRetriever:
                 "status": "LAWFUL_BANK_DEFAULT_RECOVERY",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: When a bank loan goes unpaid for over 90 days and becomes an NPA, the bank has a legal procedure under Indian banking law to recover their money by issuing a formal 60-day demand notice.",
+                "what_to_do": "The bank's notice is legally valid. You have 60 days to either pay the pending EMIs, submit a formal restructuring request, or file an appeal before the Debt Recovery Tribunal (DRT).",
+                "legal_source_statutes": [
+                    {"act": "SARFAESI Act, 2002", "section": "Section 13(2) & 13(4)", "rule": "Lawful 60-day demand notice and enforcement of security interest upon NPA default"}
+                ],
                 "verdict_summary": "LAWFUL STATUTORY PROCEDURE. A scheduled bank issuing a 60-day demand notice following a 90-day unserviced NPA default is exercising lawful powers under Section 13(2) of the SARFAESI Act, 2002.",
                 "citizen_standing": "The bank's notice is legally valid. You must cure the default within 60 days, submit a formal representation under Section 13(3A), or file a securitisation appeal before the DRT under Section 17.",
                 "violator_liability": "Borrower secured assets subject to lawful attachment if uncured."
@@ -342,6 +447,13 @@ class LegalGraphRetriever:
                 "status": "UNLAWFUL_ACT_BY_AUTHORITY",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: The police or municipal staff CANNOT randomly evict you or demand daily bribes (hafta) from you. Under Indian law, as long as you are carrying on peaceful street vending, you are 100% protected until the government completes an official Town Vending Committee survey.",
+                "what_to_do": "Show your PM SVANidhi receipt or vending certificate. Do not pay any cash without an official government receipt. If they threaten to throw your cart, inform them you are protected under Section 3(3) and report extortion under BNS Section 308.",
+                "legal_source_statutes": [
+                    {"act": "The Street Vendors (Protection of Livelihood) Act, 2014", "section": "Section 3(3)", "rule": "Absolute bar on eviction or relocation pending Town Vending Committee survey"},
+                    {"act": "Bharatiya Nyaya Sanhita (BNS), 2023", "section": "Section 308", "rule": "Criminal extortion for demanding unauthorized money under coercion"},
+                    {"act": "Constitution of India", "section": "Article 19(1)(g)", "rule": "Fundamental right to practice any trade, occupation or business"}
+                ],
                 "verdict_summary": "ILLEGAL ACTION. Under Section 3(3) of The Street Vendors Act, 2014, municipal staff and police have NO legal authority to evict you or confiscate your cart until a Town Vending Committee survey is complete. Demanding payment to allow vending constitutes criminal Extortion under BNS Section 308.",
                 "citizen_standing": "You are 100% statutorily protected. You have the immediate legal right to remain at this vending location.",
                 "violator_liability": "Cognizable criminal offense under BNS Section 308 (Extortion) and disciplinary violation under Street Vendors Act Section 18."
@@ -353,6 +465,13 @@ class LegalGraphRetriever:
                 "status": "CRIMINAL_EXTORTION_AND_CYBER_FRAUD",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: These predatory loan apps are committing serious cybercrime. Reserve Bank of India (RBI) rules strictly forbid lenders from hacking your phone contacts, stealing your gallery photos, or sending morphed pictures to your family. This is criminal blackmail.",
+                "what_to_do": "Do NOT pay any extortion money. Save screenshots of all threatening WhatsApp messages and phone numbers. Immediately file a cyber complaint at cybercrime.gov.in or call the national cyber helpline 1930.",
+                "legal_source_statutes": [
+                    {"act": "Information Technology Act, 2000", "section": "Section 66D", "rule": "Cheating by personation and cyber fraud using computer resources"},
+                    {"act": "Bharatiya Nyaya Sanhita (BNS), 2023", "section": "Section 318(4)", "rule": "Aggravated cheating and extortion punishable with up to 7 years imprisonment"},
+                    {"act": "RBI Digital Lending Guidelines, 2022", "section": "Clause 4 & 6", "rule": "Strict prohibition of harassment and accessing borrower phone media"}
+                ],
                 "verdict_summary": "ILLEGAL ACTION. Digital recovery agents morphing photos or contacting your friends/family violate mandatory RBI Digital Lending Guidelines and commit cognizable cyber fraud under IT Act Section 66D and BNS Section 318(4).",
                 "citizen_standing": "You are a victim of predatory cyber extortion. You are under no legal obligation to pay unauthorized extortion amounts demanded by unapproved apps.",
                 "violator_liability": "Up to 7 years imprisonment under BNS Section 318(4) and 3 years under IT Act Section 66D; RBI cancellation of NBFC lending license."
@@ -364,6 +483,12 @@ class LegalGraphRetriever:
                 "status": "ROAD_TRAFFIC_NEGLIGENCE_AND_STATUTORY_CLAIM",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: If a driver recklessly crashes into your vehicle and causes injury or damage, they have committed a criminal offense. If they ran away, it is a hit-and-run crime. You are legally entitled to 100% financial compensation for hospital costs, lost income, and vehicle repair.",
+                "what_to_do": "Get medical treatment immediately. Note the registration number of the vehicle. File a First Accident Report (FAR) at the nearest police station to support your claim before the Motor Accidents Claims Tribunal (MACT).",
+                "legal_source_statutes": [
+                    {"act": "Bharatiya Nyaya Sanhita (BNS), 2023", "section": "Section 106", "rule": "Causing grievous hurt or death by rash and negligent driving"},
+                    {"act": "Motor Vehicles Act, 1988 (Amended 2019)", "section": "Section 166", "rule": "Right to compensation before Motor Accidents Claims Tribunal (MACT)"}
+                ],
                 "verdict_summary": "ACTIONABLE LEGAL INJURY. The colliding driver's rash and negligent operation violates BNS Section 106. You are statutorily entitled to complete medical, financial, and vehicular restitution under Section 166 of the Motor Vehicles Act, 2019.",
                 "citizen_standing": "You possess an unassailable third-party insurance claim before the Motor Accidents Claims Tribunal (MACT) and criminal complaint standing under BNSS Section 173.",
                 "violator_liability": "Criminal prosecution under BNS Section 106 (up to 5 years imprisonment) and complete insurer financial liability under MV Act Section 166."
@@ -375,6 +500,11 @@ class LegalGraphRetriever:
                 "status": "STATUTORY_DEVELOPER_DEFAULT",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: A builder who delays handing over your flat past the agreed date without an Occupancy Certificate (OC) is in statutory default. You do not have to wait indefinitely.",
+                "what_to_do": "Under RERA law, you can demand an immediate 100% refund of all money paid plus compound interest (SBI MCLR + 2%), or monthly delay interest until handover. File a complaint before the Real Estate Regulatory Authority (RERA).",
+                "legal_source_statutes": [
+                    {"act": "Real Estate (Regulation and Development) Act, 2016 (RERA)", "section": "Section 18", "rule": "Mandatory refund with interest or monthly compensation for delayed possession"}
+                ],
                 "verdict_summary": "ILLEGAL BREACH. Builder delay past the promised handover date without an Occupancy Certificate is a statutory breach under Section 18 of the RERA Act, 2016.",
                 "citizen_standing": "You are legally entitled to demand an immediate 100% refund with interest at SBI MCLR + 2%, or monthly statutory interest for every month of delay.",
                 "violator_liability": "Statutory penalty and enforcement of refund orders by the Real Estate Regulatory Authority (RERA)."
@@ -386,6 +516,11 @@ class LegalGraphRetriever:
                 "status": "STATUTORY_COMMERCIAL_DEFAULT",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: Any commercial buyer who purchases goods or services from a registered small business (MSME) is required by law to pay within 45 days. If they default, they must pay compound interest at three times the RBI bank rate.",
+                "what_to_do": "Serve a formal statutory demand notice giving 15 days to clear the invoice. If unpaid, submit an online claim on the government MSME Samadhaan portal for automated arbitration.",
+                "legal_source_statutes": [
+                    {"act": "MSMED Act, 2006", "section": "Section 15 & Section 16", "rule": "Mandatory 45-day payment term and compound interest at three times the RBI bank rate with monthly rests"}
+                ],
                 "verdict_summary": "ILLEGAL COMMERCIAL DEFAULT. Invoices unpaid beyond 45 days automatically violate Sections 15 & 16 of the MSMED Act, 2006. The buyer has zero legal defense for withholding payment.",
                 "citizen_standing": "You have a mandatory statutory entitlement to compound interest at three times the RBI bank rate with monthly rests.",
                 "violator_liability": "Recovery proceedings before MSME Samadhaan Facilitation Council with non-deductible penal compound interest."
@@ -397,6 +532,12 @@ class LegalGraphRetriever:
                 "status": "UNLAWFUL_WAGE_WITHHOLDING",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": "In plain words: An employer or contractor who has taken your work and then refuses to pay your earned salary is violating the law. Withholding wages is treated as illegal forced labor under the Indian Constitution.",
+                "what_to_do": "Submit a wage recovery claim petition before the Deputy Labor Commissioner under Section 15 of the Payment of Wages Act. The employer can be ordered to release the wages plus pay up to 10 times the amount as statutory compensation.",
+                "legal_source_statutes": [
+                    {"act": "Payment of Wages Act, 1936", "section": "Section 15", "rule": "Claims arising out of deductions from wages or delay in payment; up to 10x compensation"},
+                    {"act": "Constitution of India", "section": "Article 23", "rule": "Prohibition of traffic in human beings and forced labor (begar)"}
+                ],
                 "verdict_summary": "ILLEGAL ACT. Withholding earned wages violates Section 15 of the Payment of Wages Act, 1936 and constitutes forced labor prohibited under Article 23 of the Constitution.",
                 "citizen_standing": "You are entitled to claim full recovery of withheld wages plus up to ten times the deducted amount as statutory compensation.",
                 "violator_liability": "Criminal prosecution under Minimum Wages Act and attachment of employer assets by the Labor Commissioner."
@@ -409,6 +550,11 @@ class LegalGraphRetriever:
                 "status": "COGNIZABLE_STATUTORY_VIOLATION",
                 "follow_up_required": False,
                 "follow_up_question": None,
+                "plain_explanation": f"In plain words: The actions described indicate an unlawful interference with your rights under {root.get('act', 'Indian Law')}. You are entitled to statutory protection.",
+                "what_to_do": "Gather all receipts, communications, and witnesses. You can file a formal complaint under BNSS Section 173 at the local police station.",
+                "legal_source_statutes": [
+                    {"act": root.get('act', 'Indian Law'), "section": root.get('section', ''), "rule": root.get('operative_text', '')}
+                ],
                 "verdict_summary": f"ACTIONABLE VIOLATION. The acts described violate {root.get('act', 'Indian Law')} ({root.get('section', '')}).",
                 "citizen_standing": "You are legally protected and entitled to register an FIR under Section 173 BNSS.",
                 "violator_liability": f"Punishable under {root.get('act', '')}."

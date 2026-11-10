@@ -236,12 +236,12 @@
         <!-- User Jurisdiction Context -->
         <div class="space-y-3 mb-6">
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Complainant / Client Name</label>
-            <input type="text" id="input-client-name" value="Ramesh Kumar Gupta" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Complainant / Client Name (Optional)</label>
+            <input type="text" id="input-client-name" value="" placeholder="Citizen (or enter your name)" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
           </div>
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Jurisdiction / Location</label>
-            <input type="text" id="input-location" value="Juhu Beach, Ward K-West, Mumbai" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Jurisdiction / Location (Optional)</label>
+            <input type="text" id="input-location" value="" placeholder="e.g. Mumbai, Bengaluru, Delhi (or leave blank)" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
           </div>
         </div>
 
@@ -654,10 +654,12 @@
 
     function appendUserMessage(text) {
       const container = document.getElementById('messages-container');
+      const rawName = document.getElementById('input-client-name').value.trim();
+      const nameTag = rawName ? `YOU (${escapeHtml(rawName)})` : 'YOU';
       const msgHtml = `
         <div class="flex justify-end">
           <div class="max-w-2xl bg-[#1f222e] border border-brand-border/80 rounded-2xl p-4 text-sm text-gray-100 shadow-md">
-            <div class="text-[10px] font-mono text-gray-400 mb-1">YOU (${document.getElementById('input-client-name').value})</div>
+            <div class="text-[10px] font-mono text-gray-400 mb-1">${nameTag}</div>
             <div class="leading-relaxed">${escapeHtml(text)}</div>
           </div>
         </div>
@@ -721,6 +723,30 @@
         `;
       }
 
+      // Exact Legal Sourcing Badges
+      const statutesList = (data.legality_verdict && data.legality_verdict.legal_source_statutes) 
+        ? data.legality_verdict.legal_source_statutes 
+        : [];
+      const legalSourcesHtml = statutesList.length > 0 ? `
+        <div class="mt-3 pt-3 border-t border-brand-border/40">
+          <div class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5">
+            <span>📜</span>
+            <span>EXACT LEGAL SOURCING & STATUTORY SECTIONS:</span>
+          </div>
+          <div class="space-y-1.5">
+            ${statutesList.map(s => `
+              <div class="text-xs bg-black/40 p-2.5 rounded-xl border border-brand-border/60">
+                <div class="flex items-center space-x-2">
+                  <span class="font-bold text-amber-400 font-mono">${escapeHtml(s.act)}</span>
+                  <span class="text-cyan-400 font-mono font-semibold">${escapeHtml(s.section)}</span>
+                </div>
+                <p class="text-[11px] text-gray-300 mt-1">${escapeHtml(s.rule)}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : '';
+
       const msgHtml = `
         <div class="flex justify-start">
           <div class="w-full max-w-3xl claude-bubble rounded-3xl p-6 text-sm text-gray-200 shadow-xl border ${borderAccent}">
@@ -736,18 +762,84 @@
 
             <!-- Citizen Legality Verdict Card -->
             ${data.legality_verdict && data.legality_verdict.status ? `
-              <div class="mb-4 p-4 rounded-2xl ${data.legality_verdict.is_lawful ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300' : 'bg-red-500/10 border-red-500/40 text-red-200'} border">
-                <div class="flex items-center space-x-2 mb-2">
-                  <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded ${data.legality_verdict.is_lawful ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
-                    ${data.legality_verdict.is_lawful ? '✓ LAWFUL STANDING' : '⚖️ LEGALITY VERDICT: ' + data.legality_verdict.status.replace(/_/g, ' ')}
-                  </span>
+              ${data.legality_verdict.follow_up_required ? `
+                <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-amber-200">
+                  <div class="flex items-center justify-between mb-2.5">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-400 flex items-center space-x-1.5">
+                      <span>❓</span>
+                      <span>CLARIFICATION NEEDED BEFORE OFFICIAL VERDICT</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-amber-400/80">Incomplete Facts</span>
+                  </div>
+                  
+                  <div class="text-sm font-bold text-white mb-3 leading-relaxed bg-black/40 p-3 rounded-xl border border-amber-500/30">
+                    ${escapeHtml(data.legality_verdict.follow_up_question || data.legality_verdict.verdict_summary)}
+                  </div>
+
+                  <div class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                    <strong class="text-amber-400 font-mono">📢 IN PLAIN WORDS:</strong> ${escapeHtml(data.legality_verdict.plain_explanation || 'Under Indian law, authority action depends on specific facts. Please clarify the situation.')}
+                  </div>
+
+                  <div class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                    <strong class="text-cyan-400 font-mono">🛡️ WHAT YOU SHOULD DO:</strong> ${escapeHtml(data.legality_verdict.what_to_do || 'Reply with details in the chat below.')}
+                  </div>
+
+                  ${legalSourcesHtml}
+
+                  <div class="mt-3 p-2.5 rounded-lg bg-amber-500/15 border border-amber-500/40 text-[11px] text-amber-300 flex items-center space-x-2">
+                    <span>💡</span>
+                    <span><strong>How to respond:</strong> Type your answer in the chat box below (e.g. <em>"They demanded money without a receipt"</em> or <em>"They said my cart was blocking traffic"</em>).</span>
+                  </div>
                 </div>
-                <p class="text-xs font-medium leading-relaxed mb-2 text-white">${data.legality_verdict.verdict_summary}</p>
-                <div class="pt-2 border-t border-brand-border/40 text-[11px] flex flex-col space-y-1.5">
-                  <div class="text-gray-300"><strong class="text-amber-400 font-mono">YOUR LEGAL STANDING:</strong> ${data.legality_verdict.citizen_standing}</div>
-                  <div class="text-gray-300"><strong class="text-cyan-400 font-mono">OFFENDING PARTY LIABILITY:</strong> ${data.legality_verdict.violator_liability}</div>
+              ` : data.legality_verdict.citizen_fault ? `
+                <div class="mb-5 p-4 rounded-2xl bg-orange-500/10 border border-orange-500/40 text-orange-200">
+                  <div class="flex items-center justify-between mb-2.5">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-orange-500/20 text-orange-400 flex items-center space-x-1.5">
+                      <span>⚠️</span>
+                      <span>LAWFUL AUTHORITY ACTION — CITIZEN NON-COMPLIANCE</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-orange-400/80">Citizen At Fault</span>
+                  </div>
+
+                  <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                    <strong class="text-orange-400 font-mono">📢 IN PLAIN WORDS:</strong> ${escapeHtml(data.legality_verdict.plain_explanation || data.legality_verdict.verdict_summary)}
+                  </div>
+
+                  <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                    <strong class="text-amber-300 font-mono">🛡️ WHAT YOU SHOULD DO:</strong> ${escapeHtml(data.legality_verdict.what_to_do || data.legality_verdict.citizen_standing)}
+                  </div>
+
+                  <div class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                    <strong class="text-red-400 font-mono">⚖️ LIABILITIES / FINES:</strong> ${escapeHtml(data.legality_verdict.violator_liability)}
+                  </div>
+
+                  ${legalSourcesHtml}
                 </div>
-              </div>
+              ` : `
+                <div class="mb-5 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 text-emerald-200">
+                  <div class="flex items-center justify-between mb-2.5">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 flex items-center space-x-1.5">
+                      <span>⚖️</span>
+                      <span>ILLEGAL ACTION BY OPPONENT — YOU ARE PROTECTED BY LAW</span>
+                    </span>
+                    <span class="text-[10px] font-mono text-emerald-400/80">Statutory Shield Active</span>
+                  </div>
+
+                  <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                    <strong class="text-emerald-400 font-mono">📢 IN PLAIN WORDS:</strong> ${escapeHtml(data.legality_verdict.plain_explanation || data.legality_verdict.verdict_summary)}
+                  </div>
+
+                  <div class="text-xs text-gray-200 leading-relaxed mb-2.5">
+                    <strong class="text-amber-300 font-mono">🛡️ WHAT YOU SHOULD DO:</strong> ${escapeHtml(data.legality_verdict.what_to_do || data.legality_verdict.citizen_standing)}
+                  </div>
+
+                  <div class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                    <strong class="text-cyan-400 font-mono">⚖️ OFFENDER LIABILITY:</strong> ${escapeHtml(data.legality_verdict.violator_liability)}
+                  </div>
+
+                  ${legalSourcesHtml}
+                </div>
+              `}
             ` : ''}
 
             <!-- Telemetry Details Strip -->

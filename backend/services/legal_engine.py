@@ -60,8 +60,8 @@ class GrassrootsLegalAdvisor:
         "LOAN_FRAUD": ["loan app", "लोन ऐप", "लोन एप", "recovery agent", "फर्जी लोन", "otp", "phishing", "blackmail", "photo morph", "मॉर्फ", "हैक", "हैकिंग", "interest", "पैसे कट गए", "पैसे मांग"],
         "POLICE_CUSTODY": ["police station", "thana", "थाने", "चौकी", "fir", "मारपीट", "lockup", "arrest memo", "complaint nahi likh rahe", "दरोगा", "पुलिस"],
         "DOMESTIC_VIOLENCE": ["domestic", "husband", "patni", "marpeet", "dowry", "दहेज", "खर्चा", "maintenance", "घर से निकाल दिया", "ससुराल"],
-        "CORRUPTION_RTI": ["bribe", "ghoos", "रिश्वत", "ration card", "राशन", "ration nahi mila", "pension", "पेंशन", "babu", "clerk", "sarkari"],
-        "STREET_VENDOR": ["vendor", "hawker", "ठेला", "रेहड़ी", "दुकान", "bmc", "municipality", "svanidhi", "tvc", "फेरीवाला"],
+        "CORRUPTION_RTI": ["bribe", "ghoos", "रिश्वत", "hafta", "extortion", "ration card", "राशन", "ration nahi mila", "pension", "पेंशन", "babu", "clerk", "sarkari", "demanded money", "demand money", "paise mange"],
+        "STREET_VENDOR": ["vendor", "hawker", "cart", "stall", "thela", "ठेला", "रेहड़ी", "दुकान", "dukan", "bmc", "municipality", "svanidhi", "tvc", "फेरीवाला", "hafta", "khomcha", "lari", "gallo"],
         "RELIGIOUS_GATHERING": ["church", "prayer", "gathering", "चर्च", "प्रार्थना", "सत्संग", "attack", "mob", "धार्मिक", "पूजा"]
     }
 
@@ -377,7 +377,7 @@ class EnterpriseLegalSuite:
                 "3. File Form M / Form N before the State RERA Authority if unpaid after 15 days."
             ]
 
-        elif any(k in text_lower for k in ["contract", "agreement", "msme", "vendor", "payment pending", "breach", "invoice"]):
+        elif any(k in text_lower for k in ["commercial contract", "msme", "b2b", "buyer default", "unpaid invoice", "goods delivered"]):
             sub_category = "COMMERCIAL_CONTRACT_MSME"
             title = "Commercial Contract Breach & MSME Samadhaan Claim"
             statutes = [
@@ -477,8 +477,11 @@ class NyayaVaniEngine:
         legality_verdict = graph_result["legality_verdict"]
 
         # 2. Determine Tier
+        grassroots_hints = ["thela", "cart", "stall", "dukan", "shop", "vendor", "hawker", "rehdi", "khomcha", "hafta", "bribe", "wage", "salary", "loan app", "photo morph", "blackmail", "church", "prayer", "marpeet", "patni"]
         if suite_tier == "AUTO_DETECT":
-            if any(k in text_lower for k in ["rera", "builder", "contract", "agreement", "msme", "crash", "accident", "car", "insurance claim"]):
+            if any(k in text_lower for k in grassroots_hints):
+                suite_tier = "BHARAT_GRASSROOTS_AID"
+            elif any(k in text_lower for k in ["rera", "builder", "flat possession", "msme", "commercial contract", "car crash", "road accident", "vehicle accident", "insurance claim", "mact"]):
                 suite_tier = "ENTERPRISE_LEGAL_SUITE"
             else:
                 suite_tier = "BHARAT_GRASSROOTS_AID"
@@ -492,6 +495,28 @@ class NyayaVaniEngine:
         result["legality_verdict"] = legality_verdict
         result["graph_subgraph"] = graph_result["subgraph"]
         
+        # Override spoken guidance and actions if follow-up question is required or citizen is at fault
+        if legality_verdict.get("follow_up_required"):
+            follow_q = legality_verdict.get("follow_up_question", "Please clarify the details of the incident.")
+            result["spoken_rights_shield_hi"] = f"स्पष्टीकरण आवश्यक है। {follow_q}"
+            result["spoken_guidance_en"] = f"Clarification required: {follow_q}"
+            result["statutory_title"] = "Case Intake Incomplete — Clarification Required"
+            result["action_steps"] = [
+                f"1. Clarification needed: {follow_q}",
+                "2. Provide relevant dates, official notices, or receipt details.",
+                "3. NyayaVani will issue an enforceable statutory verdict upon receipt of details."
+            ]
+        elif legality_verdict.get("citizen_fault"):
+            v_sum = legality_verdict.get("verdict_summary", "")
+            result["spoken_rights_shield_hi"] = v_sum
+            result["spoken_guidance_en"] = v_sum
+            result["statutory_title"] = f"Statutory Compliance Notice — {legality_verdict.get('status', 'REGULATORY_ENFORCEMENT')}"
+            result["action_steps"] = [
+                "1. Authority is exercising lawful statutory powers.",
+                "2. Do not obstruct inspecting or law enforcement officers.",
+                "3. Settle statutory compounding fee or appear before designated authority."
+            ]
+
         # Merge traversed statutory sections seamlessly
         existing_laws = {s["law"] for s in result.get("statutory_sections", [])}
         for g_sec in graph_result.get("statutory_sections", []):
