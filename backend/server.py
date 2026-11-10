@@ -15,6 +15,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from backend.core.gnani_client import GnaniClient
 from backend.services.legal_engine import NyayaVaniEngine
 from backend.services.geo_service import GeoLanguageService
+from backend.services.call_dispatch_service import call_manager, CallSessionManager
 
 app = FastAPI(title="NyayaVani Legal AI", version="3.0.0")
 
@@ -55,6 +56,22 @@ class ChatRequest(BaseModel):
     client_name: Optional[str] = "Citizen"
     location: Optional[str] = "India"
     meta: Optional[Dict[str, Any]] = None
+
+class CallDispatchRequest(BaseModel):
+    client_name: Optional[str] = "Citizen"
+    client_phone: Optional[str] = "+91 98765 00000"
+    target_name: str
+    target_phone: str
+    domain: Optional[str] = "GENERAL_LEGAL_CLAIM"
+    statutory_notice: Optional[str] = "Formal Statutory Notice"
+    goal: Optional[str] = "Enforce compliance and demand immediate payment or acknowledgment"
+
+class CallDialogueRequest(BaseModel):
+    session_id: str
+    opponent_text: str
+
+class CallConcludeRequest(BaseModel):
+    session_id: str
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_index():
@@ -286,6 +303,112 @@ async def chat_voice(
     result["input_audio_url"] = f"/audio_samples/{os.path.basename(wav_path)}"
     result["stt_telemetry"] = stt_telemetry
     return result
+
+# ========================================================
+# PRO SUITE: AUTONOMOUS LEGAL OUTBOUND CALL DISPATCH APIS
+# ========================================================
+
+@app.post("/api/pro/call/dispatch")
+async def dispatch_call(req: CallDispatchRequest):
+    try:
+        session_info = call_manager.create_session(
+            client_name=req.client_name,
+            client_phone=req.client_phone,
+            target_name=req.target_name,
+            target_phone=req.target_phone,
+            domain=req.domain,
+            statutory_notice=req.statutory_notice,
+            goal=req.goal
+        )
+        return {
+            "status": "success",
+            "session": session_info
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Call dispatch failed: {str(e)}")
+
+@app.post("/api/pro/call/dialogue")
+async def process_call_turn(req: CallDialogueRequest):
+    try:
+        turn_res = call_manager.process_turn(req.session_id, req.opponent_text)
+        return {
+            "status": "success",
+            "turn": turn_res
+        }
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Call session not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to process call turn: {str(e)}")
+
+@app.post("/api/pro/call/dialogue/voice")
+async def process_call_voice_turn(
+    session_id: str = Form(...),
+    audio: UploadFile = File(...)
+):
+    ts_now = int(time.time() * 1000)
+    raw_filename = f"call_reply_{ts_now}_{audio.filename}"
+    raw_path = os.path.join("audio_samples", raw_filename)
+
+    content = await audio.read()
+    with open(raw_path, "wb") as f:
+        f.write(content)
+
+    wav_filename = f"call_reply_ingest_{ts_now}.wav"
+    wav_path = os.path.join("audio_samples", wav_filename)
+    try:
+        convert_to_wav(raw_path, wav_path)
+    except Exception:
+        wav_path = raw_path
+
+    try:
+        stt_res = client.transcribe(wav_path, language_code="hi-IN")
+        opponent_text = stt_res.get("transcript", "")
+        if not opponent_text and "output" in stt_res:
+            opponent_text = stt_res["output"].get("literal", "")
+        if not opponent_text.strip():
+            opponent_text = "I received the notice."
+    except Exception as err:
+        raise HTTPException(status_code=502, detail=f"Gnani Prisma STT failed: {str(err)}")
+
+    turn_res = call_manager.process_turn(session_id, opponent_text)
+    turn_res["transcribed_opponent_text"] = opponent_text
+    turn_res["input_audio_url"] = f"/audio_samples/{os.path.basename(wav_path)}"
+    return {
+        "status": "success",
+        "turn": turn_res
+    }
+
+@app.post("/api/pro/call/conclude")
+async def conclude_call(req: CallConcludeRequest):
+    try:
+        summary = call_manager.conclude_session(req.session_id)
+        return {
+            "status": "success",
+            "summary": summary
+        }
+    except KeyError:
+        raise HTTPException(status_code=404, detail="Call session not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to conclude call: {str(e)}")
+
+@app.get("/api/pro/call/session/{session_id}")
+async def get_call_session(session_id: str):
+    session = call_manager.sessions.get(session_id)
+    if not session:
+        raise HTTPException(status_code=404, detail="Call session not found")
+    return {
+        "session_id": session.session_id,
+        "status": session.status,
+        "client_name": session.client_name,
+        "client_phone": session.client_phone,
+        "target_name": session.target_name,
+        "target_phone": session.target_phone,
+        "domain": session.domain,
+        "goal": session.goal,
+        "turns": session.turns,
+        "evidence_hash": session.evidence_hash,
+        "certificate": session.certificate
+    }
 
 if __name__ == "__main__":
     import uvicorn

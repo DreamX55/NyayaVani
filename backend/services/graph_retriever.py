@@ -1,9 +1,196 @@
 import os
 import json
 import math
+import re
 import numpy as np
 from typing import Dict, Any, List, Optional, Tuple
 from collections import defaultdict
+
+# -------------------------------------------------------------------------
+# Multilingual Indic Stopwords covering 10 Indian Languages & Vernacular
+# -------------------------------------------------------------------------
+INDIC_STOPWORDS = {
+    # Hindi / Bhojpuri
+    "से", "में", "कर", "भी", "पर", "ने", "को", "का", "की", "के", "है", "हैं",
+    "था", "थी", "थे", "तो", "हो", "हम", "आप", "वे", "यह", "वह", "और", "या",
+    "जो", "करके", "दिया", "दिए", "रहा", "रही", "रहे", "गया", "गई", "गए",
+    "करना", "करने", "किया", "लिए", "साल", "दिन", "महीने", "आज", "कल", "अब",
+    "तक", "बात", "बोले", "कहा", "आए", "आया", "दो", "नहीं", "हमार", "रहल",
+    "बा", "बाटे", "हवे", "होई", "काहे", "केहू", "हमनी", "रउवा", "गइल", "बारे",
+    # Marathi
+    "आहे", "होते", "नाही", "आणि", "पण", "त्यांनी", "आम्ही", "आमचा", "मला", "त्याला",
+    "केले", "करून", "दिले", "झाले", "तर", "या", "ती", "ते", "असे", "आलो", "गेलो",
+    "काही", "मध्ये", "वरून", "साठी", "केला", "आले", "असेल", "होती",
+    # Gujarati
+    "છે", "હતું", "નથી", "અને", "પણ", "તેમણે", "અમે", "અમારો", "મને", "તેને",
+    "કર્યું", "કરીને", "આપ્યું", "થયું", "તો", "આ", "તે", "એવું", "આવ્યા", "ગયા",
+    "કંઈ", "માં", "પરથી", "માટે", "લીધું", "હતી", "હતા",
+    # Kannada
+    "ಇದೆ", "ಇತ್ತು", "ಇಲ್ಲ", "ಮತ್ತು", "ಆದರೆ", "ಅವರು", "ನಾವು", "ನಮ್ಮ", "ನನಗೆ", "ಅವನಿಗೆ",
+    "ಮಾಡಿದರು", "ಮಾಡಿ", "ಕೊಟ್ಟರು", "ಆಯಿತು", "ಹಾಗೆ", "ಬಂದರು", "ಹೋದರು", "ಯಾವುದೋ",
+    "ನಲ್ಲಿ", "ಇಂದ", "ಗಾಗಿ", "ಎಂದು", "ಮಾಡಲು",
+    # Tamil
+    "இருக்கிறது", "இருந்தது", "இல்லை", "மற்றும்", "ஆனால்", "அவர்கள்", "நாங்கள்",
+    "எங்கள்", "எனக்கு", "அவருக்கு", "செய்தார்கள்", "செய்து", "கொடுத்தார்கள்", "ஆனது",
+    "அப்படி", "வந்தார்கள்", "போனார்கள்", "இல்", "இருந்து", "க்காக", "என்று",
+    # Telugu
+    "ఉంది", "ఉండింది", "లేదు", "మరియు", "కానీ", "వారు", "మేము", "మా", "నాకు",
+    "అతనికి", "చేశారు", "చేసి", "ఇచ్చారు", "అయింది", "అలా", "వచ్చారు", "వెళ్లారు",
+    "లో", "నుండి", "కోసం", "అని", "చేయడానికి",
+    # Bengali
+    "আছে", "ছিল", "নেই", "এবং", "কিন্তু", "তারা", "আমরা", "আমাদের", "আমাকে",
+    "তাকে", "করল", "করে", "দিল", "হলো", "এমন", "এলো", "গেল", "মধ্যে", "থেকে", "জন্য",
+    # Punjabi
+    "ਹੈ", "ਸੀ", "ਨਹੀਂ", "ਅਤੇ", "ਪਰ", "ਉਨ੍ਹਾਂ", "ਅਸੀਂ", "ਸਾਡਾ", "ਮੈਨੂੰ", "ਉਸਨੂੰ",
+    "ਕੀਤਾ", "ਕਰਕੇ", "ਦਿੱਤਾ", "ਹੋਇਆ", "ਇੰਜ", "ਆਏ", "ਗਏ", "ਵਿੱਚ", "ਤੋਂ", "ਲਈ",
+    # Malayalam
+    "ഉണ്ട്", "ഉണ്ടായിരുന്നു", "ഇല്ല", "ഒപ്പം", "പക്ഷേ", "അവർ", "ഞങ്ങൾ", "ഞങ്ങളുടെ",
+    "എനിക്ക്", "അവന്", "ചെയ്തു", "ചെയ്തിട്ട്", "നൽകി", "ആയി", "അങ്ങനെ", "വന്നു",
+    "പോയി", "ഇൽ", "നിന്ന്", "വേണ്ടി",
+    # English stop words
+    "the", "is", "at", "which", "on", "a", "an", "and", "or", "to", "in", "for",
+    "with", "from", "by", "my", "our", "their", "was", "were", "be", "been",
+    "have", "has", "had", "do", "did", "does", "not", "but", "so", "as", "if"
+}
+
+# -------------------------------------------------------------------------
+# High-Precision Domain Anchors across 10 Indian Languages & Dialects
+# -------------------------------------------------------------------------
+DOMAIN_ANCHORS = [
+    # 1. Food safety / contaminated / spoiled / unhygienic
+    ([
+        "बासी", "सड़ा", "सड़े", "खराब खाना", "food safety", "fssai", "दूषित", "मिलावटी",
+        "બગડેલો", "ખરાબ ખોરાક", "શિળે", "सडलेले", "शिळं पाणी", "माल फेकून दिला",
+        "കുഴഞ്ഞ", "கெட்டுப்போன", "పాడైన", "rotten", "spoiled", "unhygienic", "stale food", "poisoning",
+        "ਸੜਿਆ", "খাবার বাসি", "খাবার নষ্ট", "കെട്ടുഹോദ", "ಅపరిಶುಭ್ರ",
+        "खाद्य सुरक्षा", "food adulteration", "toxic food", "फूड सेफ्टी"
+    ], "STATUTE_FSSAI_FOOD_SAFETY_SEC_26_59"),
+
+    # 2. Drunk driving / breathalyzer / alcohol / MV offenses
+    ([
+        "दारू", "शराब", "drink and drive", "breathalyzer", "शराब पीकर", "alcohol", "नशे", "drunk",
+        "ચોક્કસ દારૂ", "દારૂ પીને", "मद्यपान", "दारू पिऊन", "पेग मारून",
+        "குடித்துவிட்டு", "மద్యம்", "మద్యపిచ్చి", "మద్యం", "മദ്യപിച്ച്", "കുടിച്ചു",
+        "ਡਰਿੰਕ ਐਂਡ ਡਰਾਈਵ", "ਮਦਰਾ", "breath analyzer", "intoxicated", "డ్రంక్ అండ్ డ్రైవ్",
+        "ಮದ್ಯ ಸೇವಿಸಿ", "মদ্যপ", "মদ খেয়ে", "மது அருந்தி", "வாகனம் ஓட்டிய", "బ్రీత్ అనలైజర్"
+    ], "STATUTE_MV_TRAFFIC_OFFENSES_SEC_185_207"),
+
+    # 3. Sidewalk Encroachment / Hospital Gate / Ambulance obstruction / Permanent brick construction
+    ([
+        "पक्का खोखा", "अस्पताल के बाहर", "एम्बुलेंस", "रास्ता बंद", "permanent structure",
+        "hospital gate", "blocking emergency", "sidewalk wall", "ફૂટપાથ પર પાકું", "પક્કું બાંધકામ",
+        "पक्का बांधकाम", "एम्बुलेंसचा रस्ता", "ambulance blocked", "permanent brick", "encroachment",
+        "ಆಸ್ಪತ್ರೆ ಗೇಟ್", "மருத்துவமனை", "ఆసుపత్రి", "হাসপাতাল গেট", "হসপিটালের সামনে", "ਹਸਪਤਾਲ ਗੇਟ",
+        "ആശുപത്രി ഗേറ്റ്", "பொது நடைபாதை ஆக்கிரமிப்பு", "ఫుట్‌పాత్ ఆక్రమణ", "రహదారి మూసివేత"
+    ], "STATUTE_MUNICIPAL_OBSTRUCTION_SEC_3_2"),
+
+    # 4. Bank Loan Auction / SARFAESI / EMI default
+    ([
+        "sarfaesi", "नीलामी", "किस्त", "emi default", "बैंक वाले", "dukan auction", "auction notice",
+        "દુકાન હરાજી", "હપ્તો બાકી", "બૅન્ક", "बँक लिलाव", "हप्ते थकले", "बँकेचे हफ्ते", "लिलाव करू",
+        "ലേലം", "loan default", "auction of shop", "bank recovery", "ലേല നോട്ടീസ്", "ఎంబీ డిఫాల్ట్",
+        "ಹರಾಜು", "নিলাম", "ব্যাংকের নোটিশ", "ਕਿਸ਼ਤਾਂ ਬਕਾਇਆ", "ਬੈਂਕ ਨਿਲਾਮੀ", "வங்கி ஏலம்", "తవణ బకాయి"
+    ], "STATUTE_SARFAESI_SEC_13_BANK_RECOVERY"),
+
+    # 5. Street Vendor / Thela / Hawkers / Hafta / Vending protection
+    ([
+        "ठेला", "thela", "रेहड़ी", "rehdi", "khomcha", "ખૉમચા", "લારી", "lari", "हातगाडा", "हातगाडी",
+        "hatgadi", "thalluvandi", "thallugadi", "ಗಾಡಿ", "வண்டி", "బండి", "फेरीवाला", "hawker",
+        "street vendor", "stall", "dukan", "દુકાન", "svanidhi", "स्वनिधि", "tvc", "टाउन वेंडिंग",
+        "hafta", "हफ्ता", "હપ્તો", "हप्ता", "vending slip", "cart", "తள்ளுவண்டி", "தெருவு கச்சவடம்",
+        "ഹാക്കർ", "തെരുവ് കച്ചവടം", "హాకర్", "ఫెరీవాలా", "ঠেলাগাড়ি", "হকার", "ਹਫ਼ਤਾ", "ਰੇਹੜੀ ਵਾਲਾ",
+        "ತಳ್ಳುಗಾಡಿ", "வெண்டிங்", "தள்ளுவண்டியை", "తోపుడు బండి", "వ్యాపారి", "വഴിയോരക്കച്ചവട", "ਲਾਈਸੈਂਸ"
+    ], "STATUTE_STREET_VENDORS_SEC_3_3"),
+
+    # 6. Cyber Fraud / Predatory Loan Apps / Contact hack / Morphing photos
+    ([
+        "loan app", "लोन ऐप", "लोन एप", "morphed", "मॉर्फ", "contacts hack", "ब्लैकमेल", "गंदी फोटो",
+        "रिश्तेदारों को", "photo morph", "contact list hack", "લોન એપ", "મોર્ફ", "નગ્ન ફોટો", "મોબાઇલ લોન",
+        "मोबाईल लोन ॲप", "मॉर्फ केलेले", "डिजिटल कर्ज ॲप", "विकृतीकरण", "खंडणी",
+        "கடன் ஆப்", "மார்ஃபிங்", "రుణ యాప్", "మార్ఫింగ్", "cyber fraud", "gallery hack", "nude photo",
+        "threaten contacts", "ಲೋನ್ ಆಪ್", "മോർഫ്", "ബ്ലැക്മെയിൽ", "ਫਿਰੌਤੀ", "ਲੋਨ ਐਪ", "মর্ফ", "তোলাবাজি",
+        "ஆபாசமாக", "రుణ యాప్ వాళ్ళు", "మారఫింగ్", "বিকৃত ছবি"
+    ], "STATUTE_IT_ACT_66D_CYBER_FRAUD"),
+
+    # 7. Unpaid Wages / Salary Withholding / Contractor default
+    ([
+        "मजदूरी", "salary", "wage", "तनख्वाह", "मजदूरी रोक", "काम करवाया पैसे नहीं दिए", "thekedar",
+        "ठेकेदार", "कंत्राटदार", "पगार दिला नाही", "વેતન આપ્યું નથી", "કૉન્ટ્રેક્ટર", "శాలరీ ఇవ్వలేదు",
+        "వేతనం", "ശമ്പളം തന്നില്ല", "കൂലി தரவில்லை", "বেতন দেয়নি", "unpaid salary", "withheld wages",
+        "months salary", "ವೇತನ", "ಕೂಲಿ", "ਠੇਕੇਦਾਰ", "ਤਨਖਾਹ ਨਹੀਂ ਦਿੱਤੀ", "मजुरी थकवली", "বকেয়া বেতন",
+        "சம்பள பாக்கி", "జీతం ఇవ్వకుండా", "ശമ്പള കുടിശ്ശിക", "ಸಂಬಳ ಬಾಕಿ", "శ్రామికుల వేతనం",
+        "ಗುತ್ತಿಗೆದಾರ", "ஒப்பந்ததாரர்", "கராறுகாரன்", "കരാറുകാരൻ", "కాంట్రాక్టర్", "ਠੇਕੇਦਾਰ", "ঠিকাদার",
+        "சம்பளம்", "వేతనాలు"
+    ], "STATUTE_PAYMENT_OF_WAGES_SEC_15"),
+
+    # 8. Religious Gathering / Prayer Hall / Church vandalism
+    ([
+        "prayer", "church", "चर्च", "प्रार्थना", "सत्संग", "लाठी डंडे", "धार्मिक", "पूजा",
+        "हॉल में घुस", "તોડફોડ", "પ્રાર્થના હોલ", "પ્રાર્થના", "प्रार्थना सभागृह", "चर्चवर हल्ला",
+        "പ്രാർത്ഥന", "வழிபாடு", "చర్చి", "ਪ੍ਰਾਰਥਨਾ", "prayer hall", "vandalized worship", "ਚਰਚ",
+        "উপাসনা", "গির্জা", "প্রার্থনা সভা", "ಆರಾಧನಾ ಮಂದಿರ", "చర్చిపై దాడి", "ஜெபக்கூடம்", "ആരാಧനാലയം",
+        "ಶಾಂತಿಯುತ ಪ್ರಾರ್ಥನಾ", "அமைதியான பிரார்த்தனை", "শান্তিপূর্ণ প্রার্থনা", "പ്രാർത്ഥനാ യോഗത്തിൽ",
+        "ప్రార్థనా సమావేశం"
+    ], "CONSTITUTION_ART_25_RELIGIOUS_FREEDOM"),
+
+    # 9. Slum Eviction / Bulldozer demolition of homes without notice
+    ([
+        "बुलडोजर चला दिया", "झुग्गी", "बस्ती", "तोड़फोड़", "बिना नोटिस आशियाने", "slum demolition",
+        "demolish house", "બુલડોઝર ફેરવી દીધું", "ઝૂંપડપટ્ટી", "झोपडपट्टीवर बुलडोझर", "ओल्गा तेलीस",
+        "घरे पाडणे", "पुनर्वसनाविना", "கூரை வீடுகள் இடிப்பு", "demolish slum", "బుల్డోజర్", "గుడిసెలు కూల్చివేత",
+        "ಗುಡಿಸಲು ತೆರವು", "বস্তি উচ্ছেদ", "ਬੁਲਡੋਜ਼ਰ ਚਲਾ ਦਿੱਤਾ", "കുടിൽ പൊളിച്ചു", "வீடு இடிப்பு",
+        "కలమ్ 21", "अनुच्छेद 21", "कलम २१", "ఆర్టికల్ 21", "ಗುಡಿಸಲುಗಳನ್ನು ನೆಲಸಮ", "குடிசைகளை இடித்து",
+        "বস্তি ভেঙে", "ঝੁੱਗੀਆਂ ਢਾਹੁਣ", "കുടിലുകൾ പൊളിച്ചു", "বুলডোজার এনে", "বস্তির ঘরবাড়ি"
+    ], "CONSTITUTION_ART_21_LIVELIHOOD"),
+
+    # 10. MSME / Delayed Commercial Payments past 45 days
+    ([
+        "msme", "माल सप्लाई", "45 दिन", "payment overdue", "commercial invoice", "goods delivered",
+        "60 दिन हो गए", "12 लाख", "માલ મોકલ્યો", "ઇન્વોઇસ", "સપ્લાય", "मालाचा पुरवठा", "বিল", "ઇનવોઇસ",
+        "వస్తువులు సరఫరా", "பொருட்கள் சப்ளை", "goods supplied", "invoices pending", "samadhaan",
+        "ಸರಕು ಸರಬರಾಜು", "ਸਮਾਨ ਸਪਲਾਈ", "ਮਾਲ ਭੇਜਿਆ", "বানিজ্যিক সরবরাহ", "വാണിജ്യ ഇൻവോയ്സ്", "సరుకు పంపిణీ"
+    ], "STATUTE_MSMED_SEC_15_16_INTEREST"),
+
+    # 11. RERA / Builder Flat Possession Delay
+    ([
+        "rera", "builder", "flat", "possession delay", "occupancy certificate", "oc नहीं दिया",
+        "बिल्डर ने फ्लैट", "हैंडओवर", "બિલ્ડરે ફ્લેટ", "પઝેશન", "બિલ્ડર", "बिल्डरने ताबा",
+        "கட்டிட உரிமையாளர்", "ఫ్లాట్ హ్యాండోవర్", "ਬਿਲਡਰ", "handover delayed", "builder delayed",
+        "luxury 3bhk", "ಫ್ಲ್ಯಾಟ್", "অবৈধ বিলম্ব", "বিল্ডার ফ্ল্যাট", "பில்டர் தாமதம்", "ఫ్లాట్ అప్పగింత",
+        "പ്രൊമോട്ടർ", "പ്രൊജക്റ്റ് വൈകൽ", "ਫ਼ਲੈਟ ਦਾ ਕਬਜ਼ਾ", "પ્રમોટર", "अधिभोग प्रमाण पत्र",
+        "ಬಿಲ್ಡರ್", "பில்டர்", "బిల్డర్", "ഫ്ലാറ്റ്", "বিল্ডার", "സ്വാಧೀನವನ್ನು", "ஒப்படைக்காமல்",
+        "হস্তান্তর", "అప్పగించకుండా", "ਕਬਜ਼ਾ"
+    ], "STATUTE_RERA_SEC_18_DELAY_REFUND"),
+
+    # 12. Car Crash / Traffic Collision / MACT Insurance
+    ([
+        "speeding car", "suv", "red light", "dashcam", "bumper", "car crash", "गाड़ी ठोक दी",
+        "टक्कर मार दी", "कार भिड़", "कार एक्सीडेंट", "ગાડી ઠોકી", "કાર એક્સિડન્ટ", "कार धडकली",
+        "வாகன விபத்து", "కారు ప్రమాదం", "വാഹനാപകടം", "rear-ended", "highway crash", "mact",
+        "କାର ଦୁର୍ଘଟଣା", "ਕਾਰ ਐਕਸੀਡੈਂਟ", "ড্যাশ ক্যাম", "গাড়ি ধাক্কা", "ரெட் சிக்னல்", "హైవే ప్రమాదం",
+        "ആക്സിഡന്റ്", "ਡੈਸ਼ਕੈਮ", "166 mact", "ಅಪಘಾತ", "ಡಿಕ್ಕಿ", "லாரி கார்", "மோதிவிட்டு",
+        "ট্রাক গাড়িকে ধাক্কা", "దుర్ఘటన", "లారీ కారును", "ఢీకొట్టి", "ਟਰੱਕ ਕਾਰ ਨੂੰ ਟੱਕਰ",
+        "ലോറി കാറിലിടിച്ച്", "അമിതവേഗത"
+    ], "STATUTE_MOTOR_VEHICLES_SEC_166_MACT"),
+
+    # 13. BSA Evidence Preserved / Audio Hashed / Section 63
+    ([
+        "bsa", "audio evidence", "tamper", "call recording", "hash", "sec 63", "इलेक्ट्रॉनिक साक्ष्य",
+        "રેકોર્ડિંગ સાચવી", "ಕರೆ ರೆಕಾರ್ಡಿಂಗ್", "ಸಾಕ್ಷ್ಯ", "மின்னணு ஆதாரம்", "ఎలక్ట్రానిక్ సాక్ష్యం",
+        "ইলেকট্রনিক প্রমাণ", "ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਬੂਤ", "ഇലക്ട്രോണിക് തെളിവ്", "डिजिटल पुरावा", "ಸೆಕ್ಷನ್ 63",
+        "ஆடியோ பதிவு", "ஆடியோ റെക്കോർഡിംഗ്", "ఆడియో రికార్డింగ్", "ಆಡಿಯೋ ರೆಕಾರ್ಡಿಂಗ್", "অডিও রেকর্ডিং",
+        "ਆਡੀਓ ਰਿਕਾਰਡਿੰਗ", "நீதிமன்றத்தில்", "അദാലത്", "కోర్టులో", "ನ್ಯಾಯಾಲಯದಲ್ಲಿ", "আদালতে",
+        "ഡിജിറ്റൽ തെളിവായി"
+    ], "EVIDENCE_BSA_SEC_63_ORAL_AFFIDAVIT"),
+
+    # 14. BNSS 173 Zero FIR
+    ([
+        "zero fir", "fir दर्ज", "थाने में शिकायत", "complaint nahi likh", "ઝીરો એફઆઈઆર",
+        "झिरो एफआयआर", "ஜீரோ எஃப்ஐஆர்", "జీరో ఎఫ్ఐఆర్", "ಜೀರೋ ಎಫ್ಐಆರ್", "জিরো এফআইআর",
+        "ਜ਼ੀਰੋ ਐੱਫਆਈਆਰ", "സീറോ എഫ്ഐആർ", "போலீஸ் புகார் மறுப்பு", "ఫిర్యాదు స్వీకరించలేదు",
+        "ಝೀರೋ ಎಫ್‌ಐಆರ್", "পোలీస్ ఠాణె", "ਥਾਣੇਦਾਰ"
+    ], "PROCEDURAL_BNSS_173_ZERO_FIR")
+]
 
 class LegalGraphRetriever:
     """
@@ -67,43 +254,53 @@ class LegalGraphRetriever:
 
     def bm25_search(self, query: str, top_k: int = 5) -> List[Tuple[str, float]]:
         """
-        Token-level BM25 scoring over node metadata with native Indic script support.
+        Token-level BM25 scoring over node metadata with native Indic script support,
+        stopword filtering, and domain-anchor priors.
         """
-        import re
-        clean_q = re.sub(r'[^\w\s]', ' ', query.lower().replace("§", "section"))
+        q_low = query.lower()
+        clean_q = re.sub(r'[^\w\s]', ' ', q_low.replace("§", "section"))
         tokens = clean_q.split()
-        scores = {}
-        
+        scores = defaultdict(float)
+
+        # 1. High-Confidence Multilingual Domain Anchor Matching (+30.0 prior boost)
+        for keywords, target_node in DOMAIN_ANCHORS:
+            for kw in keywords:
+                if kw.lower() in q_low:
+                    scores[target_node] += 30.0
+                    break
+
+        # 2. Token-level BM25 with Stopword Filtering
+        valid_statutes = {"3", "3(2)", "3(3)", "18", "33", "185", "203", "207", "308", "173", "15", "16", "26", "59", "66d", "318", "274", "106", "134", "166", "144", "189", "298", "301", "314", "13", "13(2)", "6", "21", "23", "25", "300a"}
+
         for nid in self.node_ids:
             n = self.nodes[nid]
             kw_str = " ".join(n.get("keywords", [])).lower()
             doc_str = f"{n.get('act', '')} {n.get('section', '')} {n.get('title', '')} {n.get('operative_text', '')} {kw_str}".lower()
-            score = 0.0
             kw_list = [k.lower() for k in n.get("keywords", [])]
+
             for t in tokens:
-                if len(t) < 2:
+                if len(t) < 2 or t in INDIC_STOPWORDS:
                     continue
-                # Term match weight
-                if t in doc_str:
+
+                if t in kw_str:
+                    freq = kw_str.count(t)
+                    scores[nid] += 4.0 * math.log(1 + freq)
+                elif t in doc_str:
                     freq = doc_str.count(t)
-                    kw_boost = 3.5 if t in kw_str else 1.0
-                    score += math.log(1 + freq) * (2.5 if t.isdigit() or t in ["fir", "tvc", "rera", "mact", "bns", "bnss", "bsa"] else 1.0) * kw_boost
+                    scores[nid] += 1.0 * math.log(1 + freq)
                 elif len(t) >= 4:
-                    # Indic agglutinative stem match (e.g. બિલ્ડરે -> બિલ્ડર, कंत्राटदाराने -> कंत्राटदार)
                     for kw in kw_list:
                         if len(kw) >= 3 and (kw in t or t in kw):
-                            score += 3.0
+                            scores[nid] += 2.5
                             break
-            
-            # Boost exact section hits
+
+            # Boost verified statutory sections
             for t in tokens:
-                sec = n.get("section", "").lower()
-                if t in sec and len(t) > 2:
-                    score += 5.0
-                    
-            if score > 0:
-                scores[nid] = score
-            
+                if t in valid_statutes:
+                    sec = n.get("section", "").lower()
+                    if t in sec and len(t) > 1:
+                        scores[nid] += 8.0
+
         ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         return ranked[:top_k]
 
@@ -362,13 +559,11 @@ class LegalGraphRetriever:
                 "violator_liability": "Subject to formal verification of acts committed."
             }
 
-        # Determine primary domain from the top matched root nodes
-        primary_id = root_nodes[0]["id"]
-        if "PROCEDURAL" in primary_id and len(root_nodes) > 1 and "PROCEDURAL" not in root_nodes[1]["id"]:
-            primary_id = root_nodes[1]["id"]
+        # Determine domain from top matched root nodes, prioritizing citizen fault/statutory violations
+        root_ids = [r["id"] for r in root_nodes[:3]]
 
         def matches_domain(prefix: str) -> bool:
-            return prefix in primary_id
+            return any(prefix in rid for rid in root_ids)
 
         # 2. Citizen At Fault / Lawful Authority Enforcement Handlers
         if matches_domain("FSSAI") or matches_domain("FOOD_SAFETY"):

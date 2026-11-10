@@ -222,6 +222,21 @@
           </div>
         </div>
 
+        <!-- Pro Outbound Telephony Launcher -->
+        <div class="mb-6 p-3 rounded-2xl border border-emerald-500/40 bg-emerald-950/20">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-emerald-400 flex items-center space-x-1.5">
+              <span>📞</span>
+              <span>Pro Outbound Call</span>
+            </span>
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">PRO TIER</span>
+          </div>
+          <p class="text-[11px] text-gray-400 leading-relaxed mb-2.5">Automated 2-way voice call to opposing party with statutory citations & BSA Sec 63 evidence sealing.</p>
+          <button onclick="openCallModal()" class="w-full py-2 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-300 hover:text-white text-xs font-mono font-bold rounded-xl transition flex items-center justify-center space-x-1.5">
+            <span>⚡ Open Softphone Console</span>
+          </button>
+        </div>
+
         <!-- Voice Synthesis Persona -->
         <div class="mb-6">
           <label class="block text-[11px] font-mono text-gray-400 uppercase tracking-wider mb-2">Timbre Voice Synthesizer</label>
@@ -236,11 +251,17 @@
         <!-- User Jurisdiction Context -->
         <div class="space-y-3 mb-6">
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Complainant / Client Name (Optional)</label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-[11px] font-mono text-gray-400 uppercase">Complainant / Client Name</label>
+              <button onclick="clearClientInputs()" class="text-[10px] font-mono text-amber-400 hover:text-amber-300">Reset</button>
+            </div>
             <input type="text" id="input-client-name" value="" placeholder="Citizen (or enter your name)" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
           </div>
           <div>
-            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Jurisdiction / Location (Optional)</label>
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-[11px] font-mono text-gray-400 uppercase">Jurisdiction / Location</label>
+              <button onclick="clearClientInputs()" class="text-[10px] font-mono text-amber-400 hover:text-amber-300">Reset</button>
+            </div>
             <input type="text" id="input-location" value="" placeholder="e.g. Mumbai, Bengaluru, Delhi (or leave blank)" class="w-full bg-brand-surface border border-brand-border rounded-lg text-xs font-mono text-white p-2 focus:border-amber-500 outline-none">
           </div>
         </div>
@@ -384,6 +405,171 @@
       <div id="modal-presets-list" class="space-y-3 max-h-96 overflow-y-auto pr-2">
         <!-- Injected via JS -->
       </div>
+    </div>
+  </div>
+
+  <!-- Autonomous Legal Softphone Modal (Pro Tier) -->
+  <div id="pro-call-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 md:p-6">
+    <div class="bg-[#0f1118] border border-brand-border/80 rounded-3xl max-w-3xl w-full flex flex-col max-h-[90vh] shadow-2xl overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="p-5 bg-[#141722] border-b border-brand-border/70 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-lg">📞</div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="font-syne text-base font-bold text-white">Autonomous Legal Outbound Telephony</h3>
+              <span id="call-status-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400">READY</span>
+            </div>
+            <p class="text-xs text-gray-400">Section 63 BSA 2023 Contemporaneous Voice Negotiation Engine</p>
+          </div>
+        </div>
+        <button onclick="closeCallModal()" class="w-8 h-8 rounded-full bg-brand-surface border border-brand-border text-gray-400 hover:text-white flex items-center justify-center text-lg transition">&times;</button>
+      </div>
+
+      <!-- Call Dispatch Setup Form (Visible when call is not yet active) -->
+      <div id="call-setup-view" class="p-6 space-y-4 overflow-y-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Your Name / Complainant</label>
+            <input type="text" id="call-client-name" value="Citizen" class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Your Phone Number</label>
+            <input type="text" id="call-client-phone" value="+91 98765 00000" class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Opposing Party / Contractor / Company</label>
+            <input type="text" id="call-target-name" value="Contractor Sharma (Apex Infra)" class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Opposing Party Phone (+91)</label>
+            <input type="text" id="call-target-phone" value="+91 98765 43210" class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Statutory Dispute Domain</label>
+          <select id="call-domain-select" class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+            <option value="WAGE_THEFT">Section 15 Payment of Wages Act (Labor Default & Wage Theft)</option>
+            <option value="REAL_ESTATE_RERA">Section 18 RERA Act (Builder Possession Delay & Statutory Interest)</option>
+            <option value="MSME_PAYMENT">Section 16 MSMED Act (Commercial Invoices Overdue >45 Days)</option>
+            <option value="MOTOR_ACCIDENT">Section 134 Motor Vehicles Act (Crash Liability & Insurance Triage)</option>
+            <option value="GENERAL_LEGAL_CLAIM">General Statutory Claim Notice</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-gray-400 uppercase mb-1">Negotiation Goal / Demand</label>
+          <input type="text" id="call-goal-text" value="Demand immediate payment of pending dues within 48 hours failing which legal recovery proceedings will commence." class="w-full bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-3 focus:border-amber-500 outline-none">
+        </div>
+
+        <div class="pt-3">
+          <button onclick="startAutonomousCall()" class="w-full py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-black font-syne font-bold text-sm rounded-xl shadow-lg flex items-center justify-center space-x-2 transition">
+            <span>📞</span>
+            <span>Dispatch Live Autonomous Legal Call</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Call In-Progress Console -->
+      <div id="call-active-view" class="hidden flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Live Call Banner -->
+        <div class="px-6 py-3 bg-[#11131c] border-b border-brand-border/60 flex items-center justify-between text-xs font-mono">
+          <div class="flex items-center space-x-3">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-white font-bold" id="call-target-display">Contractor Sharma (+91 98765 43210)</span>
+            <span class="text-gray-500">|</span>
+            <span class="text-cyan-400" id="call-timer-display">00:00</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] text-gray-400">BSA SEC 63 LIVE RECORDING</span>
+            <button onclick="concludeActiveCall()" class="px-3 py-1 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg text-[11px] transition">End Call & Seal</button>
+          </div>
+        </div>
+
+        <!-- Dialogue Transcript Box -->
+        <div id="call-transcript-container" class="flex-1 p-5 overflow-y-auto space-y-4 max-h-[340px] bg-black/40">
+          <!-- Dynamically appended turns -->
+        </div>
+
+        <!-- Spoken Audio Player for Last AI Turn -->
+        <div id="call-audio-player-bar" class="px-5 py-2.5 bg-[#141724] border-t border-brand-border/60 flex items-center justify-between">
+          <div class="flex items-center space-x-2 text-xs font-mono text-amber-400">
+            <span>🔊 NyayaVani Spoken Speech:</span>
+            <span id="call-voice-label" class="text-[10px] text-gray-400">Timbre v3.0</span>
+          </div>
+          <audio id="call-audio-element" controls class="h-7 w-64 outline-none" autoplay></audio>
+        </div>
+
+        <!-- Counterparty Simulation / Mic Input Controls -->
+        <div class="p-4 bg-[#11131c] border-t border-brand-border space-y-3">
+          
+          <!-- Simulation Shortcut Chips -->
+          <div>
+            <div class="text-[10px] font-mono text-gray-400 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Simulate Counterparty Response:</span>
+              <span class="text-gray-500">Click a preset or speak below</span>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-1.5 text-[11px] font-mono">
+              <button onclick="sendOpponentSimulation('OUTRIGHT_DENIAL')" class="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/60 border border-red-500/40 text-red-300 text-left truncate transition">
+                🔴 Refuse to pay
+              </button>
+              <button onclick="sendOpponentSimulation('DELAY_STALLING')" class="p-2 rounded-lg bg-amber-950/40 hover:bg-amber-900/60 border border-amber-500/40 text-amber-300 text-left truncate transition">
+                🟡 Stall for time
+              </button>
+              <button onclick="sendOpponentSimulation('SETTLEMENT_OFFER')" class="p-2 rounded-lg bg-blue-950/40 hover:bg-blue-900/60 border border-blue-500/40 text-blue-300 text-left truncate transition">
+                🔵 Settle for 50%
+              </button>
+              <button onclick="sendOpponentSimulation('ADMISSION_OF_FAULT')" class="p-2 rounded-lg bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/40 text-emerald-300 text-left truncate transition">
+                🟢 Admit fault
+              </button>
+            </div>
+          </div>
+
+          <!-- Counterparty Input Bar (Microphone + Text) -->
+          <div class="flex items-center space-x-2">
+            <button id="call-mic-btn" onclick="toggleCallMicrophone()" class="px-3.5 py-2.5 rounded-xl bg-brand-surface border border-brand-border hover:border-amber-500 text-white text-xs font-mono flex items-center space-x-1.5 transition">
+              <span id="call-mic-icon">🎙️</span>
+              <span id="call-mic-label">Speak as Opponent</span>
+            </button>
+            <input type="text" id="call-opponent-text-input" placeholder="Type counterparty's response..." class="flex-1 bg-[#171924] border border-brand-border rounded-xl text-xs font-mono text-white p-2.5 focus:border-amber-500 outline-none" onkeydown="if(event.key==='Enter') sendCustomOpponentReply()">
+            <button onclick="sendCustomOpponentReply()" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs rounded-xl transition">Send</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Call Concluded Evidence Certificate View -->
+      <div id="call-concluded-view" class="hidden p-6 space-y-4 overflow-y-auto max-h-[500px]">
+        <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-between">
+          <div>
+            <div class="text-emerald-400 font-bold font-syne text-sm">✅ Negotiation Concluded & Evidence Sealed</div>
+            <div class="text-xs text-gray-300 mt-0.5">Contemporaneous electronic record preserved under Section 63 BSA 2023.</div>
+          </div>
+          <span class="text-xs font-mono px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-lg">COURT-ADMISSIBLE</span>
+        </div>
+
+        <div class="p-3 bg-[#11131c] rounded-xl border border-brand-border">
+          <div class="text-[10px] font-mono text-gray-400 mb-1">DIGITAL EVIDENCE DIGEST (SHA-256):</div>
+          <div id="concluded-sha256" class="text-xs font-mono text-cyan-400 break-all select-all font-bold"></div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-mono font-bold text-gray-300">CERTIFICATE OF ELECTRONIC EVIDENCE (BSA 2023 SEC 63)</span>
+            <button onclick="copyCallCertificate()" class="text-[11px] font-mono text-amber-400 hover:text-amber-300 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">Copy Certificate</button>
+          </div>
+          <pre id="concluded-certificate-text" class="p-4 bg-black/60 rounded-xl border border-brand-border text-xs font-mono text-gray-300 whitespace-pre-wrap leading-relaxed max-h-56 overflow-y-auto"></pre>
+        </div>
+
+        <div class="flex items-center justify-end space-x-3 pt-2">
+          <button onclick="resetCallModal()" class="px-4 py-2 bg-brand-surface border border-brand-border text-gray-300 text-xs font-mono rounded-xl hover:text-white">Start New Call</button>
+          <button onclick="closeCallModal()" class="px-5 py-2 bg-amber-500 text-black font-bold text-xs font-mono rounded-xl hover:bg-amber-400">Close</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -692,36 +878,19 @@
       const borderAccent = isFree ? 'border-amber-500/50' : 'border-emerald-500/50';
       const tagColor = isFree ? 'text-amber-400 bg-amber-500/10' : 'text-emerald-400 bg-emerald-500/10';
 
-      const statutesHtml = data.statutory_sections.map(s => `
-        <li class="mb-2">
-          <span class="font-bold text-white font-mono text-xs">${s.law}:</span>
-          <span class="text-xs text-gray-300">${s.details}</span>
+      const statutesHtml = (data.statutory_sections || []).map(s => `
+        <li class="mb-1.5 text-xs">
+          <span class="font-bold text-white font-mono">${escapeHtml(s.law)}:</span>
+          <span class="text-gray-300 ml-1">${escapeHtml(s.details)}</span>
         </li>
       `).join('');
 
-      const stepsHtml = data.action_steps.map(step => `
+      const stepsHtml = (data.action_steps || []).map(step => `
         <div class="text-xs text-gray-300 py-1 flex items-start space-x-2">
           <span class="text-amber-400">▸</span>
-          <span>${step}</span>
+          <span>${escapeHtml(step)}</span>
         </div>
       `).join('');
-
-      // Telemetry Badges
-      let telemetryHtml = '';
-      if (data.stt_telemetry) {
-        telemetryHtml += `
-          <div class="text-[10px] font-mono text-cyan-400 flex items-center space-x-2">
-            <span>[PRISMA STT: ${data.stt_telemetry.client_elapsed_seconds || data.stt_telemetry.processing_time}s | Req: ${data.stt_telemetry.request_id ? data.stt_telemetry.request_id.slice(0, 8) + '...' : 'OK'}]</span>
-          </div>
-        `;
-      }
-      if (data.tts_telemetry) {
-        telemetryHtml += `
-          <div class="text-[10px] font-mono text-amber-400 flex items-center space-x-2">
-            <span>[TIMBRE TTS: ${data.tts_telemetry.elapsed_seconds}s | Voice: ${data.tts_telemetry.voice} | Size: ${Math.round(data.tts_telemetry.bytes / 1024)} KB]</span>
-          </div>
-        `;
-      }
 
       // Exact Legal Sourcing Badges
       const statutesList = (data.legality_verdict && data.legality_verdict.legal_source_statutes) 
@@ -731,7 +900,7 @@
         <div class="mt-3 pt-3 border-t border-brand-border/40">
           <div class="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider mb-1.5 flex items-center space-x-1.5">
             <span>📜</span>
-            <span>EXACT LEGAL SOURCING & STATUTORY SECTIONS:</span>
+            <span>GOVERNING STATUTORY CITATIONS:</span>
           </div>
           <div class="space-y-1.5">
             ${statutesList.map(s => `
@@ -747,20 +916,56 @@
         </div>
       ` : '';
 
+      // Telemetry Strings for the Collapsible Inspector Drawer
+      let telemetryHtml = '';
+      if (data.stt_telemetry) {
+        telemetryHtml += `
+          <div>
+            <span class="text-gray-400 font-mono">Gnani Prisma STT:</span>
+            <span class="text-cyan-400 font-mono ml-1 font-bold">${data.stt_telemetry.client_elapsed_seconds || data.stt_telemetry.processing_time}s</span>
+            <span class="text-gray-500 text-[10px] ml-1">(Model: ${data.stt_telemetry.model || 'prisma-v2.5'})</span>
+          </div>
+        `;
+      }
+      if (data.tts_telemetry) {
+        telemetryHtml += `
+          <div>
+            <span class="text-gray-400 font-mono">Gnani Timbre TTS:</span>
+            <span class="text-amber-400 font-mono ml-1 font-bold">${data.tts_telemetry.elapsed_seconds}s</span>
+            <span class="text-gray-500 text-[10px] ml-1">(Voice: ${data.tts_telemetry.voice} | Size: ${Math.round(data.tts_telemetry.bytes / 1024)} KB)</span>
+          </div>
+        `;
+      }
+
+      // Check if call dispatch button should be enabled
+      const isCallActionable = data.category && ['WAGE_THEFT', 'REAL_ESTATE_RERA', 'MOTOR_ACCIDENT', 'LOAN_FRAUD', 'COMMERCIAL', 'STREET_VENDOR'].includes(data.category);
+
       const msgHtml = `
         <div class="flex justify-start">
           <div class="w-full max-w-3xl claude-bubble rounded-3xl p-6 text-sm text-gray-200 shadow-xl border ${borderAccent}">
             
-            <!-- Message Header & Live Telemetry -->
+            <!-- Message Header -->
             <div class="flex items-center justify-between pb-3 border-b border-brand-border/60 mb-4">
               <div class="flex items-center space-x-2.5">
                 <div class="w-6 h-6 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xs">⚖️</div>
-                <span class="font-mono text-xs font-bold text-white">${data.statutory_title || 'Legal Rights Analysis'}</span>
+                <span class="font-mono text-xs font-bold text-white">${escapeHtml(data.statutory_title || 'Legal Rights Analysis')}</span>
               </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded ${tagColor}">LIVE API CALL</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded ${tagColor}">LIVE GNANI API CALL</span>
             </div>
 
-            <!-- Citizen Legality Verdict Card -->
+            <!-- 1. SPOKEN AUDIO PLAYER (PROMINENTLY DISPLAYED AT TOP) -->
+            <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-inner">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base shrink-0">🔊</div>
+                <div>
+                  <div class="text-xs font-mono font-bold text-amber-400">Spoken Rights Shield & Spoken Advice</div>
+                  <div class="text-[10px] text-gray-400 font-mono">Timbre TTS v3.0 (${data.tts_telemetry ? data.tts_telemetry.voice : 'Shivani'})</div>
+                </div>
+              </div>
+              <audio controls src="${data.audio_url}" class="h-8 max-w-xs w-full rounded-lg outline-none" autoplay></audio>
+            </div>
+
+            <!-- 2. CITIZEN LEGALITY VERDICT & PLAIN WORDS GUIDANCE -->
             ${data.legality_verdict && data.legality_verdict.status ? `
               ${data.legality_verdict.follow_up_required ? `
                 <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-amber-200">
@@ -842,57 +1047,81 @@
               `}
             ` : ''}
 
-            <!-- Telemetry Details Strip -->
-            <div class="mb-3 p-2 rounded-lg bg-[#11131a] border border-brand-border flex flex-wrap items-center justify-between gap-2">
+            <!-- 3. AUTONOMOUS PRO CALL DISPATCH ACTION BUTTON -->
+            <div class="mb-5 p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-teal-950/30 to-black border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
               <div class="flex items-center space-x-3">
-                <span class="text-[10px] font-mono text-emerald-400 font-bold">● GNANI LIVE INFERENCE</span>
-                ${telemetryHtml}
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-lg shrink-0">📞</div>
+                <div>
+                  <div class="text-xs font-bold text-white font-syne">Auto-Call Opposing Party (Contractor / Builder / Defaulting Party)</div>
+                  <div class="text-[11px] text-gray-400">Dispatch an autonomous 2-way legal call citing statutory sections & sealing BSA 2023 proof.</div>
+                </div>
               </div>
+              <button onclick="triggerCallFromChat('${escapeHtml(data.category || 'GENERAL_LEGAL_CLAIM')}', '${escapeHtml(data.statutory_title || 'Legal Notice')}')" class="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-bold font-mono text-xs rounded-xl shadow-lg transition whitespace-nowrap flex items-center space-x-1.5 shrink-0">
+                <span>Dispatch Call</span>
+                <span>➔</span>
+              </button>
             </div>
 
-            <!-- Electronic Record Hash Badge -->
-            <div class="mb-4 p-2.5 rounded-xl bg-[#11131a] border border-brand-border flex items-center justify-between text-[11px] font-mono">
-              <span class="text-gray-400">🔒 BSA SEC 63 DIGITAL HASH:</span>
-              <span class="text-cyan-400 font-bold truncate max-w-xs">${data.sha256}</span>
-            </div>
-
-            <!-- Spoken Audio Player Pill -->
-            <div class="mb-5 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-mono font-bold text-amber-400 flex items-center space-x-2">
-                  <span>🔊 LOUDSPEAKER RIGHTS SHIELD (TIMBRE TTS v3.0)</span>
-                </span>
-                <span class="text-[10px] font-mono text-gray-400">LIVE AUDIO STREAM</span>
-              </div>
-              <p class="text-xs text-gray-300 italic mb-3">"${data.spoken_text}"</p>
-              <audio controls src="${data.audio_url}" class="w-full h-8 rounded-lg outline-none" autoplay></audio>
-            </div>
-
-            <!-- Statutory Citations -->
-            <div class="mb-5">
-              <h4 class="text-xs font-mono font-bold uppercase text-gray-400 mb-2">// STATUTORY PROTECTIONS DETECTED</h4>
-              <ul class="list-disc pl-4 space-y-1">
-                ${statutesHtml}
-              </ul>
-            </div>
-
-            <!-- Recommended Next Actions -->
+            <!-- 4. ACTION ROADMAP -->
             <div class="mb-5 p-3.5 rounded-xl bg-brand-surface/60 border border-brand-border">
-              <h4 class="text-xs font-mono font-bold uppercase text-gray-400 mb-2">// ACTION ROADMAP</h4>
+              <h4 class="text-xs font-mono font-bold uppercase text-gray-400 mb-2">// IMMEDIATE ACTION STEPS</h4>
               ${stepsHtml}
             </div>
 
-            <!-- Claude-Style Collapsible Artifact Window -->
-            <div class="border border-brand-border rounded-2xl overflow-hidden bg-[#12141c]">
-              <div class="p-3 bg-[#171922] border-b border-brand-border flex items-center justify-between">
-                <span class="text-xs font-mono font-bold text-gray-200 flex items-center space-x-2">
-                  <span>📄 Artifact: Generated Statutory Filing / Notice</span>
-                </span>
-                <button onclick="copyDocument(this)" data-content="${encodeURIComponent(data.formal_document)}" class="text-[11px] font-mono text-amber-400 hover:text-amber-300 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 transition">
-                  Copy Text
-                </button>
-              </div>
-              <pre class="p-4 text-xs font-mono text-gray-300 max-h-56 overflow-y-auto whitespace-pre-wrap leading-relaxed">${escapeHtml(data.formal_document)}</pre>
+            <!-- 5. COLLAPSIBLE PROFESSIONAL DRAWERS (HIDDEN BY DEFAULT TO PREVENT CLUTTER) -->
+            <div class="space-y-2.5">
+              
+              <!-- Drawer 1: Formal Legal Document Draft -->
+              <details class="border border-brand-border rounded-2xl bg-[#12141c] overflow-hidden group">
+                <summary class="p-3.5 bg-[#171922] cursor-pointer text-xs font-mono text-gray-300 hover:text-white flex items-center justify-between select-none transition">
+                  <span class="flex items-center space-x-2">
+                    <span>📄</span>
+                    <span class="font-bold">Formal Statutory Filing / Legal Representation Draft</span>
+                  </span>
+                  <span class="text-[10px] text-amber-400 font-bold group-open:rotate-180 transition">▼ Click to Expand</span>
+                </summary>
+                <div class="p-4 border-t border-brand-border/60">
+                  <div class="flex justify-end mb-2">
+                    <button onclick="copyDocument(this)" data-content="${encodeURIComponent(data.formal_document)}" class="text-[11px] font-mono text-amber-400 hover:text-amber-300 px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 transition">
+                      Copy Text
+                    </button>
+                  </div>
+                  <pre class="text-xs font-mono text-gray-300 max-h-56 overflow-y-auto whitespace-pre-wrap leading-relaxed">${escapeHtml(data.formal_document)}</pre>
+                </div>
+              </details>
+
+              <!-- Drawer 2: BSA 2023 Contemporaneous Digital Evidence Certificate -->
+              <details class="border border-brand-border rounded-2xl bg-[#12141c] overflow-hidden group">
+                <summary class="p-3.5 bg-[#171922] cursor-pointer text-xs font-mono text-gray-300 hover:text-white flex items-center justify-between select-none transition">
+                  <span class="flex items-center space-x-2">
+                    <span>🔒</span>
+                    <span class="font-bold">BSA 2023 Digital Evidence Certificate (Section 63)</span>
+                  </span>
+                  <span class="text-[10px] text-cyan-400 font-bold group-open:rotate-180 transition">▼ Click to Expand</span>
+                </summary>
+                <div class="p-4 border-t border-brand-border/60 space-y-2">
+                  <div class="text-[11px] font-mono text-gray-400 flex items-center justify-between">
+                    <span>DIGITAL HASH (SHA-256):</span>
+                    <span class="text-cyan-400 font-bold truncate max-w-xs">${data.sha256}</span>
+                  </div>
+                  <pre class="p-3 bg-black/60 rounded-xl border border-brand-border text-[11px] font-mono text-gray-300 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">${escapeHtml(data.certificate || 'Section 63 Certificate Generated')}</pre>
+                </div>
+              </details>
+
+              <!-- Drawer 3: Developer & Hackathon Telemetry -->
+              <details class="border border-brand-border/60 rounded-2xl bg-[#11131a] overflow-hidden group">
+                <summary class="p-2.5 cursor-pointer text-[11px] font-mono text-gray-500 hover:text-gray-400 flex items-center justify-between select-none transition">
+                  <span class="flex items-center space-x-2">
+                    <span>⚡</span>
+                    <span>Gnani AI Live Telemetry & Latency Inspector</span>
+                  </span>
+                  <span class="text-[10px] group-open:rotate-180 transition">▼</span>
+                </summary>
+                <div class="p-3 border-t border-brand-border/40 text-xs font-mono space-y-1 bg-black/40">
+                  ${telemetryHtml || '<span class="text-gray-500">Live API Execution Complete</span>'}
+                </div>
+              </details>
+
             </div>
 
           </div>
@@ -928,6 +1157,333 @@
     function clearChat() {
       document.getElementById('messages-container').innerHTML = '';
       document.getElementById('welcome-banner')?.classList.remove('hidden');
+      clearClientInputs();
+    }
+
+    function clearClientInputs() {
+      document.getElementById('input-client-name').value = '';
+      document.getElementById('input-location').value = '';
+      document.getElementById('chat-input').value = '';
+    }
+
+    // ========================================================
+    // AUTONOMOUS SOFTPHONE & PRO OUTBOUND CALL CONTROLLER
+    // ========================================================
+    let currentCallSessionId = null;
+    let callTimerInterval = null;
+    let callSeconds = 0;
+    let callMediaRecorder = null;
+    let callAudioChunks = [];
+    let isCallRecording = false;
+
+    function openCallModal(category = "GENERAL_LEGAL_CLAIM", title = "Statutory Dispute Notice") {
+      const clientName = document.getElementById('input-client-name').value || "Citizen";
+      document.getElementById('call-client-name').value = clientName;
+      if (category && category !== "GENERAL_LEGAL_CLAIM") {
+        const domainSelect = document.getElementById('call-domain-select');
+        if (category === "WAGE_THEFT") domainSelect.value = "WAGE_THEFT";
+        else if (category === "REAL_ESTATE_RERA") domainSelect.value = "REAL_ESTATE_RERA";
+        else if (category === "MOTOR_ACCIDENT") domainSelect.value = "MOTOR_ACCIDENT";
+        else if (category === "LOAN_FRAUD" || category === "COMMERCIAL") domainSelect.value = "MSME_PAYMENT";
+      }
+      document.getElementById('pro-call-modal').classList.remove('hidden');
+    }
+
+    function triggerCallFromChat(category, title) {
+      openCallModal(category, title);
+    }
+
+    function closeCallModal() {
+      document.getElementById('pro-call-modal').classList.add('hidden');
+      if (callTimerInterval) clearInterval(callTimerInterval);
+    }
+
+    function resetCallModal() {
+      if (callTimerInterval) clearInterval(callTimerInterval);
+      currentCallSessionId = null;
+      callSeconds = 0;
+      document.getElementById('call-setup-view').classList.remove('hidden');
+      document.getElementById('call-active-view').classList.add('hidden');
+      document.getElementById('call-concluded-view').classList.add('hidden');
+      document.getElementById('call-transcript-container').innerHTML = '';
+      document.getElementById('call-status-badge').innerText = 'READY';
+      document.getElementById('call-status-badge').className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400';
+    }
+
+    async function startAutonomousCall() {
+      const clientName = document.getElementById('call-client-name').value || "Citizen";
+      const clientPhone = document.getElementById('call-client-phone').value || "+91 98765 00000";
+      const targetName = document.getElementById('call-target-name').value || "Contractor / Opposing Party";
+      const targetPhone = document.getElementById('call-target-phone').value || "+91 98765 43210";
+      const domain = document.getElementById('call-domain-select').value;
+      const goal = document.getElementById('call-goal-text').value;
+
+      document.getElementById('call-status-badge').innerText = 'CALLING...';
+      document.getElementById('call-status-badge').className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-yellow-500/20 text-yellow-400 animate-pulse';
+
+      try {
+        const res = await fetch('/api/pro/call/dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_name: clientName,
+            client_phone: clientPhone,
+            target_name: targetName,
+            target_phone: targetPhone,
+            domain: domain,
+            statutory_notice: `Statutory Notice under ${domain}`,
+            goal: goal
+          })
+        });
+
+        const data = await res.json();
+        if (res.status !== 200) {
+          alert('Call dispatch failed: ' + (data.detail || 'Unknown error'));
+          return;
+        }
+
+        const session = data.session;
+        currentCallSessionId = session.session_id;
+
+        // Switch to Active Call View
+        document.getElementById('call-setup-view').classList.add('hidden');
+        document.getElementById('call-active-view').classList.remove('hidden');
+        document.getElementById('call-status-badge').innerText = 'CONNECTED';
+        document.getElementById('call-status-badge').className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400';
+
+        document.getElementById('call-target-display').innerText = `${session.target_name} (${session.target_phone})`;
+
+        // Start call timer
+        callSeconds = 0;
+        if (callTimerInterval) clearInterval(callTimerInterval);
+        callTimerInterval = setInterval(() => {
+          callSeconds++;
+          const mins = String(Math.floor(callSeconds / 60)).padStart(2, '0');
+          const secs = String(callSeconds % 60).padStart(2, '0');
+          document.getElementById('call-timer-display').innerText = `${mins}:${secs}`;
+        }, 1000);
+
+        // Render AI Opening Turn
+        appendCallTurn(session.opening_greeting);
+
+        // Play Opening Speech Audio
+        if (session.opening_greeting.audio_url) {
+          const audioElem = document.getElementById('call-audio-element');
+          audioElem.src = session.opening_greeting.audio_url;
+          audioElem.play().catch(e => console.log('Audio autoplay blocked:', e));
+        }
+
+      } catch (err) {
+        console.error('Call dispatch error:', err);
+        alert('Network error while initiating call: ' + err.message);
+      }
+    }
+
+    function appendCallTurn(turn) {
+      const container = document.getElementById('call-transcript-container');
+      const isAI = turn.speaker === 'AI_DISPATCH';
+
+      let turnHtml = '';
+      if (isAI) {
+        turnHtml = `
+          <div class="flex items-start space-x-3">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xs font-bold shrink-0">🤖</div>
+            <div class="max-w-xl p-3.5 rounded-2xl bg-[#1c1f2e] border border-amber-500/30 text-xs text-gray-200 shadow">
+              <div class="flex items-center justify-between text-[10px] font-mono text-amber-400 mb-1">
+                <span class="font-bold">NyayaVani Legal Co-Pilot</span>
+                <span>${turn.voice || 'Timbre'} · ${turn.timestamp ? turn.timestamp.split('T')[1].slice(0, 8) : ''}</span>
+              </div>
+              <p class="leading-relaxed">${escapeHtml(turn.text)}</p>
+            </div>
+          </div>
+        `;
+      } else {
+        const intentBadgeColor = turn.detected_intent === 'OUTRIGHT_DENIAL' ? 'bg-red-500/20 text-red-400' :
+                                turn.detected_intent === 'ADMISSION_OF_FAULT' ? 'bg-emerald-500/20 text-emerald-400' :
+                                turn.detected_intent === 'SETTLEMENT_OFFER' ? 'bg-blue-500/20 text-blue-400' :
+                                'bg-amber-500/20 text-amber-400';
+        turnHtml = `
+          <div class="flex items-start justify-end space-x-3">
+            <div class="max-w-xl p-3.5 rounded-2xl bg-[#171a24] border border-brand-border text-xs text-gray-200 shadow">
+              <div class="flex items-center justify-between text-[10px] font-mono text-gray-400 mb-1 space-x-2">
+                <span>${turn.timestamp ? turn.timestamp.split('T')[1].slice(0, 8) : ''}</span>
+                <span class="px-1.5 py-0.5 rounded font-bold ${intentBadgeColor}">INTENT: ${turn.detected_intent || 'SPOKEN_REPLY'}</span>
+                <span class="font-bold text-white">${escapeHtml(turn.name || 'Opposing Party')}</span>
+              </div>
+              <p class="leading-relaxed">"${escapeHtml(turn.text)}"</p>
+            </div>
+            <div class="w-8 h-8 rounded-xl bg-gray-700/40 border border-gray-600 flex items-center justify-center text-xs font-bold shrink-0">👤</div>
+          </div>
+        `;
+      }
+
+      container.insertAdjacentHTML('beforeend', turnHtml);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendOpponentSimulation(type) {
+      if (!currentCallSessionId) return;
+
+      let replyText = "";
+      if (type === 'OUTRIGHT_DENIAL') {
+        replyText = "I won't pay anything! We don't owe you anything, do whatever you want, go file a case in court!";
+      } else if (type === 'DELAY_STALLING') {
+        replyText = "Our accounts team is busy and auditing this month. Please call us back after 15 days, give us some time.";
+      } else if (type === 'SETTLEMENT_OFFER') {
+        replyText = "We can settle this today if you accept 50% payment in cash as full and final settlement.";
+      } else if (type === 'ADMISSION_OF_FAULT') {
+        replyText = "Yes, we agree there was an oversight on our side. We apologize and we will release the payment.";
+      }
+
+      await submitOpponentTurn(replyText);
+    }
+
+    async function sendCustomOpponentReply() {
+      const input = document.getElementById('call-opponent-text-input');
+      const text = input.value.trim();
+      if (!text || !currentCallSessionId) return;
+      input.value = '';
+      await submitOpponentTurn(text);
+    }
+
+    async function submitOpponentTurn(opponentText) {
+      try {
+        const res = await fetch('/api/pro/call/dialogue', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: currentCallSessionId,
+            opponent_text: opponentText
+          })
+        });
+
+        const data = await res.json();
+        if (res.status !== 200) {
+          alert('Call dialogue failed: ' + (data.detail || 'Error'));
+          return;
+        }
+
+        const turnInfo = data.turn;
+        // Append Opponent Turn
+        appendCallTurn(turnInfo.opponent_turn);
+        // Append AI Rebuttal
+        appendCallTurn(turnInfo.ai_rebuttal);
+
+        // Play AI Rebuttal Audio
+        if (turnInfo.ai_rebuttal.audio_url) {
+          const audioElem = document.getElementById('call-audio-element');
+          audioElem.src = turnInfo.ai_rebuttal.audio_url;
+          audioElem.play().catch(e => console.log('Audio autoplay blocked:', e));
+        }
+
+      } catch (err) {
+        console.error('Call turn error:', err);
+      }
+    }
+
+    async function toggleCallMicrophone() {
+      if (!currentCallSessionId) return;
+
+      const micBtn = document.getElementById('call-mic-btn');
+      const micLabel = document.getElementById('call-mic-label');
+      const micIcon = document.getElementById('call-mic-icon');
+
+      if (!isCallRecording) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          callAudioChunks = [];
+          callMediaRecorder = new MediaRecorder(stream);
+          callMediaRecorder.ondataavailable = e => { if (e.data.size > 0) callAudioChunks.push(e.data); };
+          callMediaRecorder.onstop = async () => {
+            stream.getTracks().forEach(t => t.stop());
+            const audioBlob = new Blob(callAudioChunks, { type: 'audio/webm' });
+            
+            // Upload to /api/pro/call/dialogue/voice
+            micLabel.innerText = "Transcribing Speech...";
+            const formData = new FormData();
+            formData.append('session_id', currentCallSessionId);
+            formData.append('audio', audioBlob, 'opponent_voice.webm');
+
+            try {
+              const res = await fetch('/api/pro/call/dialogue/voice', {
+                method: 'POST',
+                body: formData
+              });
+              const data = await res.json();
+              if (res.status === 200 && data.turn) {
+                appendCallTurn(data.turn.opponent_turn);
+                appendCallTurn(data.turn.ai_rebuttal);
+                if (data.turn.ai_rebuttal.audio_url) {
+                  const audioElem = document.getElementById('call-audio-element');
+                  audioElem.src = data.turn.ai_rebuttal.audio_url;
+                  audioElem.play().catch(e => console.log('Autoplay blocked:', e));
+                }
+              } else {
+                alert('Voice transcription error: ' + (data.detail || 'Failed'));
+              }
+            } catch (err) {
+              console.error('Call voice upload error:', err);
+            } finally {
+              micLabel.innerText = "Speak as Opponent";
+              micIcon.innerText = "🎙️";
+              micBtn.classList.remove('bg-red-600', 'animate-pulse');
+              isCallRecording = false;
+            }
+          };
+
+          callMediaRecorder.start();
+          isCallRecording = true;
+          micLabel.innerText = "Recording... Click to Stop";
+          micIcon.innerText = "🔴";
+          micBtn.classList.add('bg-red-600', 'animate-pulse');
+
+        } catch (err) {
+          alert('Microphone access denied: ' + err.message);
+        }
+      } else {
+        // Stop recording
+        if (callMediaRecorder && callMediaRecorder.state !== 'inactive') {
+          callMediaRecorder.stop();
+        }
+      }
+    }
+
+    async function concludeActiveCall() {
+      if (!currentCallSessionId) return;
+      if (callTimerInterval) clearInterval(callTimerInterval);
+
+      try {
+        const res = await fetch('/api/pro/call/conclude', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ session_id: currentCallSessionId })
+        });
+
+        const data = await res.json();
+        if (res.status !== 200) {
+          alert('Failed to conclude call: ' + (data.detail || 'Error'));
+          return;
+        }
+
+        const summary = data.summary;
+        document.getElementById('call-active-view').classList.add('hidden');
+        document.getElementById('call-concluded-view').classList.remove('hidden');
+        document.getElementById('call-status-badge').innerText = 'SEALED';
+        document.getElementById('call-status-badge').className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-400';
+
+        document.getElementById('concluded-sha256').innerText = summary.sha256;
+        document.getElementById('concluded-certificate-text').innerText = summary.certificate;
+
+      } catch (err) {
+        console.error('Conclude call error:', err);
+      }
+    }
+
+    function copyCallCertificate() {
+      const text = document.getElementById('concluded-certificate-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('BSA 2023 Section 63 Evidence Certificate copied to clipboard!');
+      });
     }
 
     function escapeHtml(string) {
