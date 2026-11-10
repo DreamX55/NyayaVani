@@ -507,6 +507,10 @@ def build_understand_your_rights(
         understood_text = f"आपकी दी गई जानकारी के अनुसार, {loc} में {dt} को {other} के साथ यह घटना हुई। आपने बताया: {transcript.strip() or 'विवरण उपलब्ध नहीं है।'}"
         if spec:
             understood_text += f" मुख्य दर्ज तथ्य: {spec}."
+    elif lang == "gu":
+        understood_text = f"તમે આપેલી માહિતી મુજબ, {loc} ખાતે {dt} ના રોજ {other} સાથે આ ઘટના બની હતી. તમે જણાવ્યું કે: {transcript.strip() or 'વિગતો ઉપલબ્ધ નથી.'}"
+        if spec:
+            understood_text += f" નોંધાયેલી મુખ્ય વિગતો: {spec}."
     else:
         understood_text = f"Based on what you stated, on {dt} at {loc}, an incident occurred involving {other}. Specifically: {transcript.strip() or 'No account provided yet.'}"
         if spec:
@@ -571,6 +575,8 @@ def build_understand_your_rights(
             clarifications.append(f"अजून काही आवश्यक माहिती निश्चित करणे बाकी आहे: ({', '.join(missing)}). ही माहिती मिळाल्यानंतरच तरतुदींची अचूकता निश्चित करता येईल.")
         elif lang == "hi":
             clarifications.append(f"अभी कुछ आवश्यक तथ्य सत्यापित होने शेष हैं: ({', '.join(missing)})। इनके मिलने पर ही विधिक स्थिति पूर्णतः स्पष्ट होगी।")
+        elif lang == "gu":
+            clarifications.append(f"હજી કેટલીક જરૂરી વિગતો ખાતરી કરવાની બાકી છે: ({', '.join(missing)}). આ વિગતો મળ્યા પછી જ કાનૂની પરિસ્થિતિ સંપૂર્ણ સ્પષ્ટ થશે.")
         else:
             clarifications.append(f"Certain factual conditions still require confirmation: ({', '.join(missing)}) before a conclusive legal position can be established.")
 
@@ -596,6 +602,13 @@ def build_understand_your_rights(
             {"step": 3, "title": "3. मुफ्त कानूनी सहायता (नालसा/डालसा)", "details": "राष्ट्रीय विधिक सेवा प्राधिकरण के 24x7 टोल-फ्री हेल्पलाइन नंबर 15100 पर कॉल करके मुफ्त वकील प्राप्त करें।"},
             {"step": 4, "title": "4. वकील से परामर्श व सत्यापन", "details": "कोई भी कोर्ट केस या लीगल नोटिस भेजने से पहले अधिकृत वकील से ड्राफ्ट का परीक्षण करवाएं।"}
         ]
+    elif lang == "gu":
+        options = [
+            {"step": 1, "title": "૧. પુરાવા અને રેકોર્ડ સુરક્ષિત રાખો", "details": "ઘટનાના ફોટા, રસીદ, હાજરી પત્રક, સંદેશાઓ અથવા વિડિયો રેકોર્ડ સુરક્ષિત રાખો. કોઈપણ કોરા કાગળ પર સહી કરશો નહીં."},
+            {"step": 2, "title": "૨. સક્ષમ અધિકારી સમક્ષ લેખિત રજૂઆત કરો", "details": f"સંબંધિત કચેરી ({blueprint.get('action_authority', 'સક્ષમ સત્તાધિકારી')}) સમક્ષ કાનૂની જોગવાઈઓનો ઉલ્લેખ કરીને લેખિત ફરિયાદ આપો."},
+            {"step": 3, "title": "૩. મફત કાનૂની સહાય (નાલસા/ડાલસા)", "details": "રાષ્ટ્રીય કાનૂની સેવા સત્તામંડળ (NALSA) ના ૨૪x૭ ટોલ-ફ્રી હેલ્પલાઇન ૧૫૧૦૦ પર કૉલ કરીને મફત વકીલ મેળવો."},
+            {"step": 4, "title": "૪. વકીલની સલાહ અને ચકાસણી", "details": "કોઈપણ કાનૂની નોટિસ અથવા દાવો મોકલતા પહેલાં અધિકૃત વકીલ પાસે ડ્રાફ્ટની ચકાસણી કરાવો."}
+        ]
     else:
         options = [
             {"step": 1, "title": "1. Preserve Evidence", "details": "Preserve contemporaneous receipts, muster logs, photographs, audio/video, and messages. Never sign blank documents."},
@@ -619,6 +632,8 @@ def build_understand_your_rights(
             msg = f"तातडीची सूचना: तुमच्या सुरक्षिततेला तात्काळ धोका किंवा बेकायदेशीर कारवाई होत असल्यास आधी स्वतःची सुरक्षा बघा. तात्काळ मदत व मोफत वकिलासाठी {helpline_str} वर संपर्क करा."
         elif lang == "hi":
             msg = f"आपातकालीन सूचना: यदि आपकी सुरक्षा को तुरंत कोई खतरा है या अवैध हिरासत है, तो पहले अपनी जान-माल की रक्षा करें। तुरंत सहायता व मुफ्त वकील हेतु {helpline_str} पर कॉल करें।"
+        elif lang == "gu":
+            msg = f"તાત્કાલિક સુરક્ષા ચેતવણી: જો તમારી સુરક્ષા સામે તાત્કાલિક કોઈ જોખમ હોય કે ગેરકાયદે અટકાયત હોય, તો પહેલાં પોતાનો જીવ-માલ બચાવો. તાત્કાલિક સહાય અને મફત વકીલ માટે {helpline_str} પર કૉલ કરો."
         else:
             msg = f"Immediate Safety Alert: If you or your family face imminent physical danger, unlawful arrest, or eviction right now, prioritize personal safety. Call {helpline_str} immediately."
         

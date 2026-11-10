@@ -175,7 +175,7 @@ LANGUAGE_TTS_CONFIG = {
     "gu": ("gu-IN", "Tarika"),
     "ml": ("ml-IN", "Lakshmi"),
     "pa": ("pa-IN", "Tarika"),
-    "en": ("en-IN", "Shivani"),
+    "en": ("en-IN", "Avinash"),
 }
 
 
@@ -232,12 +232,15 @@ def convert_to_wav(input_path: str, output_path: str) -> str:
     If it's any other WAV (different sample rate, stereo, 24/32 bit), resamples in pure Python using scipy.
     Falls back to FFmpeg if available for container formats.
     """
-    # 1. Quick check: already 16kHz mono 16-bit WAV
+    # 1. Quick check: already 16kHz mono 16-bit WAV with valid header
     try:
         with wave.open(input_path, "rb") as source:
             if source.getnchannels() == 1 and source.getframerate() == 16000 and source.getsampwidth() == 2:
-                shutil.copyfile(input_path, output_path)
-                return output_path
+                file_bytes = os.path.getsize(input_path)
+                # Verify header frame count matches file size (reject 0x7FFFFFFF streaming headers)
+                if 0 < source.getnframes() <= (file_bytes // 2):
+                    shutil.copyfile(input_path, output_path)
+                    return output_path
     except (wave.Error, EOFError):
         pass
 
@@ -343,6 +346,7 @@ class ChatRequest(BaseModel):
     reviewed_transcript: Optional[str] = None
     detected_language: Optional[str] = None
     language_code: Optional[str] = None
+    language: Optional[str] = None
     tier: Optional[str] = "AUTO_DETECT"
     voice: Optional[str] = "Shivani"
     client_name: Optional[str] = "Citizen / Applicant"
@@ -494,10 +498,12 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
             case_meta["category"] = session["category"]
         if session.get("language") and "session_language" not in case_meta:
             case_meta["session_language"] = session["language"]
-        if req.language_code:
-            case_meta["language_code"] = req.language_code
-        if req.detected_language:
-            case_meta["detected_language"] = req.detected_language
+        resolved_req_lang = req.language or req.language_code or req.detected_language
+        if resolved_req_lang:
+            case_meta["language"] = resolved_req_lang
+            case_meta["language_code"] = resolved_req_lang
+            case_meta["detected_language"] = resolved_req_lang
+        case_meta["current_utterance"] = req.message
 
         tier_to_use = req.tier or "AUTO_DETECT"
         if tier_to_use == "AUTO_DETECT" and session.get("tier"):
@@ -507,10 +513,12 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
         case_meta["is_followup_turn"] = False
         case_meta["client_name"] = req.client_name or "Citizen / Applicant"
         case_meta["location"] = req.location or "India"
-        if req.language_code:
-            case_meta["language_code"] = req.language_code
-        if req.detected_language:
-            case_meta["detected_language"] = req.detected_language
+        resolved_req_lang = req.language or req.language_code or req.detected_language
+        if resolved_req_lang:
+            case_meta["language"] = resolved_req_lang
+            case_meta["language_code"] = resolved_req_lang
+            case_meta["detected_language"] = resolved_req_lang
+        case_meta["current_utterance"] = req.message
         tier_to_use = req.tier or "AUTO_DETECT"
 
     # Combine user statements across turns for full factual context
@@ -553,10 +561,20 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
     # 2. Live Gnani Timbre TTS API Call
     shield_text = case_res.get("spoken_text") or case_res.get("spoken_rights_shield_hi") or case_res.get("spoken_guidance_en", "")
     if session is not None:
-        session["history"].append({"role": "assistant", "content": shield_text or case_res.get("formal_document", "")})
+        formal_doc = case_res.get("formal_document", "")
+        session["formal_document"] = formal_doc
+        session["draft_document"] = formal_doc
+        session["formal_notice"] = formal_doc
+        session["history"].append({
+            "role": "assistant",
+            "content": shield_text or formal_doc,
+            "formal_document": formal_doc,
+            "draft_document": formal_doc,
+            "formal_notice": formal_doc,
+        })
 
     res_lang = case_res.get("language") or "en"
-    detected_lang_str = str(req.detected_language or req.language_code or "").lower()
+    detected_lang_str = str(req.detected_language or req.language_code or req.language or "").lower()
     matched_lang = res_lang
     if matched_lang not in LANGUAGE_TTS_CONFIG:
         for k in ["mr", "hi", "ta", "te", "kn", "bn", "gu", "ml", "pa", "en"]:
@@ -564,11 +582,11 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
                 matched_lang = k
                 break
 
-    tts_lang, default_voice = LANGUAGE_TTS_CONFIG.get(matched_lang, ("auto", "Shivani"))
+    tts_lang, default_voice = LANGUAGE_TTS_CONFIG.get(matched_lang, ("en-IN", "Avinash"))
     lang = tts_lang
-    if req.voice and req.voice in V3_VOICES and req.voice != "Shivani":
+    if req.voice and req.voice in V3_VOICES and req.voice not in ("Shivani", "Avinash", "Vasudha"):
         target_voice = req.voice
-    elif matched_lang in ("mr", "ta", "te", "kn", "bn", "gu", "ml", "pa"):
+    elif matched_lang in ("mr", "ta", "te", "kn", "bn", "gu", "ml", "pa", "en"):
         target_voice = default_voice
     elif not req.voice or req.voice == "Shivani" or req.voice not in V3_VOICES:
         target_voice = default_voice
@@ -622,6 +640,9 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
         "session_id": req.session_id,
         "session_token": session["token"] if session else None,
         "language": case_res.get("language", "en"),
+        "language_code": f"{case_res.get('language', 'en')}-IN" if case_res.get("language") != "en" else "en-IN",
+        "detected_language": f"{case_res.get('language', 'en')}-IN" if case_res.get("language") != "en" else "en-IN",
+        "detected_language_code": f"{case_res.get('language', 'en')}-IN" if case_res.get("language") != "en" else "en-IN",
         "api_mode": "LIVE_SPEECH" if audio_url else "TEXT_ONLY",
         "category": case_res.get("category"),
         "tier": case_res.get("tier"),
@@ -631,6 +652,8 @@ async def process_chat(req: ChatRequest, caller_token: Optional[str] = None):
         "spoken_text": shield_text,
         "audio_url": audio_url,
         "formal_document": case_res.get("formal_document", ""),
+        "draft_document": case_res.get("formal_document", ""),
+        "formal_notice": case_res.get("formal_document", ""),
         "action_steps": case_res.get("action_steps", []),
         "needs_more_information": case_res.get("needs_more_information", False),
         "follow_up_questions": case_res.get("follow_up_questions", []),
@@ -653,11 +676,26 @@ STT_LANGUAGES = {"indic-auto", "bn-IN", "en-IN", "gu-IN", "hi-IN", "kn-IN", "ml-
 
 
 def _wav_duration_seconds(path: str) -> float:
-    with wave.open(path, "rb") as source:
-        rate = source.getframerate()
-        if rate <= 0:
-            raise ValueError("Invalid audio sample rate")
-        return source.getnframes() / rate
+    file_bytes = os.path.getsize(path)
+    try:
+        with wave.open(path, "rb") as source:
+            rate = source.getframerate()
+            if rate <= 0:
+                raise ValueError("Invalid audio sample rate")
+            channels = source.getnchannels()
+            width = source.getsampwidth()
+            nframes = source.getnframes()
+            bytes_per_sec = rate * channels * width
+            if bytes_per_sec > 0:
+                duration_from_bytes = max(0.0, (file_bytes - 44) / bytes_per_sec)
+                duration_from_frames = nframes / rate
+                # If header nframes claims more frames than physically exist or is negative, trust actual file bytes
+                if duration_from_frames > duration_from_bytes + 1.0 or duration_from_frames < 0:
+                    return duration_from_bytes
+                return duration_from_frames
+    except Exception:
+        pass
+    return max(0.0, (file_bytes - 44) / 32000.0)
 
 
 async def _transcribe_form(form) -> tuple[str, Dict[str, Any], str]:
@@ -665,7 +703,21 @@ async def _transcribe_form(form) -> tuple[str, Dict[str, Any], str]:
     if audio is None or not hasattr(audio, "read"):
         raise HTTPException(status_code=422, detail="Please record or upload audio first.")
     try:
-        language_code = str(form.get("language_code", "indic-auto") or "indic-auto")
+        lang_raw = str(form.get("language_code") or form.get("language") or "indic-auto").strip()
+        NORM_MAP = {
+            "hi": "hi-IN", "hindi": "hi-IN",
+            "mr": "mr-IN", "marathi": "mr-IN",
+            "en": "en-IN", "english": "en-IN",
+            "ta": "ta-IN", "tamil": "ta-IN",
+            "te": "te-IN", "telugu": "te-IN",
+            "bn": "bn-IN", "bengali": "bn-IN",
+            "gu": "gu-IN", "gujarati": "gu-IN",
+            "kn": "kn-IN", "kannada": "kn-IN",
+            "ml": "ml-IN", "malayalam": "ml-IN",
+            "pa": "pa-IN", "punjabi": "pa-IN",
+            "auto": "indic-auto"
+        }
+        language_code = NORM_MAP.get(lang_raw.lower(), lang_raw)
         if language_code not in STT_LANGUAGES:
             raise HTTPException(status_code=422, detail="Choose a supported speech language or automatic detection.")
         content = await audio.read()
@@ -741,10 +793,13 @@ async def transcribe_audio(request: Request):
     transcript, telemetry, detected_lang = await _transcribe_form(await request.form())
     lang_label = LANGUAGE_LABELS.get(detected_lang, detected_lang)
     return JSONResponse({
+        "status": "ok",
         "transcript": transcript,
         "stt_telemetry": telemetry,
         "detected_language_code": detected_lang,
-        "detected_language_label": lang_label
+        "detected_language": detected_lang,
+        "detected_language_label": lang_label,
+        "language_label": lang_label
     })
 
 
@@ -1349,12 +1404,15 @@ async def http_error(request: Request, exc: HTTPException):
 
 
 app.add_route("/", serve_index, methods=["GET"])
+app.add_route("/health", get_system_status, methods=["GET"])
 app.add_route("/api/status", get_system_status, methods=["GET"])
 app.add_route("/api/chat", chat_text, methods=["POST"])
 app.add_route("/api/transcribe", transcribe_audio, methods=["POST"])
+app.add_route("/api/speech/transcribe", transcribe_audio, methods=["POST"])
 app.add_route("/api/chat/voice", chat_voice, methods=["POST"])
 app.add_route("/api/audio/{token}", serve_audio, methods=["GET"])
 app.add_route("/api/rights/audio", synthesize_rights_audio, methods=["POST"])
+app.add_route("/api/speech/synthesize", synthesize_rights_audio, methods=["POST"])
 
 # Geo Resolution Route
 app.add_route("/api/geo/resolve", resolve_geo_location, methods=["GET", "POST"])

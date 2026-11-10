@@ -654,6 +654,80 @@ CATEGORY_QUESTIONS = {
             "incident_location": "ही घटना कोणत्या शहरात, भागात किंवा ठिकाणी घडली?",
         },
     },
+    "gu": {
+        "WAGE_THEFT": {
+            "specific_details": "તમે કઈ કંપની કે કોન્ટ્રાક્ટર પાસે શું કામ કર્યું હતું, અને તમારો કેટલો પગાર બાકી છે?",
+            "other_party": "તમને કામે રાખનાર કોન્ટ્રાક્ટર, સુપરવાઈઝર કે માલિક કોણ છે?",
+            "incident_date": "આ પગાર કયા મહિનાથી બાકી છે અથવા તમે છેલ્લે ક્યારે કામ કર્યું હતું?",
+            "incident_location": "કામનું સ્થળ, કન્સ્ટ્રક્શન સાઇટ કે ફેક્ટરી કયા વિસ્તાર કે શહેરમાં આવેલી છે?",
+        },
+        "STREET_VENDOR": {
+            "specific_details": "શું તમારી પાસે વેન્ડિંગ સર્ટિફિકેટ કે રસીદ છે, અને શું નગરપાલિકા કે મહાનગરપાલિકાએ કોઈ લેખિત નોટિસ આપી હતી?",
+            "other_party": "કયા મ્યુનિસિપલ વોર્ડ અધિકારી, દબાણ હટાવ ટુકડી અથવા પોલીસે આ કાર્યવાહી કરી?",
+            "incident_date": "તમારી લારી કે દુકાન કઈ તારીખે અને આશરે કેટલા વાગ્યે હટાવવામાં આવી?",
+            "incident_location": "તમારી લારી કે સ્ટોલ કયા રસ્તા, માર્કેટ કે વોર્ડમાં સ્થિત હતી?",
+        },
+        "POLICE_CUSTODY": {
+            "specific_details": "શું પોલીસે કોઈ લેખિત અરેસ્ટ મેમો અથવા કારણ આપ્યું છે, અને શું પરિવારજનોને જાણ કરી છે?",
+            "other_party": "કયું પોલીસ સ્ટેશન, ચોકી અથવા કયા તપાસ અધિકારી આમાં સામેલ છે?",
+            "incident_date": "તેમને ક્યારે (કઈ તારીખ અને સમયે) અટકમાં લેવામાં આવ્યા હતા?",
+            "incident_location": "તેમને હાલમાં કયા પોલીસ સ્ટેશન, લોકઅપ કે સ્થળે રાખવામાં આવ્યા છે?",
+        },
+        "MOTOR_ACCIDENT_PRO": {
+            "specific_details": "શું કોઈને ઈજા થઈ છે, વાહનોના નંબર શું છે, અને શું હોસ્પિટલનો મેડિકલ રિપોર્ટ છે?",
+            "other_party": "ટક્કર મારનાર વાહનનો નંબર, ડ્રાઇવરનું નામ અથવા વીમા કંપની કઈ છે?",
+            "incident_date": "આ અકસ્માત કઈ તારીખે અને આશરે કેટલા વાગ્યે થયો હતો?",
+            "incident_location": "અકસ્માત કયા રસ્તા, હાઇવે અથવા ચાર રસ્તા પાસે થયો હતો?",
+        },
+        "REAL_ESTATE_RERA": {
+            "specific_details": "પ્રોજેક્ટનો રેરા (RERA) નંબર શું છે અને કરારમાં કબજો આપવાની કઈ તારીખ આપી હતી?",
+            "other_party": "બિલ્ડર, ડેવલપર અથવા કન્સ્ટ્રક્શન કંપનીનું કાનૂની નામ શું છે?",
+            "incident_date": "ફ્લેટનો કરાર ક્યારે થયો હતો અને તમે છેલ્લો હપ્તો કઈ તારીખે ચૂકવ્યો હતો?",
+            "incident_location": "આ હાઉસિંગ પ્રોજેક્ટ કયા શહેરમાં અને કયા સરનામે સ્થિત છે?",
+        },
+        "COMMERCIAL_CONTRACT_MSME": {
+            "specific_details": "શું તમારી પેઢી MSME ઉદ્યોગમાં નોંધાયેલી છે, અને બિલની કુલ કેટલી રકમ બાકી છે?",
+            "other_party": "ચૂકવણી રોકનાર ખરીદનાર કંપની અથવા વેપારીનું કાનૂની નામ શું છે?",
+            "incident_date": "માલ કે સેવાઓ કઈ તારીખે પહોંચાડવામાં આવી હતી, અને શું ૪૫ દિવસનો સમય વીતી ગયો છે?",
+            "incident_location": "આ વ્યાપારિક કરાર અથવા ડિલિવરી કયા શહેરમાં થઈ હતી?",
+        },
+        "LAND_GRABBING": {
+            "specific_details": "જમીન પર કોનો કબજો છે અને તમારી પાસે ૭/૧૨, દસ્તાવેજ કે માલિકી હકના કયા પુરાવા છે?",
+            "other_party": "જમીન પર ગેરકાયદે કબજો કે દબાણ કરનાર વ્યક્તિ કે સંસ્થા કોણ છે?",
+            "incident_date": "જમીનની સીમ ક્યારે તોડવામાં આવી અથવા ગેરકાયદેસર પ્રવેશનો પ્રયાસ ક્યારે થયો?",
+            "incident_location": "આ જમીન કયા ગામ, તાલુકા, સર્વે નંબર અને જિલ્લામાં આવેલી છે?",
+        },
+        "LOAN_FRAUD": {
+            "specific_details": "લોન એપનું નામ શું છે, અને શું તેઓ તમારા સંપર્કોને ફોન કરીને કે ખોટા ફોટા મોકલીને બ્લેકમેલ કરે છે?",
+            "other_party": "કઈ લોન એપ, રિકવરી એજન્ટ અથવા કંપની તમને હેરાન કરી રહી છે?",
+            "incident_date": "ધમકીઓ, બ્લેકમેલિંગ અથવા ખાતામાંથી પૈસા કપાવાના ક્યારે શરૂ થયા?",
+            "incident_location": "પૈસા કઈ બેંકમાંથી, યુપીઆઈ આઈડી અથવા એપ દ્વારા ટ્રાન્સફર થયા હતા?",
+        },
+        "DOMESTIC_VIOLENCE": {
+            "specific_details": "શું તમે કે બાળકો અત્યારે કોઈ જોખમમાં છો, અને શું તમને તાત્કાલિક સુરક્ષિત આશ્રય કે તબીબી સહાયની જરૂર છે?",
+            "other_party": "સામાયિક ઘરમાં તમને નુકસાન કે ધમકી આપનાર મુખ્ય વ્યક્તિ કોણ છે?",
+            "incident_date": "હિંસા, મારપીટ અથવા ઘર બહાર કાઢવાની તાજી ઘટના ક્યારે બની હતી?",
+            "incident_location": "આ ઘર કયા શહેરમાં કે જિલ્લામાં આવેલું છે?",
+        },
+        "CORRUPTION_RTI": {
+            "specific_details": "આ કઈ સરકારી કચેરીનો કેસ છે, અને તમારી પાસે અરજી અથવા પહોંચ નંબર છે?",
+            "other_party": "કયા અધિકારી કે જાહેર માહિતી અધિકારીએ કામ અટકાવ્યું અથવા લાંચ માંગી?",
+            "incident_date": "તમે અરજી કઈ તારીખે કરી હતી, અને શું ૩૦ દિવસની કાનૂની મુદત પૂરી થઈ ગઈ છે?",
+            "incident_location": "આ સરકારી કચેરી કયા શહેરમાં અથવા જિલ્લામાં આવેલી છે?",
+        },
+        "RELIGIOUS_GATHERING": {
+            "specific_details": "પ્રાર્થના સભામાં કોઈએ વિક્ષેપ પાડ્યો કે લોકોને ધમકી આપી અથવા અટકમાં લીધા હતા?",
+            "other_party": "પ્રાર્થના સભામાં કયા જૂથ, વ્યક્તિઓ અથવા પોલીસે હસ્તક્ષેપ કર્યો?",
+            "incident_date": "આ ઘટના કઈ તારીખે અને કયા સમયે બની હતી?",
+            "incident_location": "પ્રાર્થના સભા કયા સ્થળે કે મકાનમાં આયોજિત કરવામાં આવી હતી?",
+        },
+        "GENERAL_CITIZEN_AID": {
+            "specific_details": "ખરેખર શું બન્યું હતું, અને તમને સૌથી પહેલા કયા પ્રકારની કાનૂની મદદ કે રાહત જોઈએ છે?",
+            "other_party": "આમાં સામેલ બીજી વ્યક્તિ, કંપની અથવા સરકારી અધિકારી કોણ છે?",
+            "incident_date": "આ ઘટના અથવા વિવાદ ક્યારે બન્યો હતો?",
+            "incident_location": "આ ઘટના કયા શહેરમાં અથવા વિસ્તારમાં બની હતી?",
+        },
+    },
 }
 
 
@@ -1170,51 +1244,128 @@ def detect_language(text: str, lang_code: Optional[str] = None, detected_languag
     has_devanagari = any("\u0900" <= ch <= "\u097F" for ch in text)
 
     if has_devanagari:
-        # Unique Marathi phonetic characters
+        # Unique Marathi phonetic characters (never present in standard Hindi)
         if "ळ" in text or "ऱ" in text:
             return "mr"
 
-        mr_markers = [
-            "आहे", "नाही", "झाला", "झाली", "झाले", "झालं", "केले", "केला", "केली", "केलं", "दिले", "दिला", "दिली", "दिलं",
-            "माझा", "माझी", "माझे", "माझ्या", "माझं", "मला", "मी", "आम्ही", "आम्हाला", "आमचे", "आमची", "पाहिजे",
-            "गेलो", "गेले", "गेली", "पोलीस", "पोलिस", "पगार", "तक्रार", "केव्हा", "कुठे", "कोणी", "सांगा", "सांगितले",
-            "त्यांनी", "त्याला", "तिला", "मारहाण", "सातबारा", "मध्ये", "साठी", "बदल", "तारीख", "काल", "रात्री", "वाजता",
-            "सकाळी", "दुपारी", "पुणे", "मुंबई", "ठाणे", "नाशिक", "नागपूर", "रस्त्यावर", "गाडी", "धडक", "धडकली", "अपघात",
-            "तोडली", "तोडले", "काढली", "काढले", "हटवली", "हटवले", "नेले", "आणले", "ठेवले", "ठेवली", "पैसे", "मागितले",
-            "कामगार", "ठेकेदार", "दुकान", "आणि", "किंवा", "पण", "तर", "व", "होतो", "होती", "होते", "नव्हते", "नव्हता", "नव्हती"
-        ]
-        hi_markers = [
-            "है", "हैं", "हुआ", "हुई", "हुए", "था", "थी", "थे", "रहा", "रही", "रहे",
-            "मेरा", "मेरी", "मेरे", "मुझे", "मुझको", "हम", "हमें", "हमारा", "हमारी", "हमारे",
-            "किया", "किए", "की", "दिया", "दिए", "दी", "लिया", "लिए", "ली", "कहा", "बोला", "बोले",
-            "गया", "गई", "गए", "कब", "कहाँ", "कैसे", "किसने", "किसको", "थाने", "मारपीट", "झगड़ा",
-            "मदद", "तनख्वाह", "बदलाव", "कल", "रात", "बजे", "टक्कर", "दुर्घटना", "शिकायत", "पुलिस",
-            "गाड़ी", "मजदूर", "मालिक", "ठेकेदार", "दुकान", "ठेला", "रेहड़ी", "हटाया", "तोड़ा", "और",
-            "लेकिन", "किन्तु", "चाहिए", "बताओ", "पूछो", "क्या"
-        ]
+        distinct_mr_markers = {
+            "आहे", "आहेत", "आहोत", "नाही", "नाहीत", "नका",
+            "झाला", "झाली", "झाले", "झालं", "झाल्या", "झालेलो",
+            "केले", "केला", "केली", "केलं", "केल्या",
+            "दिले", "दिला", "दिली", "दिलं", "दिल्या",
+            "नेले", "नेला", "नेली", "नेलं", "नेल्या",
+            "आणले", "आणला", "आणली", "आणलं",
+            "ठेवले", "ठेवला", "ठेवली", "ठेवलं",
+            "हटवले", "हटवला", "हटवली", "हटवलं",
+            "तोडले", "तोडला", "तोडली", "तोडलं",
+            "काढले", "काढला", "काढली", "काढलं",
+            "मागितले", "मागितला", "मागितली",
+            "सांगितले", "सांगितला", "सांगितली", "सांगा", "सांग",
+            "गेलो", "गेला", "गेली", "गेले", "गेलं",
+            "होतो", "होती", "होते", "होता", "नव्हते", "नव्हता", "नव्हती", "नव्हतं",
+            "पाहिजे", "पाहिजेत",
+            "माझा", "माझी", "माझे", "माझ्या", "माझं",
+            "मला", "मी", "आम्ही", "आम्हाला", "आमचे", "आमची", "आमच्या", "आमचं",
+            "त्यांनी", "त्याला", "तिला", "त्यांना", "त्याचे", "त्याची", "त्यांच्या",
+            "आपले", "आपली", "आपल्या",
+            "मध्ये", "साठी", "आणि", "किंवा", "परंतु",
+            "केव्हा", "कुठे", "कोणी", "कशा", "कसे", "कशी", "कसा",
+            "तक्रार", "मारहाण", "सातबारा", "वाजता", "रस्त्यावर", "धडकली"
+        }
 
-        mr_score = sum(1 for m in mr_markers if m in text)
-        hi_score = sum(1 for m in hi_markers if m in text)
+        distinct_hi_markers = {
+            "है", "हैं", "हूँ", "हो", "था", "थी", "थे", "रहा", "रही", "रहे",
+            "नहीं", "नही", "मत", "ना",
+            "हुआ", "हुई", "हुए",
+            "किया", "किए", "की", "कर", "करता", "करती", "करते",
+            "दिया", "दिए", "दी", "दे", "देता", "देती", "देते",
+            "लिया", "लिए", "ली", "ले", "लेता", "लेती", "लेते",
+            "गया", "गई", "गए", "जा", "जाता", "जाती", "जाते",
+            "कहा", "कही", "कहे", "बोला", "बोली", "बोले", "बोल",
+            "तोड़ा", "तोड़ी", "तोड़े", "हटाया", "हटाई", "हटाए",
+            "रखा", "रखी", "रखे", "लाया", "लाई", "लाए",
+            "छीना", "छीनी", "छीने", "मारा", "मारी", "मारे",
+            "मांगा", "मांगी", "मांगे",
+            "चाहिए", "सकता", "सकती", "सकते",
+            "मेरा", "मेरी", "मेरे",
+            "मुझे", "मुझको", "मैं", "मुझसे",
+            "हम", "हमें", "हमारा", "हमारी", "हमारे", "हमसे",
+            "उसने", "उसको", "उसे", "उसका", "उसकी", "उसके", "उससे",
+            "उन्होंने", "उनको", "उन्हें", "उनका", "उनकी", "उनके", "उनसे",
+            "इसने", "इसको", "इसे", "इसका", "इसकी", "इसके",
+            "इन्होंने", "इनको", "इन्हें", "इनका", "इनकी", "इनके",
+            "आप", "आपको", "आपका", "आपकी", "आपके",
+            "में", "पर", "से", "को", "का", "के", "और", "लेकिन", "किन्तु", "या", "ताकि", "क्योंकि", "कि",
+            "क्या", "कब", "कहाँ", "कैसे", "कैसा", "कैसी", "किसने", "किसको", "किसे", "क्यों",
+            "साहब", "नमस्ते", "प्रणाम", "जी", "भैया", "बाबू",
+            "तनख्वाह", "ठेला", "रेहड़ी", "झगड़ा", "मारपीट", "थाने"
+        }
 
+        words = set(re.findall(r"[\u0900-\u097F]+", text))
+        mr_score = len(words.intersection(distinct_mr_markers))
+        hi_score = len(words.intersection(distinct_hi_markers))
+
+        # Check explicit prior signals (ASR acoustic detection or user dropdown)
+        prior_lang = asr_detected_lang or explicit_user_lang or sess_lang
+
+        if prior_lang == "hi":
+            # Honor Hindi unless unambiguous Marathi markers strongly outweigh Hindi
+            if mr_score > hi_score and mr_score >= 2:
+                return "mr"
+            return "hi"
+
+        if prior_lang == "mr":
+            # Honor Marathi unless unambiguous Hindi markers strongly outweigh Marathi
+            if hi_score > mr_score and hi_score >= 2:
+                return "hi"
+            return "mr"
+
+        # If no prior bias:
         if mr_score > hi_score:
             return "mr"
         elif hi_score > mr_score:
             return "hi"
 
-        # When score is tied or 0: Prioritize ASR acoustic detection or explicit user selection
-        if asr_detected_lang in ("mr", "hi"):
-            return asr_detected_lang
-        if explicit_user_lang in ("mr", "hi"):
-            return explicit_user_lang
-        if sess_lang in ("mr", "hi"):
-            return sess_lang
+        # Tied score or 0 score Devanagari:
+        if prior_lang in ("mr", "hi"):
+            return prior_lang
 
-        return "mr" if mr_score > 0 else "hi"
+        # Default neutral Devanagari to Hindi (India's primary lingua franca)
+        return "hi"
 
     # 3. Transliterated / Romanized Indic vocabulary markers
-    mr_roman = ["majha", "majhi", "majhe", "jhala", "jhali", "jhale", "aahe", "nahi", "kela", "keli", "kele", "gaadi", "thukli", "thanayt", "paise", "kamavar", "malak", "pagar", "bhandan", "marhan", "kasa", "kashi", "kevha", "kuthe", "sang", "sanga", "madat", "badla", "aani"]
-    if any(re.search(rf"\b{w}\b", lower_text) for w in mr_roman):
+    english_markers = {
+        "the", "is", "at", "without", "giving", "reasons", "and", "to", "in", "of",
+        "for", "with", "on", "that", "this", "from", "by", "an", "be", "are", "was", "were",
+        "they", "their", "them", "brother", "sister", "police", "detained", "court", "officer",
+        "station", "arrested", "custody", "contractor", "wages", "vehicle", "driver", "insurance",
+        "please", "help", "hello", "sir", "madam", "report", "complaint", "money", "accident"
+    }
+    distinct_mr_roman = {
+        "majha", "majhi", "majhe", "majhyavar", "jhala", "jhali", "jhale", "jhal",
+        "aahe", "aahet", "kela", "keli", "kele",
+        "thukli", "thanayt", "kamavar", "bhandan", "marhan", "kasa", "kashi",
+        "kevha", "kuthe", "sanga", "sangitla", "aani", "pahije", "bagha", "nighala"
+    }
+    distinct_hi_roman = {
+        "mera", "meri", "mere", "mujhe", "mujhko", "hum", "humko", "humara", "humari",
+        "hua", "hui", "hue", "kiya", "kiye", "diya", "diye", "liya", "liye",
+        "hai", "hain", "hoon", "tha", "thi", "nahi", "nahin", "mat",
+        "takkar", "paisa", "paise", "pulis", "thana", "maalik", "vetan",
+        "batao", "namaste", "madat", "thela", "tod", "chahiye", "bol", "bola", "bole", "kaha"
+    }
+
+    roman_words = set(re.findall(r"\b[a-z]+\b", lower_text))
+    en_r_score = len(roman_words.intersection(english_markers))
+    mr_r_score = len(roman_words.intersection(distinct_mr_roman))
+    hi_r_score = len(roman_words.intersection(distinct_hi_roman))
+
+    if en_r_score >= 3 and en_r_score > (hi_r_score + mr_r_score):
+        return "en"
+    if mr_r_score > hi_r_score and mr_r_score > en_r_score:
         return "mr"
+    elif hi_r_score > mr_r_score and hi_r_score > en_r_score:
+        return "hi"
 
     ta_roman = ["enna", "ennoda", "aachu", "aayidichu", "illa", "vandhu", "kaaru", "thala", "panam", "udhavi", "vanakkam", "sollunga"]
     if any(re.search(rf"\b{w}\b", lower_text) for w in ta_roman):
@@ -1232,17 +1383,18 @@ def detect_language(text: str, lang_code: Optional[str] = None, detected_languag
     if any(re.search(rf"\b{w}\b", lower_text) for w in bn_roman):
         return "bn"
 
-    gu_roman = ["maru", "mari", "maro", "thayu", "thayo", "nathi", "kem", "aabhar"]
+    gu_roman = [
+        "maru", "mari", "maro", "mara", "mane", "ame", "amne", "amaro", "amari",
+        "thayu", "thayo", "thaya", "thayel", "nathi", "kem", "aabhar", "chhe", "chho", "chhiye",
+        "paisa", "rakam", "aapyu", "aapya", "laavya", "joyiye", "saheb", "tamne", "tamaro", "tamari",
+        "pagar", "feriwala", "lariyawala", "dokan", "nokari", "sheth", "bapuji", "shikayat"
+    ]
     if any(re.search(rf"\b{w}\b", lower_text) for w in gu_roman):
         return "gu"
 
-    pa_roman = ["mera", "meri", "hoya", "hoyi", "sahayta", "sat sri akal"]
+    pa_roman = ["hoya", "hoyi", "tussi", "assi", "kade", "paaji", "sat sri akal"]
     if any(re.search(rf"\b{w}\b", lower_text) for w in pa_roman):
         return "pa"
-
-    hi_roman = ["mera", "meri", "mere", "hua", "hui", "hue", "kiya", "kiye", "hai", "hain", "nahi", "takkar", "paisa", "pulis", "thana", "maalik", "vetan", "batao", "namaste"]
-    if any(re.search(rf"\b{w}\b", lower_text) for w in hi_roman):
-        return "hi"
 
     # 4. Check explicit selections/ASR signals if text has no script indicators
     if asr_detected_lang:
@@ -1461,8 +1613,622 @@ def _build_ai_synthesized_narrative(category: str, facts: Dict[str, Any], transc
             + f"\n\n[English Legal Synopsis for Counsel Review]:\n{base_summary}"
 
         )
+    elif lang == "gu":
+        return (
+            f"રજૂ કરેલ ફરિયાદ: અરજદાર {name} એ {loc_str} ખાતે {date_str} ની આસપાસ {party_str} સામે ફરિયાદ નોંધાવી છે. "
+            + (f"મુખ્ય હકીકત: {spec_str} " if spec_str else "આ બાબતમાં કાનૂની અધિકારો અને રક્ષણની જરૂર છે. ")
+            + f"\n\n[English Legal Synopsis for Counsel Review]:\n{base_summary}"
+        )
 
     return base_summary
+
+
+LEGAL_NOTICE_CATEGORY_DATA = {
+    "WAGE_THEFT": {
+        "title": {
+            "en": "Unlawful Withholding of Earned Wages and Non-Payment of Remuneration",
+            "hi": "बकाया मजदूरी का गैरकानूनी भुगतान रोके जाना एवं पारिश्रमिक की अदायगी",
+            "mr": "थकबाकी मजुरी रोखून ठेवणे आणि वेतनाचे गैरकायदेशीर उल्लंघन",
+        },
+        "act": {
+            "en": "Code on Wages, 2019 (Sections 17 and 45)",
+            "hi": "मजदूरी संहिता, 2019 (धारा 17 एवं 45)",
+            "mr": "वेतन संहिता, 2019 (कलम 17 आणि 45)",
+        },
+        "contraventions": {
+            "en": "Unlawful non-payment and withholding of earned wages beyond statutory wage periods without lawful justification, in contravention of Sections 17 and 45 of the Code on Wages, 2019.",
+            "hi": "वैधानिक मजदूरी अवधि बीत जाने के बाद भी बिना किसी वैध कारण के बकाया मजदूरी का भुगतान न करना और रोकना, जो मजदूरी संहिता, 2019 की धारा 17 एवं 45 का सीधा उल्लंघन है।",
+            "mr": "कायदेशीर मुदत संपल्यानंतरही कोणत्याही वैध कारणाशिवाय कमावलेली मजुरी रोखून ठेवणे, जे वेतन संहिता, 2019 च्या कलम 17 आणि 45 चे थेट उल्लंघन आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate disbursement of full withheld wages and overtime arrears along with statutory interest at the prescribed rate, and issuance of formal wage slips.",
+            "hi": "रोकी गई समस्त बकाया मजदूरी एवं ओवरटाइम राशि का वैधानिक ब्याज सहित तत्काल भुगतान, तथा औपचारिक वेतन पर्चियां प्रदान करना।",
+            "mr": "रोखून ठेवलेली संपूर्ण थकबाकी मजुरी व ओव्हरटाईम रक्कम वैधानिक व्याजासह त्वरित देणे, आणि अधिकृत वेतन पावती देणे.",
+        },
+    },
+    "STREET_VENDOR": {
+        "title": {
+            "en": "Unlawful Eviction, Seizure of Vending Goods, and Interference with Vending Rights",
+            "hi": "स्ट्रीट वेंडर की गैरकानूनी बेदखली, सामान जब्ती एवं आजीविका के अधिकार का हनन",
+            "mr": "फेरीवाल्यांची गैरकायदेशीर बेदखली, माल जप्ती आणि उपजीविकेच्या हक्कावर गदा",
+        },
+        "act": {
+            "en": "Street Vendors (Protection of Livelihood and Regulation of Street Vending) Act, 2014 (Sections 3 and 18)",
+            "hi": "स्ट्रीट वेंडर्स (आजीविका संरक्षण और स्ट्रीट वेंडिंग विनियमन) अधिनियम, 2014 (धारा 3 एवं 18)",
+            "mr": "स्ट्रीट व्हेंडर्स (उपजीविका संरक्षण आणि नियमन) कायदा, 2014 (कलम 3 आणि 18)",
+        },
+        "contraventions": {
+            "en": "Arbitrary eviction, harassment, and confiscation of vending cart and stock without conducting Town Vending Committee (TVC) survey or statutory notice under Section 3(3) and Section 18 of The Street Vendors Act, 2014.",
+            "hi": "टाउन वेंडिंग कमेटी (TVC) सर्वेक्षण और धारा 3(3) व धारा 18 के तहत आवश्यक वैधानिक प्रक्रिया का पालन किए बिना स्ट्रीट वेंडर की गाड़ी व माल को मनमाने ढंग से जब्त करना और बेदखल करना।",
+            "mr": "टाऊन व्हेंडिंग कमिटी (TVC) सर्वेक्षण आणि स्ट्रीट व्हेंडर्स कायदा, 2014 च्या कलम 3(3) आणि कलम 18 अंतर्गत वैधानिक प्रक्रियेशिवाय फेरीवाल्याची हातगाडी व माल जप्त करणे आणि बेदखल करणे.",
+        },
+        "reliefs": {
+            "en": "Immediate restoration of vending spot, return of seized vending cart and perishable/non-perishable goods intact, preservation of status quo pending TVC survey, and cessation of coercive eviction.",
+            "hi": "वेंडिंग स्थल की तत्काल पुनर्बहाली, जब्त की गई वेंडिंग गाड़ी व सामग्री की वापसी, TVC सर्वेक्षण लंबित रहने तक यथास्थिति बनाए रखना एवं मनमानी बेदखली रोकना।",
+            "mr": "फेरीचे मूळ ठिकाण त्वरित पूर्ववत करणे, जप्त केलेली हातगाडी व माल सुस्थितीत परत करणे, TVC सर्वेक्षण पूर्ण होईपर्यंत जैसे थे परिस्थिती ठेवणे आणि कारवाई थांबवणे.",
+        },
+    },
+    "REAL_ESTATE_RERA": {
+        "title": {
+            "en": "Default in Timely Possession Handover and Breach of Builder-Buyer Obligations",
+            "hi": "आवासीय इकाई के कब्जे में अनुचित देरी एवं RERA अधिनियम का उल्लंघन",
+            "mr": "घराचा वेळेत ताबा न देणे आणि रेरा कायद्याचे उल्लंघन",
+        },
+        "act": {
+            "en": "Real Estate (Regulation and Development) Act, 2016 (Section 18)",
+            "hi": "भू-संपदा (विनियमन एवं विकास) अधिनियम, 2016 (धारा 18)",
+            "mr": "रिअल इस्टेट (नियमन आणि विकास) कायदा, 2016 (कलम 18)",
+        },
+        "contraventions": {
+            "en": "Failure to complete construction and hand over lawful physical possession of the booked unit with Occupancy Certificate within the committed statutory date under Section 18 of RERA, 2016.",
+            "hi": "रेरा अधिनियम, 2016 की धारा 18 के अंतर्गत निर्धारित समयावधि में वैध अधिभोग प्रमाण-पत्र (OC) के साथ आवासीय इकाई का भौतिक कब्जा सौंपने में विफलता।",
+            "mr": "रेरा कायदा, 2016 च्या कलम 18 अन्वये दिलेल्या मुदतीत भोगवटा प्रमाणपत्रासह (OC) घराचा प्रत्यक्ष ताबा देण्यात आलेले अपयश.",
+        },
+        "reliefs": {
+            "en": "Immediate execution of registered possession with Occupancy Certificate or payment of prescribed monthly delay interest from due date until handover, or full refund of deposited consideration with interest under Section 18.",
+            "hi": "वैध अधिभोग प्रमाण-पत्र के साथ कब्जे का तत्काल निष्पादन अथवा नियत तिथि से कब्जा मिलने तक निर्धारित मासिक विलंब ब्याज का भुगतान, या धारा 18 के तहत संपूर्ण राशि की वापसी।",
+            "mr": "भोगवटा प्रमाणपत्रासह ताबा त्वरित देणे किंवा देय तारखेपासून प्रत्यक्ष ताब्यापर्यंत विहित मासिक विलंब व्याजाची भरपाई, अथवा संपूर्ण भरलेल्या रकमेचा परतावा.",
+        },
+    },
+    "COMMERCIAL_CONTRACT_MSME": {
+        "title": {
+            "en": "Delayed Commercial Payment and Default on Outstanding MSME Invoices",
+            "hi": "MSME बकाया बिलों का विलंबित भुगतान एवं वैधानिक ब्याज देयता",
+            "mr": "MSME थकबाकी बिलांचे विलंबित देयक आणि कायदेशीर व्याजाची मागणी",
+        },
+        "act": {
+            "en": "Micro, Small and Medium Enterprises Development Act, 2006 (Sections 15 and 16)",
+            "hi": "सूक्ष्म, लघु और मध्यम उद्यम विकास अधिनियम, 2006 (धारा 15 एवं 16)",
+            "mr": "सूक्ष्म, लघु आणि मध्यम उद्योग विकास कायदा, 2006 (कलम 15 आणि 16)",
+        },
+        "contraventions": {
+            "en": "Failure to liquidate admitted invoices within 45 days of supply of goods/services, violating mandatory statutory settlement timelines under Section 15 of the MSMED Act, 2006.",
+            "hi": "माल अथवा सेवाओं की आपूर्ति के 45 दिनों के भीतर स्वीकृत बिलों का भुगतान न करना, जो MSMED अधिनियम, 2006 की धारा 15 का प्रत्यक्ष उल्लंघन है।",
+            "mr": "माल किंवा सेवा पुरवठ्याच्या 45 दिवसांच्या आत बिलांची रक्कम न चुकवणे, जे MSMED कायदा, 2006 च्या कलम 15 चे थेट उल्लंघन आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate liquidation of total principal outstanding along with mandatory compound monthly interest at three times the RBI bank rate as prescribed under Section 16 of the MSMED Act, 2006.",
+            "hi": "कुल मूलधन बकाया का तत्काल भुगतान एवं MSMED अधिनियम, 2006 की धारा 16 के तहत RBI बैंक दर के तीन गुना मासिक चक्रवृद्धि ब्याज का भुगतान।",
+            "mr": "एकूण मूळ थकबाकीचे त्वरित देयक आणि MSMED कायदा, 2006 च्या कलम 16 अन्वये RBI बँक दराच्या तीन पट मासिक चक्रवाढ व्याजासह रक्कम देणे.",
+        },
+    },
+    "POLICE_CUSTODY": {
+        "title": {
+            "en": "Procedural Non-Compliance and Violation of Safeguards in Police Custody",
+            "hi": "पुलिस हिरासत में प्रक्रियात्मक सुरक्षा एवं वैधानिक अधिकारों का उल्लंघन",
+            "mr": "पोलीस कोठडीत वैधानिक सुरक्षेचे आणि मार्गदर्शक तत्त्वांचे उल्लंघन",
+        },
+        "act": {
+            "en": "Bharatiya Nagarik Suraksha Sanhita, 2023 (Sections 36, 47) and Article 22(2)",
+            "hi": "भारतीय नागरिक सुरक्षा संहिता, 2023 (धारा 36, 47) एवं संविधान का अनुच्छेद 22(2)",
+            "mr": "भारतीय नागरिक सुरक्षा संहिता, 2023 (कलम 36, 47) आणि अनुच्छेद 22(2)",
+        },
+        "contraventions": {
+            "en": "Detention without prompt communication of formal grounds of arrest, failure to prepare arrest memo with independent witness attestation, and failure to produce before Magistrate within 24 hours under BNSS Sections 36, 47 and Article 22(2).",
+            "hi": "गिरफ्तारी के लिखित आधार बताए बिना हिरासत में रखना, स्वतंत्र गवाह की उपस्थिति में अरेस्ट मेमो तैयार न करना, और 24 घंटे के भीतर मजिस्ट्रेट के समक्ष पेश न करना।",
+            "mr": "अटकेची लेखी कारणे न सांगता ताब्यात ठेवणे, पंचांच्या स्वाक्षरीसह अरेस्ट मेमो तयार न करणे आणि 24 तासांच्या आत दंडाधिकाऱ्यांसमोर हजर न करणे.",
+        },
+        "reliefs": {
+            "en": "Immediate formalization of custody records, provision of legal counsel consultation, mandatory independent medical examination, and strict adherence to D.K. Basu statutory safeguards.",
+            "hi": "हिरासत संबंधी अभिलेखों का तत्काल संधारण, विधिक परामर्शदाता से संपर्क की अनुमति, अनिवार्य स्वतंत्र मेडिकल परीक्षण, और डी.के. बसु दिशानिर्देशों का कड़ाई से पालन।",
+            "mr": "कोठडीच्या नोंदी त्वरित अधिकृत करणे, वकिलांशी सल्लामसलत करण्याची मुभा, अनिवार्य स्वतंत्र वैद्यकीय तपासणी, आणि डी.के. बसू मार्गदर्शक तत्त्वांचे काटेकोर पालन.",
+        },
+    },
+    "DOMESTIC_VIOLENCE": {
+        "title": {
+            "en": "Domestic Abuse, Harassment, and Deprivation of Shared Household Rights",
+            "hi": "घरेलू हिंसा, प्रताड़ना एवं साझे घर में रहने के अधिकार का हनन",
+            "mr": "घरगुती हिंसाचार, मानसिक-शारीरिक छळ आणि सामायिक घरातील हक्क डावलणे",
+        },
+        "act": {
+            "en": "Protection of Women from Domestic Violence Act, 2005 (Sections 12, 18, 19)",
+            "hi": "घरेलू हिंसा से महिलाओं का संरक्षण अधिनियम, 2005 (धारा 12, 18, 19)",
+            "mr": "घरगुती हिंसाचारापासून महिलांचे संरक्षण कायदा, 2005 (कलम 12, 18, 19)",
+        },
+        "contraventions": {
+            "en": "Infliction of physical, verbal, emotional, and economic abuse, and unlawful threat of dispossession from the shared household under the Protection of Women from Domestic Violence Act, 2005.",
+            "hi": "साझे घर में शारीरिक, मानसिक, मौखिक व आर्थिक प्रताड़ना देना एवं अवैध रूप से घर से बेदखल करने की धमकी देना, जो घरेलू हिंसा अधिनियम, 2005 का उल्लंघन है।",
+            "mr": "सामायिक घरात शारीरिक, मानसिक, तोंडी आणि आर्थिक छळ करणे आणि बेकायदेशीरपणे घराबाहेर काढण्याची धमकी देणे.",
+        },
+        "reliefs": {
+            "en": "Immediate cessation of all harassment, violence, and intimidation; unhindered right of residence in the shared household; interim maintenance and protection under PWDVA, 2005.",
+            "hi": "सभी प्रकार की हिंसा, प्रताड़ना और धमकी पर तत्काल रोक; साझे घर में निर्बाध निवास का अधिकार; तथा धारा 18 व 19 के अंतर्गत अंतरिम भरण-पोषण एवं सुरक्षा।",
+            "mr": "सर्व प्रकारचा छळ, हिंसाचार आणि धमक्या त्वरित थांबवणे; सामायिक घरात राहण्याचा निर्वेध हक्क; आणि अंतरिम पोटगी व कायदेशीर संरक्षण.",
+        },
+    },
+    "LAND_GRABBING": {
+        "title": {
+            "en": "Unlawful Property Encroachment, Dispossession, and Criminal Trespass",
+            "hi": "अवैध भूमि कब्जा, अतिक्रमण एवं आपराधिक अतिचार",
+            "mr": "जमिनीवर बेकायदेशीर ताबा, अतिक्रमण आणि गुन्हेगारी अतिक्रमण",
+        },
+        "act": {
+            "en": "Specific Relief Act, 1963 (Section 6) and Bharatiya Nyaya Sanhita, 2023",
+            "hi": "विनिर्दिष्ट अनुतोष अधिनियम, 1963 (धारा 6) एवं भारतीय न्याय संहिता, 2023",
+            "mr": "विशिष्ट दिलासा कायदा, 1963 (कलम 6) आणि भारतीय न्याय संहिता, 2023",
+        },
+        "contraventions": {
+            "en": "Forceful entry, unlawful encroachment, and dispossession of lawful occupant from immovable property without due process of law under Section 6 of Specific Relief Act and BNS criminal trespass provisions.",
+            "hi": "कानून की उचित प्रक्रिया के बिना अचल संपत्ति में जबरन प्रवेश, अवैध अतिक्रमण और वैध कब्जेदार को बेदखल करना, जो विनिर्दिष्ट अनुतोष अधिनियम एवं BNS का उल्लंघन है।",
+            "mr": "कायदेशीर प्रक्रियेशिवाय अचल संपत्तीवर बळजबरीने ताबा मिळवणे, अतिक्रमण करणे आणि मूळ कब्जादारास बेदखल करणे.",
+        },
+        "reliefs": {
+            "en": "Immediate removal of unlawful structures and encroachments, restoration of unhindered physical possession to complainant, and undertaking not to interfere with peaceful enjoyment.",
+            "hi": "अवैध निर्माण व अतिक्रमण को तत्काल हटाना, शिकायतकर्ता को निर्बाध भौतिक कब्जा वापस सौंपना, और शांतिपूर्ण उपभोग में हस्तक्षेप न करने का लिखित वचन देना।",
+            "mr": "बेकायदेशीर बांधकामे व अतिक्रमण त्वरित हटवणे, तक्रारदाराला शांततापूर्ण प्रत्यक्ष ताबा परत देणे, आणि मालमत्तेत हस्तक्षेप न करण्याचे लेखी हमीपत्र देणे.",
+        },
+    },
+    "LOAN_FRAUD": {
+        "title": {
+            "en": "Coercive Digital Lending Harassment, Blackmail, and Unlawful Recovery",
+            "hi": "डिजिटल ऋण वसूली में ब्लैकमेल, अवैध प्रताड़ना एवं निजता का हनन",
+            "mr": "डिजिटल कर्ज वसुलीत ब्लॅकमेलिंग, बेकायदेशीर छळ आणि गोपनीयतेचे उल्लंघन",
+        },
+        "act": {
+            "en": "RBI Digital Lending Guidelines, Information Technology Act, 2000, and BNS, 2023",
+            "hi": "RBI डिजिटल लेंडिंग दिशानिर्देश, सूचना प्रौद्योगिकी अधिनियम, 2000 एवं BNS, 2023",
+            "mr": "RBI डिजिटल लेंडिंग मार्गदर्शक तत्त्वे, माहिती तंत्रज्ञान कायदा, 2000 आणि BNS, 2023",
+        },
+        "contraventions": {
+            "en": "Unauthorized harvesting of phone contacts, extortionate threats, morphed photo distribution, and abusive collection methods in gross violation of RBI Digital Lending Guidelines and IT Act Section 66E.",
+            "hi": "मोबाइल संपर्कों का अनधिकृत उपयोग, जबरन वसूली, मॉर्फ्ड फोटो के जरिए ब्लैकमेल और अपमानजनक वसूली तरीके, जो RBI दिशानिर्देशों एवं IT एक्ट की धारा 66E का गंभीर उल्लंघन है।",
+            "mr": "मोबाईल संपर्कांचा अनधिकृत वापर, खंडणीच्या धमक्या, मॉर्फ्ड फोटोंचा गैरवापर आणि अपमानास्पद वसुली पद्धती, जे RBI मार्गदर्शक तत्त्वांचे आणि IT कायद्याचे उल्लंघन आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate cessation of all harassment, deletion of harvested personal data and contacts, written confirmation of account closure, and compensation for mental agony and reputational harm.",
+            "hi": "समस्त प्रकार के उत्पीड़न को तत्काल रोकना, अनधिकृत रूप से एकत्र व्यक्तिगत डेटा व संपर्कों को हटाना, ऋण खाते का पारदर्शी विवरण देना, और मानसिक प्रताड़ना की भरपाई।",
+            "mr": "सर्व प्रकारचा छळ त्वरित थांबवणे, अनधिकृतपणे घेतलेला वैयक्तिक डेटा नष्ट करणे, खात्याचा पारदर्शक हिशोब देणे आणि मानसिक त्रासाची भरपाई करणे.",
+        },
+    },
+    "CORRUPTION_RTI": {
+        "title": {
+            "en": "Solicitation of Unlawful Gratification and Denial of Statutory Public Service",
+            "hi": "रिश्वत की अवैध मांग, भ्रष्टाचार एवं वैधानिक लोक सेवा से इनकार",
+            "mr": "लाचेची बेकायदेशीर मागणी, भ्रष्टाचार आणि शासकीय सेवेचा नकार",
+        },
+        "act": {
+            "en": "Prevention of Corruption Act, 1988 (Section 7) and Right to Information Act, 2005",
+            "hi": "भ्रष्टाचार निवारण अधिनियम, 1988 (धारा 7) एवं सूचना का अधिकार अधिनियम, 2005",
+            "mr": "भ्रष्टाचार प्रतिबंधक कायदा, 1988 (कलम 7) आणि माहिती अधिकार कायदा, 2005",
+        },
+        "contraventions": {
+            "en": "Demand for illegal gratification or bribe for the discharge of official public duty, and willful obstruction of citizen's statutory service entitlements under Section 7 of the Prevention of Corruption Act, 1988.",
+            "hi": "शासकीय कर्तव्यों के निर्वहन हेतु अवैध रिश्वत की मांग करना और नागरिक के वैधानिक अधिकारों को बाधित करना, जो भ्रष्टाचार निवारण अधिनियम, 1988 की धारा 7 का दंडनीय अपराध है।",
+            "mr": "शासकीय कर्तव्य पार पाडण्यासाठी बेकायदेशीर लाचेची मागणी करणे आणि नागरिकांच्या वैधानिक सेवेत अडथळा आणणे, जे भ्रष्टाचार प्रतिबंधक कायद्यानुसार गुन्हा आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate lawful processing and delivery of the pending public entitlement without demand of undue gratification, and initiation of vigilance review against delinquent personnel.",
+            "hi": "बिना किसी अनुचित मांग के लंबित सरकारी सेवा अथवा प्रमाण-पत्र का तत्काल निस्तारण, तथा संबंधित कर्मियों के विरुद्ध विभागीय सतर्कता जांच प्रारंभ करना।",
+            "mr": "कोणत्याही अनुचित मागणीशिवाय प्रलंबित शासकीय सेवा अथवा प्रमाणपत्र त्वरित देणे, आणि संबंधित दोषींवर विभागीय दक्षता चौकशी सुरू करणे.",
+        },
+    },
+    "RELIGIOUS_GATHERING": {
+        "title": {
+            "en": "Unlawful Interference with Peaceful Assembly and Disruption of Worship",
+            "hi": "शांतिपूर्ण धार्मिक सभा में अवैध व्यवधान, भय एवं उपासना में बाधा",
+            "mr": "शांततापूर्ण धार्मिक सभेत बेकायदेशीर अडथळा आणि उपासनेत व्यत्यय",
+        },
+        "act": {
+            "en": "Article 25 of the Constitution of India and Bharatiya Nyaya Sanhita, 2023 (Section 299)",
+            "hi": "भारत के संविधान का अनुच्छेद 25 एवं भारतीय न्याय संहिता, 2023 (धारा 299)",
+            "mr": "भारतीय संविधानाचे अनुच्छेद 25 आणि भारतीय न्याय संहिता, 2023 (कलम 299)",
+        },
+        "contraventions": {
+            "en": "Unlawful disruption, threat, and intimidation directed at a peaceful religious gathering, violating constitutional religious freedoms guaranteed under Article 25 and Section 299 of BNS, 2023.",
+            "hi": "शांतिपूर्ण धार्मिक सभा को बाधित करना, धमकी देना और उपासना में विघ्न डालना, जो संविधान के अनुच्छेद 25 एवं भारतीय न्याय संहिता, 2023 की धारा 299 का उल्लंघन है।",
+            "mr": "शांततापूर्ण धार्मिक सभेत व्यत्यय आणणे, धमकावणे आणि उपासना बाधित करणे, जे संविधानाच्या अनुच्छेद 25 चे आणि BNS च्या कलम 299 चे उल्लंघन आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate cessation of disruption, provision of administrative protection for peaceful congregation, and formal undertaking not to interfere with religious worship.",
+            "hi": "धार्मिक सभा में व्यवधान को तत्काल रोकना, शांतिपूर्ण सभा हेतु प्रशासनिक सुरक्षा प्रदान करना, और उपासना में कभी भी हस्तक्षेप न करने का वचन देना।",
+            "mr": "सभेतील अडथळे त्वरित थांबवणे, शांततापूर्ण उपासनेसाठी प्रशासकीय संरक्षण देणे आणि भविष्यात असा हस्तक्षेप न करण्याचे वचन देणे.",
+        },
+    },
+    "MOTOR_ACCIDENT_PRO": {
+        "title": {
+            "en": "Motor Vehicle Collision Claims, Insurance Liability, and Statutory Compensation",
+            "hi": "मोटर वाहन दुर्घटना दावा, बीमा दायित्व एवं विधिक मुआवजा",
+            "mr": "मोटार वाहन अपघात भरपाई, विमा दायित्व आणि कायदेशीर दावा",
+        },
+        "act": {
+            "en": "Motor Vehicles Act, 1988/2019 (Section 166) and Insurance Regulatory Provisions",
+            "hi": "मोटर वाहन अधिनियम, 2019 (धारा 166) एवं बीमा विनियामक प्रावधान",
+            "mr": "मोटार वाहन कायदा, 2019 (कलम 166) आणि विमा नियमन तरतुदी",
+        },
+        "contraventions": {
+            "en": "Actionable vehicular negligence resulting in collision damages, bodily injury, and failure to timely acknowledge third-party insurance liability under Section 166 of the Motor Vehicles Act, 2019.",
+            "hi": "मोटर वाहन के लापरवाहीपूर्ण संचालन से शारीरिक क्षति एवं नुकसान, तथा मोटर वाहन अधिनियम, 2019 की धारा 166 के तहत तृतीय पक्ष देयता का समय पर निपटान न करना।",
+            "mr": "वाहनाच्या निष्काळजी चालवण्यामुळे झालेले नुकसान व दुखापत, आणि मोटार वाहन कायदा, 2019 च्या कलम 166 अन्वये विमा भरपाईची त्वरित दखल न घेणे.",
+        },
+        "reliefs": {
+            "en": "Preservation of all incident and collision records, registration of third-party insurance claim, interim reimbursement of medical expenses, and full statutory claim settlement.",
+            "hi": "दुर्घटना संबंधी समस्त अभिलेखों का संरक्षण, तृतीय पक्ष बीमा दावे का पंजीकरण, तत्काल चिकित्सा व्यय की प्रतिपूर्ति, तथा पूर्ण वैधानिक दावे का निपटान।",
+            "mr": "अपघाताच्या सर्व नोंदी सुरक्षित ठेवणे, तृतीय पक्ष विमा दावा दाखल करणे, तातडीचा वैद्यकीय खर्च देणे आणि संपूर्ण भरपाईचा दावा निकाली काढणे.",
+        },
+    },
+    "GENERAL_CITIZEN_AID": {
+        "title": {
+            "en": "Citizen Statutory Grievance and Formal Pre-Litigation Legal Representation",
+            "hi": "नागरिक विधिक शिकायत एवं औपचारिक पूर्व-मुकदमा विधिक प्रतिनिधित्व",
+            "mr": "नागरिक कायदेशीर तक्रार आणि पूर्व-दावा अधिकृत निवेदन",
+        },
+        "act": {
+            "en": "Applicable Statutory Provisions and Legal Services Authorities Act, 1987",
+            "hi": "लागू वैधानिक प्रावधान एवं विधिक सेवा प्राधिकरण अधिनियम, 1987",
+            "mr": "लागू कायदेशीर तरतुदी आणि विधिक सेवा प्राधिकरण कायदा, 1987",
+        },
+        "contraventions": {
+            "en": "Actionable infringement of statutory citizen rights and fair administrative process causing legal injury to the complainant.",
+            "hi": "नागरिक के वैधानिक अधिकारों और निष्पक्ष प्रक्रिया का उल्लंघन, जिससे शिकायतकर्ता को विधिक क्षति पहुंची है।",
+            "mr": "नागरिकाच्या कायदेशीर हक्कांचे आणि न्याय्य प्रक्रियेचे उल्लंघन, ज्यामुळे तक्रारदाराचे नुकसान झाले आहे.",
+        },
+        "reliefs": {
+            "en": "Immediate review and rectification of the stated grievance, restoration of status quo, and provision of a reasoned written response within 15 days.",
+            "hi": "शिकायत का तत्काल निवारण, यथास्थिति की बहाली, तथा 15 दिनों के भीतर कारण सहित लिखित उत्तर प्रदान करना।",
+            "mr": "तक्रारीचे त्वरित निवारण करणे, जैसे थे परिस्थिती पूर्ववत करणे, आणि 15 दिवसांच्या आत सकारण लेखी उत्तर देणे.",
+        },
+    },
+}
+
+
+def _build_formal_legal_notice(
+    category: str,
+    facts: Dict[str, Any],
+    transcript: str,
+    lang: str,
+    candidate_statutes: Optional[List[Any]] = None,
+    needs_more_information: Optional[bool] = None,
+    questions: Optional[List[str]] = None,
+    supplied: Optional[List[str]] = None,
+) -> str:
+    """Generates a complete, formal, pre-litigation legal notice / statutory representation.
+
+    Formatted for pre-litigation review & record with outbound transmission disabled.
+    Supports English ('en'), Hindi ('hi'), and Marathi ('mr').
+    """
+    facts = dict(facts or {})
+    lang_code = lang if lang in ["hi", "mr", "gu"] else "en"
+
+    # Determine intake completeness if not explicitly provided
+    if needs_more_information is None:
+        required_keys = ["incident_date", "incident_location", "other_party", "specific_details"]
+        missing_keys = [k for k in required_keys if not str(facts.get(k, "")).strip()]
+        needs_more_information = bool(missing_keys)
+
+    # Core metadata extraction
+    date_val = str(facts.get("incident_date", "")).strip()
+    if not date_val or date_val.lower() in ["the stated date", "none"]:
+        date_val = datetime.now().strftime("%d-%m-%Y")
+
+    place_val = str(facts.get("incident_location") or facts.get("location") or "").strip()
+    if not place_val or place_val.lower() in ["the stated location", "none"]:
+        place_val = "Jurisdiction of Incident / Unspecified"
+
+    other_party_val = str(facts.get("other_party", "")).strip()
+    if not other_party_val or other_party_val.lower() in ["the adverse party", "none"]:
+        other_party_val = "Opposite Party / Competent Authority (To be identified)"
+
+    client_name_val = str(facts.get("client_name", "")).strip()
+    if not client_name_val or client_name_val.lower() in ["the aggrieved citizen", "none"]:
+        client_name_val = "Aggrieved Citizen / Complainant"
+
+    # Category specifics lookup
+    cat_data = LEGAL_NOTICE_CATEGORY_DATA.get(category, LEGAL_NOTICE_CATEGORY_DATA["GENERAL_CITIZEN_AID"])
+    cat_title = cat_data["title"].get(lang_code, cat_data["title"]["en"])
+    primary_act = cat_data["act"].get(lang_code, cat_data["act"]["en"])
+    primary_contravention = cat_data["contraventions"].get(lang_code, cat_data["contraventions"]["en"])
+    primary_relief = cat_data["reliefs"].get(lang_code, cat_data["reliefs"]["en"])
+
+    ai_narrative = _build_ai_synthesized_narrative(category, facts, transcript, lang)
+    account = transcript.strip() or "No account provided yet."
+
+    # Build statutory lines from candidate statutes or registry
+    statutory_lines = []
+    if candidate_statutes:
+        for cand in candidate_statutes:
+            if isinstance(cand, dict):
+                law = cand.get("law") or cand.get("section") or cand.get("act") or ""
+                details = cand.get("details") or cand.get("conditions") or cand.get("remedy") or ""
+                if law:
+                    statutory_lines.append(f"   - {law}: {details}" if details else f"   - {law}")
+            elif isinstance(cand, str):
+                statutory_lines.append(f"   - {cand}")
+
+    reg_entry = get_source_register_entry(category) if "get_source_register_entry" in globals() else {}
+    if not statutory_lines and reg_entry and reg_entry.get("references"):
+        for ref in reg_entry["references"]:
+            law = ref.get("law", "")
+            cond = ref.get("conditions") or ref.get("remedy", "")
+            if law:
+                statutory_lines.append(f"   - {law}: {cond}" if cond else f"   - {law}")
+    elif not statutory_lines:
+        possible = POTENTIAL_LEGAL_REFERENCES.get(category, [])
+        for law, _ in possible:
+            statutory_lines.append(f"   - {law}")
+
+    statutory_extra_str = ("\n" + "\n".join(statutory_lines)) if statutory_lines else f"\n   - {primary_act}"
+
+    # Build structured facts block
+    supplied_lines = []
+    known_fields = [
+        ("specific_details", "Substantive Particulars" if lang_code == "en" else ("विशिष्ट विवरण" if lang_code == "hi" else "विशिष्ट तपशील")),
+        ("amount", "Disputed Amount" if lang_code == "en" else ("विवादित राशि" if lang_code == "hi" else "विवादित रक्कम")),
+        ("disputed_amount", "Disputed Amount" if lang_code == "en" else ("विवादित राशि" if lang_code == "hi" else "विवादित रक्कम")),
+        ("insurer", "Insurer" if lang_code == "en" else ("बीमा कंपनी" if lang_code == "hi" else "विमा कंपनी")),
+        ("policy_no", "Policy Number" if lang_code == "en" else ("पॉलिसी संख्या" if lang_code == "hi" else "पॉलिसी क्रमांक")),
+        ("vehicle_no", "Vehicle Number" if lang_code == "en" else ("वाहन संख्या" if lang_code == "hi" else "वाहन क्रमांक")),
+        ("witnesses", "Witnesses" if lang_code == "en" else ("गवाह" if lang_code == "hi" else "साक्षीदार")),
+        ("employer", "Employer" if lang_code == "en" else ("नियोक्ता" if lang_code == "hi" else "मालक / नियोक्ता")),
+    ]
+    seen_keys = set()
+    for k, lbl in known_fields:
+        if k in facts and str(facts[k]).strip():
+            supplied_lines.append(f"   - {lbl}: {facts[k]}")
+            seen_keys.add(k)
+
+    internal_keys = {
+        "client_name", "incident_date", "incident_location", "location", "other_party",
+        "candidate_statutes", "candidate_provisions", "is_followup_turn", "revision_requested",
+        "language", "language_code", "detected_language", "current_utterance", "category",
+        "missing", "needs_more_information"
+    } | seen_keys
+    for k, v in facts.items():
+        if k not in internal_keys and str(v).strip():
+            supplied_lines.append(f"   - {k.replace('_', ' ').title()}: {v}")
+
+    if supplied:
+        for s in supplied:
+            if s not in supplied_lines and not any(s in sl for sl in supplied_lines):
+                supplied_lines.append(f"   - {s}")
+
+    supplied_extra_str = ("\n" + "\n".join(supplied_lines)) if supplied_lines else ""
+
+    # Facts still to confirm
+    if needs_more_information:
+        if questions:
+            unconfirmed_str = "\n".join(f"   - {q}" for q in questions)
+        else:
+            unconfirmed_str = "   - Further evidentiary details and primary documentation to be confirmed."
+    else:
+        unconfirmed_str = "   - Confirm this account and any supporting records."
+
+    # Language-specific template assembly
+    if lang_code == "hi":
+        status_banner = (
+            "[स्थिति: विधिक समीक्षा हेतु प्रारूप घटना सारांश — प्रारंभिक अभ्यावेदन (तथ्यों की पुष्टि लंबित)]"
+            if needs_more_information else
+            "[स्थिति: विधिक समीक्षा हेतु प्रारूप घटना सारांश — पूर्ण विधिक सूचना अभिलेख (पुष्टीकृत तथ्य)]"
+        )
+        statutory_status = (
+            "   [प्रारंभिक वैधानिक मानचित्रण — साक्ष्य सत्यापन एवं विधिक परामर्श के अधीन]"
+            if needs_more_information else
+            "   [पुष्टीकृत वैधानिक आधार — पूर्व-मुकदमा विधिक अभ्यावेदन अभिलेख]"
+        )
+        return (
+            "--------------------------------------------------------------------------------\n"
+            "विधिक सूचना / औपचारिक वैधानिक अभ्यावेदन\n"
+            "LEGAL NOTICE / FORMAL STATUTORY REPRESENTATION\n"
+            "(मुकदमा-पूर्व समीक्षा और अभिलेख हेतु जारी — बाह्य प्रेषण निष्क्रिय / DRAFT INCIDENT SUMMARY — Issued for Pre-Litigation Review & Record — Outbound Transmission Disabled)\n"
+            f"{status_banner}\n\n"
+            f"दिनांक (Date): {date_val}\n"
+            f"स्थान (Place): {place_val}\n\n"
+            "सेवा में / प्रति (TO):\n"
+            f"{other_party_val}\n\n"
+            "प्रेषक (FROM):\n"
+            f"{client_name_val}\n\n"
+            f"विषय (SUBJECT): {primary_act} के अंतर्गत {cat_title} के संबंध में औपचारिक विधिक सूचना\n\n"
+            "1. वस्तुस्थिती एवं घटनाक्रम (1. FACTUAL MATRIX & CHRONOLOGY):\n"
+            "   1. CASE SYNOPSIS & FACTUAL SUMMARY (AI Synthesized Narrative):\n"
+            f"   {ai_narrative}\n\n"
+            "   Account in the person's own words (शिकायतकर्ता के अपने शब्द):\n"
+            f"   {account}\n\n"
+            "2. संरचित घटना विवरण (2. STRUCTURED INCIDENT PARTICULARS):\n"
+            f"   - घटना की तिथि (Incident Date): {date_val}\n"
+            f"   - घटना का स्थान (Incident Location): {place_val}\n"
+            f"   - विरोधी पक्ष (Opposing Party): {other_party_val}\n"
+            f"   - शिकायतकर्ता का नाम (Complainant Name): {client_name_val}"
+            f"{supplied_extra_str}\n\n"
+            "   Facts still to confirm (पुष्टि हेतु शेष तथ्य):\n"
+            f"{unconfirmed_str}\n\n"
+            "3. वैधानिक उल्लंघन एवं लागू धाराएं (3. STATUTORY CONTRAVENTIONS & APPLICABLE DHAARA):\n"
+            f"{statutory_status}\n"
+            f"   - संबंधित अधिनियम (Governing Act): {primary_act}\n"
+            f"   - विशिष्ट उल्लंघन (Specific Contravention): {primary_contravention}\n"
+            f"{statutory_extra_str}\n\n"
+            "4. विशिष्ट मांगें एवं आवश्यक अनुतोष (4. SPECIFIC DEMANDS & REQUISITE RELIEFS):\n"
+            "   उपर्युक्त उल्लंघनों के आलोक में, आपको एतद्द्वारा निम्नलिखित मांगों का अनुपालन करने हेतु सूचित किया जाता है:\n"
+            "   1. यथास्थिति बनाए रखना (Preservation of Status Quo): किसी भी प्रकार की प्रतिकूल, दंडात्मक अथवा जबरन कार्रवाई को तत्काल रोकें।\n"
+            f"   2. प्रतिपूर्ति एवं समाधान (Restitution & Settlement): {primary_relief}\n"
+            "   3. 15 दिनों का सुधारात्मक नोटिस (15-Day Cure Notice): इस विधिक सूचना की प्राप्ति के 15 दिनों के भीतर इन मांगों का समाधान करें।\n"
+            "   4. अभिलेखों की प्रस्तुति (Production of Records): इस विवाद से संबंधित समस्त लिखित कारण, हिसाब-किताब व आवश्यक दस्तावेज प्रस्तुत करें।\n\n"
+            "5. अधिकारों का संरक्षण एवं विधिक सहायता (5. RESERVATION OF RIGHTS & LEGAL AID):\n"
+            "   कृपया ध्यान दें कि निर्धारित 15 दिनों की समयावधि में इन मांगों का अनुपालन न करने पर:\n"
+            "   1. विधिक कार्यवाही (Legal Proceedings): पीड़ित पक्ष आपके अपने खर्च एवं जोखिम पर सक्षम न्यायालय अथवा मंच के समक्ष दीवानी, फौजदारी या उपभोक्ता कार्यवाही प्रारंभ करने का पूर्ण अधिकार सुरक्षित रखता है।\n"
+            "   2. निःशुल्क विधिक सहायता (DLSA / NALSA): पीड़ित नागरिक विधिक सेवा प्राधिकरण अधिनियम, 1987 (Legal Services Authorities Act, 1987) की धारा 12 के तहत जिला विधिक सेवा प्राधिकरण (DLSA) / राष्ट्रीय विधिक सेवा प्राधिकरण (NALSA) के माध्यम से निःशुल्क विधिक सहायता प्राप्त करने का अधिकार सुरक्षित रखता है (हेल्पलाइन: 15100, आधिकारिक पोर्टल: https://nalsa.gov.in/legal-aid/)।\n\n"
+            "Requested next step: A qualified adviser should review the account, evidence, applicable law, and any filing deadline before a notice or complaint is sent.\n"
+            "--------------------------------------------------------------------------------"
+        )
+    elif lang_code == "mr":
+        status_banner = (
+            "[स्थिती: कायदेशीर पुनरावलोकनासाठी घटना सारांश मसुदा — प्राथमिक निवेदन (तथ्यांची पुष्टी प्रलंबित)]"
+            if needs_more_information else
+            "[स्थिती: कायदेशीर पुनरावलोकनासाठी घटना सारांश मसुदा — परिपूर्ण कायदेशीर नोटीस अभिलेख (पुष्टीकृत तथ्य)]"
+        )
+        statutory_status = (
+            "   [प्राथमिक वैधानिक मॅपिंग — पुरावा पडताळणी आणि कायदेशीर सल्ल्याच्या अधीन]"
+            if needs_more_information else
+            "   [पुष्टीकृत वैधानिक आधार — पूर्व-दावा कायदेशीर निवेदन अभिलेख]"
+        )
+        return (
+            "--------------------------------------------------------------------------------\n"
+            "कायदेशीर नोटीस / वैधानिक निवेदन\n"
+            "LEGAL NOTICE / FORMAL STATUTORY REPRESENTATION\n"
+            "(दावा-पूर्व पुनरावलोकन आणि अभिलेखासाठी जारी — बाह्य पाठवणे अक्षम / DRAFT INCIDENT SUMMARY — Issued for Pre-Litigation Review & Record — Outbound Transmission Disabled)\n"
+            f"{status_banner}\n\n"
+            f"दिनांक (Date): {date_val}\n"
+            f"ठिकाण (Place): {place_val}\n\n"
+            "प्रति (TO):\n"
+            f"{other_party_val}\n\n"
+            "प्रेषक (FROM):\n"
+            f"{client_name_val}\n\n"
+            f"विषय (SUBJECT): {primary_act} अंतर्गत {cat_title} बाबत औपचारिक कायदेशीर नोटीस\n\n"
+            "1. वस्तुस्थिती आणि घटनाक्रम (1. FACTUAL MATRIX & CHRONOLOGY):\n"
+            "   1. CASE SYNOPSIS & FACTUAL SUMMARY (AI Synthesized Narrative):\n"
+            f"   {ai_narrative}\n\n"
+            "   Account in the person's own words (तक्रारदाराचे स्वतःचे शब्द):\n"
+            f"   {account}\n\n"
+            "2. संरचित घटना तपशील (2. STRUCTURED INCIDENT PARTICULARS):\n"
+            f"   - घटनेची तारीख (Incident Date): {date_val}\n"
+            f"   - घटनेचे ठिकाण (Incident Location): {place_val}\n"
+            f"   - विरोधी पक्ष (Opposing Party): {other_party_val}\n"
+            f"   - तक्रारदाराचे नाव (Complainant Name): {client_name_val}"
+            f"{supplied_extra_str}\n\n"
+            "   Facts still to confirm (पुष्टीकरणासाठी उर्वरित तथ्ये):\n"
+            f"{unconfirmed_str}\n\n"
+            "3. वैधानिक उल्लंघन आणि लागू कलमे (3. STATUTORY CONTRAVENTIONS & APPLICABLE DHAARA):\n"
+            f"{statutory_status}\n"
+            f"   - संबंधित कायदा (Governing Act): {primary_act}\n"
+            f"   - विशिष्ट उल्लंघन (Specific Contravention): {primary_contravention}\n"
+            f"{statutory_extra_str}\n\n"
+            "4. विशिष्ट मागण्या आणि आवश्यक दिलासा (4. SPECIFIC DEMANDS & REQUISITE RELIEFS):\n"
+            "   उपरोक्त उल्लंघनांच्या पार्श्वभूमीवर, आपणास याद्वारे खालील मागण्यांची पूर्तता करण्याचे सूचित करण्यात येत आहे:\n"
+            "   1. जैसे थे परिस्थिती ठेवणे (Preservation of Status Quo): कोणतीही पुढील प्रतिकूल, दडपशाहीची किंवा बेकायदेशीर कारवाई त्वरित थांबवा.\n"
+            f"   2. भरपाई आणि निवारण (Restitution & Settlement): {primary_relief}\n"
+            "   3. 15 दिवसांची मुदत (15-Day Cure Notice): ही कायदेशीर नोटीस मिळाल्यापासून 15 दिवसांच्या आत मागण्यांची पूर्तता करा.\n"
+            "   4. नोंदी सादर करणे (Production of Records): या विवादाशी संबंधित संपूर्ण लेखी कारणे, हिशोब व आवश्यक कागदपत्रे सादर करा.\n\n"
+            "5. हक्कांचे आरक्षण आणि कायदेशीर मदत (5. RESERVATION OF RIGHTS & LEGAL AID):\n"
+            "   कृपया नोंद घ्यावी की दिलेल्या 15 दिवसांच्या मुदतीत वरील मागण्यांचे पालन न केल्यास:\n"
+            "   1. कायदेशीर कारवाई (Legal Proceedings): तक्रारदार आपल्या स्वतःच्या खर्चावर आणि जबाबदारीवर सक्षम न्यायालयात किंवा मंचासमोर योग्य कायदेशीर कारवाई सुरू करण्याचा पूर्ण हक्क राखून ठेवत आहे.\n"
+            "   2. मोफत कायदेशीर मदत (DLSA / NALSA): कायदेशीर सेवा प्राधिकरण कायदा, 1987 (Legal Services Authorities Act, 1987) च्या कलम 12 अन्वये जिल्हा विधिक सेवा प्राधिकरण (DLSA) / राष्ट्रीय विधिक सेवा प्राधिकरण (NALSA) कडून मोफत कायदेशीर मदत मिळवण्याचा हक्क राखून ठेवण्यात येत आहे (हेल्पलाइन: 15100, अधिकृत पोर्टल: https://nalsa.gov.in/legal-aid/).\n\n"
+            "Requested next step: A qualified adviser should review the account, evidence, applicable law, and any filing deadline before a notice or complaint is sent.\n"
+            "--------------------------------------------------------------------------------"
+        )
+    elif lang_code == "gu":
+        status_banner = (
+            "[સ્થિતિ: કાનૂની સમીક્ષા માટે ઘટના સારાંશ મસુદો — પ્રારંભિક નિવેદન (તથ્યોની પુષ્ટિ બાકી)]"
+            if needs_more_information else
+            "[સ્થિતિ: કાનૂની સમીક્ષા માટે ઘટના સારાંશ મસુદો — પરિપૂર્ણ કાનૂની નોટિસ રેકોર્ડ (પુષ્ટિ થયેલ તથ્યો)]"
+        )
+        statutory_status = (
+            "   [પ્રારંભિક વૈધાનિક જોગવાઈ — પુરાવા ચકાસણી અને વકીલની સલાહને આધીન]"
+            if needs_more_information else
+            "   [પુષ્ટિ થયેલ કાનૂની આધાર — પૂર્વ-દાવો કાનૂની રજૂઆત રેકોર્ડ]"
+        )
+        return (
+            "--------------------------------------------------------------------------------\n"
+            "કાનૂની નોટિસ / વૈધાનિક રજૂઆત\n"
+            "LEGAL NOTICE / FORMAL STATUTORY REPRESENTATION\n"
+            "(દાવા-પૂર્વ પુનરાવલોકન અને અભિલેખ માટે જારી — બાહ્ય મોકલવું અક્ષમ / DRAFT INCIDENT SUMMARY — Issued for Pre-Litigation Review & Record — Outbound Transmission Disabled)\n"
+            f"{status_banner}\n\n"
+            f"તારીખ (Date): {date_val}\n"
+            f"સ્થળ (Place): {place_val}\n\n"
+            f"પ્રતિ (TO):\n"
+            f"{other_party_val}\n\n"
+            f"તરફથી (FROM):\n"
+            f"{client_name_val}\n\n"
+            f"વિષય (SUBJECT): {cat_title} બાબતે કાનૂની નોટિસ / વૈધાનિક રજૂઆત — {primary_act}\n\n"
+            "૧. ઘટના વિગતો અને તથ્યો (1. FACTUAL MATRIX & CHRONOLOGY — AI Synthesized Narrative):\n"
+            f"{ai_narrative}\n\n"
+            "   અરજદારનું મૂળ નિવેદન (Complainant's Verbatim Statement):\n"
+            f'   "{account}"\n\n'
+            "૨. નોંધાયેલી ચોક્કસ વિગતો (2. STRUCTURED INCIDENT PARTICULARS):\n"
+            f"   - ઘટનાની તારીખ (Incident Date): {date_val}\n"
+            f"   - ઘટનાનું સ્થળ (Incident Location): {place_val}\n"
+            f"   - સામેનો પક્ષ (Opposing Party): {other_party_val}\n"
+            f"   - અરજદારનું નામ (Complainant Name): {client_name_val}"
+            f"{supplied_extra_str}\n\n"
+            "   Facts still to confirm (ખાતરી માટે બાકી વિગતો):\n"
+            f"{unconfirmed_str}\n\n"
+            "૩. સંબંધિત કાયદાઓ અને કલમો (3. STATUTORY CONTRAVENTIONS & APPLICABLE DHAARA):\n"
+            f"{statutory_status}\n"
+            f"   - પ્રાથમિક લાગુ અધિનિયમ: {primary_act}\n"
+            f"   - કાનૂની ઉલ્લંઘનનું સ્વરૂપ: {primary_contravention}\n"
+            f"{statutory_extra_str}\n\n"
+            "૪. માગણીઓ અને રાહત (4. SPECIFIC DEMANDS & REQUISITE RELIEFS):\n"
+            f"   - તાત્કાલિક ગેરકાયદેસર કાર્યવાહી બંધ કરવી અને યથાસ્થિતિ જાળવવી.\n"
+            f"   - વિશિષ્ટ કાનૂની વળતર: {primary_relief}\n"
+            "   - ૧૫ દિવસની વૈધાનિક નોટિસ (15-Day Statutory Cure Notice): આ નોટિસ મળ્યાના ૧૫ દિવસમાં બાકી લેણાં ચૂકવવા અથવા કાનૂની ઉકેલ લાવવો.\n"
+            "   - સંબંધિત તમામ દસ્તાવેજો અને રેકોર્ડ સુરક્ષિત રાખવા.\n\n"
+            "૫. કાનૂની અધિકારો અને મફત કાનૂની સહાય (5. RESERVATION OF RIGHTS & LEGAL AID):\n"
+            "   આ નોટિસનો સંતોષકારક જવાબ ન મળ્યે, સક્ષમ ન્યાયાલય અથવા ફોરમ સમક્ષ દાવો દાખલ કરવાનો સંપૂર્ણ અધિકાર સુરક્ષિત છે.\n"
+            "   અરજદારને કાનૂની સેવા સત્તામંડળ અધિનિયમ, ૧૯૮૭ ની કલમ ૧૨ હેઠળ મફત કાનૂની સહાય મેળવવાનો અધિકાર છે (નાલસા હેલ્પલાઇન: ૧૫૧૦૦, પોર્ટલ: https://nalsa.gov.in/legal-aid/).\n\n"
+            "આગળનું જરૂરી પગલું: ઔપચારિક નોટિસ અથવા ફરિયાદ મોકલતા પહેલાં કોઈ લાયક વકીલ પાસે પુરાવા અને લાગુ કાયદાઓની ચકાસણી કરાવો.\n"
+            "--------------------------------------------------------------------------------"
+        )
+    else:
+        status_banner = (
+            "[STATUS: DRAFT INCIDENT SUMMARY FOR LEGAL REVIEW — PRELIMINARY INTAKE RECORD (PENDING FACT CONFIRMATION)]"
+            if needs_more_information else
+            "[STATUS: DRAFT INCIDENT SUMMARY FOR LEGAL REVIEW — COMPLETE PRE-LITIGATION NOTICE RECORD (FACTS CONFIRMED)]"
+        )
+        statutory_status = (
+            "   [Preliminary Statutory Mapping — Subject to Verification of Evidence and Qualified Counsel Advice]"
+            if needs_more_information else
+            "   [Verified Statutory Basis from Primary Sources — Pre-Litigation Review Record]"
+        )
+        return (
+            "--------------------------------------------------------------------------------\n"
+            "LEGAL NOTICE / FORMAL STATUTORY REPRESENTATION\n"
+            "(Issued for Pre-Litigation Review & Record — Outbound Transmission Disabled / DRAFT INCIDENT SUMMARY)\n"
+            f"{status_banner}\n\n"
+            f"Date: {date_val}\n"
+            f"Place: {place_val}\n\n"
+            "TO:\n"
+            f"{other_party_val}\n\n"
+            "FROM:\n"
+            f"{client_name_val}\n\n"
+            f"SUBJECT: Formal Legal Notice regarding {cat_title} under {primary_act}\n\n"
+            "1. FACTUAL MATRIX & CHRONOLOGY:\n"
+            "   1. CASE SYNOPSIS & FACTUAL SUMMARY (AI Synthesized Narrative):\n"
+            f"   {ai_narrative}\n\n"
+            "   Account in the person's own words:\n"
+            f"   {account}\n\n"
+            "2. STRUCTURED INCIDENT PARTICULARS:\n"
+            f"   - Incident Date: {date_val}\n"
+            f"   - Incident Location: {place_val}\n"
+            f"   - Opposing Party: {other_party_val}\n"
+            f"   - Complainant: {client_name_val}"
+            f"{supplied_extra_str}\n\n"
+            "   Facts still to confirm:\n"
+            f"{unconfirmed_str}\n\n"
+            "3. STATUTORY CONTRAVENTIONS & APPLICABLE DHAARA:\n"
+            f"{statutory_status}\n"
+            f"   - Governing Act: {primary_act}\n"
+            f"   - Specific Contraventions: {primary_contravention}\n"
+            f"{statutory_extra_str}\n\n"
+            "4. SPECIFIC DEMANDS & REQUISITE RELIEFS:\n"
+            "   In view of the statutory contraventions detailed above, you are hereby called upon to comply with the following demands:\n"
+            "   1. Preservation of Status Quo: Immediately cease and desist from any further adverse, coercive, or retaliatory measures.\n"
+            f"   2. Restitution & Settlement: {primary_relief}\n"
+            "   3. 15-Day Cure Notice: Satisfy the aforementioned requisitions within 15 (fifteen) days from the date of receipt of this notice, failing which appropriate judicial remedies shall be pursued.\n"
+            "   4. Production of Records: Furnish full written reasons, certified account statements, and relevant records concerning this dispute.\n\n"
+            "5. RESERVATION OF RIGHTS & LEGAL AID:\n"
+            "   Take notice that in the event of failure, neglect, or refusal to comply with the demands within the stipulated 15-day window:\n"
+            "   1. Legal Proceedings: The complainant reserves all legal rights to institute appropriate civil, criminal, or consumer proceedings before the competent court, tribunal, or authority, at your sole risk as to costs and consequences.\n"
+            "   2. Institutional Legal Aid (DLSA / NALSA): The complainant explicitly reserves the statutory right to seek institutional legal representation and aid through the District Legal Services Authority (DLSA) / National Legal Services Authority (NALSA) under Section 12 of the Legal Services Authorities Act, 1987 (NALSA Helpline: 15100, Official Portal: https://nalsa.gov.in/legal-aid/).\n\n"
+            "Requested next step: A qualified adviser should review the account, evidence, applicable law, and any filing deadline before a notice or complaint is sent.\n"
+            "--------------------------------------------------------------------------------"
+        )
 
 
 
@@ -1483,11 +2249,9 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
 
 
     lang_code = facts.get("language_code") or facts.get("language")
-
     detected_lang = facts.get("detected_language")
-
-    lang = detect_language(transcript, lang_code=lang_code, detected_language=detected_lang, session_language=facts.get('session_language'))
-
+    utterance_for_lang = meta.get("current_utterance") or transcript
+    lang = detect_language(utterance_for_lang, lang_code=lang_code, detected_language=detected_lang)
     result["language"] = lang
 
 
@@ -1549,15 +2313,14 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
     # Prioritize situation-specific substantive legal questions
     cat_q = (
         CATEGORY_QUESTIONS.get(lang, {}).get(category)
-        or CATEGORY_QUESTIONS.get("en", {}).get(category)
-        or {}
+        or (CATEGORY_QUESTIONS.get("en", {}).get(category) if lang == "en" else {})
     )
 
     fields = (
-        ("specific_details", cat_q.get("specific_details", spec_q)),
-        ("other_party", cat_q.get("other_party", lang_fields["other_party"])),
-        ("incident_date", cat_q.get("incident_date", lang_fields["incident_date"])),
-        ("incident_location", cat_q.get("incident_location", lang_fields["incident_location"])),
+        ("specific_details", cat_q.get("specific_details") or spec_q),
+        ("other_party", cat_q.get("other_party") or lang_fields.get("other_party", "Other party involved")),
+        ("incident_date", cat_q.get("incident_date") or lang_fields.get("incident_date", "When did this incident happen?")),
+        ("incident_location", cat_q.get("incident_location") or lang_fields.get("incident_location", "Where did this incident occur?")),
     )
 
 
@@ -1626,28 +2389,17 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
 
         result["ai_synthesized_summary"] = ai_narrative
 
-        result["formal_document"] = (
+        cand_statutes = facts.get("candidate_statutes") or result.get("candidate_provisions")
 
-            "DRAFT INCIDENT SUMMARY FOR LEGAL REVIEW — DO NOT SUBMIT AS A VERIFIED COMPLAINT\n\n"
-
-            + "1. CASE SYNOPSIS & FACTUAL SUMMARY (AI Synthesized Narrative):\n"
-
-            + ai_narrative + "\n\n"
-
-            + "2. STRUCTURED INCIDENT PARTICULARS:\n"
-
-            + ("\n".join(supplied) + "\n" if supplied else "No structured facts recorded.\n")
-
-            + "\nAccount in the person's own words:\n"
-
-            + f"{account}\n\n"
-
-            + "Facts still to confirm:\n"
-
-            + ("\n".join(f"- {question}" for question in questions) if questions else "- Confirm this account and any supporting records.")
-
-            + "\n\nRequested next step: A qualified adviser should review the account, evidence, applicable law, and any filing deadline before a notice or complaint is sent."
-
+        result["formal_document"] = _build_formal_legal_notice(
+            category=category,
+            facts=facts,
+            transcript=transcript,
+            lang=lang,
+            candidate_statutes=cand_statutes,
+            needs_more_information=True,
+            questions=questions,
+            supplied=supplied
         )
 
     else:
@@ -1700,28 +2452,17 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
 
         result["ai_synthesized_summary"] = ai_narrative
 
-        result["formal_document"] = (
+        cand_statutes = facts.get("candidate_statutes") or result.get("candidate_provisions")
 
-            "DRAFT INCIDENT SUMMARY FOR LEGAL REVIEW — DO NOT SUBMIT AS A VERIFIED COMPLAINT\n\n"
-
-            + "1. CASE SYNOPSIS & FACTUAL SUMMARY (AI Synthesized Narrative):\n"
-
-            + ai_narrative + "\n\n"
-
-            + "2. STRUCTURED INCIDENT PARTICULARS:\n"
-
-            + ("\n".join(supplied) + "\n" if supplied else "No structured facts recorded.\n")
-
-            + "\nAccount in the person's own words:\n"
-
-            + f"{account}\n\n"
-
-            + "Facts still to confirm:\n"
-
-            + "- Confirm this account and any supporting records.\n\n"
-
-            + "Requested next step: A qualified adviser should review the account, evidence, applicable law, and any filing deadline before a notice or complaint is sent."
-
+        result["formal_document"] = _build_formal_legal_notice(
+            category=category,
+            facts=facts,
+            transcript=transcript,
+            lang=lang,
+            candidate_statutes=cand_statutes,
+            needs_more_information=False,
+            questions=[],
+            supplied=supplied
         )
 
 
@@ -1776,10 +2517,10 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
 
     # Check for urgent safety priority
     urgent_block = rights_data.get("urgent_help")
-    urgent_prefix = f"{urgent_block['message']} " if urgent_block else ""
+    urgent_prefix = f"{urgent_block['message']} " if urgent_block and urgent_block.get("is_urgent") else ""
 
     if missing:
-        # Ask first missing question
+        # Ask first missing question directly and conversationally
         question_to_ask = questions[0] if questions else spec_q
         if is_followup:
             # Subsequent turns: directly ask the question without formalities

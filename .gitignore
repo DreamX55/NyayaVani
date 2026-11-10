@@ -12,4 +12,5 @@ runtime_tmp/
 xcuserdata/
 *.xcworkspace/xcuserdata/
 DerivedData/
+.agents/
 

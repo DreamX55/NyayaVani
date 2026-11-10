@@ -33,15 +33,40 @@ def test_marathi_language_identification():
         assert detected == "mr", f"Expected 'mr' for Marathi statement: {text}, got '{detected}'"
 
 
+def test_hindi_language_identification():
+    """Verify Hindi sentences in Devanagari and Romanized forms are detected as 'hi', not misclassified as 'mr' or 'pa'."""
+    hindi_samples = [
+        "मेरी दुकान नगर निगम ने तोड़ दी और सारा सामान जब्त कर लिया",
+        "नमस्ते साहब, मैं जुहू beach पर फल का ठेला लगाता हूँ। आज पुलिस वाले आए और बोले कि दुकान तुरंत हटाओ।",
+        "पैसे नहीं दिए और गाली दी",
+        "मालिक ने तीन महीने से तनख्वाह नहीं दी है",
+        "मेरी गाड़ी में पीछे से टक्कर मार दी और ड्राइवर भाग गया",
+        "साहब मुझे न्याय चाहिए, हमारी मदद कीजिए",
+        "ठेकेदार पैसे नहीं दे रहा है और धमकी दे रहा है",
+        "meri dukan tod di",
+        "mera thela hata diya",
+        "humko madat chahiye",
+        "paisa nahi diya"
+    ]
+    for text in hindi_samples:
+        detected = detect_language(text)
+        assert detected == "hi", f"Expected 'hi' for Hindi statement: {text}, got '{detected}'"
+
+
 def test_acoustic_asr_detected_language_priority():
-    """Verify acoustic ASR detected language (e.g. mr-IN) is respected even with neutral Devanagari."""
-    neutral_devanagari = "काम झाले"
+    """Verify acoustic ASR detected language (e.g. mr-IN or hi-IN) is respected even with neutral Devanagari."""
+    neutral_devanagari = "काम हुआ"
+    # When ASR acoustic detection says Hindi, it must not be forced to Marathi
+    result_hi = detect_language(neutral_devanagari, detected_language="hi-IN")
+    assert result_hi == "hi"
+
+    neutral_marathi = "काम झाले"
     # When ASR acoustic detection says Marathi, it must not be forced to Hindi
-    result = detect_language(neutral_devanagari, detected_language="mr-IN")
+    result = detect_language(neutral_marathi, detected_language="mr-IN")
     assert result == "mr"
 
     # When user explicitly selected Marathi
-    result_explicit = detect_language(neutral_devanagari, lang_code="mr-IN")
+    result_explicit = detect_language(neutral_marathi, lang_code="mr-IN")
     assert result_explicit == "mr"
 
 
