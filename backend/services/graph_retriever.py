@@ -60,7 +60,8 @@ DOMAIN_ANCHORS = [
     # 1. Food safety / contaminated / spoiled / unhygienic
     ([
         "बासी", "सड़ा", "सड़े", "खराब खाना", "food safety", "fssai", "दूषित", "मिलावटी",
-        "બગડેલો", "ખરાબ ખોરાક", "શિળે", "सडलेले", "शिळं पाणी", "माल फेकून दिला",
+        "બગડેલો", "ખરાબ ખોરાક", "શિળે", "सडलेले", "शिळं पाणी", "माल फेकून दिला", "गाडी सील",
+        "સડેલું અને વાસી", "વાસી ખાવાનું", "ફૂડ ઇન્સ્પેક્ટરે", "લારી સીલ",
         "കുഴഞ്ഞ", "கெட்டுப்போன", "పాడైన", "rotten", "spoiled", "unhygienic", "stale food", "poisoning",
         "ਸੜਿਆ", "খাবার বাসি", "খাবার নষ্ট", "കെട്ടുഹോദ", "ಅపరిಶುಭ್ರ",
         "खाद्य सुरक्षा", "food adulteration", "toxic food", "फूड सेफ्टी"
@@ -80,6 +81,7 @@ DOMAIN_ANCHORS = [
         "पक्का खोखा", "अस्पताल के बाहर", "एम्बुलेंस", "रास्ता बंद", "permanent structure",
         "hospital gate", "blocking emergency", "sidewalk wall", "ફૂટપાથ પર પાકું", "પક્કું બાંધકામ",
         "पक्का बांधकाम", "एम्बुलेंसचा रस्ता", "ambulance blocked", "permanent brick", "encroachment",
+        "हॉस्पिटलच्या गेटसमोर", "पक्कं दुकान", "ॲम्ब्युलन्स अडत", "એમ્બ્યુલન્સ", "अस्पताल गेट", "हॉस्पिटल गेट",
         "ಆಸ್ಪತ್ರೆ ಗೇಟ್", "மருத்துவமனை", "ఆసుపత్రి", "হাসপাতাল গেট", "হসপিটালের সামনে", "ਹਸਪਤਾਲ ਗੇਟ",
         "ആശുപത്രി ഗേറ്റ്", "பொது நடைபாதை ஆக்கிரமிப்பு", "ఫుట్‌పాత్ ఆక్రమణ", "రహదారి మూసివేత"
     ], "STATUTE_MUNICIPAL_OBSTRUCTION_SEC_3_2"),
@@ -88,6 +90,7 @@ DOMAIN_ANCHORS = [
     ([
         "sarfaesi", "नीलामी", "किस्त", "emi default", "बैंक वाले", "dukan auction", "auction notice",
         "દુકાન હરાજી", "હપ્તો બાકી", "બૅન્ક", "बँक लिलाव", "हप्ते थकले", "बँकेचे हफ्ते", "लिलाव करू",
+        "बँकेने दुकानावर", "लिलाव काढला", "હરાજી", "હપ્તો",
         "ലേലം", "loan default", "auction of shop", "bank recovery", "ലേല നോട്ടീസ്", "ఎంబీ డిఫాల్ట్",
         "ಹರಾಜು", "নিলাম", "ব্যাংকের নোটিশ", "ਕਿਸ਼ਤਾਂ ਬਕਾਇਆ", "ਬੈਂਕ ਨਿਲਾਮੀ", "வங்கி ஏலம்", "తవణ బకాయి"
     ], "STATUTE_SARFAESI_SEC_13_BANK_RECOVERY"),
@@ -106,7 +109,8 @@ DOMAIN_ANCHORS = [
     ([
         "loan app", "लोन ऐप", "लोन एप", "morphed", "मॉर्फ", "contacts hack", "ब्लैकमेल", "गंदी फोटो",
         "रिश्तेदारों को", "photo morph", "contact list hack", "લોન એપ", "મોર્ફ", "નગ્ન ફોટો", "મોબાઇલ લોન",
-        "मोबाईल लोन ॲप", "मॉर्फ केलेले", "डिजिटल कर्ज ॲप", "विकृतीकरण", "खंडणी",
+        "मोबाईल लोन ॲप", "मॉर्फ केलेले", "डिजिटल कर्ज ॲप", "विकृतीकरण", "सगळे कॉन्टॅक्ट्स हॅक",
+        "घाणेरडे फोटो", "नातेवाईकांना पाठवून", "કોન્ટેક્ટ્સ હેક", "સગા સંબંધીઓને", "લોન એપ", "નગ્ન ફોટો",
         "கடன் ஆப்", "மார்ஃபிங்", "రుణ యాప్", "మార్ఫింగ్", "cyber fraud", "gallery hack", "nude photo",
         "threaten contacts", "ಲೋನ್ ಆಪ್", "മോർഫ്", "ബ്ലැക്മെയിൽ", "ਫਿਰੌਤੀ", "ਲੋਨ ਐਪ", "মর্ফ", "তোলাবাজি",
         "ஆபாசமாக", "రుణ యాప్ వాళ్ళు", "మారఫింగ్", "বিকৃত ছবি"
@@ -115,7 +119,8 @@ DOMAIN_ANCHORS = [
     # 7. Unpaid Wages / Salary Withholding / Contractor default
     ([
         "मजदूरी", "salary", "wage", "तनख्वाह", "मजदूरी रोक", "काम करवाया पैसे नहीं दिए", "thekedar",
-        "ठेकेदार", "कंत्राटदार", "पगार दिला नाही", "વેતન આપ્યું નથી", "કૉન્ટ્રેક્ટર", "శాలరీ ఇవ్వలేదు",
+        "ठेकेदार", "कंत्राटदार", "पगार दिला नाही", "वेतन संदाय अधिनियम", "पगार थकवला", "मजुरी थकवली", "मजुरी",
+        "વેતન આપ્યું નથી", "કૉન્ટ્રેક્ટર", "કોન્ટ્રાક્ટરે", "મજૂરી આપવાની ના", "૪૦ હજાર મજૂરી", "મજૂરી",
         "వేతనం", "ശമ്പളം തന്നില്ല", "കൂലി தரவில்லை", "বেতন দেয়নি", "unpaid salary", "withheld wages",
         "months salary", "ವೇತನ", "ಕೂಲಿ", "ਠੇਕੇਦਾਰ", "ਤਨਖਾਹ ਨਹੀਂ ਦਿੱਤੀ", "मजुरी थकवली", "বকেয়া বেতন",
         "சம்பள பாக்கி", "జీతం ఇవ్వకుండా", "ശമ്പള കുടിശ്ശിക", "ಸಂಬಳ ಬಾಕಿ", "శ్రామికుల వేతనం",
@@ -147,6 +152,8 @@ DOMAIN_ANCHORS = [
     ([
         "msme", "माल सप्लाई", "45 दिन", "payment overdue", "commercial invoice", "goods delivered",
         "60 दिन हो गए", "12 लाख", "માલ મોકલ્યો", "ઇન્વોઇસ", "સપ્લાય", "मालाचा पुरवठा", "বিল", "ઇનવોઇસ",
+        "लघुउद्योग", "सुटे भाग", "एमएसएमई कायद्याच्या", "कलम १५ व १६", "४५ दिवसांनंतरही", "देणी अडवून",
+        "લઘુ ઉદ્યોગ", "ઇન્વોઇસ પેન્ડિંગ", "ત્રણ ગણું વ્યાજ", "વ્યાજ",
         "వస్తువులు సరఫరా", "பொருட்கள் சப்ளை", "goods supplied", "invoices pending", "samadhaan",
         "ಸರಕು ಸರಬರಾಜು", "ਸਮਾਨ ਸਪਲਾਈ", "ਮਾਲ ਭੇਜਿਆ", "বানিজ্যিক সরবরাহ", "വാണിജ്യ ഇൻവോയ്സ്", "సరుకు పంపిణీ"
     ], "STATUTE_MSMED_SEC_15_16_INTEREST"),
@@ -155,6 +162,8 @@ DOMAIN_ANCHORS = [
     ([
         "rera", "builder", "flat", "possession delay", "occupancy certificate", "oc नहीं दिया",
         "बिल्डर ने फ्लैट", "हैंडओवर", "બિલ્ડરે ફ્લેટ", "પઝેશન", "બિલ્ડર", "बिल्डरने ताबा",
+        "फ्लॅटचा ताबा", "ताबा देण्याचे", "ओसी मिळालेली नाही", "काम बंद पाडले", "फ्लॅट", "ताबा",
+        "બિલ્ડરે ફ્લેટનો કબજો", "ફ્લેટનો કબજો", "કબજો", "ઓસી વગર", "રિફંડ જોઈએ", "બિલ્ડરે",
         "கட்டிட உரிமையாளர்", "ఫ్లాట్ హ్యాండోవర్", "ਬਿਲਡਰ", "handover delayed", "builder delayed",
         "luxury 3bhk", "ಫ್ಲ್ಯಾಟ್", "অবৈধ বিলম্ব", "বিল্ডার ফ্ল্যাট", "பில்டர் தாமதம்", "ఫ్లాట్ అప్పగింత",
         "പ്രൊമോട്ടർ", "പ്രൊജക്റ്റ് വൈകൽ", "ਫ਼ਲੈਟ ਦਾ ਕਬਜ਼ਾ", "પ્રમોટર", "अधिभोग प्रमाण पत्र",
@@ -178,6 +187,7 @@ DOMAIN_ANCHORS = [
         "bsa", "audio evidence", "tamper", "call recording", "hash", "sec 63", "इलेक्ट्रॉनिक साक्ष्य",
         "રેકોર્ડિંગ સાચવી", "ಕರೆ ರೆಕಾರ್ಡಿಂಗ್", "ಸಾಕ್ಷ್ಯ", "மின்னணு ஆதாரம்", "ఎలక్ట్రానిక్ సాక్ష్యం",
         "ইলেকট্রনিক প্রমাণ", "ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਬੂਤ", "ഇലക്ട്രോണിക് തെളിവ്", "डिजिटल पुरावा", "ಸೆಕ್ಷನ್ 63",
+        "લાંચ માંગવાની ઓડિયો", "કોર્ટ માન્ય ડીજીટલ પુરાવો", "ડીજીટલ પુરાવો", "कोर्ट पुरावा",
         "ஆடியோ பதிவு", "ஆடியோ റെക്കോർഡിംഗ്", "ఆడియో రికార్డింగ్", "ಆಡಿಯೋ ರೆಕಾರ್ಡಿಂಗ್", "অডিও রেকর্ডিং",
         "ਆਡੀਓ ਰਿਕਾਰਡਿੰਗ", "நீதிமன்றத்தில்", "അദാലത്", "కోర్టులో", "ನ್ಯಾಯಾಲಯದಲ್ಲಿ", "আদালতে",
         "ഡിജിറ്റൽ തെളിവായി"
@@ -559,11 +569,16 @@ class LegalGraphRetriever:
                 "violator_liability": "Subject to formal verification of acts committed."
             }
 
-        # Determine domain from top matched root nodes, prioritizing citizen fault/statutory violations
-        root_ids = [r["id"] for r in root_nodes[:3]]
+        # Determine domain from top matched root nodes with Rank 1 Primacy
+        primary_node = root_nodes[0]["id"] if root_nodes else ""
+        secondary_node = root_nodes[1]["id"] if len(root_nodes) > 1 else ""
 
         def matches_domain(prefix: str) -> bool:
-            return any(prefix in rid for rid in root_ids)
+            # If Rank 1 is an explicit statutory protection, constitutional right, or evidence section, it has absolute domain primacy
+            if primary_node.startswith("STATUTE_") or primary_node.startswith("CONSTITUTION_") or primary_node.startswith("EVIDENCE_"):
+                return prefix in primary_node
+            # If Rank 1 is a generic penal node (e.g. PENAL_BNS_308, PENAL_BNS_106), inspect Rank 2 as well
+            return (prefix in primary_node) or (prefix in secondary_node)
 
         # 2. Citizen At Fault / Lawful Authority Enforcement Handlers
         if matches_domain("FSSAI") or matches_domain("FOOD_SAFETY"):
