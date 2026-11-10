@@ -5,7 +5,6 @@
  */
 
 import { HeroAnimations } from './hero-animations.js';
-import { LivingSphere } from './sphere.js';
 
 const THEME_STORAGE_KEY = 'nyayavani_ui_theme';
 
@@ -25,7 +24,6 @@ export const ThemeManager = {
     // 1. Set DOM attribute
     document.documentElement.setAttribute('data-theme', this.currentTheme);
     document.body.setAttribute('data-theme', this.currentTheme);
-    LivingSphere.setTier(this.currentTheme);
 
     // 2. Update Top Slider Switch
     const btnFree = document.getElementById('slider-btn-free');

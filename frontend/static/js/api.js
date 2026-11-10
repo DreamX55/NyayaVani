@@ -63,10 +63,11 @@ export const ApiClient = {
     return await res.json();
   },
 
+  async sendMessage(payload) {
+    return this.submitChat(payload);
+  },
+
   async submitChat(payload) {
-    if (payload && !payload.message && payload.text) {
-      payload.message = payload.text;
-    }
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
@@ -82,20 +83,11 @@ export const ApiClient = {
   async transcribeAudio(audioBlob, filename = 'speech.wav') {
     const formData = new FormData();
     formData.append('audio', audioBlob, filename);
-    let res = await fetch('/api/transcribe', {
+    const res = await fetch('/api/stt', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: formData
-    }).catch(() => null);
-
-    if (!res || !res.ok) {
-      res = await fetch('/api/stt', {
-        method: 'POST',
-        headers: this.getAuthHeaders(),
-        body: formData
-      });
-    }
-
+    });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || 'Voice transcription failed');
@@ -104,20 +96,11 @@ export const ApiClient = {
   },
 
   async generateTTS(payload) {
-    let res = await fetch('/api/rights/audio', {
+    const res = await fetch('/api/tts', {
       method: 'POST',
       headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(payload)
-    }).catch(() => null);
-
-    if (!res || !res.ok) {
-      res = await fetch('/api/tts', {
-        method: 'POST',
-        headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify(payload)
-      });
-    }
-
+    });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || 'Speech synthesis failed');
@@ -125,21 +108,12 @@ export const ApiClient = {
     return await res.json();
   },
 
-  async approvePacket(packetId, caseId, approvedBy = 'Client') {
-    let res = await fetch(`/api/pro/packet/${packetId}/approve`, {
+  async approvePacket(packetId, caseId) {
+    const res = await fetch('/api/pro/approve', {
       method: 'POST',
       headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
-      body: JSON.stringify({ approved_by: approvedBy, packet_id: packetId, case_id: caseId })
-    }).catch(() => null);
-
-    if (!res || !res.ok) {
-      res = await fetch('/api/pro/approve', {
-        method: 'POST',
-        headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({ approved_by: approvedBy, packet_id: packetId, case_id: caseId })
-      });
-    }
-
+      body: JSON.stringify({ packet_id: packetId, case_id: caseId })
+    });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || 'Approval failed');
@@ -148,20 +122,11 @@ export const ApiClient = {
   },
 
   async testOutboundBoundary(packetId, caseId) {
-    let res = await fetch(`/api/pro/packet/${packetId}/send`, {
+    const res = await fetch('/api/pro/outbound', {
       method: 'POST',
       headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ packet_id: packetId, case_id: caseId })
-    }).catch(() => null);
-
-    if (!res || !res.ok) {
-      res = await fetch('/api/pro/outbound', {
-        method: 'POST',
-        headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({ packet_id: packetId, case_id: caseId })
-      });
-    }
-
+    });
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || 'Boundary validation failed');
@@ -170,26 +135,14 @@ export const ApiClient = {
   },
 
   async purgeSession() {
-    let res = await fetch('/api/privacy/purge', {
+    const res = await fetch('/api/session/purge', {
       method: 'POST',
       headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({
         session_id: this.getSessionToken(),
         session_token: this.getSessionToken()
       })
-    }).catch(() => null);
-
-    if (!res || !res.ok) {
-      res = await fetch('/api/session/purge', {
-        method: 'POST',
-        headers: this.getAuthHeaders({ 'Content-Type': 'application/json' }),
-        body: JSON.stringify({
-          session_id: this.getSessionToken(),
-          session_token: this.getSessionToken()
-        })
-      });
-    }
-
+    });
     if (!res.ok) {
       throw new Error('Failed to purge session data');
     }

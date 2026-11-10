@@ -712,29 +712,3 @@ body {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* --------------------------------------------------------------------------
-   Living Chromatic Sphere Canvas & Layout
-   -------------------------------------------------------------------------- */
-#orb-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.sphere-glow-ring {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  pointer-events: none;
-  transition: all 0.5s ease;
-}
-
-[data-theme="free"] .sphere-glow-ring {
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(14, 165, 233, 0.10) 50%, transparent 75%);
-}
-
-[data-theme="pro"] .sphere-glow-ring {
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(16, 185, 129, 0.12) 50%, transparent 75%);
-}

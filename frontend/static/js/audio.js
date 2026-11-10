@@ -5,7 +5,6 @@
  */
 
 import { ApiClient } from './api.js';
-import { LivingSphere } from './sphere.js';
 
 let mediaRecorder = null;
 let audioChunks = [];
@@ -189,12 +188,6 @@ export const AudioEngine = {
         if (AudioContextClass) {
           recordingAudioContext = new AudioContextClass();
           recordingSourceNode = recordingAudioContext.createMediaStreamSource(stream);
-          const orbAnalyser = recordingAudioContext.createAnalyser();
-          orbAnalyser.fftSize = 64;
-          recordingSourceNode.connect(orbAnalyser);
-          LivingSphere.connectAudioAnalyser(orbAnalyser);
-          LivingSphere.setState('listening');
-
           recordingProcessorNode = recordingAudioContext.createScriptProcessor(4096, 1, 1);
           recordingProcessorNode.onaudioprocess = (e) => {
             if (!isRecordingActive) return;
@@ -282,7 +275,6 @@ export const AudioEngine = {
       return;
     }
     isRecordingActive = false;
-    LivingSphere.setState('thinking');
 
     if (recordInterval) {
       clearInterval(recordInterval);
@@ -339,7 +331,6 @@ export const AudioEngine = {
       recordInterval = null;
     }
     isRecordingActive = false;
-    LivingSphere.setState('thinking');
     if (mediaRecorder && mediaRecorder.state === 'recording') {
       mediaRecorder.ondataavailable = null;
       mediaRecorder.onstop = null;
@@ -383,16 +374,11 @@ export const AudioEngine = {
     try {
       currentAudio = new Audio(url);
       currentAudio.playbackRate = currentPlaybackSpeed;
-      currentAudio.onplay = () => LivingSphere.setState('speaking');
-      currentAudio.onended = () => LivingSphere.setState('idle');
-      currentAudio.onpause = () => LivingSphere.setState('idle');
       currentAudio.play().catch(e => {
         console.log('Audio autoplay note:', e);
-        LivingSphere.setState('idle');
       });
     } catch (err) {
       console.warn('Audio playback error:', err);
-      LivingSphere.setState('idle');
     }
   },
 
@@ -543,21 +529,5 @@ export const AudioEngine = {
     if (!notice) return;
     notice.classList.remove('hidden');
     notice.textContent = msg;
-  },
-
-  setPlaybackSpeed(speed) {
-    currentPlaybackSpeed = parseFloat(speed) || 1.0;
-    if (currentAudio) currentAudio.playbackRate = currentPlaybackSpeed;
-    const sMap = { 0.8: 'speed-08', 1.0: 'speed-10', 1.2: 'speed-12' };
-    [0.8, 1.0, 1.2].forEach(s => {
-      const el = document.getElementById(sMap[s]);
-      if (el) {
-        if (Math.abs(s - currentPlaybackSpeed) < 0.05) {
-          el.className = 'px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent)] text-white shadow-sm';
-        } else {
-          el.className = 'px-2 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-subtle)]';
-        }
-      }
-    });
   }
 };

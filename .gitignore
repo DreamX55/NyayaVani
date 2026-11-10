@@ -14,3 +14,6 @@ xcuserdata/
 DerivedData/
 .agents/
 
+*.mp4
+audio_samples/
+.agents/

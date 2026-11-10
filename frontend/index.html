@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator & Autonomous Incident Suite</title>
+  <title>NyayaVani (न्यायवाणी) — Sovereign Indic Voice Legal Navigator</title>
   
-  <!-- Typography: Cinzel, Syne, Inter, JetBrains Mono -->
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -21,15 +21,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    /* Fixed Workspace Layout & Viewport Lock */
-    #chat-section {
-      height: 100dvh;
-      max-height: 100dvh;
-      overflow: hidden;
-    }
   </style>
 </head>
-<body class="antialiased min-h-screen text-[var(--text-primary)] bg-[var(--bg-app)]">
+<body class="antialiased min-h-screen">
 
   <!-- ======================================================== -->
   <!-- 1. CLEANED-UP HERO LANDING / ENTRY PAGE                  -->
@@ -37,12 +31,14 @@
   <section id="landing-section" class="relative min-h-screen flex flex-col justify-between themed-grid-bg themed-glow-radial px-6 md:px-16 pt-8 pb-12 border-b border-[var(--border-subtle)]">
     
     <!-- Top Nav -->
-    <header class="flex items-center justify-between py-3.5 px-6 themed-glass rounded-full max-w-7xl mx-auto w-full shadow-sm z-20">
+    <header class="flex items-center justify-between py-3.5 px-6 themed-glass rounded-full max-w-7xl mx-auto w-full shadow-sm">
       
       <!-- Top Left: Animated NyayaVani Logo -->
       <a href="#landing-section" class="logo-container" aria-label="NyayaVani Home">
         <div class="logo-badge">
+          <!-- Animated Pulsing Soundwave Ring in Contrasting Color (Electric Purple / Coral Blue) -->
           <div class="soundwave-ring"></div>
+          <!-- Animated Swaying Scales of Justice SVG -->
           <svg class="logo-svg text-[var(--primary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="3" x2="12" y2="21"></line>
             <path d="M4 7l8-2 8 2"></path>
@@ -60,21 +56,21 @@
       <div class="flex items-center space-x-3">
         <!-- Free vs Pro Slider Switch -->
         <div class="mode-slider-wrap" role="radiogroup" aria-label="Theme & Tier Switcher">
-          <button id="slider-btn-free" class="slider-tab-btn active" onclick="switchTheme('free')" title="Switch to Bharat Grassroots Aid (Free: Ivory + Coral Blue + Electric Purple)">
+          <button id="slider-btn-free" class="slider-tab-btn active" onclick="switchTheme('free')" title="Switch to Bharat Grassroots Aid (Free: White + Blue + Electric Purple)">
             <span>🏛️ Free</span>
           </button>
-          <button id="slider-btn-pro" class="slider-tab-btn" onclick="switchTheme('pro')" title="Switch to NyayaVani Pro Suite (Pro: Obsidian Black + Imperial Gold + Emerald)">
+          <button id="slider-btn-pro" class="slider-tab-btn" onclick="switchTheme('pro')" title="Switch to NyayaVani Pro Suite (Pro: Obsidian Black + Imperial Gold + Emerald Green)">
             <span>💼 Pro</span>
           </button>
           <div class="mode-slider-pill"></div>
         </div>
 
         <!-- Purge Session Cache -->
-        <button onclick="NyayaVaniApp.purgeSession?.() || clearChat()" title="Purge session audio & cached drafts" class="hidden sm:inline-flex px-3 py-1.5 text-xs font-mono rounded-full border border-red-500/30 text-red-500 hover:bg-red-500/10 transition">
+        <button onclick="NyayaVaniApp.purgeSessionData?.() || clearChat()" title="Purge session audio & cached drafts" class="hidden sm:inline-flex px-3 py-1.5 text-xs font-mono rounded-full border border-red-500/30 text-red-500 hover:bg-red-500/10 transition">
           Purge
         </button>
 
-        <!-- Enter Legal Chat CTA -->
+        <!-- Enter Legal Chat / Access Guideline Agent CTA -->
         <button id="btn-top-cta" onclick="enterChatFlow()" class="cta-primary-btn py-2 px-4 text-xs rounded-full">
           <span>Enter Legal Chat</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -82,7 +78,7 @@
       </div>
     </header>
 
-    <!-- Hero Center -->
+    <!-- Hero Center (Cleaned Up - No Telemetry Clutter) -->
     <div class="max-w-4xl mx-auto text-center my-auto py-12 md:py-20">
       
       <!-- Value Proposition Badge with Multilingual Rotating Capsule (Cycles every 2.5s) -->
@@ -95,7 +91,7 @@
         </div>
       </div>
 
-      <!-- Main Headline with Atmospheric Glowing Emergence -->
+      <!-- Main Headline with Glowing Emergence (Atmospheric Glow Appearance) -->
       <h1 id="hero-headline" class="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.08] mb-8 hero-title-glow hero-title-glowing">
         <span id="hero-title-line1" class="text-[var(--text-primary)]">Tell your story.</span><br>
         <span id="hero-title-line2" class="hero-gradient-text">Understand your next step.</span>
@@ -106,7 +102,7 @@
         <span id="hero-subtext-content"></span><span id="hero-subtext-cursor" class="typewriter-cursor">|</span>
       </p>
 
-      <!-- Primary Action Button: Single Direct CTA -->
+      <!-- Primary Action Button: Single Direct CTA (No Example Questions Button) -->
       <div class="flex items-center justify-center mb-16">
         <button id="hero-main-cta" onclick="startVoiceChatFlow()" class="cta-primary-btn py-4 px-9 text-sm w-full sm:w-auto shadow-lg">
           <span>START WITH YOUR VOICE</span>
@@ -114,7 +110,7 @@
         </button>
       </div>
 
-      <!-- Human-Centric Feature Highlights -->
+      <!-- Human-Centric Feature Highlights (Vivid Contrasting Color Triages) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left font-mono text-xs">
         <div class="p-4 rounded-xl border border-[var(--primary-border)] bg-[var(--bg-card)] shadow-sm">
           <div class="text-[var(--primary)] uppercase font-bold">// SPOKEN GUIDANCE</div>
@@ -168,111 +164,75 @@
   </section>
 
   <!-- ======================================================== -->
-  <!-- 2. UNIFIED WORKSPACE SECTION                             -->
+  <!-- 2. CHAT WORKSPACE SECTION (Exact Buttons & Features)    -->
   <!-- ======================================================== -->
-  <section id="chat-section" class="relative flex flex-col md:flex-row bg-[var(--bg-app)] border-t border-[var(--border-subtle)]">
+  <section id="chat-section" class="relative min-h-screen flex flex-col md:flex-row bg-[var(--bg-app)] border-t border-[var(--border-subtle)]">
     
-    <!-- ======================================================== -->
-    <!-- LEFT SIDEBAR: LIVING CHROMATIC SPHERE & CONTROLS         -->
-    <!-- (Fixed & Anchored — Never Scrolls)                      -->
-    <!-- ======================================================== -->
-    <aside id="orb-container" class="w-full md:w-80 lg:w-[380px] bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] flex flex-col justify-between p-5 shadow-sm shrink-0 overflow-y-auto z-10">
+    <!-- Left Sidebar -->
+    <aside class="w-full md:w-80 bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] flex flex-col justify-between p-5 shadow-sm">
       <div>
-        <!-- Sidebar Brand & Navigation -->
-        <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)] mb-4">
+        <!-- Sidebar Brand -->
+        <div class="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-6">
           <div class="flex items-center space-x-2">
             <span class="pulse-indicator-contrast"></span>
             <span class="font-cinzel font-bold text-sm text-[var(--text-primary)]">NYAYAVANI</span>
-            <span id="sidebar-tier-badge" class="contrast-badge text-[10px]">BHARAT AID</span>
           </div>
           <button onclick="scrollToLanding()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] flex items-center space-x-1 transition">
             <span>↑ Overview</span>
           </button>
         </div>
 
-        <!-- Interactive Living Chromatic Sphere (Orb) Canvas -->
-        <div class="relative w-full h-[220px] rounded-2xl overflow-hidden bg-[var(--bg-card)] border border-[var(--border-subtle)] mb-4 flex items-center justify-center shadow-sm">
-          <canvas id="orb-canvas" class="w-full h-full cursor-pointer" onclick="toggleMicrophone()" title="Tap sphere to start voice recording"></canvas>
-          <div class="sphere-glow-ring w-44 h-44"></div>
-          
-          <!-- Live Voice State Indicator on Canvas -->
-          <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/60 backdrop-blur border border-[var(--border-subtle)] text-[10px] font-mono font-bold flex items-center space-x-1.5 text-white shadow-md">
-            <span id="orb-status-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="orb-status-text">Living Voice Sphere · Ready</span>
-          </div>
-        </div>
-
-        <!-- Voice Controls & Playback Speed Pills -->
-        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] mb-4">
-          <div class="flex items-center space-x-1.5">
-            <button onclick="toggleMicrophone()" id="orb-mic-btn" class="cta-primary-btn py-1.5 px-3 text-xs rounded-lg flex items-center space-x-1">
-              <span>🎙️</span>
-              <span>Tap to Talk</span>
-            </button>
-          </div>
-          <div class="flex items-center space-x-1">
-            <span class="text-[10px] font-mono text-[var(--text-muted)] mr-1">Speed:</span>
-            <button id="speed-08" onclick="setPlaybackSpeed(0.8)" class="px-2 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition">0.8x</button>
-            <button id="speed-10" onclick="setPlaybackSpeed(1.0)" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[var(--accent)] text-white shadow-sm transition">1.0x</button>
-            <button id="speed-12" onclick="setPlaybackSpeed(1.2)" class="px-2 py-0.5 rounded text-[10px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition">1.2x</button>
-          </div>
-        </div>
-
         <!-- Mode Selector Switcher (Synced with top slider) -->
-        <div class="mb-4">
+        <div class="mb-6">
           <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Operating Tier</label>
-          <div class="grid grid-cols-2 gap-2">
-            <button id="btn-tier-free" onclick="setTier('BHARAT_GRASSROOTS_AID')" class="p-2.5 text-left rounded-xl border-2 border-blue-600 bg-blue-50 text-slate-900 transition flex items-center justify-between shadow-sm">
+          <div class="grid grid-cols-1 gap-2">
+            <button id="btn-tier-free" onclick="setTier('BHARAT_GRASSROOTS_AID')" class="p-3 text-left rounded-xl border border-blue-500/50 bg-blue-50 text-slate-900 transition flex items-center justify-between shadow-sm">
               <div>
-                <div class="font-bold text-xs">🏛️ Grassroots</div>
-                <div class="text-[10px] text-slate-500">Free / Voice First</div>
+                <div class="text-xs font-bold text-blue-700">🏛️ Bharat Grassroots Aid</div>
+                <div class="text-[10px] text-slate-500 mt-0.5">Free guidance and draft support</div>
               </div>
-              <span class="text-[10px] text-white font-mono font-bold px-2 py-0.5 rounded-full bg-[#7C3AED]">ACTIVE</span>
+              <span class="text-xs text-white font-mono font-bold px-2 py-0.5 rounded-full bg-[var(--accent)]">ACTIVE</span>
             </button>
-            <button id="btn-tier-pro" onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="p-2.5 text-left rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-slate-700 transition flex items-center justify-between">
+            <button id="btn-tier-pro" onclick="setTier('ENTERPRISE_LEGAL_SUITE')" class="p-3 text-left rounded-xl border border-slate-200 bg-white hover:border-slate-300 text-slate-700 transition flex items-center justify-between">
               <div>
-                <div class="font-bold text-xs">💼 Pro Suite</div>
-                <div class="text-[10px] text-slate-500">Autonomous Legal</div>
+                <div class="text-xs font-bold text-amber-500">💼 NyayaVani Pro Suite</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">Enterprise, Fleets & Accident Triage</div>
               </div>
-              <span class="text-[10px] text-slate-400 font-mono">PRO</span>
+              <span class="text-xs text-slate-400 font-mono">PRO</span>
             </button>
           </div>
         </div>
 
-        <!-- Language & Voice Selection -->
-        <div class="space-y-3 mb-4">
-          <div>
-            <label for="select-language" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">Language / मातृभाषा</label>
-            <select id="select-language" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
-              <option value="indic-auto">Auto detect (स्वचालित पहचान)</option>
-              <option value="hi-IN">Hindi (हिंदी)</option>
-              <option value="mr-IN">Marathi (मराठी)</option>
-              <option value="gu-IN">Gujarati (ગુજરાતી)</option>
-              <option value="en-IN">English (Indian Legal)</option>
-              <option value="bn-IN">Bengali (বাংলা)</option>
-              <option value="ta-IN">Tamil (தமிழ்)</option>
-              <option value="te-IN">Telugu (తెలుగు)</option>
-              <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
-              <option value="ml-IN">Malayalam (മലയാളം)</option>
-              <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ)</option>
-            </select>
-          </div>
+        <!-- Language & Voice Selectors -->
+        <div class="mb-6">
+          <label for="select-language" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Language spoken</label>
+          <select id="select-language" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs text-[var(--text-primary)] p-2.5 focus:border-[var(--accent)] outline-none mb-3">
+            <option value="indic-auto">Auto detect</option>
+            <option value="hi-IN">Hindi</option><option value="en-IN">English</option>
+            <option value="bn-IN">Bengali</option><option value="mr-IN">Marathi</option>
+            <option value="ta-IN">Tamil</option><option value="te-IN">Telugu</option>
+            <option value="gu-IN">Gujarati</option><option value="kn-IN">Kannada</option>
+            <option value="ml-IN">Malayalam</option><option value="pa-IN">Punjabi</option>
+          </select>
 
-          <div>
-            <label for="select-voice" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1">Spoken Voice Persona</label>
-            <select id="select-voice" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
-              <option value="Shivani">Shivani (Hindi - Rights Shield)</option>
-              <option value="Vasudha">Vasudha (Marathi - अस्खलित मराठी)</option>
-              <option value="Tarika">Tarika (Gujarati & Punjabi)</option>
-              <option value="Kalpana">Kalpana (Tamil - தமிழ்)</option>
-              <option value="Lakshmi">Lakshmi (Telugu / Conversational)</option>
-              <option value="Chetana">Chetana (Kannada - ಕನ್ನಡ)</option>
-              <option value="Riyaa">Riyaa (Bengali - বাংলা)</option>
-              <option value="Avinash">Avinash (Corporate English / Legal)</option>
-            </select>
-          </div>
+          <label for="select-voice" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Spoken guidance voice</label>
+          <select id="select-voice" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2.5 focus:border-[var(--accent)] outline-none mb-3">
+            <option value="Shivani">Shivani (Hindi - Rights Shield)</option>
+            <option value="Vasudha">Vasudha (Marathi - अस्खलित मराठी)</option>
+            <option value="Kalpana">Kalpana (Tamil - தமிழ்)</option>
+            <option value="Lakshmi">Lakshmi (Telugu / Malayalam / Conversational Hindi)</option>
+            <option value="Chetana">Chetana (Kannada - ಕನ್ನಡ)</option>
+            <option value="Riyaa">Riyaa (Bengali - বাংলা)</option>
+            <option value="Tarika">Tarika (Gujarati & Punjabi)</option>
+            <option value="Avinash">Avinash (Corporate English / Incident Co-Pilot)</option>
+            <option value="Harshad">Harshad (Indic Bar Counsel)</option>
+            <option value="Shubham">Shubham (Clear Hindi Guidance)</option>
+            <option value="Prakash">Prakash (Deep Resonant Voice)</option>
+            <option value="Devansh">Devansh (Articulate Legal Voice)</option>
+            <option value="Yashraj">Yashraj (Formal Legal Tone)</option>
+          </select>
 
-          <div class="p-2.5 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent-border)]">
+          <div class="p-3 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent-border)]">
             <label class="flex items-center space-x-2 text-xs font-mono text-[var(--accent)] cursor-pointer">
               <input type="checkbox" id="shared-device-protect" checked class="rounded accent-[var(--accent)]">
               <span class="font-bold">🛡️ Shared Device Privacy</span>
@@ -283,405 +243,363 @@
           </div>
         </div>
 
-        <!-- User Context: Complainant Name & Location -->
-        <div class="grid grid-cols-2 gap-2 mb-4">
+        <!-- User Jurisdiction Context -->
+        <div class="space-y-3 mb-6">
           <div>
-            <label for="input-client-name" class="block text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">Client Name</label>
-            <input type="text" id="input-client-name" placeholder="Name" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
+            <label for="input-client-name" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase mb-1">Complainant / Client Name</label>
+            <input type="text" id="input-client-name" placeholder="Your name (optional)" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
           </div>
           <div>
-            <label for="input-location" class="block text-[10px] font-mono text-[var(--text-muted)] uppercase mb-1">Location</label>
-            <input type="text" id="input-location" placeholder="City, State" value="Pune, Maharashtra" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
+            <label for="input-location" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase mb-1">Jurisdiction / Location</label>
+            <input type="text" id="input-location" placeholder="City and state (optional)" value="Pune, Maharashtra" class="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-2 focus:border-[var(--accent)] outline-none">
           </div>
         </div>
 
-        <!-- Example Questions Sidebar -->
-        <div class="mb-4">
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider">Example Questions</label>
-            <button onclick="openPresetsModal()" class="text-[10px] font-mono text-[var(--accent)] hover:underline">View All</button>
-          </div>
-          <div id="presets-container" class="space-y-1.5 max-h-36 overflow-y-auto pr-1">
+        <!-- Example Questions (Tap to edit) -->
+        <div>
+          <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Example questions · tap to edit</label>
+          <div id="presets-container" class="space-y-1.5 max-h-48 overflow-y-auto pr-1">
             <!-- Dynamically populated via ui.js -->
           </div>
-        </div>
-
-        <!-- Emergency Helplines Card -->
-        <div class="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-[11px] font-mono text-red-400">
-          <div class="font-bold text-red-500 mb-1 flex items-center space-x-1">
-            <span>🚨</span>
-            <span>Emergency Helplines</span>
-          </div>
-          <div>Police / Immediate Distress: <strong>112</strong></div>
-          <div>Cyber Fraud Helpline: <strong>1930</strong></div>
-          <div>Legal Aid (NALSA): <strong>15100</strong></div>
         </div>
       </div>
 
       <!-- Sidebar Footer -->
-      <div class="pt-3 border-t border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-muted)] shrink-0">
+      <div class="pt-4 border-t border-[var(--border-subtle)] text-[11px] font-mono text-[var(--text-muted)]">
         <div class="flex items-center justify-between">
-          <span>Speech Service:</span>
-          <span id="sidebar-key-status" class="text-[var(--accent)] font-semibold truncate max-w-[120px]">Active</span>
+          <span>Speech service:</span>
+          <span id="sidebar-key-status" class="text-[var(--accent)] font-semibold truncate max-w-[120px]">Checking...</span>
         </div>
-        <div class="flex items-center justify-between mt-0.5">
-          <span>Jurisdiction Engine:</span>
-          <span class="text-[var(--primary)] font-bold">Bharat Sovereign 2.0</span>
+        <div class="flex items-center justify-between mt-1">
+          <span>Server Endpoint:</span>
+          <span class="text-[var(--accent)] font-bold">api.vachana.ai</span>
         </div>
       </div>
     </aside>
 
-    <!-- ======================================================== -->
-    <!-- RIGHT COMPANION PANE: CHAT, PRO WORKSPACE & NOTICES      -->
-    <!-- (The ONLY Scrollable Container)                          -->
-    <!-- ======================================================== -->
-    <main id="companion-pane" class="flex-1 min-w-0 flex flex-col h-full overflow-hidden bg-[var(--bg-app)] relative">
+    <!-- Main Workspace (Dynamic Free Chatbot vs Pro End-to-End Guideline Studio) -->
+    <main class="flex-1 min-w-0 flex flex-col min-h-[100dvh] md:h-[100dvh] overflow-hidden bg-[var(--bg-app)] relative">
       
       <!-- ======================================================== -->
       <!-- 2A. FREE WORKSPACE VIEW (Voice Legal Chatbot)            -->
       <!-- ======================================================== -->
       <div id="free-workspace-view" class="flex-1 min-w-0 flex flex-col h-full overflow-hidden">
-        
         <!-- Chat Header -->
         <div class="h-14 border-b border-[var(--border-subtle)] flex items-center justify-between px-6 bg-[var(--bg-surface)] backdrop-blur z-10 shadow-sm shrink-0">
-          <div class="flex items-center space-x-3">
-            <div class="w-7 h-7 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] font-bold text-xs">
-              ⚖️
-            </div>
-            <div>
-              <span class="text-xs font-mono font-bold text-[var(--text-primary)] tracking-wider">NYAYAVANI ADVISOR</span>
-              <span id="chat-api-status" class="text-[10px] font-mono text-[var(--accent)] ml-2 font-bold">● LIVE CALL VERIFIED</span>
-            </div>
+        <div class="flex items-center space-x-3">
+          <div class="w-7 h-7 rounded-lg bg-[var(--accent-subtle)] border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent)] font-bold text-xs">
+            ⚖️
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="clearChat()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
-              Clear Chat
-            </button>
+          <div>
+            <span class="text-xs font-mono font-bold text-[var(--text-primary)] tracking-wider">NYAYAVANI ADVISOR</span>
+            <span id="chat-api-status" class="text-[10px] font-mono text-[var(--accent)] ml-2 font-bold">● LIVE CALL VERIFIED</span>
           </div>
         </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="clearChat()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
+            Clear Chat
+          </button>
+        </div>
+      </div>
 
-        <!-- Live Recording Toast / Countdown -->
-        <div id="recording-toast" role="alert" aria-live="assertive" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-11/12 max-w-lg p-4 rounded-2xl rec-pulse-banner border-2 border-red-500 bg-red-950/95 backdrop-blur-md text-white shadow-2xl">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
-              <span class="text-xs font-mono font-bold tracking-wider text-red-200">LIVE AUDIO RECORDING IN PROGRESS</span>
-            </div>
-            <span id="record-countdown" class="text-xs font-mono font-extrabold text-amber-300 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40">30s remaining</span>
+      <!-- Live Recording Toast / Countdown -->
+      <div id="recording-toast" role="alert" aria-live="assertive" class="hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-11/12 max-w-lg p-4 rounded-2xl rec-pulse-banner border-2 border-red-500 bg-red-950/95 backdrop-blur-md text-white shadow-2xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-2">
+            <span class="w-3 h-3 rounded-full bg-red-500 animate-ping"></span>
+            <span class="text-xs font-mono font-bold tracking-wider text-red-200">LIVE AUDIO RECORDING IN PROGRESS</span>
           </div>
-          <div class="text-xs text-gray-200 mb-1.5 font-mono flex items-center justify-between">
-            <span>Elapsed: <span id="record-timer" class="font-bold text-white">00:00</span> / 00:30 (Max limit)</span>
+          <span id="record-countdown" class="text-xs font-mono font-extrabold text-amber-300 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40">30s remaining</span>
+        </div>
+        <div class="text-xs text-gray-200 mb-1.5 font-mono flex items-center justify-between">
+          <span>Elapsed: <span id="record-timer" class="font-bold text-white">00:00</span> / 00:30 (Max limit)</span>
+        </div>
+        <div class="w-full bg-red-900 rounded-full h-2 overflow-hidden mb-2.5">
+          <div id="record-progress" class="bg-gradient-to-r from-red-500 to-amber-400 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <p class="text-[11px] text-gray-300 mb-3 leading-relaxed">
+          🔒 <em>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</em>
+        </p>
+        <div class="flex items-center space-x-3">
+          <button type="button" onclick="stopRecording()" class="flex-1 py-2 rounded-xl bg-white hover:bg-gray-100 text-black font-extrabold text-xs font-mono transition shadow-lg flex items-center justify-center space-x-1.5">
+            <span>⏹ Stop & Review Transcript</span>
+          </button>
+          <button type="button" onclick="cancelRecording()" class="px-4 py-2 rounded-xl border border-red-400/40 text-xs font-mono text-gray-200 hover:text-white hover:bg-red-900/50 transition">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Scroll Area -->
+      <div id="messages-container" role="log" aria-live="polite" aria-label="Conversation" class="flex-1 overflow-y-auto px-4 md:px-8 py-8 space-y-6 max-w-4xl mx-auto w-full">
+        
+        <!-- Welcome Banner (Exact Content & Layout from Screenshot with Shining Gold & Dark Emerald Accents) -->
+        <div id="welcome-banner" class="text-center py-12 px-6 rounded-3xl themed-card my-auto">
+          <!-- Shining Gold Scales Badge Icon with subtle Accent Glow -->
+          <div class="w-16 h-16 rounded-2xl bg-[var(--primary-subtle)] border-2 border-[var(--primary)] flex items-center justify-center text-3xl mx-auto mb-4 shadow-md text-[var(--primary)]" style="box-shadow: var(--gold-glow);">
+            ⚖️
           </div>
-          <div class="w-full bg-red-900 rounded-full h-2 overflow-hidden mb-2.5">
-            <div id="record-progress" class="bg-gradient-to-r from-red-500 to-amber-400 h-full transition-all duration-300" style="width: 0%"></div>
-          </div>
-          <p class="text-[11px] text-gray-300 mb-3 leading-relaxed">
-            🔒 <em>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</em>
+          <h2 class="font-syne text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-3">
+            What happened? Tell us in your own words.
+          </h2>
+          <p class="text-sm text-[var(--text-secondary)] max-w-xl mx-auto mb-8 font-light leading-relaxed">
+            Record your voice or type in Hindi or English. You can review the transcript, suggested next steps, and draft document before using them.
           </p>
-          <div class="flex items-center space-x-3">
-            <button type="button" onclick="stopRecording()" class="flex-1 py-2 rounded-xl bg-white hover:bg-gray-100 text-black font-extrabold text-xs font-mono transition shadow-lg flex items-center justify-center space-x-1.5">
-              <span>⏹ Stop & Review Transcript</span>
+
+          <!-- Starter Scenario Cards (Shining Gold Dominance with Subtle Accent Badges) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-left max-w-2xl mx-auto">
+            <!-- Card 1: Street Vendor -->
+            <button onclick="selectPreset('vendor')" class="p-4 rounded-xl border-2 border-[var(--primary-border)] hover:border-[var(--primary)] bg-[var(--bg-card)] transition text-xs group shadow-sm">
+              <span class="font-bold text-[var(--primary-text)] block mb-1 text-sm">🏛️ Street Vendor Eviction Defense</span>
+              <span class="text-[var(--text-muted)] text-[11px]">"BMC and police threatening to seize my fruit cart at Juhu beach..."</span>
             </button>
-            <button type="button" onclick="cancelRecording()" class="px-4 py-2 rounded-xl border border-red-400/40 text-xs font-mono text-gray-200 hover:text-white hover:bg-red-900/50 transition">
-              Cancel
+            
+            <!-- Card 2: Labor Wage Theft (With Subtle Accent Highlight) -->
+            <button onclick="selectPreset('wages')" class="p-4 rounded-xl border-2 border-[var(--primary-border)] hover:border-[var(--primary)] bg-[var(--bg-card)] transition text-xs group shadow-sm">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-[var(--primary-text)] text-sm">⚖️ Labor Wage Theft & Default</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] text-[var(--accent-text)] border border-[var(--accent-border)] font-bold">STATUTORY AID</span>
+              </div>
+              <span class="text-[var(--text-muted)] text-[11px]">"Contractor withheld 3 months wages, threatening when demanded..."</span>
+            </button>
+            
+            <!-- Card 3: Loan Fraud (With Subtle Accent Highlight) -->
+            <button onclick="selectPreset('loan')" class="p-4 rounded-xl border-2 border-[var(--primary-border)] hover:border-[var(--primary)] bg-[var(--bg-card)] transition text-xs group shadow-sm">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-[var(--primary-text)] text-sm">📱 Digital Loan App Blackmail</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] text-[var(--accent-text)] border border-[var(--accent-border)] font-bold">CYBER CRIME</span>
+              </div>
+              <span class="text-[var(--text-muted)] text-[11px]">"Mobile loan app hacked contacts, sending morphed photos..."</span>
+            </button>
+            
+            <!-- Card 4: Motor Accident Pro -->
+            <button onclick="selectPreset('accident')" class="p-4 rounded-xl border-2 border-[var(--primary-border)] hover:border-[var(--primary)] bg-[var(--bg-card)] transition text-xs group shadow-sm">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-bold text-[var(--primary-text)] text-sm">🚗 Motor Vehicle Collision (Pro)</span>
+                <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[var(--primary-subtle)] text-[var(--primary-text)] border border-[var(--primary-border)] font-bold">PRO SUITE</span>
+              </div>
+              <span class="text-[var(--text-muted)] text-[11px]">"I was in a crash and need help preparing an insurance claim..."</span>
             </button>
           </div>
         </div>
 
-        <!-- Messages Scroll Area (The ONLY scrollable container for chat) -->
-        <div id="messages-container" role="log" aria-live="polite" aria-label="Conversation" class="flex-1 overflow-y-auto px-4 md:px-8 py-8 space-y-6 max-w-4xl mx-auto w-full">
+      </div>
+
+      <!-- Floating Input Bar (Preserved Features & Dynamic Colors) -->
+      <div class="p-4 md:p-6 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)] shadow-lg">
+        <div class="max-w-4xl mx-auto w-full">
           
-          <!-- Welcome Banner -->
-          <div id="welcome-banner" class="text-center py-10 px-6 rounded-3xl themed-card my-auto">
-            <div class="w-16 h-16 rounded-2xl bg-[var(--primary-subtle)] border-2 border-[var(--primary)] flex items-center justify-center text-3xl mx-auto mb-4 shadow-md text-[var(--primary)]" style="box-shadow: var(--gold-glow);">
-              ⚖️
+          <!-- Live Intake Privacy Notice Banner with Contrasting Color Highlights -->
+          <div id="intake-privacy-notice" class="mb-2 px-1 flex flex-col sm:flex-row sm:items-center sm:justify-between text-[11px] font-mono text-[var(--text-muted)] gap-1">
+            <div class="flex items-center space-x-1.5">
+              <span class="text-[var(--accent)] font-bold text-sm">🔒</span>
+              <span>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</span>
             </div>
-            <h2 class="font-syne text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-3">
-              What happened? Tell us in your own words.
-            </h2>
-            <p class="text-sm text-[var(--text-secondary)] max-w-xl mx-auto mb-6 font-light leading-relaxed">
-              Record your voice or type in Hindi, Marathi, Gujarati, English, or your regional language. NyayaVani maps your statement to immediate statutory protections (Dhaara) and drafts a formal legal notice.
-            </p>
-
-            <!-- Explicit Privacy Guarantee -->
-            <div class="p-3.5 rounded-2xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] max-w-lg mx-auto mb-6 text-xs font-mono text-[var(--text-muted)] text-left flex items-start space-x-2.5">
-              <span class="text-[var(--accent)] text-base mt-0.5">🔒</span>
-              <div class="leading-relaxed">
-                Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.
-              </div>
-            </div>
-
-            <!-- Voice Error Fallback Message Container -->
-            <div id="voice-fallback-msg" class="p-3 rounded-xl bg-[var(--accent-subtle)] border border-[var(--accent-border)] max-w-md mx-auto mb-6 text-xs text-[var(--accent)] font-mono">
-              Voice unavailable in this browser or network. You can type your account directly below.
-            </div>
-
-            <!-- Quick Start Action Chips -->
-            <div class="flex flex-wrap items-center justify-center gap-2">
-              <button onclick="startVoiceChatFlow()" class="cta-primary-btn py-2.5 px-5 text-xs rounded-xl shadow-md">
-                <span>🎙️ Speak Answer (Tap to talk)</span>
-              </button>
-              <button onclick="openPresetsModal()" class="cta-contrast-btn py-2.5 px-4 text-xs rounded-xl">
-                <span>Browse Scenarios</span>
-              </button>
-            </div>
+            <span class="text-[10px] font-bold text-[var(--accent)] whitespace-nowrap px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-border)]">30s live limit · DPDP compliant</span>
           </div>
 
-          <!-- Static Statutory Safeguards & Disclaimers Card (Ensures Legal Safeguards Compliance) -->
-          <div id="statutory-safeguards-card" class="p-5 rounded-2xl themed-card border border-[var(--border-subtle)] space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-[var(--border-subtle)] gap-2">
+          <!-- Input Box -->
+          <div class="relative themed-input-container p-2.5">
+            <label for="chat-input" class="sr-only">Describe your legal issue</label>
+            <textarea id="chat-input" rows="2" placeholder="Speak or describe your legal issue in your own language..." class="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none resize-none px-3 py-2 leading-relaxed"></textarea>
+
+            <div class="flex items-center justify-between pt-2 px-2 border-t border-[var(--border-subtle)]">
               <div class="flex items-center space-x-2">
-                <span class="text-lg">📄</span>
-                <span class="font-syne font-bold text-sm text-[var(--text-primary)]">Draft Incident Summary for Review — Not Legal Advice</span>
-              </div>
-              <span class="text-[10px] font-mono text-[var(--text-muted)] px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
-                Outbound transmission disabled (Review only)
-              </span>
-            </div>
-            
-            <div class="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Statutory citations pending advocate verification. All analysis is generated from your spoken or written statement for structured pre-litigation review.
-            </div>
+                <!-- Audio File Upload (Paperclip) -->
+                <label class="cursor-pointer p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition" title="Upload audio file" aria-label="Upload audio file">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                  <input type="file" id="audio-file-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(this)">
+                </label>
 
-            <!-- Approved Signoff Roles & Statutory Safeguards -->
-            <div class="pt-2 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-2">
-              <div class="flex items-center space-x-2">
-                <span class="text-[var(--text-muted)] font-bold">Approved Signoff Roles:</span>
-                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Client</span>
-                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Authorized Representative</span>
-                <span class="px-2 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Independent Legal Counsel</span>
-              </div>
-              <div class="text-[10px] text-[var(--text-muted)]">
-                Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It creates an internal timestamped review record.
-              </div>
-            </div>
-          </div>
+                <!-- Live Microphone Recording Button (Styled with Contrasting Color Accent) -->
+                <button onclick="toggleMicrophone()" id="btn-mic" aria-label="Start voice recording" class="p-2 rounded-lg text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1.5 font-bold" title="Record your account">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/></svg>
+                  <span id="mic-label" class="text-[11px] font-mono">Speak now</span>
+                </button>
 
-        </div>
-
-        <!-- Input Bar Section -->
-        <div class="p-4 bg-[var(--bg-surface)] border-t border-[var(--border-subtle)] shrink-0">
-          <div class="max-w-4xl mx-auto">
-            
-            <!-- Privacy notice badge -->
-            <div id="intake-privacy-notice" class="mb-2 px-1 flex flex-col sm:flex-row sm:items-center sm:justify-between text-[11px] font-mono text-[var(--text-muted)] gap-1">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[var(--accent)] font-bold text-sm">🔒</span>
-                <span>Your speech is transcribed securely. Audio is processed ephemerally on the server for live transcription. You can edit the transcript before legal triage.</span>
-              </div>
-              <span class="text-[10px] font-bold text-[var(--accent)] whitespace-nowrap px-2 py-0.5 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent-border)]">30s live limit · DPDP compliant</span>
-            </div>
-
-            <!-- Input Box -->
-            <div class="relative themed-input-container p-2.5">
-              <label for="chat-input" class="sr-only">Describe your legal issue</label>
-              <textarea id="chat-input" role="textbox" rows="2" placeholder="Speak or describe your legal issue in your own language..." class="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none resize-none px-3 py-2 leading-relaxed"></textarea>
-
-              <div class="flex items-center justify-between pt-2 px-2 border-t border-[var(--border-subtle)]">
-                <div class="flex items-center space-x-2">
-                  
-                  <!-- Audio File Upload -->
-                  <label class="cursor-pointer p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition" title="Upload audio file" aria-label="Upload audio file">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-                    <input type="file" id="audio-file-input" accept="audio/*" class="hidden" onchange="handleAudioUpload(this)">
-                  </label>
-
-                  <!-- Camera Photo Evidence Upload -->
-                  <label class="cursor-pointer p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--primary)] hover:bg-[var(--primary-subtle)] transition" title="Attach photo evidence or notice document" aria-label="Attach photo evidence">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <input type="file" id="camera-file-input" accept="image/*" capture="environment" class="hidden" onchange="NyayaVaniApp.handleProCameraUpload(this)">
-                  </label>
-
-                  <!-- Live Microphone Recording Button -->
-                  <button onclick="toggleMicrophone()" id="btn-mic" role="button" aria-label="Start voice recording" class="p-2 rounded-lg text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1.5 font-bold" title="Record your account">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/></svg>
-                    <span id="mic-label" class="text-[11px] font-mono">Speak now</span>
-                  </button>
-
-                  <!-- Example Questions Trigger -->
-                  <button onclick="openPresetsModal()" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1 text-xs font-mono">
-                    <span>Example questions</span>
-                  </button>
-                </div>
-
-                <!-- Send Button -->
-                <button onclick="sendMessage()" id="btn-send" role="button" aria-label="Send your account" class="cta-primary-btn p-2.5 rounded-xl">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                <!-- Presets Trigger (Contrasting Color Text) -->
+                <button onclick="openPresetsModal()" class="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)] transition flex items-center space-x-1 text-xs font-mono">
+                  <span>Example questions</span>
                 </button>
               </div>
-            </div>
 
-            <div class="text-center text-[10px] font-mono text-[var(--text-muted)] mt-2">
-              Press <kbd class="px-1.5 py-0.5 rounded bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">Enter</kbd> to submit. Voice recordings use live speech recognition when the service is available.
+              <!-- Send Button (With Gradient from Primary to Contrasting Accent) -->
+              <button onclick="sendMessage()" id="btn-send" aria-label="Send your account" class="cta-primary-btn p-2.5 rounded-xl">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+              </button>
             </div>
+          </div>
+
+          <div class="text-center text-[10px] font-mono text-[var(--text-muted)] mt-2">
+            Voice recordings use live speech recognition when the service is available. Review legal drafts before relying on them.
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- ======================================================== -->
-      <!-- 2B. PRO WORKSPACE VIEW (Autonomous End-to-End Agent)     -->
-      <!-- ======================================================== -->
-      <div id="pro-workspace-view" class="flex-1 min-w-0 flex flex-col h-full overflow-y-auto hidden">
-        <!-- Pro Header -->
-        <div class="h-14 border-b border-[var(--border-subtle)] flex items-center justify-between px-6 bg-[var(--bg-surface)] backdrop-blur z-10 shadow-sm shrink-0">
-          <div class="flex items-center space-x-3">
-            <div class="w-7 h-7 rounded-lg bg-[var(--primary-subtle)] border border-[var(--primary)] flex items-center justify-center text-[var(--primary)] font-bold text-xs" style="box-shadow: var(--gold-glow);">
-              💼
+    <!-- ======================================================== -->
+    <!-- 2B. PRO WORKSPACE VIEW (Autonomous End-to-End Agent)     -->
+    <!-- ======================================================== -->
+    <div id="pro-workspace-view" class="flex-1 min-w-0 flex flex-col h-full overflow-y-auto hidden">
+      <!-- Pro Header -->
+      <div class="h-14 border-b border-[var(--border-subtle)] flex items-center justify-between px-6 bg-[var(--bg-surface)] backdrop-blur z-10 shadow-sm shrink-0">
+        <div class="flex items-center space-x-3">
+          <div class="w-7 h-7 rounded-lg bg-[var(--primary-subtle)] border border-[var(--primary)] flex items-center justify-center text-[var(--primary)] font-bold text-xs" style="box-shadow: var(--gold-glow);">
+            💼
+          </div>
+          <div>
+            <span class="text-xs font-mono font-bold text-[var(--primary)] tracking-wider">NYAYAVANI PRO · AUTONOMOUS END-TO-END GUIDELINE AGENT</span>
+            <span class="text-[10px] font-mono text-emerald-400 ml-2 font-bold px-2 py-0.5 rounded-full bg-emerald-950/50 border border-emerald-500/40">● MULTI-STAGE CASE ENGINE</span>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="NyayaVaniApp.resetProGuideline()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--primary)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
+            New Case Guideline
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6 md:p-8 space-y-6 max-w-5xl mx-auto w-full">
+        <!-- 4-Stage End-to-End Pipeline Interactive Navigation Stepper -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
+          <button id="pro-step-1" onclick="NyayaVaniApp.selectProStage(1)" class="p-3.5 text-left rounded-xl border-2 border-[var(--primary)] bg-[var(--bg-card)] shadow-md transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+            <div class="text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+              <span>STAGE 01 // INTAKE</span>
+              <span class="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse"></span>
             </div>
+            <div class="font-bold text-[var(--text-primary)]">Fact & Chronology Audit</div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Timeline & Evidence Gap Check</div>
+          </button>
+
+          <button id="pro-step-2" onclick="NyayaVaniApp.selectProStage(2)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+            <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+              <span>STAGE 02 // STATUTES</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+            </div>
+            <div class="font-bold text-[var(--text-primary)]">Precedent Citation Graph</div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Automated BNS / Central Acts</div>
+          </button>
+
+          <button id="pro-step-3" onclick="NyayaVaniApp.selectProStage(3)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+            <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+              <span>STAGE 03 // STRATEGY</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+            </div>
+            <div class="font-bold text-[var(--text-primary)]">Rebuttal & Calling Rehearsal</div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Simulated Negotiation Call</div>
+          </button>
+
+          <button id="pro-step-4" onclick="NyayaVaniApp.selectProStage(4)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
+            <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
+              <span>STAGE 04 // DOSSIER</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
+            </div>
+            <div class="font-bold text-[var(--text-primary)]">Court Packet & Hashing</div>
+            <div class="text-[10px] text-[var(--text-muted)] mt-0.5">SHA-256 Frozen Sign-off</div>
+          </button>
+        </div>
+
+        <!-- STAGE 01: Case Briefing & Evidence Intake Station -->
+        <div id="pro-stage-section-1" class="p-6 rounded-2xl themed-card border-2 border-[var(--primary-border)] shadow-lg" style="box-shadow: var(--gold-glow);">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-5 gap-2">
             <div>
-              <span class="text-xs font-mono font-bold text-[var(--primary)] tracking-wider">NYAYAVANI PRO · AUTONOMOUS END-TO-END GUIDELINE AGENT</span>
-              <span class="text-[10px] font-mono text-emerald-400 ml-2 font-bold px-2 py-0.5 rounded-full bg-emerald-950/50 border border-emerald-500/40">● MULTI-STAGE CASE ENGINE</span>
+              <h2 class="font-syne text-xl font-bold text-[var(--text-primary)] flex items-center space-x-2">
+                <span>⚖️ Stage 01: Case Briefing & Multi-Evidence Intake</span>
+              </h2>
+              <p class="text-xs text-[var(--text-secondary)] mt-0.5">
+                Submit dispute particulars, attach documents or capture camera evidence to trigger multi-stage legal synthesis.
+              </p>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-[10px] font-mono font-bold text-[var(--primary)] px-2.5 py-1 rounded-full bg-[var(--primary-subtle)] border border-[var(--primary-border)]">ENTERPRISE GRADE</span>
             </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="NyayaVaniApp.resetProGuideline()" class="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--primary)] px-3 py-1 rounded-md border border-[var(--border-subtle)] hover:bg-[var(--bg-subtle)] transition">
-              New Case Guideline
-            </button>
-          </div>
-        </div>
 
-        <div class="p-6 md:p-8 space-y-6 max-w-5xl mx-auto w-full">
-          <!-- 4-Stage End-to-End Pipeline Interactive Navigation Stepper -->
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
-            <button id="pro-step-1" onclick="NyayaVaniApp.selectProStage(1)" class="p-3.5 text-left rounded-xl border-2 border-[var(--primary)] bg-[var(--bg-card)] shadow-md transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
-              <div class="text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
-                <span>STAGE 01 // INTAKE</span>
-                <span class="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse"></span>
-              </div>
-              <div class="font-bold text-[var(--text-primary)]">Fact & Chronology Audit</div>
-              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Timeline & Evidence Gap Check</div>
-            </button>
-
-            <button id="pro-step-2" onclick="NyayaVaniApp.selectProStage(2)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
-              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
-                <span>STAGE 02 // STATUTES</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
-              </div>
-              <div class="font-bold text-[var(--text-primary)]">Precedent Citation Graph</div>
-              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Automated BNS / Central Acts</div>
-            </button>
-
-            <button id="pro-step-3" onclick="NyayaVaniApp.selectProStage(3)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
-              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
-                <span>STAGE 03 // STRATEGY</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
-              </div>
-              <div class="font-bold text-[var(--text-primary)]">Rebuttal & Calling Rehearsal</div>
-              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">Simulated Negotiation Call</div>
-            </button>
-
-            <button id="pro-step-4" onclick="NyayaVaniApp.selectProStage(4)" class="p-3.5 text-left rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-card)] transition hover:border-[var(--primary)] group cursor-pointer focus:outline-none">
-              <div class="text-[var(--text-muted)] group-hover:text-[var(--primary)] font-bold text-[10px] tracking-wider uppercase mb-1 flex items-center justify-between">
-                <span>STAGE 04 // DOSSIER</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-[var(--text-muted)]"></span>
-              </div>
-              <div class="font-bold text-[var(--text-primary)]">Court Packet & Hashing</div>
-              <div class="text-[10px] text-[var(--text-muted)] mt-0.5">SHA-256 Frozen Sign-off</div>
-            </button>
-          </div>
-
-          <!-- STAGE 01: Case Briefing & Evidence Intake Station -->
-          <div id="pro-stage-section-1" class="p-6 rounded-2xl themed-card border-2 border-[var(--primary-border)] shadow-lg" style="box-shadow: var(--gold-glow);">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-5 gap-2">
-              <div>
-                <h2 class="font-syne text-xl font-bold text-[var(--text-primary)] flex items-center space-x-2">
-                  <span>⚖️ Stage 01: Case Briefing & Multi-Evidence Intake</span>
-                </h2>
-                <p class="text-xs text-[var(--text-secondary)] mt-0.5">
-                  Submit dispute particulars, attach documents or capture camera evidence to trigger multi-stage legal synthesis.
-                </p>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-[10px] font-mono font-bold text-[var(--primary)] px-2.5 py-1 rounded-full bg-[var(--primary-subtle)] border border-[var(--primary-border)]">ENTERPRISE GRADE</span>
-              </div>
-            </div>
-
-            <!-- Quick Case Archetypes -->
-            <div class="mb-4">
-              <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Select Dispute Archetype (1-Tap Fast Intake):</label>
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
-                <button onclick="NyayaVaniApp.loadProArchetype('accident')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
-                  <div class="font-bold text-[var(--primary)] mb-0.5">🚗 Motor Collision</div>
-                  <div class="text-[10px] text-[var(--text-muted)]">Sec 166 MV Act / Insurer Claim</div>
-                </button>
-                <button onclick="NyayaVaniApp.loadProArchetype('wages')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
-                  <div class="font-bold text-[var(--primary)] mb-0.5">💼 Commercial Default</div>
-                  <div class="text-[10px] text-[var(--text-muted)]">Wage Theft & Contract Default</div>
-                </button>
-                <button onclick="NyayaVaniApp.loadProArchetype('eviction')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
-                  <div class="font-bold text-[var(--primary)] mb-0.5">🏢 Tenancy & Injunction</div>
-                  <div class="text-[10px] text-[var(--text-muted)]">Sec 38 Specific Relief Act</div>
-                </button>
-                <button onclick="NyayaVaniApp.loadProArchetype('cyber')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
-                  <div class="font-bold text-[var(--primary)] mb-0.5">🛡️ Cyber Extortion</div>
-                  <div class="text-[10px] text-[var(--text-muted)]">IT Act 66D & Privacy Breach</div>
-                </button>
-              </div>
-            </div>
-
-            <!-- Case Narrative Textarea -->
-            <div class="mb-4">
-              <label for="pro-case-input" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1.5">Factual Account & Chronology:</label>
-              <textarea id="pro-case-input" rows="4" placeholder="Detail the chronological dispute facts, involved entities, damages incurred, dates, and relief sought..." class="w-full p-3.5 rounded-xl bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:border-[var(--primary)] outline-none leading-relaxed resize-none"></textarea>
-            </div>
-
-            <!-- Evidence Attachments & Camera Station -->
-            <div class="mb-5 p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-bold">Evidence Attachments & Camera Station:</span>
-                <span id="pro-evidence-count" class="text-[10px] font-mono text-[var(--primary)] font-semibold">0 files attached</span>
-              </div>
-              <div class="flex flex-wrap items-center gap-2 mb-3">
-                <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
-                  <span>📎</span>
-                  <span>Attach Evidence Files (PDF, Docs, Audio)</span>
-                  <input type="file" id="pro-file-input" multiple onchange="NyayaVaniApp.handleProFileUpload(this)" class="hidden">
-                </label>
-
-                <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
-                  <span>📸</span>
-                  <span>Take Photo / Camera Capture</span>
-                  <input type="file" id="pro-camera-input" accept="image/*" capture="environment" onchange="NyayaVaniApp.handleProCameraUpload(this)" class="hidden">
-                </label>
-
-                <button type="button" onclick="NyayaVaniApp.toggleProVoice()" id="btn-pro-mic" class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--primary-border)] hover:bg-[var(--primary-subtle)] text-[var(--primary)] text-xs font-mono font-bold flex items-center space-x-1.5 transition">
-                  <span>🎙️</span>
-                  <span id="pro-mic-label">Dictate Case Narrative</span>
-                </button>
-              </div>
-
-              <!-- Attached Evidence Chips Container -->
-              <div id="pro-evidence-list" class="flex flex-wrap gap-2 text-xs font-mono min-h-[1.5rem]">
-                <span class="text-[11px] text-[var(--text-muted)] italic">No attachments added yet. Upload contracts, police GD slips, medical receipts, or photos.</span>
-              </div>
-            </div>
-
-            <!-- Action Row -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-              <div class="text-[11px] font-mono text-[var(--text-muted)]">
-                🔒 <em>Evidence files are hashed ephemerally for court dossier integrity.</em>
-              </div>
-              <button onclick="NyayaVaniApp.runProGuidelineAnalysis()" id="btn-run-pro-agent" class="cta-primary-btn py-3 px-6 text-xs w-full sm:w-auto">
-                <span>GENERATE END-TO-END GUIDELINE & DOSSIER</span>
-                <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <!-- Quick Case Archetypes -->
+          <div class="mb-4">
+            <label class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-2">Select Dispute Archetype (1-Tap Fast Intake):</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+              <button onclick="NyayaVaniApp.loadProArchetype('accident')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                <div class="font-bold text-[var(--primary)] mb-0.5">🚗 Motor Collision</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Sec 166 MV Act / Insurer Claim</div>
+              </button>
+              <button onclick="NyayaVaniApp.loadProArchetype('wages')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                <div class="font-bold text-[var(--primary)] mb-0.5">💼 Commercial Default</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Wage Theft & Contract Default</div>
+              </button>
+              <button onclick="NyayaVaniApp.loadProArchetype('eviction')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                <div class="font-bold text-[var(--primary)] mb-0.5">🏢 Tenancy & Injunction</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Sec 38 Specific Relief Act</div>
+              </button>
+              <button onclick="NyayaVaniApp.loadProArchetype('cyber')" class="p-3 text-left rounded-xl border border-[var(--border-subtle)] hover:border-[var(--primary)] bg-[var(--bg-surface)] transition text-xs">
+                <div class="font-bold text-[var(--primary)] mb-0.5">🛡️ Cyber Extortion</div>
+                <div class="text-[10px] text-[var(--text-muted)]">IT Act 66D & Privacy Breach</div>
               </button>
             </div>
           </div>
 
-          <!-- Output Guideline Container -->
-          <div id="pro-guideline-output" class="space-y-6">
-            <!-- Dynamically generated via ui.js renderProGuideline -->
+          <!-- Case Narrative Textarea -->
+          <div class="mb-4">
+            <label for="pro-case-input" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mb-1.5">Factual Account & Chronology:</label>
+            <textarea id="pro-case-input" rows="4" placeholder="Detail the chronological dispute facts, involved entities, damages incurred, dates, and relief sought..." class="w-full p-3.5 rounded-xl bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:border-[var(--primary)] outline-none leading-relaxed resize-none"></textarea>
+          </div>
+
+          <!-- Evidence Attachments & Camera Station (Pro Version) -->
+          <div class="mb-5 p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider font-bold">Evidence Attachments & Camera Station:</span>
+              <span id="pro-evidence-count" class="text-[10px] font-mono text-[var(--primary)] font-semibold">0 files attached</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <!-- File Upload Button -->
+              <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
+                <span>📎</span>
+                <span>Attach Evidence Files (PDF, Docs, Audio)</span>
+                <input type="file" id="pro-file-input" multiple onchange="NyayaVaniApp.handleProFileUpload(this)" class="hidden">
+              </label>
+
+              <!-- Camera Photo Capture Button -->
+              <label class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--border-subtle)] hover:border-[var(--primary)] text-[var(--text-primary)] text-xs font-mono flex items-center space-x-1.5 cursor-pointer transition">
+                <span>📸</span>
+                <span>Take Photo / Camera Capture</span>
+                <input type="file" id="pro-camera-input" accept="image/*" capture="environment" onchange="NyayaVaniApp.handleProCameraUpload(this)" class="hidden">
+              </label>
+
+              <!-- Voice Dictate Button -->
+              <button type="button" onclick="NyayaVaniApp.toggleProVoice()" id="btn-pro-mic" class="px-3 py-2 rounded-lg bg-[var(--bg-card)] border border-[var(--primary-border)] hover:bg-[var(--primary-subtle)] text-[var(--primary)] text-xs font-mono font-bold flex items-center space-x-1.5 transition">
+                <span>🎙️</span>
+                <span id="pro-mic-label">Dictate Case Narrative</span>
+              </button>
+            </div>
+
+            <!-- Attached Evidence Chips Container -->
+            <div id="pro-evidence-list" class="flex flex-wrap gap-2 text-xs font-mono min-h-[1.5rem]">
+              <span class="text-[11px] text-[var(--text-muted)] italic">No attachments added yet. Upload contracts, police GD slips, medical receipts, or photos.</span>
+            </div>
+          </div>
+
+          <!-- Action Row -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+            <div class="text-[11px] font-mono text-[var(--text-muted)]">
+              🔒 <em>Evidence files are hashed ephemerally for court dossier integrity.</em>
+            </div>
+            <button onclick="NyayaVaniApp.runProGuidelineAnalysis()" id="btn-run-pro-agent" class="cta-primary-btn py-3 px-6 text-xs w-full sm:w-auto">
+              <span>GENERATE END-TO-END GUIDELINE & DOSSIER</span>
+              <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </button>
           </div>
         </div>
+
+        <!-- Output Guideline Container -->
+        <div id="pro-guideline-output" class="space-y-6">
+          <!-- Dynamically generated via ui.js renderProGuideline -->
+        </div>
       </div>
-    </main>
+    </div>
+  </main>
   </section>
 
-  <!-- ======================================================== -->
-  <!-- MODALS & DRAWERS                                         -->
-  <!-- ======================================================== -->
-
-  <!-- 1. Presets Modal -->
+  <!-- Presets Modal -->
   <div id="presets-modal" role="dialog" aria-modal="true" aria-label="Example questions" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-[var(--bg-card)] border-2 border-[var(--accent)] rounded-3xl max-w-2xl w-full p-6 shadow-2xl" style="box-shadow: var(--accent-glow);">
       <div class="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-4">
@@ -694,86 +612,6 @@
         <!-- Dynamically injected via ui.js -->
       </div>
     </div>
-  </div>
-
-  <!-- 2. Transcript Review Modal (Preserves Transcript Review & Verification Flow) -->
-  <div id="transcript-review-modal" role="dialog" aria-modal="true" aria-label="Review and edit your statement" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-[var(--bg-card)] border-2 border-[var(--accent)] rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between pb-3 border-b border-[var(--border-subtle)]">
-        <div class="flex items-center space-x-2">
-          <span class="text-xl">✏️</span>
-          <h3 class="font-syne text-base font-bold text-[var(--text-primary)]">Review & Edit Your Statement</h3>
-        </div>
-        <button onclick="closeTranscriptReview()" class="text-[var(--text-muted)] hover:text-[var(--accent)] text-xl font-bold">&times;</button>
-      </div>
-
-      <p class="text-xs text-[var(--text-secondary)] leading-relaxed">
-        Verify your spoken words below. You can correct names, dates, or amounts before submitting for statutory legal analysis:
-      </p>
-
-      <input type="hidden" id="original-transcript-hidden" name="original_transcript">
-      <div>
-        <label for="reviewed-transcript" class="block text-[11px] font-mono text-[var(--text-muted)] uppercase mb-1">Editable Statement:</label>
-        <textarea id="reviewed-transcript" name="reviewed_transcript" rows="5" class="w-full p-3 rounded-xl bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-primary)] focus:border-[var(--accent)] outline-none leading-relaxed"></textarea>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-        <div class="flex items-center space-x-2">
-          <label for="review-lang-override" class="text-[11px] font-mono text-[var(--text-muted)]">Language:</label>
-          <select id="review-lang-override" class="bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg text-xs font-mono text-[var(--text-primary)] p-1.5 focus:border-[var(--accent)] outline-none">
-            <option value="indic-auto">Auto detect</option>
-            <option value="hi-IN">Hindi (हिंदी)</option>
-            <option value="mr-IN">Marathi (मराठी)</option>
-            <option value="gu-IN">Gujarati (ગુજરાતી)</option>
-            <option value="en-IN">English</option>
-          </select>
-        </div>
-
-        <div class="flex items-center space-x-2">
-          <button type="button" onclick="closeTranscriptReview()" class="px-4 py-2 rounded-xl border border-[var(--border-subtle)] text-xs font-mono text-[var(--text-muted)] hover:bg-[var(--bg-subtle)] transition">
-            Cancel
-          </button>
-          <button type="button" onclick="submitReviewedTranscript()" class="cta-primary-btn px-5 py-2 text-xs rounded-xl shadow-md">
-            <span>Confirm & Analyze</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Phase 1: Conversational Fact Intake -->
-  <!-- Phase 2: Complete Legal Package -->
-  <!-- Inline Helper Bridge for Direct Global Invocations & Accessibility Verification -->
-  <script>
-    let isRecordingActive = false;
-    let lastInputModality = 'voice';
-    function encodePcmToWav(chunks, sourceSampleRate, targetSampleRate = 16000) {
-      if (window.AudioEngine && window.AudioEngine.encodePcmToWav) {
-        return window.AudioEngine.encodePcmToWav(chunks, sourceSampleRate, targetSampleRate);
-      }
-      return null;
-    }
-    function submitQuickReply(caseId) {
-      if (window.NyayaVaniApp && window.NyayaVaniApp.submitQuickReply) {
-        window.NyayaVaniApp.submitQuickReply(caseId);
-      }
-    }
-    function showTranscriptReview(transcript, langLabel) {
-      if (window.NyayaVaniApp && window.NyayaVaniApp.showTranscriptReview) {
-        window.NyayaVaniApp.showTranscriptReview(transcript, langLabel);
-      }
-    }
-    function submitReviewedTranscript() {
-      if (window.NyayaVaniApp && window.NyayaVaniApp.submitReviewedTranscript) {
-        window.NyayaVaniApp.submitReviewedTranscript();
-      }
-    }
-  </script>
-
-  <!-- Quick Reply Conversational Accessibility Hook -->
-  <div id="quick-reply-accessibility-hook" class="hidden" aria-hidden="true">
-    <button type="button" role="button" id="quick-reply-sample-btn">🎙️ Speak Answer</button>
-    <input id="quick-reply-input-template" role="textbox" placeholder="quick-reply-">
   </div>
 
   <!-- Modular Application Entry Point -->

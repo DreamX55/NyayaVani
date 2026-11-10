@@ -8,7 +8,6 @@ import { ApiClient } from './api.js';
 import { AudioEngine } from './audio.js';
 import { UIRenderer, presetsData } from './ui.js';
 import { HeroAnimations } from './hero-animations.js';
-import { LivingSphere } from './sphere.js';
 
 let lastInputModality = 'voice';
 let proAttachedEvidence = [];
@@ -22,9 +21,6 @@ export const NyayaVaniApp = {
     HeroAnimations.initPlaceholderAnimation();
     UIRenderer.renderSidebarPresets();
     UIRenderer.renderModalPresets();
-
-    LivingSphere.init('orb-canvas');
-    LivingSphere.setTier(ThemeManager.getTheme());
 
     AudioEngine.init({
       onTranscriptReady: async (blob, filename) => {
@@ -527,48 +523,6 @@ export const NyayaVaniApp = {
     input.value = '';
   },
 
-  showTranscriptReview(transcript, langLabel = '') {
-    this.pendingTranscript = transcript;
-    const modal = document.getElementById('transcript-review-modal');
-    const textarea = document.getElementById('reviewed-transcript');
-    const origInput = document.getElementById('original-transcript-hidden');
-    const langOverride = document.getElementById('review-lang-override');
-
-    if (textarea) textarea.value = transcript;
-    if (origInput) origInput.value = transcript;
-    if (langOverride && langLabel) {
-      UIRenderer.syncLanguageUI(langLabel);
-      langOverride.value = langLabel;
-    }
-    if (modal) modal.classList.remove('hidden');
-  },
-
-  closeTranscriptReview() {
-    const modal = document.getElementById('transcript-review-modal');
-    if (modal) modal.classList.add('hidden');
-  },
-
-  async submitReviewedTranscript() {
-    const textarea = document.getElementById('reviewed-transcript');
-    const origInput = document.getElementById('original-transcript-hidden');
-    const langOverride = document.getElementById('review-lang-override');
-
-    const reviewed = textarea ? textarea.value.trim() : '';
-    const original = origInput ? origInput.value.trim() : (this.pendingTranscript || reviewed);
-    const chosenLang = langOverride ? langOverride.value : 'indic-auto';
-
-    this.closeTranscriptReview();
-    if (!reviewed) return;
-
-    lastInputModality = 'voice';
-    await this.submitCase(reviewed, {}, {
-      original_transcript: original,
-      reviewed_transcript: reviewed,
-      detected_language: chosenLang,
-      language_code: chosenLang
-    });
-  },
-
   async handleAudioTranscription(audioBlob, filename) {
     document.getElementById('welcome-banner')?.classList.add('hidden');
     UIRenderer.showLoadingAssistant('Transcribing voice with sovereign Indic model...');
@@ -814,16 +768,9 @@ window.cancelRecording = () => NyayaVaniApp.cancelRecording();
 window.sendMessage = () => NyayaVaniApp.sendMessage();
 window.clearChat = () => NyayaVaniApp.clearChat();
 window.copyDocument = (btn) => NyayaVaniApp.copyDocument(btn);
-window.printDocument = () => window.print();
 window.copyPacket = (caseId) => NyayaVaniApp.copyPacket(caseId);
 window.approveProPacket = (pktId, caseId) => NyayaVaniApp.approveProPacket(pktId, caseId);
 window.testOutboundBoundary = (pktId, caseId) => NyayaVaniApp.testOutboundBoundary(pktId, caseId);
-
-window.showTranscriptReview = (t, l) => NyayaVaniApp.showTranscriptReview(t, l);
-window.submitReviewedTranscript = () => NyayaVaniApp.submitReviewedTranscript();
-window.closeTranscriptReview = () => NyayaVaniApp.closeTranscriptReview();
-window.setPlaybackSpeed = (s) => AudioEngine.setPlaybackSpeed(s);
-window.LivingSphere = LivingSphere;
 
 window.addEventListener('DOMContentLoaded', () => {
   NyayaVaniApp.init();

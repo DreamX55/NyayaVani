@@ -18,8 +18,6 @@ export const UI_LANG = {
   en: {
     talkingTitle: "🎙️ AI Talking Agent · Socratic Intake",
     talkingSub: "Please answer the single active question below to clarify your account:",
-    currentQuestion: "Current Question (Speak or Type to Answer):",
-    upcomingQuestions: "Upcoming in conversation:",
     speakBtn: "🎙️ Speak Answer (Tap to talk)",
     speakChangesBtn: "🎙️ Speak Changes (e.g. 'Change date to...')",
     sendBtn: "Send",
@@ -28,30 +26,11 @@ export const UI_LANG = {
     draftReady: "✅ Information Recorded · Draft Prepared for Review (Not Legal Advice)",
     spokenTitle: "🔊 Spoken Guidance",
     actionsTitle: "// IMMEDIATE RECOMMENDED NEXT ACTIONS",
-    draftBoxTitle: "📄 Draft Incident Summary for Review — Not Legal Advice",
-    rightsTitle: "Understand Your Rights & Applicable Dhaara",
-    listenRights: "Listen to Rights",
-    recap1Min: "1-Min Recap",
-    simplerWords: "In Simpler Words",
-    card1NoticeTitle: "Drafted Formal Notice & Representation",
-    outboundDisabled: "Outbound transmission disabled (Review only)",
-    copyTextBtn: "Copy Text",
-    printPdfBtn: "Print / Save PDF",
-    approvedSignoff: "Approved Signoff Roles:",
-    signoffNotice: "Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It creates an internal timestamped review record.",
-    whatNextTitle: "📌 What You Should Do Next",
-    dlsaTitle: "🏛️ DLSA National Legal Services Authority Helpline: 15100",
-    dlsaCallBtn: "Call 15100",
-    revisionPrompt: "Need to change a detail or add facts?",
-    editDetails: "✏️ Edit Details",
-    orSpeak: "or tap the sphere to speak.",
-    orbStatusReady: "Living Voice Sphere · Ready"
+    draftBoxTitle: "📄 Draft Incident Summary for Review — Not Legal Advice"
   },
   hi: {
     talkingTitle: "🎙️ बोलता कानूनी सहायक · बातचीत एवं सवाल",
     talkingSub: "कृपया नीचे दिए गए सवाल का जवाब दें:",
-    currentQuestion: "वर्तमान प्रश्न (बोलकर या लिखकर उत्तर दें):",
-    upcomingQuestions: "आगामी प्रश्न:",
     speakBtn: "🎙️ बोलकर जवाब दें (माइक दबाएं)",
     speakChangesBtn: "🎙️ बोलकर बदलाव बताएं (उदा: 'तारीख बदलकर...')",
     sendBtn: "भेजें",
@@ -60,30 +39,11 @@ export const UI_LANG = {
     draftReady: "✅ पूरी जानकारी दर्ज · ड्राफ्ट सारांश समीक्षा के लिए तैयार (कानूनी सलाह नहीं)",
     spokenTitle: "🔊 बोलकर बताई गई सलाह",
     actionsTitle: "// तुरंत क्या करना है · जरूरी कदम",
-    draftBoxTitle: "📄 ड्राफ्ट घटना सारांश (समीक्षा हेतु - कानूनी सलाह नहीं)",
-    rightsTitle: "अपने कानूनी अधिकार एवं धाराएं समझें",
-    listenRights: "अधिकार सुनें",
-    recap1Min: "1-मिनट सारांश",
-    simplerWords: "सरल शब्दों में समझें",
-    card1NoticeTitle: "प्रारूपित औपचारिक विधिक नोटिस एवं अभ्यावेदन",
-    outboundDisabled: "बाह्य प्रेषण निष्क्रिय (केवल समीक्षा)",
-    copyTextBtn: "कॉपी करें",
-    printPdfBtn: "प्रिंट / PDF सहेजें",
-    approvedSignoff: "अनुमोदित हस्ताक्षरकर्ता भूमिकाएं:",
-    signoffNotice: "हस्ताक्षर करने से यह दस्तावेज पुलिस, बीमाकर्ता या न्यायालय को <strong>नहीं</strong> भेजा जाता। यह केवल एक आंतरिक समीक्षा रिकॉर्ड बनाता है।",
-    whatNextTitle: "📌 आपको आगे क्या करना चाहिए",
-    dlsaTitle: "🏛️ DLSA राष्ट्रीय विधिक सेवा प्राधिकरण हेल्पलाइन: 15100",
-    dlsaCallBtn: "15100 पर कॉल करें",
-    revisionPrompt: "क्या कोई विवरण बदलना है या तथ्य जोड़ने हैं?",
-    editDetails: "✏️ विवरण बदलें",
-    orSpeak: "या बोलने के लिए गोले को स्पर्श करें।",
-    orbStatusReady: "सजीव वॉयस गोला · तैयार"
+    draftBoxTitle: "📄 ड्राफ्ट घटना सारांश (समीक्षा हेतु - कानूनी सलाह नहीं)"
   },
   mr: {
     talkingTitle: "🎙️ बोलणारा कायदेशीर सहाय्यक · विचारपूस",
     talkingSub: "कृपया खालील प्रश्नाचे उत्तर द्या:",
-    currentQuestion: "सध्याचा प्रश्न (बोलून किंवा लिहून उत्तर द्या):",
-    upcomingQuestions: "पुढील प्रश्न:",
     speakBtn: "🎙️ बोलून उत्तर द्या (माइक दाबा)",
     speakChangesBtn: "🎙️ बोलून बदल सांगा (उदा: 'तारीख बदला...')",
     sendBtn: "पाठवा",
@@ -92,62 +52,11 @@ export const UI_LANG = {
     draftReady: "✅ सर्व माहिती नोंदवली · मसुदा पुनरावलोकनार्थ तयार (कायदेशीर सल्ला नाही)",
     spokenTitle: "🔊 बोलून दिलेला सल्ला",
     actionsTitle: "// ताबडतोब काय करावे · महत्त्वाचे पाऊल",
-    draftBoxTitle: "📄 मसुदा घटना सारांश (पुनरावलोकनार्थ - कायदेशीर सल्ला नाही)",
-    rightsTitle: "आपले कायदेशीर हक्क आणि कलम समजून घ्या",
-    listenRights: "हक्क ऐका",
-    recap1Min: "1-मिनिट सारांश",
-    simplerWords: "सोप्या शब्दांत समजून घ्या",
-    card1NoticeTitle: "तयार केलेली औपचारिक कायदेशीर नोटीस व निवेदन",
-    outboundDisabled: "बाहेर पाठवणे बंद (केवळ पुनरावलोकन)",
-    copyTextBtn: "प्रत बनवा",
-    printPdfBtn: "मुद्रित करा / PDF साठवा",
-    approvedSignoff: "मान्यताप्राप्त स्वाक्षरीकर्ता भूमिका:",
-    signoffNotice: "स्वाक्षरी केल्याने हा दस्तऐवज पोलीस, विमा कंपनी किंवा न्यायालयात <strong>पाठवला जात नाही</strong>. हा फक्त अंतर्गत पुनरावलोकन नोंद तयार करतो.",
-    whatNextTitle: "📌 तुम्ही पुढे काय केले पाहिजे",
-    dlsaTitle: "🏛️ DLSA राष्ट्रीय विधी सेवा प्राधिकरण हेल्पलाइन: 15100",
-    dlsaCallBtn: "15100 वर कॉल करा",
-    revisionPrompt: "काही तपशील बदलायचा आहे किंवा माहिती जोडायची आहे का?",
-    editDetails: "✏️ तपशील बदला",
-    orSpeak: "किंवा बोलण्यासाठी गोलाला स्पर्श करा.",
-    orbStatusReady: "सजीव व्हॉइस गोल · सज्ज"
-  },
-  gu: {
-    talkingTitle: "🎙️ બોલતો કાનૂની સહાયક",
-    talkingSub: "નીચેના પ્રશ્નનો જવાબ આપો:",
-    currentQuestion: "હાલનો પ્રશ્ન (બોલીને અથવા લખીને જવાબ આપો):",
-    upcomingQuestions: "આગામી પ્રશ્નો:",
-    speakBtn: "🎙️ બોલીને જવાબ આપો (Tap to talk)",
-    speakChangesBtn: "🎙️ બોલીને ફેરફાર જણાવો",
-    sendBtn: "મોકલો",
-    placeholder: "બોલીને જવાબ આપો અથવા અહીં લખો...",
-    draftPending: "⏳ સંપૂર્ણ વિગતો મળ્યા પછી ડ્રાફ્ટ તૈયાર થશે",
-    draftReady: "✅ તમામ માહિતી નોંધાઈ ગઈ છે · ડ્રાફ્ટ તૈયાર છે (કાનૂની સલાહ નથી)",
-    spokenTitle: "🔊 બોલીને આપેલી સલાહ",
-    actionsTitle: "// તાત્કાલિક કરવાના પગલાં",
-    draftBoxTitle: "📄 ડ્રાફ્ટ ઘટના સારાંશ (સમીક્ષા માટે - કાનૂની સલાહ નથી)",
-    rightsTitle: "તમારા કાનૂની અધિકારો અને લાગુ કલમો સમજો",
-    listenRights: "અધિકારો સાંભળો",
-    recap1Min: "૧-મિનિટ સારાંશ",
-    simplerWords: "સરળ શબ્દોમાં સમજો",
-    card1NoticeTitle: "તૈયાર કરેલ કાનૂની નોટિસ અને રજૂઆત",
-    outboundDisabled: "માત્ર ચકાસણી માટે (બાહ્ય મોકલવું બંધ)",
-    copyTextBtn: "નકલ કરો",
-    printPdfBtn: "પ્રિન્ટ / PDF સાચવો",
-    approvedSignoff: "મંજૂર સહીકર્તા ભૂમિકાઓ:",
-    signoffNotice: "આ દસ્તાવેજ પર સહી કરવાથી તે પોલીસ કે કોર્ટમાં <strong>જતો નથી</strong>. આ આંતરિક સમીક્ષા રેકોર્ડ બનાવે છે.",
-    whatNextTitle: "📌 આગળ શું પગલાં લેવા",
-    dlsaTitle: "🏛️ DLSA રાષ્ટ્રીય કાનૂની સેવા સત્તામંડળ હેલ્પલાઇન: ૧૫૧૦૦",
-    dlsaCallBtn: "૧૫૧૦૦ પર કૉલ કરો",
-    revisionPrompt: "વિગતો બદલવી છે કે નવી હકીકત ઉમેરવી છે?",
-    editDetails: "✏️ વિગતો સુધારો",
-    orSpeak: "અથવા બોલવા માટે ગોળાને સ્પર્શ કરો.",
-    orbStatusReady: "સજીવ અવાજ ગોળ · તૈયાર"
+    draftBoxTitle: "📄 मसुदा घटना सारांश (पुनरावलोकनार्थ - कायदेशीर सल्ला नाही)"
   },
   ta: {
     talkingTitle: "🎙️ பேசும் சட்ட உதவியாளர்",
     talkingSub: "கீழே உள்ள கேள்விக்கு பதிலளிக்கவும்:",
-    currentQuestion: "தற்போதைய கேள்வி (பேசி அல்லது எழுதி பதிலளிக்கவும்):",
-    upcomingQuestions: "அடுத்த கேள்விகள்:",
     speakBtn: "🎙️ பேசி பதிலளிக்கவும் (Tap to talk)",
     speakChangesBtn: "🎙️ பேசி மாற்றங்களை கூறவும்",
     sendBtn: "அனுப்புக",
@@ -156,30 +65,11 @@ export const UI_LANG = {
     draftReady: "✅ அனைத்து விவரங்களும் பெறப்பட்டன · வரைவு தயார் (சட்ட ஆலோசனை அல்ல)",
     spokenTitle: "🔊 வாய்மொழி சட்ட ஆலோசனை",
     actionsTitle: "// உடனடியாக செய்ய வேண்டியவை",
-    draftBoxTitle: "📄 வரைவு நிகழ்வு சுருக்கம் (சட்ட ஆலோசனை அல்ல)",
-    rightsTitle: "உங்கள் சட்ட உரிமைகள் மற்றும் சட்டப்பிரிவுகள்",
-    listenRights: "உரிமைகளைக் கேளுங்கள்",
-    recap1Min: "1-நிமிட சுருக்கம்",
-    simplerWords: "எளிய வார்த்தைகளில்",
-    card1NoticeTitle: "சட்டபூர்வ அறிவிப்பு மற்றும் மனு",
-    outboundDisabled: "வெளியே அனுப்புவது முடக்கப்பட்டது (மதிப்பாய்வுக்கு மட்டும்)",
-    copyTextBtn: "நகலெடுக்க",
-    printPdfBtn: "அச்சிட / PDF சேமிக்க",
-    approvedSignoff: "அங்கீகரிக்கப்பட்ட கையொப்பமிடும் பொறுப்புகள்:",
-    signoffNotice: "கையொப்பமிடுவதால் இது காவல்துறைக்கோ நீதிமன்றத்திற்கோ அனுப்பப்படாது.",
-    whatNextTitle: "📌 அடுத்து என்ன செய்ய வேண்டும்",
-    dlsaTitle: "🏛️ DLSA தேசிய சட்ட சேவைகள் ஆணைய உதவி எண்: 15100",
-    dlsaCallBtn: "15100 ஐ அழைக்கவும்",
-    revisionPrompt: "விவரங்களை மாற்ற வேண்டுமா?",
-    editDetails: "✏️ விவரங்களை மாற்று",
-    orSpeak: "அல்லது பேச கோளத்தைத் தொடவும்.",
-    orbStatusReady: "வாழும் குரல் கோளம் · தயார்"
+    draftBoxTitle: "📄 வரைவு நிகழ்வு சுருக்கம் (சட்ட ஆலோசனை அல்ல)"
   },
   te: {
     talkingTitle: "🎙️ మాట్లాడే న్యాయ సహాయకుడు",
     talkingSub: "క్రింది ప్రశ్నకు సమాధానం ఇవ్వండి:",
-    currentQuestion: "ప్రస్తుత ప్రశ్న (మాట్లాడి లేదా టైప్ చేసి సమాధానం ఇవ్వండి):",
-    upcomingQuestions: "రాబోయే ప్రశ్నలు:",
     speakBtn: "🎙️ మాట్లాడి సమాధానం ఇవ్వండి (Tap to talk)",
     speakChangesBtn: "🎙️ మాట్లాడి మార్పులు చెప్పండి",
     sendBtn: "పంపండి",
@@ -188,30 +78,11 @@ export const UI_LANG = {
     draftReady: "✅ పూర్తి వివరాలు సేకరించబడ్డాయి · డ్రాఫ్ట్ సిద్ధం (చట్టపరమైన సలహా కాదు)",
     spokenTitle: "🔊 వాయిస్ సలహా",
     actionsTitle: "// తక్షణమే చేయవలసిన పనులు",
-    draftBoxTitle: "📄 డ్రాఫ్ట్ ఇన్సిడెంట్ సారాంశం (చట్టపరమైన సలహా కాదు)",
-    rightsTitle: "మీ చట్టపరమైన హక్కులు మరియు సెక్షన్లు",
-    listenRights: "హక్కులను వినండి",
-    recap1Min: "1-నిమిషం సారాంశం",
-    simplerWords: "సరళమైన పదాలలో",
-    card1NoticeTitle: "చట్టపరమైన నోటీసు మరియు ప్రాతినిధ్యం",
-    outboundDisabled: "బయటకు పంపడం నిలిపివేయబడింది (సమీక్ష కొరకు మాత్రమే)",
-    copyTextBtn: "కాపీ చేయండి",
-    printPdfBtn: "ప్రింట్ / PDF",
-    approvedSignoff: "ఆమోదించబడిన సంతకం పాత్రలు:",
-    signoffNotice: "సంతకం చేయడం ద్వారా ఇది పోలీసులకు లేదా కోర్టుకు పంపబడదు.",
-    whatNextTitle: "📌 తరువాత మీరు ఏమి చేయాలి",
-    dlsaTitle: "🏛️ DLSA నేషనల్ లీగల్ సర్వీసెస్ అథారిటీ హెల్ప్‌లైన్: 15100",
-    dlsaCallBtn: "15100 కి కాల్ చేయండి",
-    revisionPrompt: "వివరాలను మార్చాలనుకుంటున్నారా?",
-    editDetails: "✏️ వివరాలు మార్చండి",
-    orSpeak: "లేదా మాట్లాడటానికి గోళాన్ని తాకండి.",
-    orbStatusReady: "సజీవ వాయిస్ గోళం · సిద్ధం"
+    draftBoxTitle: "📄 డ్రాఫ్ట్ ఇన్సిడెంట్ సారాంశం (చట్టపరమైన సలహా కాదు)"
   },
   kn: {
     talkingTitle: "🎙️ ಮಾತನಾಡುವ ಕಾನೂನು ಸಹಾಯಕ",
     talkingSub: "ಕೆಳಗಿನ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರಿಸಿ:",
-    currentQuestion: "ಪ್ರಸ್ತುತ ಪ್ರಶ್ನೆ (ಮಾತನಾಡಿ ಅಥವಾ ಟೈಪ್ ಮಾಡಿ ಉತ್ತರಿಸಿ):",
-    upcomingQuestions: "ಮುಂದಿನ ಪ್ರಶ್ನೆಗಳು:",
     speakBtn: "🎙️ ಮಾತನಾಡಿ ಉತ್ತರಿಸಿ (Tap to talk)",
     speakChangesBtn: "🎙️ ಮಾತನಾಡಿ ಬದಲಾವಣೆ ತಿಳಿಸಿ",
     sendBtn: "ಕಳುಹಿಸಿ",
@@ -220,30 +91,11 @@ export const UI_LANG = {
     draftReady: "✅ ಎಲ್ಲಾ ವಿವರಗಳು ದಾಖಲಾಗಿವೆ · ಕರಡು ಸಿದ್ಧವಾಗಿದೆ (ಕಾನೂನು ಸಲಹೆಯಲ್ಲ)",
     spokenTitle: "🔊 ಧ್ವನಿ ಸಲಹೆ",
     actionsTitle: "// ತಕ್ಷಣ ಕೈಗೊಳ್ಳಬೇಕಾದ ಕ್ರಮಗಳು",
-    draftBoxTitle: "📄 ಕರಡು ಘಟನಾ ಸಾರಾಂಶ (ಕಾನೂನು ಸಲಹೆಯಲ್ಲ)",
-    rightsTitle: "ನಿಮ್ಮ ಕಾನೂನು ಹಕ್ಕುಗಳು ಮತ್ತು ಕಲಮುಗಳು",
-    listenRights: "ಹಕ್ಕುಗಳನ್ನು ಕೇಳಿ",
-    recap1Min: "1-ನಿಮಿಷದ ಸಾರಾಂಶ",
-    simplerWords: "ಸರಳ ಪದಗಳಲ್ಲಿ",
-    card1NoticeTitle: "ಕರಡು ಕಾನೂನು ನೋಟಿಸ್",
-    outboundDisabled: "ಬಾಹ್ಯ ರವಾನೆ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ (ಪರಿಶೀಲನೆಗೆ ಮಾತ್ರ)",
-    copyTextBtn: "ನಕಲಿಸಿ",
-    printPdfBtn: "ಮುದ್ರಿಸಿ / PDF",
-    approvedSignoff: "ಅನುಮೋದಿತ ಸಹಿದಾರರ ಪಾತ್ರಗಳು:",
-    signoffNotice: "ಸಹಿ ಮಾಡುವುದರಿಂದ ಇದು ಪೊಲೀಸರಿಗೆ ಅಥವಾ ನ್ಯಾಯಾಲಯಕ್ಕೆ ಹೋಗುವುದಿಲ್ಲ.",
-    whatNextTitle: "📌 ನೀವು ಮುಂದೆ ಏನು ಮಾಡಬೇಕು",
-    dlsaTitle: "🏛️ DLSA ರಾಷ್ಟ್ರೀಯ ಕಾನೂನು ಸೇವೆಗಳ ಪ್ರಾಧಿಕಾರ ಸಹಾಯವಾಣಿ: 15100",
-    dlsaCallBtn: "15100 ಗೆ ಕರೆ ಮಾಡಿ",
-    revisionPrompt: "ವಿವರಗಳನ್ನು ಬದಲಾಯಿಸಬೇಕೇ?",
-    editDetails: "✏️ ವಿವರಗಳನ್ನು ಬದಲಿಸಿ",
-    orSpeak: "ಅಥವಾ ಮಾತನಾಡಲು ಗೋಳವನ್ನು ಸ್ಪರ್ಶಿಸಿ.",
-    orbStatusReady: "ಸಜೀವ ಧ್ವನಿ ಗೋಳ · ಸಿದ್ಧ"
+    draftBoxTitle: "📄 ಕರಡು ಘಟನಾ ಸಾರಾಂಶ (ಕಾನೂನು ಸಲಹೆಯಲ್ಲ)"
   },
   bn: {
     talkingTitle: "🎙️ কথা বলা আইনি সহকারী",
     talkingSub: "নিচের প্রশ্নের উত্তর দিন:",
-    currentQuestion: "বর্তমান প্রশ্ন (কথা বলে বা লিখে উত্তর দিন):",
-    upcomingQuestions: "পরবর্তী প্রশ্নসমূহ:",
     speakBtn: "🎙️ কথা বলে উত্তর দিন (Tap to talk)",
     speakChangesBtn: "🎙️ কথা বলে পরিবর্তন জানান",
     sendBtn: "পাঠান",
@@ -252,30 +104,24 @@ export const UI_LANG = {
     draftReady: "✅ সমস্ত তথ্য রেকর্ড করা হয়েছে · খসড়া প্রস্তুত (আইনি পরামর্শ নয়)",
     spokenTitle: "🔊 মৌখিক পরামর্শ",
     actionsTitle: "// অবিলম্বে করণীয় পদক্ষেপ",
-    draftBoxTitle: "📄 খসড়া ঘটনার সারসংক্ষেপ (পর্যালোচনার জন্য - আইনি পরামর্শ নয়)",
-    rightsTitle: "আপনার আইনি অধিকার ও ধারাগুলি বুঝুন",
-    listenRights: "অধিকার শুনুন",
-    recap1Min: "১-মিনিটের সারসংক্ষেপ",
-    simplerWords: "সহজ কথায় বুঝুন",
-    card1NoticeTitle: "প্রস্তুতকৃত আনুষ্ঠানিক আইনি নোটিশ",
-    outboundDisabled: "বাইরে পাঠানো নিষ্ক্রিয় (কেবল পর্যালোচনার জন্য)",
-    copyTextBtn: "কপি করুন",
-    printPdfBtn: "প্রিন্ট / PDF",
-    approvedSignoff: "অনুমোদিত স্বাক্ষরকারী ভূমিকা:",
-    signoffNotice: "স্বাক্ষর করার মাধ্যমে এটি পুলিশ বা আদালতে পাঠানো হয় না।",
-    whatNextTitle: "📌 আপনার পরবর্তী পদক্ষেপ",
-    dlsaTitle: "🏛️ DLSA জাতীয় আইনি সেবা কর্তৃপক্ষ হেল্পলাইন: 15100",
-    dlsaCallBtn: "15100 এ কল করুন",
-    revisionPrompt: "কোনো বিবরণ পরিবর্তন করতে চান?",
-    editDetails: "✏️ বিবরণ পরিবর্তন",
-    orSpeak: "বা কথা বলতে গোলকে স্পর্শ করুন।",
-    orbStatusReady: "সজীব ভয়েস গোলক · প্রস্তুত"
+    draftBoxTitle: "📄 খসড়া ঘটনার সারসংক্ষেপ (পর্যালোচনার জন্য - আইনি পরামর্শ নয়)"
+  },
+  gu: {
+    talkingTitle: "🎙️ બોલતો કાનૂની સહાયક",
+    talkingSub: "નીચેના પ્રશ્નનો જવાબ આપો:",
+    speakBtn: "🎙️ બોલીને જવાબ આપો (Tap to talk)",
+    speakChangesBtn: "🎙️ બોલીને ફેરફાર જણાવો",
+    sendBtn: "મોકલો",
+    placeholder: "બોલીને જવાબ આપો અથવા અહીં લખો...",
+    draftPending: "⏳ સંપૂર્ણ વિગતો મળ્યા પછી ડ્રાફ્ટ તૈયાર થશે",
+    draftReady: "✅ તમામ માહિતી નોંધાઈ ગઈ છે · ડ્રાફ્ટ તૈયાર છે (કાનૂની સલાહ નથી)",
+    spokenTitle: "🔊 બોલીને આપેલી સલાહ",
+    actionsTitle: "// તાત્કાલિક કરવાના પગલાં",
+    draftBoxTitle: "📄 ડ્રાફ્ટ ઘટના સારાંશ (સમીક્ષા માટે - કાનૂની સલાહ નથી)"
   },
   ml: {
     talkingTitle: "🎙️ സംസാരിക്കുന്ന നിയമ സഹായി",
     talkingSub: "താഴെയുള്ള ചോദ്യത്തിന് മറുപടി നൽകുക:",
-    currentQuestion: "നിലവിലെ ചോദ്യം (സംസാരിച്ചോ എഴുതിയോ മറുപടി നൽകുക):",
-    upcomingQuestions: "അടുത്ത ചോദ്യങ്ങൾ:",
     speakBtn: "🎙️ സംസാരിച്ചു മറുപടി നൽകുക (Tap to talk)",
     speakChangesBtn: "🎙️ സംസാരിച്ച് മാറ്റങ്ങൾ വരുത്തുക",
     sendBtn: "അയക്കുക",
@@ -284,30 +130,11 @@ export const UI_LANG = {
     draftReady: "✅ എല്ലാ വിവരങ്ങളും ശേഖരിച്ചു · കരട് രേഖ തയ്യാറാണ് (നിയമോപദേശമല്ല)",
     spokenTitle: "🔊 വോയ്‌സ് ഉപദേശം",
     actionsTitle: "// ഉടൻ ചെയ്യേണ്ട കാര്യങ്ങൾ",
-    draftBoxTitle: "📄 കരട് സംഭവ സംഗ്രഹം (നിയമോപദേശമല്ല)",
-    rightsTitle: "നിങ്ങളുടെ നിയമപരമായ അവകാശങ്ങൾ",
-    listenRights: "അവകാശങ്ങൾ കേൾക്കുക",
-    recap1Min: "1-മിനിറ്റ് സംഗ്രഹം",
-    simplerWords: "ലളിതമായ വാക്കുകളിൽ",
-    card1NoticeTitle: "കരട് ലീഗൽ നോട്ടീസ്",
-    outboundDisabled: "പുറത്തേക്ക് അയക്കുന്നത് പ്രവർത്തനരഹിതമാക്കി (പരിശോധനയ്ക്ക് മാത്രം)",
-    copyTextBtn: "പകർപ്പുക",
-    printPdfBtn: "പ്രിന്റ് / PDF",
-    approvedSignoff: "അംഗീകൃത ഒപ്പുവെക്കൽ റോളുകൾ:",
-    signoffNotice: "ഒപ്പുവെക്കുന്നത് ഇത് പോലീസിലേക്കോ കോടതിയിലേക്കോ അയക്കില്ല.",
-    whatNextTitle: "📌 ഇനി എന്തുചെയ്യണം",
-    dlsaTitle: "🏛️ DLSA ദേശീയ ലീഗൽ സർവീസസ് അതോറിറ്റി ഹെൽപ്പ്‌ലൈൻ: 15100",
-    dlsaCallBtn: "15100 ലേക്ക് വിളിക്കുക",
-    revisionPrompt: "വിവരങ്ങൾ മാറ്റണോ?",
-    editDetails: "✏️ മാറ്റം വരുത്തുക",
-    orSpeak: "അല്ലെങ്കിൽ സംസാരിക്കാൻ ഗോളത്തിൽ തൊടുക.",
-    orbStatusReady: "വോയ്‌സ് ഗോളം · സജ്ജം"
+    draftBoxTitle: "📄 കരട് സംഭവ സംഗ്രഹം (നിയമോപദേശമല്ല)"
   },
   pa: {
     talkingTitle: "🎙️ ਬੋਲਣ ਵਾਲਾ ਕਾਨੂੰਨੀ ਸਹਾਇਕ",
     talkingSub: "ਹੇਠਾਂ ਦਿੱਤੇ ਸਵਾਲ ਦਾ ਜਵਾਬ ਦਿਓ:",
-    currentQuestion: "ਮੌਜੂਦਾ ਸਵਾਲ (ਬੋਲ ਕੇ ਜਾਂ ਲਿਖ ਕੇ ਜਵਾਬ ਦਿਓ):",
-    upcomingQuestions: "ਅਗਲੇ ਸਵਾਲ:",
     speakBtn: "🎙️ ਬੋਲ ਕੇ ਜਵਾਬ ਦਿਓ (Tap to talk)",
     speakChangesBtn: "🎙️ ਬੋਲ ਕੇ ਬਦਲਾਅ ਦੱਸੋ",
     sendBtn: "ਭੇਜੋ",
@@ -316,24 +143,7 @@ export const UI_LANG = {
     draftReady: "✅ ਸਾਰੀ ਜਾਣਕਾਰੀ ਦਰਜ · ਡਰਾਫਟ ਸਮੀਖਿਆ ਲਈ ਤਿਆਰ (ਕਾਨੂੰਨੀ ਸਲਾਹ ਨਹੀਂ)",
     spokenTitle: "🔊 ਬੋਲ ਕੇ ਦਿੱਤੀ ਸਲਾਹ",
     actionsTitle: "// ਤੁਰੰਤ ਕੀਤੇ ਜਾਣ ਵਾਲੇ ਕਦਮ",
-    draftBoxTitle: "📄 ਡਰਾਫਟ ਘਟਨਾ ਸਾਰ (ਕਾਨੂੰਨੀ ਸਲਾਹ ਨਹੀਂ)",
-    rightsTitle: "ਆਪਣੇ ਕਾਨੂੰਨੀ ਅਧਿਕਾਰ ਅਤੇ ਧਾਰਾਵਾਂ ਸਮਝੋ",
-    listenRights: "ਅਧਿਕਾਰ ਸੁਣੋ",
-    recap1Min: "1-ਮਿੰਟ ਸਾਰ",
-    simplerWords: "ਸੌਖੇ ਸ਼ਬਦਾਂ ਵਿੱਚ",
-    card1NoticeTitle: "ਤਿਆਰ ਕੀਤਾ ਕਾਨੂੰਨੀ ਨੋਟਿਸ",
-    outboundDisabled: "ਬਾਹਰ ਭੇਜਣਾ ਬੰਦ (ਸਿਰਫ਼ ਸਮੀਖਿਆ ਲਈ)",
-    copyTextBtn: "ਕਾਪੀ ਕਰੋ",
-    printPdfBtn: "ਪ੍ਰਿੰਟ / PDF",
-    approvedSignoff: "ਮਨਜ਼ੂਰਸ਼ੁਦਾ ਹਸਤਾਖਰਕਾਰ ਭੂਮਿਕਾਵਾਂ:",
-    signoffNotice: "ਹਸਤਾਖਰ ਕਰਨ ਨਾਲ ਇਹ ਪੁਲਿਸ ਜਾਂ ਅਦਾਲਤ ਨੂੰ ਨਹੀਂ ਭੇਜਿਆ ਜਾਂਦਾ।",
-    whatNextTitle: "📌 ਅੱਗੇ ਕੀ ਕਰਨਾ ਹੈ",
-    dlsaTitle: "🏛️ DLSA ਰਾਸ਼ਟਰੀ ਕਾਨੂੰਨੀ ਸੇਵਾਵਾਂ ਅਥਾਰਟੀ ਹੈਲਪਲਾਈਨ: 15100",
-    dlsaCallBtn: "15100 ਤੇ ਕਾਲ ਕਰੋ",
-    revisionPrompt: "ਵੇਰਵੇ ਬਦਲਣੇ ਹਨ?",
-    editDetails: "✏️ ਵੇਰਵੇ ਬਦਲੋ",
-    orSpeak: "ਜਾਂ ਬੋਲਣ ਲਈ ਗੋਲੇ ਨੂੰ ਛੂਹੋ।",
-    orbStatusReady: "ਸਜੀਵ ਆਵਾਜ਼ ਗੋਲਾ · ਤਿਆਰ"
+    draftBoxTitle: "📄 ਡਰਾਫਟ ਘਟਨਾ ਸਾਰ (ਕਾਨੂੰਨੀ ਸਲਾਹ ਨਹੀਂ)"
   }
 };
 
@@ -358,42 +168,19 @@ export const UIRenderer = {
 
   syncLanguageUI(langCode) {
     if (!langCode) return;
-    const clean = langCode.toLowerCase().trim();
-    let norm = 'en';
-    for (const code of ['gu', 'hi', 'mr', 'ta', 'te', 'kn', 'bn', 'ml', 'pa']) {
-      if (clean.startsWith(code) || clean.includes(code)) {
-        norm = code;
-        break;
-      }
-    }
-    const L = UI_LANG[norm] || UI_LANG['en'];
-
+    const clean = langCode.toLowerCase();
     const lSel = document.getElementById('select-language');
     const vSel = document.getElementById('select-voice');
     const voiceMap = {
       'hi': 'Shivani', 'mr': 'Vasudha', 'ta': 'Kalpana', 'te': 'Lakshmi',
       'kn': 'Chetana', 'bn': 'Riyaa', 'gu': 'Tarika', 'ml': 'Lakshmi', 'pa': 'Tarika', 'en': 'Shivani'
     };
-    if (lSel) lSel.value = norm === 'en' ? 'en-IN' : (norm + '-IN');
-    if (vSel && voiceMap[norm]) vSel.value = voiceMap[norm];
-
-    // Localize interactive input & status elements
-    const input = document.getElementById('chat-input');
-    if (input && L.placeholder) input.placeholder = L.placeholder;
-
-    const micBtn = document.getElementById('orb-mic-btn');
-    if (micBtn && L.speakBtn) {
-      micBtn.innerHTML = `<span>🎙️</span><span>${L.speakBtn.replace('🎙️ ', '')}</span>`;
-    }
-
-    const sendBtn = document.getElementById('btn-send');
-    if (sendBtn && L.sendBtn) {
-      sendBtn.innerHTML = `<span>${L.sendBtn}</span>`;
-    }
-
-    const orbStatus = document.getElementById('orb-status-text');
-    if (orbStatus && L.orbStatusReady) {
-      orbStatus.innerText = L.orbStatusReady;
+    for (const [k, v] of Object.entries(voiceMap)) {
+      if (clean.includes(k)) {
+        if (lSel) lSel.value = k === 'en' ? 'en-IN' : (k + '-IN');
+        if (vSel) vSel.value = v;
+        break;
+      }
     }
   },
 
@@ -463,23 +250,11 @@ export const UIRenderer = {
     const caseId = `case-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
     rightsDataStore[caseId] = data;
 
-    // Purge conversational intake clutter on final legal package completion
-    if (!needsFacts && container) {
-      container.innerHTML = '';
-    }
-
     const activeQuestion = questions.length ? questions[0] : (data.spoken_text || '');
     const otherQuestions = questions.slice(1);
 
     const curLang = data.language || 'en';
-    let norm = 'en';
-    for (const code of ['gu', 'hi', 'mr', 'ta', 'te', 'kn', 'bn', 'ml', 'pa']) {
-      if (curLang.startsWith(code) || curLang.includes(code)) {
-        norm = code;
-        break;
-      }
-    }
-    const L = UI_LANG[norm] || UI_LANG['en'];
+    const L = UI_LANG[curLang] || UI_LANG['en'];
     const cardTitle = L.talkingTitle;
     const cardSub = L.talkingSub;
     const micBtnLabel = needsFacts ? L.speakBtn : L.speakChangesBtn;
@@ -504,14 +279,14 @@ export const UIRenderer = {
         <div class="mb-4 p-4 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border-2 border-[var(--accent)] shadow-sm">
           <div class="flex items-center space-x-2 text-xs font-mono text-[var(--accent)] font-bold uppercase tracking-wider mb-2">
             <span class="w-2.5 h-2.5 rounded-full bg-[var(--accent)] animate-ping"></span>
-            <span>${this.escapeHtml(L.currentQuestion)}</span>
+            <span>${curLang === 'mr' ? 'सध्याचा प्रश्न (बोलून किंवा लिहून उत्तर द्या):' : (curLang === 'hi' ? 'वर्तमान प्रश्न (बोलकर या लिखकर उत्तर दें):' : 'Current Question (Speak or Type to Answer):')}</span>
           </div>
           <p class="text-base sm:text-lg font-bold text-[var(--text-primary)] leading-relaxed">${this.escapeHtml(activeQuestion)}</p>
         </div>
 
         ${otherQuestions.length ? `
           <div class="mb-4 px-4 py-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] text-[11px] text-[var(--text-muted)]">
-            <span class="font-mono font-semibold">${this.escapeHtml(L.upcomingQuestions)}</span>
+            <span class="font-mono font-semibold">${curLang === 'mr' ? 'पुढील प्रश्न:' : (curLang === 'hi' ? 'आगामी प्रश्न:' : 'Upcoming in conversation:')}</span>
             ${otherQuestions.map(q => `<div class="truncate mt-1">• ${this.escapeHtml(q)}</div>`).join('')}
           </div>
         ` : ''}
@@ -563,7 +338,7 @@ export const UIRenderer = {
           <div class="flex items-center space-x-2.5">
             <span class="text-2xl">⚖️</span>
             <div>
-              <h3 class="text-base font-bold text-[var(--primary-text)] font-syne">${this.escapeHtml(L.rightsTitle)}</h3>
+              <h3 class="text-base font-bold text-[var(--primary-text)] font-syne">${curLang === 'mr' ? 'आपले कायदेशीर हक्क समजून घ्या' : (curLang === 'hi' ? 'अपने कानूनी अधिकार समझें' : 'Understand Your Rights')}</h3>
               <div class="text-[10px] font-mono text-[var(--text-muted)]">Structured Statutory Analysis · Plain Language Legal Literacy</div>
             </div>
           </div>
@@ -604,7 +379,7 @@ export const UIRenderer = {
                       onclick="window.NyayaVaniApp.playRightsAudio('${caseId}', 'full')"
                       class="cta-primary-btn px-4 py-2 text-xs">
                 <span id="play-icon-full-${caseId}">▶️</span>
-                <span id="play-text-full-${caseId}">${this.escapeHtml(L.listenRights)}</span>
+                <span id="play-text-full-${caseId}">${curLang === 'mr' ? 'हक्क स्पष्टीकरण ऐका' : (curLang === 'hi' ? 'अधिकार स्पष्टीकरण सुनें' : 'Listen to Rights')}</span>
               </button>
 
               <button type="button"
@@ -612,7 +387,7 @@ export const UIRenderer = {
                       onclick="window.NyayaVaniApp.playRightsAudio('${caseId}', 'recap')"
                       class="cta-secondary-btn px-3.5 py-2 text-xs">
                 <span id="play-icon-recap-${caseId}">⏱️</span>
-                <span>${this.escapeHtml(L.recap1Min)}</span>
+                <span>${curLang === 'mr' ? '१ मिनिटाचा सारांश' : (curLang === 'hi' ? '1 मिनट का सार' : '1-Min Recap')}</span>
               </button>
 
               <button type="button"
@@ -620,7 +395,7 @@ export const UIRenderer = {
                       onclick="window.NyayaVaniApp.playRightsAudio('${caseId}', 'simplified')"
                       class="cta-secondary-btn px-3.5 py-2 text-xs">
                 <span id="play-icon-simpler-${caseId}">💡</span>
-                <span>${this.escapeHtml(L.simplerWords)}</span>
+                <span>${curLang === 'mr' ? 'अधिक सोप्या शब्दांत' : (curLang === 'hi' ? 'सरल शब्दों में समझें' : 'In Simpler Words')}</span>
               </button>
 
               <button type="button"
@@ -910,96 +685,41 @@ export const UIRenderer = {
               ${data.audio_url ? `<audio controls src="${this.escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>` : '<p class="text-xs text-[var(--primary)]">Spoken audio is unavailable. You can read the question above.</p>'}
             </div>
           ` : `
-            <!-- CARD 1: DRAFTED FORMAL NOTICE & REPRESENTATION (Single-Stage Final Presentation) -->
-            <div class="mb-6 border-2 border-[var(--accent)] rounded-2xl overflow-hidden bg-[var(--bg-card)] shadow-xl" style="box-shadow: var(--accent-glow);">
-              <div class="p-4 bg-[var(--accent-subtle)] border-b border-[var(--accent-border)] flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <span class="text-sm font-mono font-bold text-[var(--accent)] flex items-center space-x-2">
-                    <span class="text-lg">📝</span>
-                    <span>${this.escapeHtml(L.card1NoticeTitle)}</span>
-                  </span>
-                  <div class="text-[10px] font-mono text-[var(--text-muted)] mt-0.5">${this.escapeHtml(L.outboundDisabled)}</div>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <button type="button" onclick="window.NyayaVaniApp.startVoiceReply('${caseId}')" class="cta-primary-btn px-3 py-1.5 text-xs">
-                    <span>🎙️</span>
-                    <span>${L.speakChangesBtn}</span>
-                  </button>
-                  <button onclick="window.NyayaVaniApp.copyDocument(this)" data-content="${encodeURIComponent(data.formal_document || data.draft_document || data.formal_notice || '')}" class="cta-contrast-btn px-3 py-1.5 text-xs font-mono">
-                    <span>📋 ${this.escapeHtml(L.copyTextBtn)}</span>
-                  </button>
-                  <button onclick="window.print()" class="cta-contrast-btn px-3 py-1.5 text-xs font-mono">
-                    <span>🖨️ ${this.escapeHtml(L.printPdfBtn)}</span>
-                  </button>
-                </div>
-              </div>
-              <pre class="p-5 text-xs font-mono text-[var(--text-primary)] max-h-96 overflow-y-auto whitespace-pre-wrap leading-relaxed select-text bg-[var(--bg-card)]">${this.escapeHtml(data.formal_document || data.draft_document || data.formal_notice || 'Document draft compiled.')}</pre>
-              
-              <!-- Approved Signoff Roles & Statutory Safeguards -->
-              <div class="p-4 bg-[var(--bg-subtle)] border-t border-[var(--border-subtle)] text-[11px] font-mono space-y-2">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-[var(--text-muted)] font-bold">${this.escapeHtml(L.approvedSignoff)}</span>
-                  <span class="px-2.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Client</span>
-                  <span class="px-2.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Authorized Representative</span>
-                  <span class="px-2.5 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold">Independent Legal Counsel</span>
-                </div>
-                <div class="text-[10px] text-[var(--text-muted)] leading-relaxed">
-                  ${L.signoffNotice}
-                </div>
-              </div>
-            </div>
-
-            <!-- CARD 2: UNDERSTAND YOUR RIGHTS & APPLICABLE DHAARA -->
-            ${rightsHtml}
             ${verdictHtml}
+            ${rightsHtml}
             ${proHtml}
-
-            <!-- Governing Citations Grid -->
-            <div class="mb-5 p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-subtle)]">
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="text-xs font-mono font-bold uppercase text-[var(--text-muted)]">// STATUTORY CITATIONS PENDING ADVOCATE VERIFICATION</h4>
-              </div>
-              <ul class="list-disc pl-4 space-y-1">
-                ${statutesHtml}
-              </ul>
-            </div>
 
             ${data.transcript ? `<div class="mb-4 p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)]"><div class="text-[10px] font-mono text-[var(--primary)] mb-1">WHAT WE HEARD · PLEASE CHECK</div><p class="text-sm text-[var(--text-secondary)]">${this.escapeHtml(data.transcript)}</p></div>` : ''}
             ${data.sha256 ? `<div class="mb-4 p-2.5 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between text-[11px] font-mono gap-1"><span class="text-[var(--text-muted)]">Electronic Record Integrity Hash (SHA-256):</span><span class="text-[var(--accent)] font-bold truncate max-w-xs">${this.escapeHtml(data.sha256)}</span></div>` : ''}
 
-            <!-- Spoken Guidance Player (If audio present) -->
-            ${data.audio_url ? `
-              <div class="mb-5 p-4 rounded-2xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs font-mono font-bold text-[var(--primary)] flex items-center space-x-2">
-                    <span>${spokenTitle}</span>
-                  </span>
-                  <span class="text-[10px] font-mono text-[var(--text-muted)]">GENERATED AUDIO</span>
-                </div>
-                <p class="text-xs text-[var(--text-secondary)] italic mb-3 leading-relaxed">${this.escapeHtml(data.spoken_text || '')}</p>
-                <audio controls src="${this.escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>
+            <div class="mb-5 p-4 rounded-2xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)]">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-mono font-bold text-[var(--primary)] flex items-center space-x-2">
+                  <span>${spokenTitle}</span>
+                </span>
+                <span class="text-[10px] font-mono text-[var(--text-muted)]">${data.audio_url ? 'GENERATED AUDIO' : 'AUDIO UNAVAILABLE'}</span>
               </div>
-            ` : ''}
+              <p class="text-xs text-[var(--text-secondary)] italic mb-3 leading-relaxed">${this.escapeHtml(data.spoken_text || '')}</p>
+              ${data.audio_url ? `<audio controls src="${this.escapeHtml(encodeURI(data.audio_url))}" class="w-full h-8 rounded-lg outline-none"></audio>` : '<p class="text-xs text-[var(--primary)]">Spoken audio is unavailable. You can review the written guidance below.</p>'}
+            </div>
 
-            <!-- CARD 3: RECOMMENDED NEXT ACTIONS -->
             <div class="mb-5 p-4 rounded-2xl bg-[var(--accent-subtle)] border-2 border-[var(--accent)] shadow-md" style="box-shadow: var(--accent-glow);">
               <div class="flex items-center space-x-2 mb-2">
                 <span class="text-base">🎯</span>
-                <h4 class="text-xs font-mono font-bold uppercase text-[var(--accent)]">${this.escapeHtml(L.whatNextTitle || actionTitle)}</h4>
+                <h4 class="text-xs font-mono font-bold uppercase text-[var(--accent)]">${actionTitle}</h4>
               </div>
               <div class="space-y-1">
                 ${stepsHtml}
               </div>
             </div>
 
-            <!-- CARD 4: FREE LEGAL AID HANDOFF -->
             ${data.legal_aid_referral ? `
               <div class="mb-5 p-4 rounded-2xl bg-[var(--accent-subtle)] border-2 border-[var(--accent-border)]">
                 <div class="flex items-center justify-between mb-2">
                   <div class="flex items-center space-x-2">
-                    <span class="text-[var(--accent)] font-bold text-xs font-mono">${this.escapeHtml(L.dlsaTitle)}</span>
+                    <span class="text-[var(--accent)] font-bold text-xs font-mono">🏛️ FREE LEGAL AID HANDOFF (NALSA / DLSA)</span>
                   </div>
-                  <a href="tel:15100" class="px-3 py-1 rounded-full bg-[var(--accent)] text-white font-bold text-[11px] font-mono hover:opacity-90 transition">${this.escapeHtml(L.dlsaCallBtn)}</a>
+                  <a href="tel:15100" class="px-2.5 py-1 rounded-full bg-[var(--accent)] text-white font-bold text-[11px] font-mono hover:opacity-90 transition">Call 15100</a>
                 </div>
                 <p class="text-xs text-[var(--text-secondary)] mb-2">${this.escapeHtml(data.legal_aid_referral.eligibility_summary || '')}</p>
                 <div class="text-[11px] font-mono text-[var(--text-muted)] mb-1">Documents to bring to your District Legal Services Authority:</div>
@@ -1010,15 +730,32 @@ export const UIRenderer = {
               </div>
             ` : ''}
 
-            <!-- CARD 5: REVISION PROMPT -->
-            <div class="p-4 rounded-2xl bg-[var(--bg-subtle)] border border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono">
-              <div class="text-[var(--text-secondary)]">
-                <span class="font-bold text-[var(--text-primary)]">${this.escapeHtml(L.revisionPrompt)}</span>
-                <span class="text-[var(--text-muted)] sm:ml-1">${this.escapeHtml(L.orSpeak)}</span>
+            <div class="mb-5">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="text-xs font-mono font-bold uppercase text-[var(--text-muted)]">// STATUTORY CITATIONS PENDING ADVOCATE VERIFICATION</h4>
               </div>
-              <button type="button" onclick="window.NyayaVaniApp.startVoiceReply('${caseId}')" class="cta-primary-btn px-3 py-1.5 text-xs">
-                <span>${this.escapeHtml(L.editDetails)}</span>
-              </button>
+              <ul class="list-disc pl-4 space-y-1">
+                ${statutesHtml}
+              </ul>
+            </div>
+
+            <div class="border-2 border-[var(--accent)] rounded-2xl overflow-hidden bg-[var(--bg-card)] shadow-lg" style="box-shadow: var(--accent-glow);">
+              <div class="p-3.5 bg-[var(--accent-subtle)] border-b border-[var(--accent-border)] flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-mono font-bold text-[var(--accent)] flex items-center space-x-2">
+                  <span>✅</span>
+                  <span>${L.draftReady}</span>
+                </span>
+                <div class="flex items-center space-x-2">
+                  <button type="button" onclick="window.NyayaVaniApp.startVoiceReply('${caseId}')" class="cta-primary-btn px-3 py-1.5 text-xs">
+                    <span>🎙️</span>
+                    <span>${L.speakChangesBtn}</span>
+                  </button>
+                  <button onclick="window.NyayaVaniApp.copyDocument(this)" data-content="${encodeURIComponent(data.formal_document || '')}" class="cta-contrast-btn px-2.5 py-1.5 text-xs">
+                    Copy Draft
+                  </button>
+                </div>
+              </div>
+              <pre class="p-4 text-xs font-mono text-[var(--text-primary)] max-h-72 overflow-y-auto whitespace-pre-wrap leading-relaxed">${this.escapeHtml(data.formal_document)}</pre>
             </div>
           `}
 
@@ -1246,22 +983,19 @@ export const UIRenderer = {
           <!-- Document Box -->
           <div class="border border-[var(--border-subtle)] rounded-xl overflow-hidden bg-[var(--bg-card)] mb-4">
             <div class="p-3 bg-[var(--bg-surface)] border-b border-[var(--border-subtle)] flex items-center justify-between">
-              <div>
-                <span class="text-xs font-mono font-bold text-[var(--primary)]">Draft Incident Summary for Review — Not Legal Advice</span>
-                <div class="text-[10px] font-mono text-[var(--text-muted)]">Statutory citations pending advocate verification · Outbound transmission disabled (Review only)</div>
-              </div>
-              <button onclick="window.NyayaVaniApp.copyDocument(this)" data-content="${encodeURIComponent(data.formal_document || data.draft_document || data.formal_notice || '')}" class="cta-contrast-btn px-3 py-1 text-xs">
+              <span class="text-xs font-mono font-bold text-[var(--primary)]">Formal Incident Representation & Demand Notice</span>
+              <button onclick="window.NyayaVaniApp.copyDocument(this)" data-content="${encodeURIComponent(data.formal_document || '')}" class="cta-contrast-btn px-3 py-1 text-xs">
                 Copy Full Dossier
               </button>
             </div>
-            <pre class="p-4 text-xs font-mono text-[var(--text-primary)] max-h-80 overflow-y-auto whitespace-pre-wrap leading-relaxed">${this.escapeHtml(data.formal_document || data.draft_document || data.formal_notice || 'Dossier compiled.')}</pre>
+            <pre class="p-4 text-xs font-mono text-[var(--text-primary)] max-h-80 overflow-y-auto whitespace-pre-wrap leading-relaxed">${this.escapeHtml(data.formal_document)}</pre>
           </div>
 
           <!-- Advocate Sign-off Boundary -->
           <div class="p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
             <div class="text-xs font-mono font-bold text-[var(--primary)] mb-1">Advocate / Client Freeze Boundary Sign-Off</div>
             <p class="text-[11px] text-[var(--text-muted)] mb-3 leading-relaxed">
-              Signing does <strong>NOT</strong> transmit this document to police, insurer, or court. It approves this structured dossier for human review, filing submission, and offline export.
+              Signing approves this structured dossier for <strong>human review, filing submission, and offline export</strong>. Outbound telephony or raw transmission remains disabled.
             </p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <div>
@@ -1271,9 +1005,9 @@ export const UIRenderer = {
               <div>
                 <label for="approver-role-${caseId}" class="block text-[11px] font-mono text-[var(--text-muted)] mb-1">Approver Role *</label>
                 <select id="approver-role-${caseId}" class="w-full p-2.5 rounded-lg bg-[var(--bg-input)] border border-[var(--border-subtle)] text-xs text-[var(--text-primary)] focus:border-[var(--primary)] outline-none">
-                  <option value="Client">Client</option>
-                  <option value="Authorized Representative">Authorized Representative</option>
                   <option value="Independent Legal Counsel">Independent Legal Counsel</option>
+                  <option value="Corporate Representative">Corporate Representative</option>
+                  <option value="Client">Client</option>
                 </select>
               </div>
             </div>
