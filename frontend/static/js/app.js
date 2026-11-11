@@ -528,26 +528,31 @@ export const NyayaVaniApp = {
     UIRenderer.showLoadingAssistant('Transcribing voice with sovereign Indic model...');
     try {
       const preparedAudio = await AudioEngine.toWav(audioBlob);
-      const res = await ApiClient.transcribeAudio(preparedAudio, filename);
+      const selectedLang = document.getElementById('select-language')?.value || 'indic-auto';
+      const res = await ApiClient.transcribeAudio(preparedAudio, filename, selectedLang);
       UIRenderer.removeLoadingAssistant();
 
       const transcript = res.transcript || '';
       if (!transcript.trim()) {
+        LivingSphere.setState('idle');
         UIRenderer.appendErrorMessage('No speech detected in recording. You can type your account directly below.');
         document.getElementById('chat-input')?.focus();
         return;
       }
 
-      if (res.language) {
-        UIRenderer.syncLanguageUI(res.language);
+      const detectedLang = res.detected_language_code || res.detected_language || res.language || selectedLang || 'indic-auto';
+      if (detectedLang) {
+        UIRenderer.syncLanguageUI(detectedLang);
       }
 
       await this.submitCase(transcript, {}, {
         original_transcript: transcript,
         reviewed_transcript: transcript,
-        detected_language: res.language || 'indic-auto'
+        detected_language: detectedLang,
+        language_code: detectedLang
       });
     } catch (err) {
+      LivingSphere.setState('idle');
       UIRenderer.removeLoadingAssistant();
       UIRenderer.appendErrorMessage(err.message || 'Audio transcription failed. You can type your account directly below.');
       document.getElementById('chat-input')?.focus();
@@ -595,7 +600,11 @@ export const NyayaVaniApp = {
     }
     input.value = '';
     lastInputModality = 'text';
-    await this.submitCase(val);
+    const activeLang = document.getElementById('select-language')?.value || 'indic-auto';
+    await this.submitCase(val, {}, {
+      language_code: activeLang,
+      detected_language: activeLang
+    });
   },
 
   async sendMessage() {
@@ -605,7 +614,11 @@ export const NyayaVaniApp = {
     input.value = '';
     input.style.height = 'auto';
     lastInputModality = 'text';
-    await this.submitCase(msg);
+    const activeLang = document.getElementById('select-language')?.value || 'indic-auto';
+    await this.submitCase(msg, {}, {
+      language_code: activeLang,
+      detected_language: activeLang
+    });
   },
 
   async submitCase(msg, extraMeta = {}, extraPayload = {}) {
@@ -617,15 +630,16 @@ export const NyayaVaniApp = {
     if (sendButton) sendButton.disabled = true;
 
     try {
+      const activeLang = extraPayload.language_code || document.getElementById('select-language')?.value || 'indic-auto';
       const payload = {
         session_id: ApiClient.getSessionToken(),
         message: msg,
         original_transcript: extraPayload.original_transcript || msg,
         reviewed_transcript: extraPayload.reviewed_transcript || msg,
-        detected_language: extraPayload.detected_language || 'indic-auto',
+        detected_language: extraPayload.detected_language || activeLang,
         tier: ThemeManager.getTier(),
         voice: document.getElementById('select-voice')?.value || 'Shivani',
-        language_code: extraPayload.language_code || document.getElementById('select-language')?.value || 'indic-auto',
+        language_code: activeLang,
         client_name: document.getElementById('input-client-name')?.value.trim() || 'Citizen / Applicant',
         location: document.getElementById('input-location')?.value.trim() || 'India',
         meta: extraMeta
@@ -639,8 +653,11 @@ export const NyayaVaniApp = {
 
       if (lastInputModality === 'voice' && data.audio_url) {
         AudioEngine.playAudioResponse(data.audio_url, true);
+      } else {
+        LivingSphere.setState('idle');
       }
     } catch (err) {
+      LivingSphere.setState('idle');
       UIRenderer.appendErrorMessage(err.message || 'Could not complete request. You can type your account directly below.');
       document.getElementById('chat-input')?.focus();
     } finally {

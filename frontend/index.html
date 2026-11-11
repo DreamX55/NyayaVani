@@ -166,10 +166,13 @@
   <!-- ======================================================== -->
   <!-- 2. CHAT WORKSPACE SECTION (Exact Buttons & Features)    -->
   <!-- ======================================================== -->
-  <section id="chat-section" class="relative min-h-screen flex flex-col md:flex-row bg-[var(--bg-app)] border-t border-[var(--border-subtle)]">
+  <section id="chat-section" class="relative flex flex-col md:flex-row bg-[var(--bg-app)] border-t border-[var(--border-subtle)] md:h-[calc(100vh-64px)] md:overflow-hidden">
     
-    <!-- Left Sidebar -->
-    <aside class="w-full md:w-80 bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] flex flex-col justify-between p-5 shadow-sm">
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR: LIVING CHROMATIC SPHERE & CONTROLS         -->
+    <!-- (Fixed & Anchored — Never Scrolls)                      -->
+    <!-- ======================================================== -->
+    <aside id="orb-container" class="w-full md:w-80 lg:w-[380px] bg-[var(--bg-surface)] border-r border-[var(--border-subtle)] flex flex-col justify-between p-5 shadow-sm shrink-0 md:h-full md:overflow-y-auto z-10">
       <div>
         <!-- Sidebar Brand -->
         <div class="flex items-center justify-between pb-4 border-b border-[var(--border-subtle)] mb-6">

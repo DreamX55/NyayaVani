@@ -80,14 +80,26 @@ export const ApiClient = {
     return await res.json();
   },
 
-  async transcribeAudio(audioBlob, filename = 'speech.wav') {
+  async transcribeAudio(audioBlob, filename = 'speech.wav', lang = null) {
     const formData = new FormData();
     formData.append('audio', audioBlob, filename);
-    const res = await fetch('/api/stt', {
+    const selectedLang = lang || document.getElementById('select-language')?.value || 'indic-auto';
+    formData.append('language_code', selectedLang);
+    formData.append('language', selectedLang);
+    let res = await fetch('/api/transcribe', {
       method: 'POST',
       headers: this.getAuthHeaders(),
       body: formData
-    });
+    }).catch(() => null);
+
+    if (!res || !res.ok) {
+      res = await fetch('/api/stt', {
+        method: 'POST',
+        headers: this.getAuthHeaders(),
+        body: formData
+      });
+    }
+
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.detail || 'Voice transcription failed');

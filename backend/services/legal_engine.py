@@ -1360,6 +1360,14 @@ def detect_language(text: str, lang_code: Optional[str] = None, detected_languag
     mr_r_score = len(roman_words.intersection(distinct_mr_roman))
     hi_r_score = len(roman_words.intersection(distinct_hi_roman))
 
+    # If user is in an active Indic conversation, short English entities/terms (e.g. "Ahmedabad", "yesterday", "police")
+    # should NOT knock the user out of their native Indic language.
+    if sess_lang and sess_lang in ["gu", "mr", "hi", "ta", "te", "kn", "bn", "ml", "pa"]:
+        if explicit_user_lang and explicit_user_lang != sess_lang:
+            pass  # User explicitly selected another language
+        elif en_r_score < 5 and not any(ch >= "\u0900" for ch in text):
+            return sess_lang
+
     if en_r_score >= 3 and en_r_score > (hi_r_score + mr_r_score):
         return "en"
     if mr_r_score > hi_r_score and mr_r_score > en_r_score:
@@ -2251,7 +2259,8 @@ def _reviewable_response(result: Dict[str, Any], transcript: str, meta: Dict[str
     lang_code = facts.get("language_code") or facts.get("language")
     detected_lang = facts.get("detected_language")
     utterance_for_lang = meta.get("current_utterance") or transcript
-    lang = detect_language(utterance_for_lang, lang_code=lang_code, detected_language=detected_lang)
+    sess_lang = meta.get("session_language") or facts.get("session_language")
+    lang = detect_language(utterance_for_lang, lang_code=lang_code, detected_language=detected_lang, session_language=sess_lang)
     result["language"] = lang
 
 

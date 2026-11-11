@@ -27,6 +27,10 @@ let onTranscriptReadyCallback = null;
 let onErrorCallback = null;
 
 export const AudioEngine = {
+  get isRecording() {
+    return isRecordingActive;
+  },
+
   init(handlers = {}) {
     onTranscriptReadyCallback = handlers.onTranscriptReady;
     onErrorCallback = handlers.onError;
@@ -181,6 +185,12 @@ export const AudioEngine = {
       recordingStream = stream;
       recordingPcmSamples = [];
       isRecordingActive = true;
+      window.isRecordingActive = true;
+
+      // Voice Activity Detection (VAD) state
+      let vadSpeechDetected = false;
+      let vadLastSpeechTimestamp = 0;
+      const vadStartTime = Date.now();
 
       // Direct Web Audio API PCM capture
       try {
@@ -193,6 +203,26 @@ export const AudioEngine = {
             if (!isRecordingActive) return;
             const inputData = e.inputBuffer.getChannelData(0);
             recordingPcmSamples.push(new Float32Array(inputData));
+
+            // Compute volume level (RMS) for silence / speech detection
+            let sum = 0;
+            for (let i = 0; i < inputData.length; i++) {
+              sum += inputData[i] * inputData[i];
+            }
+            const rms = Math.sqrt(sum / inputData.length);
+
+            // Audio energy speech threshold (sensitive to normal speaking levels)
+            if (rms > 0.008) {
+              vadSpeechDetected = true;
+              vadLastSpeechTimestamp = Date.now();
+            } else if (vadSpeechDetected && (Date.now() - vadStartTime >= 1400)) {
+              // User has spoken and then paused for 1.3 seconds
+              const silenceGap = Date.now() - vadLastSpeechTimestamp;
+              if (silenceGap >= 1300) {
+                console.log('Voice activity: natural pause detected after speech, auto-submitting recording');
+                AudioEngine.stopRecording();
+              }
+            }
           };
           recordingSourceNode.connect(recordingProcessorNode);
           recordingProcessorNode.connect(recordingAudioContext.destination);
@@ -275,6 +305,8 @@ export const AudioEngine = {
       return;
     }
     isRecordingActive = false;
+    window.isRecordingActive = false;
+    LivingSphere.setState('thinking');
 
     if (recordInterval) {
       clearInterval(recordInterval);
@@ -321,6 +353,7 @@ export const AudioEngine = {
       }
     }
 
+    LivingSphere.setState('idle');
     if (onErrorCallback) onErrorCallback('The recording was empty. Please speak again or type your account.');
     document.getElementById('chat-input')?.focus();
   },
@@ -331,6 +364,8 @@ export const AudioEngine = {
       recordInterval = null;
     }
     isRecordingActive = false;
+    window.isRecordingActive = false;
+    LivingSphere.setState('idle');
     if (mediaRecorder && mediaRecorder.state === 'recording') {
       mediaRecorder.ondataavailable = null;
       mediaRecorder.onstop = null;
@@ -361,10 +396,14 @@ export const AudioEngine = {
   },
 
   playAudioResponse(url, forcePlay = false) {
-    if (!url) return;
+    if (!url) {
+      LivingSphere.setState('idle');
+      return;
+    }
     const protect = document.getElementById('shared-device-protect')?.checked ?? false;
     if (protect && !forcePlay) {
       console.log('Shared phone protection active: audio kept private until explicit tap.');
+      LivingSphere.setState('idle');
       return;
     }
     if (currentAudio) {
